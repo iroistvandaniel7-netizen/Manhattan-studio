@@ -43,5 +43,21 @@ export const HOURS = { opens: "09:00", closes: "20:00" } as const;
 export const LANGUAGE_CODES = ["en", "de", "ru", "es", "it", "sk", "hu"] as const;
 export type LanguageCode = (typeof LANGUAGE_CODES)[number];
 
+/**
+ * A greeting per taught language, used as ornament in the language rows and
+ * the study scene's speech bubbles. These are facts about the languages
+ * themselves, not claims about the studio, and they stay the same in every
+ * locale.
+ */
+export const GREETINGS: Record<string, string> = {
+  EN: "Hello",
+  DE: "Hallo",
+  RU: "Привет",
+  ES: "Hola",
+  IT: "Ciao",
+  SK: "Ahoj",
+  HU: "Szia",
+};
+
 export const mapsUrl = (query: string) =>
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;

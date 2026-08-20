@@ -131,7 +131,7 @@ export default function ContactForm({
       noValidate
       className="flex h-full flex-col border-2 border-ink bg-white p-6 sm:p-10"
     >
-      <h3 className="text-lg font-bold tracking-[-0.02em]">{t.title}</h3>
+      <h3 className="font-display text-xl font-extrabold tracking-[-0.03em]">{t.title}</h3>
 
       {/* Error summary — focusable so it can be announced on submit. */}
       <div
@@ -187,7 +187,7 @@ export default function ContactForm({
         <div className="flex flex-col">
           <label
             htmlFor={fieldId("language")}
-            className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-slate-500"
+            className="label text-slate-600"
           >
             {t.language} <span aria-hidden="true">*</span>
           </label>
@@ -224,7 +224,7 @@ export default function ContactForm({
       <div className="mt-6 flex flex-col">
         <label
           htmlFor={fieldId("message")}
-          className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-slate-500"
+          className="label text-slate-600"
         >
           {t.message} <span aria-hidden="true">*</span>
         </label>
@@ -324,7 +324,7 @@ function Field({
     <div className="flex flex-col">
       <label
         htmlFor={id}
-        className="flex items-baseline gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-slate-500"
+        className="label flex items-baseline gap-2 text-slate-600"
       >
         <span>
           {label} {required ? <span aria-hidden="true">*</span> : null}

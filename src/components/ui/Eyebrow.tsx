@@ -1,4 +1,6 @@
-/** Small section label, marked with a flat blue square. */
+import { FlagMark } from "@/components/graphics/Flags";
+
+/** Small section label, opened by a Union Jack marker. */
 export default function Eyebrow({
   children,
   invert = false,
@@ -10,16 +12,11 @@ export default function Eyebrow({
 }) {
   return (
     <p
-      className={`flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] ${
-        /* slate-600, not 500: at 11px on the pale blue ground the lighter
-           grey lands at 4.03:1, just under the AA threshold. */
-        invert ? "text-white/70" : "text-slate-600"
+      className={`label flex items-center gap-3 ${
+        invert ? "text-white/75" : "text-slate-600"
       } ${className}`}
     >
-      <span
-        aria-hidden="true"
-        className={`inline-block size-2 ${invert ? "bg-white" : "bg-blue"}`}
-      />
+      <FlagMark className="h-[0.7rem] w-[1.05rem]" />
       {children}
     </p>
   );

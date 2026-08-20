@@ -53,7 +53,7 @@ export default function LanguageSwitcher({
               lang={code}
               aria-current={isActive ? "true" : undefined}
               title={localeName[code]}
-              className={`link-underline text-xs font-semibold tracking-[0.12em] transition-colors duration-300 ${
+              className={`link-underline label text-[0.625rem] transition-colors duration-300 ${
                 isActive ? active : idle
               }`}
               data-active={isActive ? "true" : "false"}

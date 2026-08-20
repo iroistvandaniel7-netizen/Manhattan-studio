@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 type Variant = "primary" | "outline" | "onDark";
 
 const base =
-  "group/btn inline-flex items-center justify-center gap-3 px-8 py-4 text-[0.8125rem] font-semibold uppercase tracking-[0.12em] transition-colors duration-200";
+  "group/btn label inline-flex items-center justify-center gap-3 px-8 py-4.5 transition-colors duration-200";
 
 /* Flat fills only — no gradients, no shadows, no rounded corners. */
 const variants: Record<Variant, string> = {

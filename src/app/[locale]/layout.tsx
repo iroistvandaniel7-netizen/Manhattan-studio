@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
+import { Bricolage_Grotesque, Instrument_Sans, Martian_Mono } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
 
@@ -9,12 +9,35 @@ import { getDictionary } from "@/i18n";
 import { htmlLang, isLocale, locales, type Locale } from "@/i18n/config";
 import { ADDRESS, BRAND, EMAIL, HOURS, PHONES, SITE_URL } from "@/lib/site";
 
-const poppins = Poppins({
-  weight: ["400", "500", "600", "700", "800"],
-  // latin-ext carries the Hungarian ő/ű and the Slovak ľ/š/č/ž.
+/*
+ * Three faces, each with a job.
+ *
+ * Bricolage Grotesque is the display voice — a variable grotesque with
+ * deliberately irregular joins, so headlines have a hand in them rather than
+ * reading as another geometric sans. Instrument Sans carries running text.
+ * Martian Mono is the utility face: wide, monospaced, used only for labels,
+ * codes and figures, where it gives the page the character of station
+ * signage and printed timetables.
+ *
+ * latin-ext carries the Hungarian ő/ű and the Slovak ľ/š/č/ž.
+ */
+const display = Bricolage_Grotesque({
   subsets: ["latin", "latin-ext"],
   display: "swap",
-  variable: "--font-poppins",
+  variable: "--font-display-src",
+});
+
+const body = Instrument_Sans({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  variable: "--font-body-src",
+});
+
+const mono = Martian_Mono({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+  variable: "--font-mono-src",
 });
 
 export const dynamicParams = false;
@@ -130,7 +153,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={htmlLang[typedLocale]}
-      className={poppins.variable}
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
       <head>

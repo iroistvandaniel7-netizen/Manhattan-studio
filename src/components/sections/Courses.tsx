@@ -2,22 +2,27 @@ import type { Dictionary } from "@/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 import Marquee from "@/components/ui/Marquee";
-import SectionDecor from "@/components/ui/SectionDecor";
 
 /**
- * The three course formats, plus the published terms of the normal course.
- * The formats differ only in pace, so they are shown as three equal columns
- * rather than a tiered pricing table — nothing here implies one is better.
+ * The three tempos, shown as a pace meter.
+ *
+ * The one thing that genuinely separates the formats is how fast they run, so
+ * each is drawn with a filled bar — one segment, two, three. That encodes the
+ * real difference; it is not decoration, and it is why the formats are ranked
+ * here when nothing else on the page is.
+ *
+ * The normal course's published terms sit underneath as a wide specification
+ * strip in the mono face, rather than as a pricing card.
  */
 export default function Courses({ dict }: { dict: Dictionary }) {
+  const SEGMENTS = 3;
+
   return (
     <section
       id="courses"
       className="relative isolate overflow-hidden bg-blue-soft py-section"
       aria-labelledby="courses-title"
     >
-      <SectionDecor flag="DE" side="left" accent="ring" />
-
       <div className="container-x">
         <div className="max-w-2xl">
           <Reveal>
@@ -26,82 +31,100 @@ export default function Courses({ dict }: { dict: Dictionary }) {
           <Reveal delay={70}>
             <h2
               id="courses-title"
-              className="mt-5 text-[clamp(1.875rem,4.4vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.035em]"
+              className="mt-5 text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95]"
             >
               {dict.courses.title}
             </h2>
           </Reveal>
           <Reveal delay={130}>
-            <p className="mt-4 text-base leading-relaxed text-slate-600">
+            <p className="mt-5 text-base leading-relaxed text-slate-600">
               {dict.courses.lead}
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-12 grid gap-10 sm:mt-14 lg:grid-cols-12 lg:gap-12">
-          {/* The three tempos */}
-          <ul className="lg:col-span-7">
-            {dict.courses.formats.map((format, i) => (
-              <Reveal
-                as="li"
-                key={format.name}
-                delay={i * 70}
-                className="group/row border-t border-slate-300 py-6 last:border-b sm:py-7"
-              >
-                <h3 className="flex items-center gap-4 text-xl font-bold tracking-[-0.02em] sm:text-2xl">
-                  <span
-                    aria-hidden="true"
-                    className="size-2.5 shrink-0 bg-blue transition-transform duration-200 group-hover/row:scale-150"
-                  />
+        {/* Pace meter */}
+        <ul className="mt-14 sm:mt-20">
+          {dict.courses.formats.map((format, i) => (
+            <Reveal
+              as="li"
+              key={format.name}
+              delay={i * 90}
+              className="group/pace border-t-2 border-ink/15 py-7 last:border-b-2 sm:py-9"
+            >
+              <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-12">
+                <h3 className="font-display text-[clamp(1.75rem,4vw,3rem)] font-extrabold leading-none tracking-[-0.04em] lg:w-[28%] lg:shrink-0">
                   {format.name}
                 </h3>
-                <p className="mt-2 pl-6 text-sm leading-relaxed text-slate-600">
+
+                {/* Filled segments = relative pace */}
+                <div
+                  className="flex gap-1.5 lg:w-[26%] lg:shrink-0"
+                  aria-hidden="true"
+                >
+                  {Array.from({ length: SEGMENTS }, (_, seg) => (
+                    <span
+                      key={seg}
+                      className={`h-3 flex-1 transition-all duration-500 ${
+                        seg <= i
+                          ? "bg-blue group-hover/pace:h-5"
+                          : "bg-ink/10 group-hover/pace:h-4"
+                      }`}
+                      style={{ transitionDelay: `${seg * 70}ms` }}
+                    />
+                  ))}
+                </div>
+
+                <p className="max-w-md text-base leading-relaxed text-slate-600">
                   {format.note}
                 </p>
-              </Reveal>
-            ))}
-          </ul>
+              </div>
+            </Reveal>
+          ))}
+        </ul>
 
-          {/* Published terms of the normal course */}
-          <Reveal delay={140} className="lg:col-span-5">
-            <div className="border-2 border-ink bg-white p-7 sm:p-8">
-              <h3 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-slate-600">
-                {dict.courses.planTitle}
-              </h3>
-              <p className="mt-4 text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold leading-none tracking-[-0.04em] text-blue">
+        {/* Specification strip for the normal course */}
+        <Reveal delay={120} className="mt-12 sm:mt-16">
+          <div className="flex flex-col gap-8 bg-ink p-7 text-white sm:p-9 lg:flex-row lg:items-center lg:gap-12">
+            <div className="lg:shrink-0">
+              <p className="label text-white/60">{dict.courses.planTitle}</p>
+              <p className="font-display mt-2 text-[clamp(2.5rem,6vw,4rem)] font-extrabold leading-none tracking-[-0.05em]">
                 {dict.courses.planPrice}
               </p>
-
-              <dl className="mt-7">
-                {dict.courses.planRows.map((row) => (
-                  <div
-                    key={row.k}
-                    className="flex items-baseline justify-between gap-4 border-t border-line py-3"
-                  >
-                    <dt className="text-sm text-slate-600">{row.k}</dt>
-                    <dd className="text-sm font-bold">{row.v}</dd>
-                  </div>
-                ))}
-              </dl>
-
-              <a
-                href="#contact"
-                className="mt-7 inline-flex w-full items-center justify-center bg-blue px-6 py-4 text-[0.8125rem] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:bg-blue-deep"
-              >
-                {dict.courses.planCta}
-              </a>
             </div>
-          </Reveal>
-        </div>
+
+            <dl className="flex flex-1 flex-wrap gap-x-10 gap-y-5">
+              {dict.courses.planRows.map((row) => (
+                <div key={row.k} className="min-w-32">
+                  <dt className="label text-white/55">{row.k}</dt>
+                  <dd className="mt-1.5 font-mono text-base font-semibold">{row.v}</dd>
+                </div>
+              ))}
+            </dl>
+
+            <a
+              href="#contact"
+              className="group/cta label inline-flex items-center justify-center gap-3 bg-white px-8 py-4 text-ink transition-colors duration-200 hover:bg-blue hover:text-white lg:shrink-0"
+            >
+              {dict.courses.planCta}
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-200 group-hover/cta:translate-x-1"
+              >
+                →
+              </span>
+            </a>
+          </div>
+        </Reveal>
       </div>
 
-      {/* A moving band of the seven languages */}
-      <div className="mt-16 border-y border-slate-300 bg-white py-4 sm:mt-20">
+      {/* Moving band of the seven languages */}
+      <div className="mt-16 border-y-2 border-ink bg-white py-4 sm:mt-20">
         <Marquee
           text={dict.languages.items.map((l) => l.name).join("  ·  ") + "  ·  "}
           repeat={2}
           className="edge-fade"
-          itemClassName="whitespace-pre px-2 text-[clamp(1.25rem,2.6vw,2rem)] font-extrabold uppercase tracking-[-0.01em] text-blue"
+          itemClassName="whitespace-pre px-2 font-display text-[clamp(1.25rem,2.6vw,2rem)] font-extrabold uppercase tracking-[-0.02em] text-blue"
         />
       </div>
     </section>

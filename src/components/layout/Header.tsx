@@ -24,9 +24,14 @@ export default function Header({
   const home = `/${locale}`;
 
   /*
-   * Only the home page opens with the photograph. While the bar floats over
-   * it the type must invert; everywhere else, and as soon as the white bar
-   * appears on scroll, it goes back to ink.
+   * Only the home page opens with the photograph, and only there may the bar
+   * go transparent with inverted type.
+   *
+   * The at-top state is the initial one, so there is no flash of a solid bar
+   * before hydration. Without JavaScript the effect below never runs and the
+   * bar would stay transparent over white sections, so `globals.css` forces
+   * the solid treatment whenever the document is missing `data-js` — the same
+   * progressive-enhancement hook the scroll reveals use.
    */
   const onPhoto = pathname === home && !scrolled && !open;
 
@@ -89,6 +94,7 @@ export default function Header({
 
   return (
     <header
+      data-sticky="true"
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
         onPhoto ? "on-dark bg-transparent" : "border-b border-line bg-white"
       }`}
@@ -98,14 +104,15 @@ export default function Header({
         <Link
           href={home}
           onClick={close}
+          data-on-photo={onPhoto ? "true" : undefined}
           className={`shrink-0 leading-none ${onPhoto ? "text-white" : "text-ink"}`}
           aria-label={BRAND.nameFull}
         >
-          <span className="block text-sm font-extrabold tracking-[0.16em] sm:text-base">
+          <span className="font-display block text-base font-extrabold tracking-[0.06em] sm:text-lg">
             {BRAND.wordmarkTop}
           </span>
           <span
-            className={`mt-1 block text-[0.5625rem] font-medium tracking-[0.3em] ${
+            className={`label mt-1 block text-[0.5625rem] ${
               onPhoto ? "text-white/70" : "text-slate-500"
             }`}
           >
@@ -119,7 +126,8 @@ export default function Header({
             <a
               key={item.href}
               href={item.href}
-              className={`link-underline py-1 text-[0.8125rem] font-semibold ${
+              data-on-photo={onPhoto ? "true" : undefined}
+              className={`link-underline py-1 text-[0.8125rem] font-semibold tracking-[-0.01em] ${
                 onPhoto ? "text-white/90 hover:text-white" : "text-ink hover:text-blue"
               }`}
             >
@@ -137,7 +145,7 @@ export default function Header({
 
           <a
             href="#contact"
-            className={`hidden px-6 py-3 text-[0.75rem] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 sm:inline-flex ${
+            className={`label hidden px-6 py-3.5 transition-colors duration-200 sm:inline-flex ${
               onPhoto
                 ? "bg-white text-blue hover:bg-blue-soft"
                 : "bg-blue text-white hover:bg-blue-deep"
@@ -157,6 +165,7 @@ export default function Header({
             className="relative z-10 flex size-11 items-center justify-center lg:hidden"
           >
             <span
+              data-on-photo={onPhoto ? "true" : undefined}
               className={`relative block h-3.5 w-6 ${onPhoto ? "text-white" : "text-ink"}`}
             >
               <span
@@ -193,7 +202,7 @@ export default function Header({
                 key={item.href}
                 href={item.href}
                 onClick={close}
-                className="border-b border-line py-4 text-2xl font-bold tracking-[-0.02em]"
+                className="font-display border-b border-line py-4 text-3xl font-extrabold tracking-[-0.03em]"
               >
                 {item.label}
               </a>
@@ -203,7 +212,7 @@ export default function Header({
           <a
             href="#contact"
             onClick={close}
-            className="mt-auto inline-flex shrink-0 items-center justify-center bg-blue px-7 py-4 text-[0.8125rem] font-semibold uppercase tracking-[0.12em] text-white"
+            className="label mt-auto inline-flex shrink-0 items-center justify-center bg-blue px-7 py-4.5 text-white"
           >
             {dict.nav.cta}
           </a>

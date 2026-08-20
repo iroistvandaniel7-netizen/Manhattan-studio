@@ -5,25 +5,26 @@ in Dunajská Streda, built as a statically-generated Next.js app.
 
 **Design direction:** blue, white and black — nothing else. The blue is `#0039A6`,
 the New York subway's A/C/E line blue: a flat, printed blue used as a solid fill,
-never as a gradient. Neutrals are biased toward it rather than being pure grey, so
-they read as chosen. Sharp corners, hairline rules, flat fills, no shadows.
+never as a gradient. Sharp corners, hairline rules, no shadows.
+
+**Type** is three faces with three jobs. Bricolage Grotesque is the display voice, a
+variable grotesque with deliberately irregular joins so headlines have a hand in them.
+Instrument Sans carries running text. Martian Mono is the utility face — labels, codes
+and figures only — which gives the page the character of station signage.
+
+**The signature** is the study scene: a long desk of people drawn from primitives,
+each figure breathing on its own delay, one head nodding over a page, one hand
+tracking a line of writing, and speech bubbles surfacing greetings in the seven taught
+languages. It runs along the base of the hero, the figures band and the ink section.
+
+Sections deliberately avoid the usual shapes. The languages are a departures-board
+list rather than a card grid; the course formats are a pace meter, because pace is the
+one thing that genuinely separates them; the course terms are a mono specification
+strip rather than a pricing card; the included items hang in an alternating column
+rather than a grid of equal boxes.
 
 The supplied Manhattan photograph runs full-bleed behind the hero, desaturated to
-luminance and composited over the blue so the picture joins the palette instead of
-fighting it. The seven languages are marked with round subway-bullet badges — the only
-piece of New York iconography on the page, and it does real work: the code identifies
-the language before the name is read.
-
-Every section carries a faint decorative layer — a flag watermark, a pulsing ring or
-a dot grid — behind the content at very low opacity, `pointer-events: none` and
-`aria-hidden`. The flags are texture only: a flag stands for a country, not a
-language, so the subway-bullet code is always what identifies a language.
-
-The second section is the page's motion piece: panning diagonal stripes, a drifting
-Union Jack and a pulsing ring, all CSS. It is not a video file — see below.
-
-Type over the photograph and over flat colour carries `text-shadow-strong` /
-`text-shadow-lift` so it never depends on the ground behind it.
+luminance and composited over the blue so the picture joins the palette.
 
 ---
 
@@ -146,10 +147,16 @@ Routing, `hreflang`, the sitemap, and the language switcher all derive from `loc
 - Form uses real `<label>`s, `aria-invalid`, `aria-describedby`, a focusable error
   summary, and `role="alert"` messages.
 - Focus rings are visible everywhere and invert on blue and photographic grounds.
+- The sticky header is transparent only at the top of the home page, a state React
+  drives on scroll. Without JavaScript that state can never change, so `globals.css`
+  forces the solid treatment whenever the document is missing `data-js` — otherwise
+  white type would be left sitting on the white sections below.
 - **`prefers-reduced-motion: reduce` disables every animation** — the hero's drift,
   the marquee, the scroll cue — and resolves all scroll reveals to their final state,
   so no content can stay hidden.
 - Text contrast was audited against WCAG AA across the palette.
+- The speech bubbles spend most of their cycle at opacity 0, so reduced motion pins
+  them visible rather than leaving the scene empty.
 - Scroll reveals are progressive: the hidden state is armed by a `data-js` attribute,
   so without JavaScript the full page renders normally.
 

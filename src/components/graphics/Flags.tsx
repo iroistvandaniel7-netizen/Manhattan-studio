@@ -79,13 +79,32 @@ export function FlagIT({ className }: FlagProps) {
   );
 }
 
-/** Slovakia — bands only; the arms are omitted at this scale. */
+/**
+ * Slovakia. The arms are essential here, not ornament: the bands alone are
+ * white-blue-red, which is the Russian flag, and both languages are taught —
+ * so without the shield two rows of the list would carry the same picture.
+ */
 export function FlagSK({ className }: FlagProps) {
   return (
     <svg viewBox={box} className={className} aria-hidden="true" focusable="false">
       <rect width="60" height="10" fill="#ffffff" />
       <rect y="10" width="60" height="10" fill="#0b4ea2" />
       <rect y="20" width="60" height="10" fill="#ee1c25" />
+
+      {/* Shield */}
+      <path
+        d="M12 6h16v10c0 7-8 10-8 10s-8-3-8-10Z"
+        fill="#ee1c25"
+        stroke="#ffffff"
+        strokeWidth="1.6"
+      />
+      {/* Three mounds */}
+      <path d="M14 20q3-4 6 0 3-4 6 0v2h-12Z" fill="#0b4ea2" />
+      {/* Double cross */}
+      <path
+        d="M19.2 9h1.6v10h-1.6Zm-2.4 2.6h6.4v1.5h-6.4Zm-1.6 3.4h9.6v1.5h-9.6Z"
+        fill="#ffffff"
+      />
     </svg>
   );
 }
@@ -98,6 +117,23 @@ export function FlagHU({ className }: FlagProps) {
       <rect y="10" width="60" height="10" fill="#ffffff" />
       <rect y="20" width="60" height="10" fill="#477050" />
     </svg>
+  );
+}
+
+/**
+ * The small marker that opens every label and list item — a Union Jack in
+ * place of the plain square that sat here before. It is decorative: the words
+ * next to it carry the meaning, so it is `aria-hidden` and gets a hairline
+ * border to hold its edge against both white and blue grounds.
+ */
+export function FlagMark({ className = "" }: FlagProps) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`inline-block shrink-0 overflow-hidden shadow-[0_0_0_1px_rgba(6,8,15,0.18)] ${className}`}
+    >
+      <FlagGB className="block h-full w-full" />
+    </span>
   );
 }
 

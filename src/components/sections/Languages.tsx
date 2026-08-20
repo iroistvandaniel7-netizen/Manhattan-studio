@@ -1,15 +1,17 @@
 import type { Dictionary } from "@/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
-import SectionDecor from "@/components/ui/SectionDecor";
 import { FLAGS } from "@/components/graphics/Flags";
+import { GREETINGS } from "@/lib/site";
 
 /**
- * The seven languages, marked with round badges in the manner of a New York
- * subway line bullet. The badge code is what identifies the language; the
- * flag behind it is decoration only, faint enough to read as texture — a flag
- * stands for a country, not a language, so it is never asked to do the
- * identifying.
+ * The seven languages as full-width rows rather than a card grid.
+ *
+ * Each row is a line of a departures board: the flag as a block on the left,
+ * the language set large in the display face, its greeting sitting out on the
+ * right in the mono face. Hovering floods the row blue and slides the
+ * greeting across — the row itself is the interaction, not a button inside a
+ * box. The flag is decoration; the language name is what identifies it.
  */
 export default function Languages({ dict }: { dict: Dictionary }) {
   return (
@@ -18,89 +20,87 @@ export default function Languages({ dict }: { dict: Dictionary }) {
       className="relative isolate overflow-hidden py-section"
       aria-labelledby="languages-title"
     >
-      <SectionDecor flag="EN" side="right" accent="dots" />
-
       <div className="container-x">
-        <div className="max-w-2xl">
-          <Reveal>
-            <Eyebrow>{dict.languages.eyebrow}</Eyebrow>
-          </Reveal>
-          <Reveal delay={70}>
-            <h2
-              id="languages-title"
-              className="mt-5 text-[clamp(1.875rem,4.4vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.035em]"
-            >
-              {dict.languages.title}
-            </h2>
-          </Reveal>
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-xl">
+            <Reveal>
+              <Eyebrow>{dict.languages.eyebrow}</Eyebrow>
+            </Reveal>
+            <Reveal delay={70}>
+              <h2
+                id="languages-title"
+                className="mt-5 text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95]"
+              >
+                {dict.languages.title}
+              </h2>
+            </Reveal>
+          </div>
           <Reveal delay={130}>
-            <p className="mt-4 text-base leading-relaxed text-slate-600">
+            <p className="max-w-sm text-base leading-relaxed text-slate-600 lg:text-right">
               {dict.languages.lead}
             </p>
           </Reveal>
         </div>
 
-        <ul className="mt-12 grid gap-px border border-line bg-line sm:mt-14 sm:grid-cols-2 lg:grid-cols-4">
+        <ul className="mt-12 border-t-2 border-ink sm:mt-16">
           {dict.languages.items.map((language, i) => {
             const Flag = FLAGS[language.code];
             return (
-              <Reveal as="li" key={language.code} delay={i * 55} className="bg-white">
+              <Reveal
+                as="li"
+                key={language.code}
+                delay={Math.min(i, 5) * 45}
+                className="border-b border-line"
+              >
                 <a
                   href="#contact"
-                  className="group/lang relative isolate flex h-full flex-col items-start gap-6 overflow-hidden p-7 transition-colors duration-200 hover:bg-blue-soft sm:p-8"
+                  className="group/row relative flex items-center gap-5 py-5 transition-colors duration-300 hover:text-white sm:gap-8 sm:py-7"
                 >
-                  {/* Decorative flag, brightening slightly on hover */}
+                  {/* Blue floods in from the left on hover */}
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-y-0 -left-[max(1.25rem,5vw)] -right-[max(1.25rem,5vw)] -z-10 origin-left scale-x-0 bg-blue transition-transform duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:scale-x-100"
+                  />
+
+                  {/* Flag block */}
                   {Flag ? (
                     <span
                       aria-hidden="true"
-                      className="pointer-events-none absolute -right-6 -top-4 -z-10 w-32 rotate-6 opacity-[0.09] saturate-[0.8] transition-opacity duration-300 group-hover/lang:opacity-[0.18]"
+                      className="w-12 shrink-0 overflow-hidden shadow-[0_0_0_1px_rgba(6,8,15,0.15)] transition-transform duration-300 group-hover/row:scale-110 sm:w-16"
                     >
-                      <Flag className="h-auto w-full" />
+                      <Flag className="block h-auto w-full" />
                     </span>
                   ) : null}
 
-                  <span
-                    aria-hidden="true"
-                    className="flex size-14 items-center justify-center rounded-full bg-blue text-sm font-bold tracking-[0.06em] text-white transition-transform duration-200 group-hover/lang:scale-110"
-                  >
+                  <span className="label w-9 shrink-0 text-slate-500 transition-colors duration-300 group-hover/row:text-white/70">
                     {language.code}
                   </span>
-                  <span>
-                    <span className="block text-xl font-bold tracking-[-0.02em]">
-                      {language.name}
+
+                  <span className="font-display text-[clamp(1.5rem,4.2vw,2.75rem)] font-extrabold leading-none tracking-[-0.04em]">
+                    {language.name}
+                  </span>
+
+                  {/* Greeting, sliding in from the right edge */}
+                  <span className="ml-auto flex items-center gap-4 sm:gap-6">
+                    <span className="hidden font-mono text-sm text-slate-500 transition-all duration-400 group-hover/row:translate-x-0 group-hover/row:text-white sm:block sm:translate-x-3">
+                      {GREETINGS[language.code]}
                     </span>
-                    <span className="mt-1.5 block text-xs text-slate-500">
-                      {dict.languages.levels}
+                    <span
+                      aria-hidden="true"
+                      className="text-xl transition-transform duration-300 group-hover/row:translate-x-1"
+                    >
+                      →
                     </span>
                   </span>
                 </a>
               </Reveal>
             );
           })}
-
-          {/*
-           * Seven languages in a four-column grid leaves one cell over, which
-           * would otherwise show as a bare grey gap. It carries the call to
-           * action instead.
-           */}
-          <Reveal as="li" delay={400} className="bg-blue text-white">
-            <a
-              href="#contact"
-              className="group/cta on-dark flex h-full flex-col justify-between gap-6 p-7 text-white transition-colors duration-200 hover:bg-blue-deep sm:p-8"
-            >
-              <span aria-hidden="true" className="block size-3 bg-white" />
-              <span className="flex items-center gap-3 text-[0.8125rem] font-semibold uppercase tracking-[0.12em]">
-                {dict.nav.cta}
-                <span
-                  aria-hidden="true"
-                  className="transition-transform duration-200 group-hover/cta:translate-x-1"
-                >
-                  →
-                </span>
-              </span>
-            </a>
-          </Reveal>
         </ul>
+
+        <Reveal delay={200}>
+          <p className="label mt-6 text-slate-500">{dict.languages.levels}</p>
+        </Reveal>
       </div>
     </section>
   );

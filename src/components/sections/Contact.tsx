@@ -3,7 +3,6 @@ import type { Locale } from "@/i18n/config";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 import ContactForm from "./ContactForm";
-import SectionDecor from "@/components/ui/SectionDecor";
 import { ADDRESS, EMAIL, PHONES, mapsUrl } from "@/lib/site";
 
 export default function Contact({
@@ -19,8 +18,6 @@ export default function Contact({
       className="relative isolate overflow-hidden py-section"
       aria-labelledby="contact-title"
     >
-      <SectionDecor flag="SK" side="left" accent="ring" />
-
       <div className="container-x">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-12">
           {/* Details */}
@@ -31,7 +28,7 @@ export default function Contact({
             <Reveal delay={70}>
               <h2
                 id="contact-title"
-                className="mt-5 text-[clamp(1.875rem,4.4vw,3.25rem)] font-bold leading-[1.05] tracking-[-0.035em]"
+                className="mt-5 text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95]"
               >
                 {dict.contact.title}
               </h2>
@@ -44,7 +41,7 @@ export default function Contact({
 
             {/* Phone and email */}
             <Reveal delay={180} className="mt-10 border-t border-line pt-6">
-              <h3 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-slate-600">
+              <h3 className="label text-slate-600">
                 {dict.contact.phoneTitle}
               </h3>
               <ul className="mt-4 flex flex-col gap-2">
@@ -52,7 +49,7 @@ export default function Contact({
                   <li key={phone.href}>
                     <a
                       href={`tel:${phone.href}`}
-                      className="link-underline text-xl font-bold tracking-[-0.01em] text-blue sm:text-2xl"
+                      className="link-underline font-display text-2xl font-extrabold tracking-[-0.03em] text-blue sm:text-3xl"
                     >
                       {phone.label}
                     </a>
@@ -62,12 +59,12 @@ export default function Contact({
             </Reveal>
 
             <Reveal delay={220} className="mt-8 border-t border-line pt-6">
-              <h3 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-slate-600">
+              <h3 className="label text-slate-600">
                 {dict.contact.emailTitle}
               </h3>
               <a
                 href={`mailto:${EMAIL}`}
-                className="link-underline mt-4 inline-block text-base font-bold text-blue sm:text-lg"
+                className="link-underline mt-4 inline-block font-mono text-sm font-semibold text-blue sm:text-base"
               >
                 {EMAIL}
               </a>
@@ -75,7 +72,7 @@ export default function Contact({
 
             {/* Address */}
             <Reveal delay={260} className="mt-8 border-t border-line pt-6">
-              <h3 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-slate-600">
+              <h3 className="label text-slate-600">
                 {dict.contact.addressTitle}
               </h3>
               {/* The street name is Slovak and stays Slovak in every locale. */}
@@ -96,12 +93,12 @@ export default function Contact({
 
             {/* Opening hours */}
             <Reveal delay={300} className="mt-8 border-t border-line pt-6">
-              <h3 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-slate-600">
+              <h3 className="label text-slate-600">
                 {dict.contact.hoursTitle}
               </h3>
               <div className="mt-4 flex items-baseline justify-between gap-4">
-                <p className="text-sm text-slate-600">{dict.contact.hoursDays}</p>
-                <p className="text-sm font-bold tabular-nums">{dict.contact.hoursTime}</p>
+                <p className="font-mono text-sm text-slate-600">{dict.contact.hoursDays}</p>
+                <p className="font-mono text-sm font-bold tabular-nums">{dict.contact.hoursTime}</p>
               </div>
             </Reveal>
           </div>

@@ -27,16 +27,16 @@ export default function Footer({
           {/* Wordmark */}
           <div className="lg:col-span-5">
             <Link href={home} className="inline-block leading-none" aria-label={BRAND.nameFull}>
-              <span className="text-shadow-lift block text-xl font-extrabold tracking-[0.14em] sm:text-2xl">
+              <span className="text-shadow-lift font-display block text-2xl font-extrabold tracking-[0.04em] sm:text-3xl">
                 {BRAND.wordmarkTop}
               </span>
-              <span className="mt-1.5 block text-[0.625rem] font-medium tracking-[0.3em] text-white/60 sm:text-xs">
+              <span className="label mt-1.5 block text-[0.625rem] text-white/60">
                 {BRAND.wordmarkBottom}
               </span>
             </Link>
 
             <div className="mt-8">
-              <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-white/60">
+              <h2 className="label text-white/60">
                 {dict.footer.langTitle}
               </h2>
               <LanguageSwitcher
@@ -50,7 +50,7 @@ export default function Footer({
 
           {/* Sitemap */}
           <nav className="lg:col-span-3" aria-label={dict.footer.navTitle}>
-            <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-white/60">
+            <h2 className="label text-white/60">
               {dict.footer.navTitle}
             </h2>
             <ul className="mt-4 flex flex-col gap-2.5">
@@ -69,7 +69,7 @@ export default function Footer({
 
           {/* Contact */}
           <div className="lg:col-span-4">
-            <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-white/60">
+            <h2 className="label text-white/60">
               {dict.footer.contactTitle}
             </h2>
             <ul className="mt-4 flex flex-col gap-2">
@@ -77,7 +77,7 @@ export default function Footer({
                 <li key={phone.href}>
                   <a
                     href={`tel:${phone.href}`}
-                    className="link-underline text-sm font-bold text-white transition-colors duration-200"
+                    className="link-underline font-mono text-sm font-semibold text-white transition-colors duration-200"
                   >
                     {phone.label}
                   </a>
