@@ -27,7 +27,7 @@ export default function LegalPage({
           {title}
         </h1>
 
-        <p className="mt-8 border-l-2 border-ink pl-6 text-base leading-relaxed text-graphite-600">
+        <p className="mt-8 border-l-2 border-blue pl-6 text-base leading-relaxed text-slate-600">
           {note}
         </p>
 

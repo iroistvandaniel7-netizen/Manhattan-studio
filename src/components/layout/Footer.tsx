@@ -2,7 +2,6 @@ import Link from "next/link";
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
 import LanguageSwitcher from "./LanguageSwitcher";
-import Skyline from "@/components/graphics/Skyline";
 import { BRAND, FAX, LOCATIONS, PHONES } from "@/lib/site";
 
 export default function Footer({
@@ -15,98 +14,30 @@ export default function Footer({
   const home = `/${locale}`;
   const nav = [
     { href: home, label: dict.nav.home },
+    { href: "#languages", label: dict.nav.languages },
     { href: "#courses", label: dict.nav.courses },
     { href: "#why", label: dict.nav.why },
-    { href: "#manhattan", label: dict.nav.about },
-    { href: "#method", label: dict.nav.method },
+    { href: "#exams", label: dict.nav.exams },
     { href: "#contact", label: dict.nav.contact },
   ];
 
   return (
-    <footer className="on-ink relative isolate overflow-hidden bg-midnight text-cream">
-      {/* Skyline sits along the very bottom edge, barely there. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 flex justify-center"
-      >
-        <Skyline
-          className="h-40 w-[150%] max-w-none text-lake-300 opacity-[0.16] sm:h-52 sm:w-[120%] lg:h-64 lg:w-[104%]"
-          variant="outline"
-          strokeWidth={1}
-        />
-      </div>
-
-      <div className="container-x relative pt-20 pb-12 sm:pt-24">
+    <footer className="on-dark bg-ink text-white">
+      <div className="container-x pt-16 pb-10 sm:pt-20">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
-          {/* Wordmark + tagline */}
+          {/* Wordmark */}
           <div className="lg:col-span-5">
             <Link href={home} className="inline-block leading-none" aria-label={BRAND.nameFull}>
-              <span className="block text-xl font-extrabold tracking-[0.16em] sm:text-2xl">
+              <span className="block text-xl font-extrabold tracking-[0.14em] sm:text-2xl">
                 {BRAND.wordmarkTop}
               </span>
-              <span className="mt-1.5 block text-[0.625rem] font-medium tracking-[0.34em] text-gold-400/70 sm:text-xs">
+              <span className="mt-1.5 block text-[0.625rem] font-medium tracking-[0.3em] text-white/60 sm:text-xs">
                 {BRAND.wordmarkBottom}
               </span>
             </Link>
-            <p className="mt-7 max-w-sm text-sm leading-relaxed text-cream/60">
-              {dict.footer.tagline}
-            </p>
-          </div>
-
-          {/* Sitemap */}
-          <nav className="lg:col-span-3" aria-label={dict.footer.navTitle}>
-            <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-gold-400">
-              {dict.footer.navTitle}
-            </h2>
-            <ul className="mt-5 flex flex-col gap-2.5">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="link-underline text-sm text-cream/75 transition-colors duration-300 hover:text-gold-400"
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          {/* Contact */}
-          <div className="lg:col-span-4">
-            <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-gold-400">
-              {dict.footer.contactTitle}
-            </h2>
-            <ul className="mt-5 flex flex-col gap-2.5">
-              {PHONES.map((phone) => (
-                <li key={phone.href}>
-                  <a
-                    href={`tel:${phone.href}`}
-                    className="link-underline text-sm font-semibold text-cream/90 transition-colors duration-300 hover:text-gold-400"
-                  >
-                    {phone.label}
-                  </a>
-                </li>
-              ))}
-              <li className="text-sm text-cream/50">
-                {dict.contact.faxTitle}: {FAX.label}
-              </li>
-            </ul>
-
-            <ul className="mt-6 flex flex-col gap-3">
-              {LOCATIONS.map((location) => (
-                <li key={location.id} className="text-sm leading-relaxed text-cream/55">
-                  <span className="font-medium text-cream/80">
-                    {dict.contact.locations[location.id].name}
-                  </span>
-                  <br />
-                  <span lang="hu">{location.address}</span>
-                </li>
-              ))}
-            </ul>
 
             <div className="mt-8">
-              <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-gold-400">
+              <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-white/60">
                 {dict.footer.langTitle}
               </h2>
               <LanguageSwitcher
@@ -117,29 +48,82 @@ export default function Footer({
               />
             </div>
           </div>
+
+          {/* Sitemap */}
+          <nav className="lg:col-span-3" aria-label={dict.footer.navTitle}>
+            <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-white/60">
+              {dict.footer.navTitle}
+            </h2>
+            <ul className="mt-4 flex flex-col gap-2.5">
+              {nav.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="link-underline text-sm text-white/85 transition-colors duration-200 hover:text-white"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Contact */}
+          <div className="lg:col-span-4">
+            <h2 className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-white/60">
+              {dict.footer.contactTitle}
+            </h2>
+            <ul className="mt-4 flex flex-col gap-2">
+              {PHONES.map((phone) => (
+                <li key={phone.href}>
+                  <a
+                    href={`tel:${phone.href}`}
+                    className="link-underline text-sm font-bold text-white transition-colors duration-200"
+                  >
+                    {phone.label}
+                  </a>
+                </li>
+              ))}
+              <li className="text-sm text-white/60">
+                {dict.contact.faxTitle}: {FAX.label}
+              </li>
+            </ul>
+
+            <ul className="mt-5 flex flex-col gap-3">
+              {LOCATIONS.map((location) => (
+                <li key={location.id} className="text-sm leading-relaxed text-white/70">
+                  <span className="font-medium text-white/90">
+                    {dict.contact.locations[location.id].name}
+                  </span>
+                  <br />
+                  <span lang="hu">{location.address}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* Bottom rule */}
-        <div className="mt-16 flex flex-col gap-5 border-t border-cream/15 pt-7 sm:mt-20 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-cream/50">
+        <div className="mt-14 flex flex-col gap-4 border-t border-white/20 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-xs text-white/60">
             © {new Date().getFullYear()} {BRAND.nameFull}. {dict.footer.rights}
           </p>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <Link
               href={`${home}/adatvedelem`}
-              className="link-underline text-xs text-cream/60 transition-colors duration-300 hover:text-gold-400"
+              className="link-underline text-xs text-white/70 hover:text-white"
             >
               {dict.footer.privacy}
             </Link>
             <Link
               href={`${home}/cookie`}
-              className="link-underline text-xs text-cream/60 transition-colors duration-300 hover:text-gold-400"
+              className="link-underline text-xs text-white/70 hover:text-white"
             >
               {dict.footer.cookies}
             </Link>
             <a
               href="#top"
-              className="link-underline text-xs text-cream/60 transition-colors duration-300 hover:text-gold-400"
+              className="link-underline text-xs text-white/70 hover:text-white"
             >
               {dict.nav.backToTop} ↑
             </a>

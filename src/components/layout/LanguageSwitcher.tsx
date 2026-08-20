@@ -33,10 +33,10 @@ export default function LanguageSwitcher({
    * text, so a constructed `hover:${...}` would never be generated.
    */
   const idle = invert
-    ? "text-cream/70 hover:text-gold-400"
-    : "text-graphite-500 hover:text-ink";
-  const active = invert ? "text-gold-400" : "text-ink";
-  const divider = invert ? "bg-cream/30" : "bg-graphite-300";
+    ? "text-white/70 hover:text-white"
+    : "text-slate-500 hover:text-blue";
+  const active = invert ? "text-white" : "text-blue";
+  const divider = invert ? "bg-white/35" : "bg-slate-300";
 
   return (
     <nav aria-label={label} className={`flex items-center ${className}`}>

@@ -3,16 +3,19 @@
 Trilingual (HU / SK / EN) marketing site for Manhattan Nyelvstúdió, built as a
 statically-generated Next.js app.
 
-**Design direction:** a golden-hour Central Park poster. The hero is a hand-built
-illustration — the lake in the foreground, the Midtown skyline behind the tree line —
-rendered as three parallaxing SVG layers with drifting clouds, shimmering water,
-twinkling windows and a bird crossing the frame.
+**Design direction:** blue, white and black — nothing else. The blue is `#0039A6`,
+the New York subway's A/C/E line blue: a flat, printed blue used as a solid fill,
+never as a gradient. Neutrals are biased toward it rather than being pure grey, so
+they read as chosen. Sharp corners, hairline rules, flat fills, no shadows.
 
-Colour follows a warm New York palette (park greens, gold, sunset coral, lake teal on
-cream), and each section takes its own ground so scrolling moves through a sequence of
-colour fields rather than one flat wash: bright hero → deep park green → cream →
-midnight → sunset. Type is Poppins throughout, pushed hard on weight contrast: 800 for
-display, wide-tracked uppercase for utility labels.
+The supplied Manhattan photograph runs full-bleed behind the hero, desaturated to
+luminance and composited over the blue so the picture joins the palette instead of
+fighting it. The five languages are marked with round subway-bullet badges — the only
+piece of New York iconography on the page, and it does real work: the code identifies
+the language before the name is read.
+
+Motion is deliberately restrained: scroll reveals, a slow drift on the hero
+photograph, one marquee band, and hover states. Nothing else moves.
 
 ---
 
@@ -80,19 +83,14 @@ PHONES, FAX, LOCATIONS, EXAMS, SITE_URL, BRAND
    phone numbers cover contact. To add one, put it in `src/lib/site.ts` and render it
    in `src/components/sections/Contact.tsx`.
 
-2. **No student testimonials.** No verifiable reviews were available, so rather than
-   invent quotes the carousel section (`#method`, "Amiben hiszünk") presents the
-   studio's own teaching principles. The component already supports real, attributed
-   testimonials — each quote takes an optional `author`:
-
-   ```ts
-   // src/i18n/dictionaries/*.ts → method.quotes
-   { text: "…", author: "Kovács Anna", role: "Angol B2" }
-   ```
-
-   With `author` set the slide renders the attribution line; with `author: null` it
-   shows the source label only. No code change needed. Consider renaming the section
-   heading (`method.title`) once real reviews are in.
+2. **No prices, testimonials or slogans.** The studio's site could not be reached
+   from this environment (the network policy blocks the domain), so the content here
+   is limited to facts that could be verified from its published listings: the five
+   languages, the eleven course formats, the six exam systems, the free placement
+   test / trial lesson / mock exam / childcare, the exam guarantee, both addresses,
+   the phone numbers, the fax and the opening hours. Anything not on that list was
+   removed rather than guessed. When the site is reachable, reconcile the
+   dictionaries against it before launch.
 
 The `/adatvedelem` and `/cookie` pages are intentionally `noindex` and carry no
 invented legal text — they state that the final wording comes from the studio.
@@ -138,20 +136,16 @@ Routing, `hreflang`, the sitemap, and the language switcher all derive from `loc
 - Mobile menu traps focus, closes on `Escape`, and locks page scroll.
 - Form uses real `<label>`s, `aria-invalid`, `aria-describedby`, a focusable error
   summary, and `role="alert"` messages.
-- Carousel is keyboard-operable (←/→), swipeable, pauses on hover/focus/tab-away, and
-  announces position via `aria-live`.
-- Focus rings are visible everywhere and invert on dark sections.
-- **`prefers-reduced-motion: reduce` disables every animation** — including the
-  scene's clouds, shimmer, twinkle and sway — and resolves all scroll-reveals and
-  gradient text fills to their final state, so no content can stay hidden or unpainted.
-- Text contrast was audited against WCAG AA across the palette. Where copy sits on the
-  illustration rather than a flat colour, it carries a text-shadow so it cannot fall
-  below threshold if the scene shifts.
+- Focus rings are visible everywhere and invert on blue and photographic grounds.
+- **`prefers-reduced-motion: reduce` disables every animation** — the hero's drift,
+  the marquee, the scroll cue — and resolves all scroll reveals to their final state,
+  so no content can stay hidden.
+- Text contrast was audited against WCAG AA across the palette.
 - Scroll reveals are progressive: the hidden state is armed by a `data-js` attribute,
   so without JavaScript the full page renders normally.
 
-Animation is hand-rolled (IntersectionObserver + CSS transitions, `rAF` parallax) —
-no animation library, so nothing is added to the bundle for it.
+Animation is hand-rolled (IntersectionObserver + CSS transitions) — no animation
+library, so nothing is added to the bundle for it.
 
 ---
 
@@ -167,22 +161,15 @@ src/
 │   └── icon.svg
 ├── components/
 │   ├── layout/            Header, Footer, LanguageSwitcher, LegalPage
-│   ├── sections/          Hero, TrustBar, Courses, Benefits, ManhattanSection,
-│   │                      Process, Testimonials, CTA, Contact, ContactForm
-│   ├── ui/                Button, Eyebrow, Reveal, Parallax, Counter,
-│   │                      Marquee, NoBreak
-│   └── graphics/          CentralPark, Skyline, BridgeLines, GridMap, Icons
+│   ├── sections/          Hero, Facts, Languages, Courses, Why, Exams,
+│   │                      Contact, ContactForm
+│   ├── ui/                Button, Eyebrow, Reveal, Marquee, NoBreak
+│   └── graphics/          Icons
 ├── i18n/                  config, dictionaries, types
 ├── lib/site.ts            all studio facts
 └── proxy.ts               locale redirect
 ```
 
-All Manhattan artwork is hand-built SVG in `components/graphics` — no stock imagery
-and no third-party assets, so there is nothing to license. `CentralPark.tsx` holds the
-hero illustration as three layers (`ParkSky`, `ParkSkyline`, `ParkWater`) sharing one
-viewBox; the Hero parallaxes them at different speeds for depth.
-
-Because the layers are sliced to cover, they crop hard from the sides on narrow
-screens. Everything that carries the picture — sun, landmark towers, tree clusters,
-boats — is kept inside the central band of the viewBox so the scene still reads on a
-phone. Keep new elements inside roughly x 560–1050.
+The hero photograph (`public/manhattan-skyline-sunset.jpg`) was supplied by the
+client. Confirm the usage rights before going live — it was not sourced or licensed
+by this project.

@@ -8,8 +8,6 @@ import type { Locale } from "@/i18n/config";
 import { BRAND } from "@/lib/site";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-export type NavItem = { href: string; label: string };
-
 export default function Header({
   locale,
   dict,
@@ -19,7 +17,6 @@ export default function Header({
 }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [activeId, setActiveId] = useState<string>("");
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
@@ -27,48 +24,25 @@ export default function Header({
   const home = `/${locale}`;
 
   /*
-   * Only the home page opens with the full-bleed photograph. While the header
-   * floats over it, the type has to invert to stay legible; everywhere else —
-   * and as soon as the cream bar fades in on scroll — it goes back to ink.
+   * Only the home page opens with the photograph. While the bar floats over
+   * it the type must invert; everywhere else, and as soon as the white bar
+   * appears on scroll, it goes back to ink.
    */
   const onPhoto = pathname === home && !scrolled && !open;
-  const nav: NavItem[] = [
-    { href: home, label: dict.nav.home },
+
+  const nav = [
+    { href: "#languages", label: dict.nav.languages },
     { href: "#courses", label: dict.nav.courses },
     { href: "#why", label: dict.nav.why },
-    { href: "#manhattan", label: dict.nav.about },
-    { href: "#method", label: dict.nav.method },
+    { href: "#exams", label: dict.nav.exams },
     { href: "#contact", label: dict.nav.contact },
   ];
 
-  /* Backdrop blur kicks in once the page has moved off the top. */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  /* Highlights the nav item for whichever section is currently in view. */
-  useEffect(() => {
-    const ids = ["courses", "why", "manhattan", "method", "contact"];
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => el !== null);
-    if (!sections.length) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActiveId(visible.target.id);
-      },
-      { rootMargin: "-45% 0px -45% 0px", threshold: [0, 0.25, 0.5] },
-    );
-
-    sections.forEach((s) => observer.observe(s));
-    return () => observer.disconnect();
   }, []);
 
   const close = useCallback(() => setOpen(false), []);
@@ -114,65 +88,48 @@ export default function Header({
     };
   }, [open, close]);
 
-  const isActive = (href: string) =>
-    href.startsWith("#") ? activeId === href.slice(1) : activeId === "";
-
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500 ${
-        scrolled || open
-          ? "border-b border-graphite-200 bg-cream/85 shadow-[0_10px_40px_-28px_rgba(10,40,32,0.5)] backdrop-blur-xl"
-          : "border-b border-transparent bg-transparent"
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        onPhoto ? "on-dark bg-transparent" : "border-b border-line bg-white"
       }`}
     >
-      <div className="container-x flex h-20 items-center justify-between gap-6 lg:h-24">
+      <div className="container-x flex h-20 items-center justify-between gap-6">
         {/* Wordmark */}
         <Link
           href={home}
           onClick={close}
-          className={`group/logo shrink-0 leading-none transition-colors duration-500 ${
-            onPhoto ? "text-white [text-shadow:0_2px_18px_rgba(4,10,18,0.7)]" : "text-ink"
-          }`}
+          className={`shrink-0 leading-none ${onPhoto ? "text-white" : "text-ink"}`}
           aria-label={BRAND.nameFull}
         >
-          <span className="block text-[0.95rem] font-extrabold tracking-[0.18em] sm:text-base lg:text-[1.0625rem]">
+          <span className="block text-sm font-extrabold tracking-[0.16em] sm:text-base">
             {BRAND.wordmarkTop}
           </span>
-          <span className="mt-0.5 flex items-center gap-2">
-            <span
-              aria-hidden="true"
-              className="h-px w-0 bg-current transition-[width] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/logo:w-6"
-            />
-            <span
-              className={`text-[0.5625rem] font-medium tracking-[0.34em] sm:text-[0.625rem] ${
-                onPhoto ? "text-white/75" : "text-graphite-500"
-              }`}
-            >
-              {BRAND.wordmarkBottom}
-            </span>
+          <span
+            className={`mt-1 block text-[0.5625rem] font-medium tracking-[0.3em] ${
+              onPhoto ? "text-white/70" : "text-slate-500"
+            }`}
+          >
+            {BRAND.wordmarkBottom}
           </span>
         </Link>
 
         {/* Desktop navigation */}
-        <nav className="hidden items-center gap-7 xl:flex" aria-label={dict.nav.home}>
+        <nav className="hidden items-center gap-8 lg:flex" aria-label={dict.nav.home}>
           {nav.map((item) => (
-            <Link
+            <a
               key={item.href}
               href={item.href}
-              data-active={isActive(item.href) ? "true" : "false"}
-              className={`link-underline py-1 text-[0.8125rem] font-semibold tracking-[0.02em] transition-colors duration-300 ${
-                onPhoto
-                  ? "text-white/85 [text-shadow:0_2px_14px_rgba(4,10,18,0.7)] hover:text-white data-[active=true]:text-white"
-                  : "text-graphite-700 hover:text-ink data-[active=true]:text-ink"
+              className={`link-underline py-1 text-[0.8125rem] font-semibold ${
+                onPhoto ? "text-white/90 hover:text-white" : "text-ink hover:text-blue"
               }`}
             >
               {item.label}
-            </Link>
+            </a>
           ))}
         </nav>
 
-        <div className="flex items-center gap-4 lg:gap-6">
-          {/* Kept visible at every width — the switcher is a primary control. */}
+        <div className="flex items-center gap-4 sm:gap-5">
           <LanguageSwitcher
             locale={locale}
             label={dict.nav.languageLabel}
@@ -181,7 +138,11 @@ export default function Header({
 
           <a
             href="#contact"
-            className="hidden bg-[linear-gradient(100deg,var(--color-gold-500),var(--color-sunset-500))] px-6 py-3.5 text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-12px_rgba(228,87,46,0.7)] sm:inline-flex"
+            className={`hidden px-6 py-3 text-[0.75rem] font-semibold uppercase tracking-[0.12em] transition-colors duration-200 sm:inline-flex ${
+              onPhoto
+                ? "bg-white text-blue hover:bg-blue-soft"
+                : "bg-blue text-white hover:bg-blue-deep"
+            }`}
           >
             {dict.nav.cta}
           </a>
@@ -194,25 +155,23 @@ export default function Header({
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? dict.nav.closeMenu : dict.nav.openMenu}
-            className="relative z-10 flex size-11 items-center justify-center xl:hidden"
+            className="relative z-10 flex size-11 items-center justify-center lg:hidden"
           >
             <span
-              className={`relative block h-3.5 w-6 transition-colors duration-500 ${
-                onPhoto ? "text-white" : "text-ink"
-              }`}
+              className={`relative block h-3.5 w-6 ${onPhoto ? "text-white" : "text-ink"}`}
             >
               <span
-                className={`absolute left-0 block h-px w-full bg-current transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                className={`absolute left-0 block h-0.5 w-full bg-current transition-all duration-300 ${
                   open ? "top-1/2 rotate-45" : "top-0"
                 }`}
               />
               <span
-                className={`absolute left-0 top-1/2 block h-px bg-current transition-all duration-300 ${
+                className={`absolute left-0 top-1/2 block h-0.5 bg-current transition-all duration-200 ${
                   open ? "w-0 opacity-0" : "w-full opacity-100"
                 }`}
               />
               <span
-                className={`absolute left-0 block h-px w-full bg-current transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                className={`absolute left-0 block h-0.5 w-full bg-current transition-all duration-300 ${
                   open ? "top-1/2 -rotate-45" : "top-full"
                 }`}
               />
@@ -226,30 +185,26 @@ export default function Header({
         id="mobile-menu"
         ref={panelRef}
         hidden={!open}
-        className="border-t border-graphite-200 bg-paper xl:hidden"
+        className="border-t border-line bg-white lg:hidden"
       >
-        {/* Fills the rest of the viewport so no page content shows through. */}
-        <div className="container-x flex h-[calc(100dvh-5rem)] flex-col gap-8 overflow-y-auto py-9 lg:h-[calc(100dvh-6rem)]">
+        <div className="container-x flex h-[calc(100dvh-5rem)] flex-col gap-8 overflow-y-auto py-8">
           <nav className="flex flex-col" aria-label={dict.nav.openMenu}>
-            {nav.map((item, i) => (
-              <Link
+            {nav.map((item) => (
+              <a
                 key={item.href}
                 href={item.href}
                 onClick={close}
-                style={{ transitionDelay: `${60 + i * 45}ms` }}
-                className={`border-b border-graphite-100 py-4 text-2xl font-bold tracking-[-0.02em] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  open ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"
-                }`}
+                className="border-b border-line py-4 text-2xl font-bold tracking-[-0.02em]"
               >
                 {item.label}
-              </Link>
+              </a>
             ))}
           </nav>
 
           <a
             href="#contact"
             onClick={close}
-            className="mt-auto inline-flex shrink-0 items-center justify-center bg-ink px-7 py-4.5 text-[0.8125rem] font-semibold uppercase tracking-[0.14em] text-paper"
+            className="mt-auto inline-flex shrink-0 items-center justify-center bg-blue px-7 py-4 text-[0.8125rem] font-semibold uppercase tracking-[0.12em] text-white"
           >
             {dict.nav.cta}
           </a>

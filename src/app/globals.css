@@ -1,83 +1,39 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ *
- * Design tokens
+ * Design tokens — blue, white, black. Nothing else.
  *
- * A golden-hour Central Park palette in the spirit of vintage WPA / Art
- * Deco New York travel posters: warm cream paper, deep park greens, a
- * sunset run from gold to coral, and lake teal. Saturated and printed
- * rather than glossy, so it never reads as a stock gradient template.
+ * The blue is #0039A6, the New York subway's A/C/E line blue: a flat,
+ * saturated, printed blue rather than the soft indigo that web templates
+ * default to. It is used as a solid fill, never as a gradient.
+ *
+ * The neutrals are biased toward that blue rather than being pure grey, so
+ * the greys read as chosen and sit correctly next to the accent.
  * ------------------------------------------------------------------ */
 @theme {
-  /* Grounds */
-  --color-paper: #fdfaf3;
-  --color-cream: #f7efdf;
-  --color-bone: #f2e7d2;
-  --color-ink: #14120f;
-  --color-midnight: #0d1f26;
+  --color-white: #ffffff;
+  --color-ink: #0a0e1a;
 
-  /* Park greens */
-  --color-park-900: #0c3527;
-  --color-park-800: #114a37;
-  --color-park-700: #17624a;
-  --color-park-600: #1e7a5a;
-  --color-park-500: #2f9a72;
-  --color-park-300: #6fc4a1;
-  --color-park-100: #cbe9db;
+  --color-blue: #0039a6;
+  --color-blue-deep: #002a7a;
+  --color-blue-soft: #e8eef9;
 
-  /* Golden hour */
-  --color-gold-600: #d9902a;
-  --color-gold-500: #f0a93b;
-  --color-gold-400: #f7c463;
-  --color-gold-200: #fbe0ac;
-
-  /* Sunset */
-  --color-sunset-700: #b83a20;
-  --color-sunset-600: #d9522f;
-  --color-sunset-500: #e4572e;
-  --color-sunset-300: #f29578;
-
-  /* Lake */
-  --color-lake-700: #1d4f5c;
-  --color-lake-600: #2a6b7c;
-  --color-lake-500: #3e8c9e;
-  --color-lake-300: #8dc6d2;
-
-  /* Neutrals, warmed so they sit on cream rather than fighting it */
-  --color-graphite-50: #f6f1e7;
-  --color-graphite-100: #eae1d0;
-  --color-graphite-200: #d9cdb6;
-  --color-graphite-300: #b8ac96;
-  --color-graphite-400: #8d8271;
-  --color-graphite-500: #6c6355;
-  --color-graphite-600: #4d463c;
-  --color-graphite-700: #332e27;
-  --color-graphite-800: #1f1c17;
-
-  --color-taxi: #f2c53d;
+  --color-slate-300: #c3cbdb;
+  --color-slate-400: #8a93a6;
+  --color-slate-500: #6b7488;
+  --color-slate-600: #4a5468;
+  --color-line: #d5dce9;
 
   --font-sans: var(--font-poppins), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, Arial, sans-serif;
 
-  --spacing-section: clamp(5rem, 11vw, 9.5rem);
+  --spacing-section: clamp(4.5rem, 9vw, 8rem);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --animate-marquee: marquee 38s linear infinite;
-  --animate-marquee-reverse: marquee-reverse 46s linear infinite;
-  --animate-drift: drift 18s ease-in-out infinite;
+  --animate-marquee: marquee 34s linear infinite;
   --animate-scroll-cue: scroll-cue 2.1s ease-in-out infinite;
-
-  /* Scene motion */
-  --animate-cloud-slow: cloud-drift 96s linear infinite;
-  --animate-cloud-fast: cloud-drift 64s linear infinite;
-  --animate-shimmer: shimmer 7s ease-in-out infinite;
-  --animate-sun-glow: sun-glow 9s ease-in-out infinite;
-  --animate-bird: bird-path 26s linear infinite;
-  --animate-sway: sway 11s ease-in-out infinite;
-  --animate-twinkle: twinkle 4.5s ease-in-out infinite;
-  --animate-gradient-pan: gradient-pan 14s ease infinite;
-  --animate-float: float 7s ease-in-out infinite;
+  --animate-slow-zoom: slow-zoom 24s ease-in-out infinite alternate;
 }
 
 @keyframes marquee {
@@ -86,25 +42,6 @@
   }
   to {
     transform: translate3d(-50%, 0, 0);
-  }
-}
-
-@keyframes marquee-reverse {
-  from {
-    transform: translate3d(-50%, 0, 0);
-  }
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
-@keyframes drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -14px, 0);
   }
 }
 
@@ -122,107 +59,13 @@
   }
 }
 
-@keyframes draw-line {
+/* A very slow drift on the hero photograph, so the page is never quite still. */
+@keyframes slow-zoom {
   from {
-    stroke-dashoffset: var(--dash, 1200);
+    transform: scale(1) translate3d(0, 0, 0);
   }
   to {
-    stroke-dashoffset: 0;
-  }
-}
-
-/* --- Scene motion ------------------------------------------------- */
-
-/* Clouds cross the sky and wrap; the travel distance is the full width
-   of the doubled cloud band, so the loop has no visible jump. */
-@keyframes cloud-drift {
-  from {
-    transform: translate3d(-12%, 0, 0);
-  }
-  to {
-    transform: translate3d(112%, 0, 0);
-  }
-}
-
-/* Light banding across the surface of the lake. */
-@keyframes shimmer {
-  0%,
-  100% {
-    opacity: 0.25;
-    transform: translate3d(0, 0, 0) scaleX(1);
-  }
-  50% {
-    opacity: 0.6;
-    transform: translate3d(2%, 0, 0) scaleX(1.04);
-  }
-}
-
-@keyframes sun-glow {
-  0%,
-  100% {
-    opacity: 0.55;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(1.08);
-  }
-}
-
-/* A bird crossing the frame, rising slightly as it goes. */
-@keyframes bird-path {
-  0% {
-    transform: translate3d(-8%, 0, 0);
-    opacity: 0;
-  }
-  10%,
-  85% {
-    opacity: 1;
-  }
-  100% {
-    transform: translate3d(108%, -70px, 0);
-    opacity: 0;
-  }
-}
-
-/* Foliage breathing in the wind. */
-@keyframes sway {
-  0%,
-  100% {
-    transform: rotate(-0.7deg) translate3d(0, 0, 0);
-  }
-  50% {
-    transform: rotate(0.7deg) translate3d(0, -4px, 0);
-  }
-}
-
-@keyframes twinkle {
-  0%,
-  100% {
-    opacity: 0.25;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-
-@keyframes gradient-pan {
-  0%,
-  100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0);
-  }
-  50% {
-    transform: translate3d(0, -10px, 0);
+    transform: scale(1.08) translate3d(0, -1.5%, 0);
   }
 }
 
@@ -231,32 +74,28 @@
  * ------------------------------------------------------------------ */
 @layer base {
   * {
-    /* Hairline rules are a primary visual device in this design. */
-    border-color: var(--color-graphite-200);
+    border-color: var(--color-line);
   }
 
   html {
     scroll-behavior: smooth;
-    /* Sticky header height + breathing room for anchor targets. */
     scroll-padding-top: 6rem;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background-color: var(--color-paper);
+    background-color: var(--color-white);
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* Guards against any wide child creating a horizontal scrollbar. */
     overflow-x: clip;
   }
 
   h1,
   h2,
-  h3,
-  h4 {
+  h3 {
     font-weight: 700;
     letter-spacing: -0.03em;
     text-wrap: balance;
@@ -267,19 +106,18 @@
   }
 
   ::selection {
-    background-color: var(--color-ink);
-    color: var(--color-paper);
+    background-color: var(--color-blue);
+    color: var(--color-white);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-ink);
-    outline-offset: 3px;
-    border-radius: 1px;
+    outline: 3px solid var(--color-blue);
+    outline-offset: 2px;
   }
 
-  /* On ink-coloured surfaces the outline has to invert to stay visible. */
-  .on-ink :focus-visible {
-    outline-color: var(--color-paper);
+  /* On blue and photographic grounds the ring has to invert to stay visible. */
+  .on-dark :focus-visible {
+    outline-color: var(--color-white);
   }
 }
 
@@ -289,46 +127,36 @@
 @utility container-x {
   width: 100%;
   margin-inline: auto;
-  max-width: 90rem;
-  padding-inline: clamp(1.25rem, 5vw, 5rem);
+  max-width: 82rem;
+  padding-inline: clamp(1.25rem, 5vw, 4rem);
 }
 
-/* Progressive scroll-reveal: elements start hidden only when JS is able
-   to reveal them again, so no-JS visitors still see everything. */
+/* Scroll reveal, armed only when JavaScript can switch it back off, so a
+   visitor without it still sees every section. */
 @utility reveal {
   opacity: 1;
   transform: none;
 }
 
-@utility grain {
-  position: relative;
-}
-
 [data-js] .reveal {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
+  transform: translate3d(0, 20px, 0);
   transition:
-    opacity 0.9s var(--ease-out-expo),
-    transform 0.9s var(--ease-out-expo);
+    opacity 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
 }
 
 [data-js] .reveal[data-shown="true"] {
   opacity: 1;
   transform: none;
-  will-change: auto;
 }
 
 /*
- * Line-by-line headline reveal: each line rides up out of a clipping mask.
- *
- * `overflow: hidden` clips at the padding box, so padding cannot be used to
- * make room for glyphs — it would expose the span in its hidden position.
- * Instead the span carries enough leading to contain Poppins' accents and
- * descenders (á, ő, í, g, j all overflow a tight display line-height), and
- * the mask is pulled back with negative margins so the visual rhythm stays
- * tight: 1.28em box − 2 × 0.16em margin = 0.96em of line advance.
+ * Headline reveal. `overflow: hidden` clips at the padding box, so padding
+ * cannot make room for glyphs without exposing the span in its hidden
+ * position. The span carries the leading instead, and the mask is pulled
+ * back with negative margins to keep the line advance tight.
  */
 .line-mask {
   display: block;
@@ -343,7 +171,7 @@
 
 [data-js] .line-mask > span {
   transform: translate3d(0, 105%, 0);
-  transition: transform 1.05s var(--ease-out-expo);
+  transition: transform 0.9s var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
@@ -352,123 +180,33 @@
   transform: none;
 }
 
-/* Subtle film grain over dark sections, drawn purely in CSS. */
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.045;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-/* Fades the far edges of marquees and scroll rails into the background. */
 .edge-fade {
   -webkit-mask-image: linear-gradient(
     to right,
     transparent,
-    #000 8%,
-    #000 92%,
+    #000 6%,
+    #000 94%,
     transparent
   );
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 8%,
-    #000 92%,
-    transparent
-  );
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
 }
 
-/* Hides the scrollbar on the horizontally-scrollable course rail. */
-.no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-
-/* Text filled with the sunset run. The gradient pans slowly, so display
-   headings feel lit rather than flat. */
-.text-sunset-gradient {
-  background-image: linear-gradient(
-    100deg,
-    var(--color-gold-500),
-    var(--color-sunset-500) 42%,
-    var(--color-park-600) 78%,
-    var(--color-gold-500)
-  );
-  background-size: 260% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: var(--animate-gradient-pan);
-}
-
-/* Same treatment tuned for dark grounds. */
-.text-dusk-gradient {
-  background-image: linear-gradient(
-    100deg,
-    var(--color-gold-400),
-    var(--color-sunset-300) 40%,
-    var(--color-lake-300) 74%,
-    var(--color-gold-400)
-  );
-  background-size: 260% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: var(--animate-gradient-pan);
-}
-
-/* Printed-poster paper: a faint warm tooth over flat colour areas. */
-.paper-tooth {
-  position: relative;
-}
-.paper-tooth::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.4;
-  background-image: radial-gradient(
-      circle at 20% 30%,
-      rgba(240, 169, 59, 0.1),
-      transparent 55%
-    ),
-    radial-gradient(circle at 82% 12%, rgba(228, 87, 46, 0.09), transparent 52%);
-}
-
-/* Hairline rule carrying the sunset run instead of flat grey. */
-.rule-sunset {
-  height: 2px;
-  background-image: linear-gradient(
-    90deg,
-    var(--color-gold-500),
-    var(--color-sunset-500),
-    var(--color-park-600)
-  );
-}
-
-/* Animated underline used by nav links and inline text links. */
+/* Underline that draws in from the left. */
 .link-underline {
   background-image: linear-gradient(currentColor, currentColor);
   background-repeat: no-repeat;
   background-position: 0 100%;
-  background-size: 0% 1px;
-  transition: background-size 0.45s var(--ease-out-expo);
+  background-size: 0% 2px;
+  transition: background-size 0.35s var(--ease-out-expo);
 }
 .link-underline:hover,
 .link-underline:focus-visible,
 .link-underline[data-active="true"] {
-  background-size: 100% 1px;
+  background-size: 100% 2px;
 }
 
 /* ------------------------------------------------------------------ *
- * Reduced motion — every decorative animation stops, and every reveal
- * resolves to its final state so no content can stay hidden.
+ * Reduced motion
  * ------------------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -491,16 +229,5 @@
 
   [data-js] .line-mask > span {
     transform: none !important;
-  }
-
-  /*
-   * The gradient text fills rely on an animation to position their
-   * background. With animations disabled they must still be painted, so
-   * the pan is pinned to a fixed, legible position.
-   */
-  .text-sunset-gradient,
-  .text-dusk-gradient {
-    animation: none !important;
-    background-position: 30% 50% !important;
   }
 }

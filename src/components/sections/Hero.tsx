@@ -2,109 +2,87 @@ import Image from "next/image";
 import type { Dictionary } from "@/i18n";
 import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
-import Parallax from "@/components/ui/Parallax";
 import heroImage from "../../../public/manhattan-skyline-sunset.jpg";
 
 /**
- * Full-bleed Manhattan skyline at sunset, with the title and the single
- * primary action centred over it.
- *
- * Contrast: the photograph runs from a dark sky through a bright sunset band
- * to dark water, so white type cannot rely on the image alone. Two scrims sit
- * between the photo and the copy — a vertical gradient that anchors the top
- * and bottom, and a soft radial that dims the bright band right where the
- * headline sits. Both are tuned to keep the towers and the colour readable.
+ * Full-bleed Manhattan photograph, treated as a blue duotone so the picture
+ * belongs to the palette instead of fighting it: the image is desaturated to
+ * luminance and composited over a flat blue ground, which recolours the whole
+ * frame in one hue. A black scrim underneath the copy carries the contrast.
  */
 export default function Hero({ dict }: { dict: Dictionary }) {
-  const lines = dict.hero.titleLines;
-
   return (
     <section
-      className="relative isolate flex min-h-[100svh] items-center justify-center overflow-hidden py-32 text-center"
+      id="top-hero"
+      className="on-dark relative isolate flex min-h-[92svh] items-end overflow-hidden pt-32 pb-16 sm:pb-20"
       aria-labelledby="hero-title"
     >
-      {/* --- Photograph -------------------------------------------------- */}
-      <Parallax speed={0.08} className="absolute inset-0 -z-20">
+      {/* Duotone photograph */}
+      <div aria-hidden="true" className="absolute inset-0 -z-20 bg-blue">
         <Image
           src={heroImage}
-          alt={dict.hero.sceneAlt}
+          alt=""
           fill
           priority
           sizes="100vw"
           placeholder="blur"
           quality={82}
-          /* Biased above centre so the skyline survives the crop on tall,
-             narrow viewports instead of filling with water. */
-          className="object-cover object-[50%_42%]"
+          className="animate-slow-zoom object-cover object-[50%_45%] mix-blend-luminosity motion-reduce:animate-none"
         />
-      </Parallax>
+      </div>
 
-      {/* Scrims */}
+      {/* Contrast scrim, weighted to the bottom where the copy sits */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_bottom,rgba(8,16,28,0.78)_0%,rgba(8,16,28,0.34)_28%,rgba(8,16,28,0.30)_52%,rgba(6,14,24,0.70)_82%,rgba(5,12,20,0.88)_100%)]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(58%_44%_at_50%_46%,rgba(6,14,24,0.62),transparent_72%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(10,14,26,0.92)_0%,rgba(10,14,26,0.72)_30%,rgba(10,14,26,0.38)_58%,rgba(10,14,26,0.28)_100%)]"
       />
 
-      {/* --- Copy -------------------------------------------------------- */}
-      <div className="container-x relative flex flex-col items-center">
+      {/* The photograph is decorative; its description belongs to the region. */}
+      <span className="sr-only">{dict.hero.photoAlt}</span>
+
+      <div className="container-x relative">
         <Reveal>
-          <p className="flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.26em] text-gold-400">
-            <span aria-hidden="true" className="inline-block size-1.5 bg-gold-500" />
+          <p className="flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-white/75">
+            <span aria-hidden="true" className="inline-block size-2 bg-white" />
             {dict.hero.eyebrow}
           </p>
         </Reveal>
 
-        <h1
-          id="hero-title"
-          className="mt-7 max-w-5xl text-[clamp(2.5rem,7.4vw,6.5rem)] font-extrabold leading-[0.96] tracking-[-0.045em] text-white [text-shadow:0_4px_40px_rgba(4,10,18,0.75)] sm:mt-9"
-        >
-          {lines.map((line, i) => (
-            <Reveal key={line} className="line-mask" delay={i * 110}>
-              <span>{line}</span>
-            </Reveal>
-          ))}
-        </h1>
+        {/*
+         * A plain fade-up rather than the clipping line mask: the headline
+         * wraps, and the mask's leading would open a gap between the lines.
+         */}
+        <Reveal delay={60}>
+          <h1
+            id="hero-title"
+            className="mt-6 max-w-4xl text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:mt-8"
+          >
+            {dict.hero.title}
+          </h1>
+        </Reveal>
 
-        <Reveal delay={160}>
-          <p className="mt-7 max-w-2xl text-base leading-relaxed text-white/85 [text-shadow:0_2px_20px_rgba(4,10,18,0.8)] sm:text-lg">
+        <Reveal delay={120}>
+          <p className="mt-7 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
             {dict.hero.lead}
           </p>
         </Reveal>
 
-        {/* The single primary action */}
-        <Reveal delay={240}>
-          <Button href="#courses" variant="sunset" withArrow className="mt-10">
-            {dict.hero.ctaPrimary}
+        <Reveal delay={200}>
+          <Button href="#courses" variant="onDark" withArrow className="mt-9">
+            {dict.hero.cta}
           </Button>
-        </Reveal>
-
-        <Reveal delay={320}>
-          <p className="mt-6 flex items-center gap-2.5 text-xs font-medium text-white/75">
-            <span
-              aria-hidden="true"
-              className="inline-block size-1.5 animate-float bg-park-300 motion-reduce:animate-none"
-            />
-            {dict.hero.badge}
-          </p>
         </Reveal>
       </div>
 
-      {/* Scroll cue, pinned to the bottom edge */}
+      {/* Scroll cue */}
       <Reveal
-        delay={420}
-        className="absolute inset-x-0 bottom-8 hidden flex-col items-center gap-3 lg:flex"
+        delay={300}
+        className="absolute inset-x-0 bottom-6 hidden justify-center lg:flex"
       >
-        <span className="text-[0.625rem] font-semibold uppercase tracking-[0.28em] text-white/70">
-          {dict.hero.scroll}
-        </span>
-        <span className="relative block h-12 w-px overflow-hidden bg-white/30">
+        <span className="relative block h-10 w-0.5 overflow-hidden bg-white/25">
           <span
             aria-hidden="true"
-            className="absolute inset-x-0 top-0 block h-1/2 animate-scroll-cue bg-gold-400 motion-reduce:animate-none"
+            className="absolute inset-x-0 top-0 block h-1/2 animate-scroll-cue bg-white motion-reduce:animate-none"
           />
         </span>
       </Reveal>

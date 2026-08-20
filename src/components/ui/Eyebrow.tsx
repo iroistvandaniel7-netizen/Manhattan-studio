@@ -1,7 +1,4 @@
-/**
- * Small section label. The tiny taxi-yellow square is the one place colour is
- * allowed into the palette.
- */
+/** Small section label, marked with a flat blue square. */
 export default function Eyebrow({
   children,
   invert = false,
@@ -13,13 +10,15 @@ export default function Eyebrow({
 }) {
   return (
     <p
-      className={`flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.26em] ${
-        invert ? "text-gold-400" : "text-graphite-500"
+      className={`flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] ${
+        /* slate-600, not 500: at 11px on the pale blue ground the lighter
+           grey lands at 4.03:1, just under the AA threshold. */
+        invert ? "text-white/70" : "text-slate-600"
       } ${className}`}
     >
       <span
         aria-hidden="true"
-        className={`inline-block size-1.5 ${invert ? "bg-gold-400" : "bg-sunset-500"}`}
+        className={`inline-block size-2 ${invert ? "bg-white" : "bg-blue"}`}
       />
       {children}
     </p>

@@ -103,12 +103,12 @@ export default function ContactForm({
 
   if (status === "success") {
     return (
-      <div className="flex min-h-[28rem] flex-col justify-center border-2 border-park-600 bg-park-100/50 p-8 sm:p-12">
-        <span aria-hidden="true" className="mb-6 inline-block size-2 bg-park-500" />
+      <div className="flex min-h-[28rem] flex-col justify-center border-2 border-blue bg-blue-soft p-8 sm:p-12">
+        <span aria-hidden="true" className="mb-6 inline-block size-2 bg-blue" />
         <h3 className="text-[clamp(1.75rem,3.4vw,2.5rem)] font-bold tracking-[-0.03em]">
           {t.successTitle}
         </h3>
-        <p className="mt-4 max-w-md text-sm leading-relaxed text-graphite-600">
+        <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-600">
           {t.success}
         </p>
         <button
@@ -129,7 +129,7 @@ export default function ContactForm({
       ref={formRef}
       onSubmit={onSubmit}
       noValidate
-      className="flex h-full flex-col border border-graphite-200 bg-paper p-6 shadow-[0_20px_60px_-40px_rgba(20,18,15,0.4)] sm:p-10"
+      className="flex h-full flex-col border-2 border-ink bg-white p-6 sm:p-10"
     >
       <h3 className="text-lg font-bold tracking-[-0.02em]">{t.title}</h3>
 
@@ -138,10 +138,10 @@ export default function ContactForm({
         ref={summaryRef}
         tabIndex={-1}
         role={invalidCount ? "alert" : undefined}
-        className={invalidCount ? "mt-6 border-l-2 border-sunset-500 bg-sunset-300/20 p-4" : "sr-only"}
+        className={invalidCount ? "mt-6 border-l-2 border-blue bg-blue-soft p-4" : "sr-only"}
       >
         {invalidCount ? (
-          <p className="text-[0.8125rem] leading-relaxed text-graphite-700">
+          <p className="text-[0.8125rem] leading-relaxed text-slate-600">
             {t.errors.summary}
           </p>
         ) : null}
@@ -187,7 +187,7 @@ export default function ContactForm({
         <div className="flex flex-col">
           <label
             htmlFor={fieldId("language")}
-            className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-graphite-500"
+            className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-slate-500"
           >
             {t.language} <span aria-hidden="true">*</span>
           </label>
@@ -198,8 +198,8 @@ export default function ContactForm({
             defaultValue=""
             aria-invalid={errors.language ? "true" : undefined}
             aria-describedby={errors.language ? errorId("language") : undefined}
-            className={`mt-2.5 w-full appearance-none border-b-2 bg-transparent bg-[length:1rem] bg-[right_0.1rem_center] bg-no-repeat py-3 pr-7 text-sm transition-colors duration-300 focus:border-sunset-500 focus:outline-none ${
-              errors.language ? "border-sunset-600" : "border-graphite-300"
+            className={`mt-2.5 w-full appearance-none border-b-2 bg-transparent bg-[length:1rem] bg-[right_0.1rem_center] bg-no-repeat py-3 pr-7 text-sm transition-colors duration-300 focus:border-blue focus:outline-none ${
+              errors.language ? "border-blue" : "border-slate-300"
             }`}
             style={{
               backgroundImage:
@@ -209,9 +209,9 @@ export default function ContactForm({
             <option value="" disabled>
               {t.languagePlaceholder}
             </option>
-            {dict.courses.items.map((course) => (
-              <option key={course.code} value={course.name}>
-                {course.name}
+            {dict.languages.items.map((language) => (
+              <option key={language.code} value={language.name}>
+                {language.name}
               </option>
             ))}
             <option value="other">{t.languageOther}</option>
@@ -224,7 +224,7 @@ export default function ContactForm({
       <div className="mt-6 flex flex-col">
         <label
           htmlFor={fieldId("message")}
-          className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-graphite-500"
+          className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-slate-500"
         >
           {t.message} <span aria-hidden="true">*</span>
         </label>
@@ -236,8 +236,8 @@ export default function ContactForm({
           placeholder={t.messagePlaceholder}
           aria-invalid={errors.message ? "true" : undefined}
           aria-describedby={errors.message ? errorId("message") : undefined}
-          className={`mt-2.5 w-full resize-y border-b-2 bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-graphite-400 focus:border-sunset-500 focus:outline-none ${
-            errors.message ? "border-sunset-600" : "border-graphite-300"
+          className={`mt-2.5 w-full resize-y border-b-2 bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-slate-400 focus:border-blue focus:outline-none ${
+            errors.message ? "border-blue" : "border-slate-300"
           }`}
         />
         <FieldError id={errorId("message")} message={errors.message} />
@@ -254,7 +254,7 @@ export default function ContactForm({
         <button
           type="submit"
           disabled={status === "sending"}
-          className="group/submit inline-flex w-full items-center justify-center gap-3 bg-[linear-gradient(100deg,var(--color-gold-500),var(--color-sunset-500))] px-8 py-4.5 text-[0.8125rem] font-semibold uppercase tracking-[0.14em] text-ink transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-12px_rgba(228,87,46,0.65)] disabled:cursor-wait disabled:opacity-60 disabled:hover:translate-y-0 sm:w-auto"
+          className="group/submit inline-flex w-full items-center justify-center gap-3 bg-blue px-8 py-4.5 text-[0.8125rem] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:bg-blue-deep disabled:cursor-wait disabled:opacity-60 sm:w-auto"
         >
           {status === "sending" ? t.sending : t.submit}
           {status === "sending" ? null : (
@@ -269,8 +269,8 @@ export default function ContactForm({
 
         {/* Delivery failure: always paired with a phone number that works. */}
         {failure ? (
-          <div role="alert" className="mt-6 border-l-2 border-sunset-500 bg-sunset-300/20 p-4">
-            <p className="text-[0.8125rem] leading-relaxed text-graphite-700">{failure}</p>
+          <div role="alert" className="mt-6 border-l-2 border-blue bg-blue-soft p-4">
+            <p className="text-[0.8125rem] leading-relaxed text-slate-600">{failure}</p>
             <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
               {PHONES.map((phone) => (
                 <a
@@ -294,7 +294,7 @@ export default function ContactForm({
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;
   return (
-    <p id={id} role="alert" className="mt-2 text-xs font-medium text-graphite-700">
+    <p id={id} role="alert" className="mt-2 text-xs font-medium text-slate-600">
       {message}
     </p>
   );
@@ -324,13 +324,13 @@ function Field({
     <div className="flex flex-col">
       <label
         htmlFor={id}
-        className="flex items-baseline gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-graphite-500"
+        className="flex items-baseline gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-slate-500"
       >
         <span>
           {label} {required ? <span aria-hidden="true">*</span> : null}
         </span>
         {hint ? (
-          <span className="font-medium normal-case tracking-normal text-graphite-500">
+          <span className="font-medium normal-case tracking-normal text-slate-500">
             ({hint})
           </span>
         ) : null}
@@ -342,8 +342,8 @@ function Field({
         required={required}
         aria-invalid={error ? "true" : undefined}
         aria-describedby={error ? errorId : undefined}
-        className={`mt-2.5 w-full border-b-2 bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-graphite-400 focus:border-sunset-500 focus:outline-none ${
-          error ? "border-sunset-600" : "border-graphite-300"
+        className={`mt-2.5 w-full border-b-2 bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-slate-400 focus:border-blue focus:outline-none ${
+          error ? "border-blue" : "border-slate-300"
         }`}
         {...rest}
       />
