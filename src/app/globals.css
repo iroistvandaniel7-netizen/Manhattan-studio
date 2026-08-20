@@ -1,0 +1,282 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ *
+ * Design tokens
+ * A deliberately monochrome, editorial system: paper white, ink black
+ * and a graphite scale. One micro-accent (a taxi yellow) appears only
+ * as small marker squares and the active carousel dot.
+ * ------------------------------------------------------------------ */
+@theme {
+  --color-paper: #ffffff;
+  --color-bone: #f4f3f1;
+  --color-ink: #0a0a0a;
+  --color-graphite-50: #f7f7f7;
+  --color-graphite-100: #ededed;
+  --color-graphite-200: #dcdcdc;
+  --color-graphite-300: #bdbdbd;
+  --color-graphite-400: #8f8f8f;
+  --color-graphite-500: #6b6b6b;
+  --color-graphite-600: #4a4a4a;
+  --color-graphite-700: #2e2e2e;
+  --color-graphite-800: #1a1a1a;
+  --color-taxi: #f2c53d;
+
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, Arial, sans-serif;
+
+  --spacing-section: clamp(5rem, 11vw, 9.5rem);
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 46s linear infinite;
+  --animate-drift: drift 18s ease-in-out infinite;
+  --animate-scroll-cue: scroll-cue 2.1s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -14px, 0);
+  }
+}
+
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-60%);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(60%);
+    opacity: 0;
+  }
+}
+
+@keyframes draw-line {
+  from {
+    stroke-dashoffset: var(--dash, 1200);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Base
+ * ------------------------------------------------------------------ */
+@layer base {
+  * {
+    /* Hairline rules are a primary visual device in this design. */
+    border-color: var(--color-graphite-200);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header height + breathing room for anchor targets. */
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Guards against any wide child creating a horizontal scrollbar. */
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  /* On ink-coloured surfaces the outline has to invert to stay visible. */
+  .on-ink :focus-visible {
+    outline-color: var(--color-paper);
+  }
+}
+
+/* ------------------------------------------------------------------ *
+ * Utilities
+ * ------------------------------------------------------------------ */
+@utility container-x {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 90rem;
+  padding-inline: clamp(1.25rem, 5vw, 5rem);
+}
+
+/* Progressive scroll-reveal: elements start hidden only when JS is able
+   to reveal them again, so no-JS visitors still see everything. */
+@utility reveal {
+  opacity: 1;
+  transform: none;
+}
+
+@utility grain {
+  position: relative;
+}
+
+[data-js] .reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition:
+    opacity 0.9s var(--ease-out-expo),
+    transform 0.9s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+[data-js] .reveal[data-shown="true"] {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* Line-by-line headline reveal: each line rides up out of a clipping mask. */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-block: 0.06em;
+}
+
+.line-mask > span {
+  display: block;
+}
+
+[data-js] .line-mask > span {
+  transform: translate3d(0, 105%, 0);
+  transition: transform 1.05s var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-js] [data-shown="true"] .line-mask > span,
+[data-js] .line-mask[data-shown="true"] > span {
+  transform: none;
+}
+
+/* Subtle film grain over dark sections, drawn purely in CSS. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Fades the far edges of marquees and scroll rails into the background. */
+.edge-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+/* Hides the scrollbar on the horizontally-scrollable course rail. */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Animated underline used by nav links and inline text links. */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.45s var(--ease-out-expo);
+}
+.link-underline:hover,
+.link-underline:focus-visible,
+.link-underline[data-active="true"] {
+  background-size: 100% 1px;
+}
+
+/* ------------------------------------------------------------------ *
+ * Reduced motion — every decorative animation stops, and every reveal
+ * resolves to its final state so no content can stay hidden.
+ * ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-js] .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  [data-js] .line-mask > span {
+    transform: none !important;
+  }
+}
