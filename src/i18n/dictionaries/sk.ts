@@ -2,10 +2,10 @@ import type { Dictionary } from "./hu";
 
 const sk: Dictionary = {
   meta: {
-    title: "Manhattan Nyelvstúdió — Jazykové kurzy v Budapešti",
+    title: "MANHATTAN STUDIO — Jazyková škola v Dunajskej Strede",
     description:
-      "Kurzy angličtiny, nemčiny, francúzštiny, taliančiny a španielčiny v malých skupinách na dvoch miestach v Budapešti. Akreditované skúškové centrum. Rozraďovací test a ukážková hodina zdarma.",
-    ogAlt: "Manhattan Nyelvstúdió — jazykové kurzy v Budapešti",
+      "Kurzy angličtiny, nemčiny, ruštiny, španielčiny, taliančiny, slovenčiny a maďarčiny v centre Dunajskej Stredy. Normálne, polointenzívne a intenzívne kurzy, každý deň 9:00 – 20:00.",
+    ogAlt: "MANHATTAN STUDIO — jazyková škola v Dunajskej Strede",
     skipToContent: "Preskočiť na obsah",
   },
 
@@ -14,7 +14,6 @@ const sk: Dictionary = {
     languages: "Jazyky",
     courses: "Kurzy",
     why: "Čo získate",
-    exams: "Skúšky",
     contact: "Kontakt",
     cta: "Prihlásiť sa",
     openMenu: "Otvoriť menu",
@@ -24,9 +23,9 @@ const sk: Dictionary = {
   },
 
   hero: {
-    eyebrow: "Budapešť · Örs vezér tere a Óbuda",
-    title: "Päť jazykov. Malé skupiny.",
-    lead: "Kurzy angličtiny, nemčiny, francúzštiny, taliančiny a španielčiny od začiatočníkov po pokročilých. Akreditované skúškové centrum.",
+    eyebrow: "Dunajská Streda · Korzo Bélu Bartóka",
+    title: "Sedem jazykov. Jedno štúdio.",
+    lead: "Jazyková škola v centre Dunajskej Stredy. Od začiatočníkov po pokročilých, každý deň v týždni — aj cez víkend.",
     cta: "Pozrieť kurzy",
     photoAlt: "Panoráma Manhattanu pri západe slnka s mrakodrapmi Dolného Manhattanu.",
     scroll: "Posúvaj",
@@ -35,85 +34,76 @@ const sk: Dictionary = {
   facts: {
     title: "V číslach",
     items: [
-      { value: "5", label: "Jazykov" },
-      { value: "6", label: "Skúškových systémov" },
-      { value: "2", label: "Miesta v Budapešti" },
-      { value: "0 €", label: "Rozraďovací test" },
+      { value: "7", label: "Jazykov", note: "Od začiatočníkov po pokročilých" },
+      { value: "160 €", label: "Normálny kurz", note: "10 týždňov, 20 hodín" },
+      { value: "10", label: "Hodín tréningu zdarma", note: "Ku kurzom angličtiny a nemčiny" },
+      { value: "7", label: "Dní otvorené", note: "Každý deň 9:00 – 20:00" },
     ],
   },
 
   languages: {
     eyebrow: "Jazyky",
     title: "Čo učíme",
-    lead: "Každý jazyk od začiatočníkov po pokročilých, v malých skupinách.",
+    lead: "Sedem jazykov, od začiatočníkov po pokročilých.",
     levels: "Od začiatočníkov po pokročilých",
     items: [
       { code: "EN", name: "Angličtina" },
       { code: "DE", name: "Nemčina" },
-      { code: "FR", name: "Francúzština" },
-      { code: "IT", name: "Taliančina" },
+      { code: "RU", name: "Ruština" },
       { code: "ES", name: "Španielčina" },
+      { code: "IT", name: "Taliančina" },
+      { code: "SK", name: "Slovenčina" },
+      { code: "HU", name: "Maďarčina" },
     ],
   },
 
   courses: {
     eyebrow: "Kurzy",
-    title: "Typy kurzov",
-    lead: "Ten istý jazyk, viac foriem.",
-    items: [
-      "Všeobecný jazykový kurz",
-      "Príprava na jazykovú skúšku",
-      "Letný intenzívny kurz",
-      "Konverzačné turné s rodeným hovoriacim",
-      "Jazykový balíček na cestovanie",
-      "Kurz pre deti a mládež",
-      "Individuálna výučba",
-      "Tréning na pracovný pohovor",
-      "Odborná jazyková výučba",
-      "Kurz pre budúce mamičky",
-      "Firemná výučba priamo u vás",
+    title: "Tri tempá",
+    lead: "Každý jazyk sa dá študovať v troch formách. Vyberte si tú, ktorá sadne vášmu rozvrhu.",
+    formats: [
+      { name: "Normálny", note: "Dvakrát týždenne, pohodlným tempom." },
+      { name: "Polointenzívny", note: "Rýchlejší postup, hustejší rozvrh." },
+      { name: "Intenzívny", note: "Najrýchlejšia cesta k požadovanej úrovni." },
     ],
+    planTitle: "Normálny kurz",
+    planPrice: "160 €",
+    planRows: [
+      { k: "Trvanie", v: "10 týždňov" },
+      { k: "Počet hodín", v: "20 hodín" },
+      { k: "Rozvrh", v: "2 × 60 minút týždenne" },
+    ],
+    planCta: "Mám záujem",
   },
 
   why: {
     eyebrow: "Čo získate",
     title: "Toto je v cene",
     items: [
-      { title: "Malé skupiny", desc: "Učíte sa v skupinách s nízkym počtom študentov." },
-      { title: "Kvalifikovaní lektori", desc: "Hodiny vedú odborne pripravení lektori." },
-      { title: "Veľa konverzácie", desc: "Hodiny stoja na hovorení, v uvoľnenej atmosfére." },
-      { title: "Rozraďovací test zdarma", desc: "Rozraďovací test je bezplatný." },
-      { title: "Ukážková hodina zdarma", desc: "Pred prihlásením si môžete sadnúť na hodinu." },
-      { title: "Skúška nanečisto zdarma", desc: "Skúška nanečisto je tiež bezplatná." },
-      { title: "Garancia jazykovej skúšky", desc: "K príprave patrí garancia jazykovej skúšky." },
-      { title: "Stráženie detí zdarma", desc: "Počas doobedňajších kurzov postrážime dieťa." },
+      {
+        title: "10 hodín komunikačného tréningu",
+        desc: "Ku kurzom angličtiny a nemčiny ho dávame ako darček.",
+      },
+      { title: "Malé skupiny", desc: "Skupiny otvárame minimálne so štyrmi študentmi." },
+      { title: "Otvorené každý deň", desc: "Od pondelka do nedele, od 9:00 do 20:00." },
+      { title: "Študovať sa dá aj cez víkend", desc: "Vybrať si môžete aj víkendové termíny." },
+      { title: "V centre mesta", desc: "Štúdio sídli v centre Dunajskej Stredy." },
+      { title: "Príprava na skúšku", desc: "Pripravíme vás na úspešnú jazykovú skúšku." },
     ],
-  },
-
-  exams: {
-    eyebrow: "Skúšky",
-    title: "Akreditované skúškové centrum",
-    lead: "Sme skúškovým centrom pre tieto skúškové systémy.",
   },
 
   contact: {
     eyebrow: "Kontakt",
     title: "Kontaktné údaje",
-    lead: "Zavolajte nám alebo napíšte cez formulár.",
-    locationsTitle: "Miesta",
-    locations: {
-      ors: { name: "Örs vezér tere", note: "Árkád Irodaház, 2. poschodie" },
-      obuda: { name: "Óbuda", note: "Manhattan Nyelvstúdió Buda" },
-    },
+    lead: "Zavolajte, napíšte e-mail alebo vyplňte formulár.",
+    addressTitle: "Adresa",
+    city: "Dunajská Streda",
     openMap: "Mapa",
     phoneTitle: "Telefón",
-    faxTitle: "Fax",
+    emailTitle: "E-mail",
     hoursTitle: "Otváracie hodiny",
-    hours: [
-      { d: "Pondelok – Piatok", h: "10:00 – 18:30" },
-      { d: "Sobota", h: "09:00 – 12:00" },
-      { d: "Nedeľa", h: "Zatvorené" },
-    ],
+    hoursDays: "Pondelok – Nedeľa",
+    hoursTime: "9:00 – 20:00",
     form: {
       title: "Napíšte nám",
       name: "Meno",
@@ -121,7 +111,7 @@ const sk: Dictionary = {
       email: "E-mail",
       emailPlaceholder: "anna@example.com",
       phone: "Telefónne číslo",
-      phonePlaceholder: "+421 900 123 456",
+      phonePlaceholder: "0948 172 288",
       language: "Ktorý jazyk vás zaujíma?",
       languagePlaceholder: "Vyberte jazyk",
       languageOther: "Zatiaľ neviem",
@@ -161,7 +151,7 @@ const sk: Dictionary = {
     cookiesTitle: "Informácie o cookies",
     backHome: "Späť na úvodnú stránku",
     placeholderNote:
-      "Konečné právne znenie tejto stránky poskytuje Manhattan Nyelvstúdió. Dovtedy sa s akoukoľvek otázkou týkajúcou sa spracovania údajov obráťte na nás telefonicky.",
+      "Konečné právne znenie tejto stránky poskytuje MANHATTAN STUDIO. Dovtedy sa s akoukoľvek otázkou týkajúcou sa spracovania údajov obráťte na nás telefonicky alebo e-mailom.",
   },
 
   notFound: {

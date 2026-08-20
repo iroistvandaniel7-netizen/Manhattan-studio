@@ -34,7 +34,6 @@ export default function Header({
     { href: "#languages", label: dict.nav.languages },
     { href: "#courses", label: dict.nav.courses },
     { href: "#why", label: dict.nav.why },
-    { href: "#exams", label: dict.nav.exams },
     { href: "#contact", label: dict.nav.contact },
   ];
 

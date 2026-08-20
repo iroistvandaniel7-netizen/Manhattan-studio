@@ -7,7 +7,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { getDictionary } from "@/i18n";
 import { htmlLang, isLocale, locales, type Locale } from "@/i18n/config";
-import { BRAND, EXAMS, LOCATIONS, PHONES, SITE_URL } from "@/lib/site";
+import { ADDRESS, BRAND, EMAIL, HOURS, PHONES, SITE_URL } from "@/lib/site";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800"],
@@ -98,30 +98,33 @@ export default async function LocaleLayout({
     name: BRAND.nameFull,
     url: `${SITE_URL}/${typedLocale}`,
     description: dict.meta.description,
+    legalName: BRAND.legalName,
     telephone: PHONES.map((p) => p.label),
-    address: LOCATIONS.map((location) => ({
+    email: EMAIL,
+    address: {
       "@type": "PostalAddress",
-      streetAddress: location.address.replace(/^\d{4}\s+Budapest,\s*/, ""),
-      postalCode: location.address.slice(0, 4),
-      addressLocality: "Budapest",
-      addressCountry: "HU",
-    })),
+      streetAddress: ADDRESS.street,
+      postalCode: ADDRESS.postalCode,
+      addressLocality: ADDRESS.citySk,
+      addressCountry: ADDRESS.countryCode,
+    },
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "10:00",
-        closes: "18:30",
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: "Saturday",
-        opens: "09:00",
-        closes: "12:00",
+        dayOfWeek: [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday",
+          "Saturday",
+          "Sunday",
+        ],
+        opens: HOURS.opens,
+        closes: HOURS.closes,
       },
     ],
     availableLanguage: dict.languages.items.map((language) => language.name),
-    hasCredential: EXAMS.map((exam) => `${exam} exam centre`),
   };
 
   return (

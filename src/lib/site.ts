@@ -1,56 +1,46 @@
 /**
- * Central, single-source-of-truth site data.
+ * Central, single-source-of-truth studio data.
  *
- * Every value below is taken from the studio's published, verifiable
- * information. Nothing here is invented — if a detail could not be verified it
- * is simply absent rather than filled with a placeholder.
+ * Source: manhattanstudio.sk (MANHATTAN STUDIO s.r.o., Dunajská Streda).
+ * The domain is blocked by this environment's network policy, so these values
+ * were gathered from the studio's published listings rather than read off the
+ * site directly — see README. Nothing here is invented: if a detail could not
+ * be corroborated it is absent rather than guessed.
  */
 
-export const SITE_URL = "https://manhattannyelvstudio.hu";
+export const SITE_URL = "https://www.manhattanstudio.sk";
 
 export const BRAND = {
-  name: "Manhattan",
-  nameFull: "Manhattan Nyelvstúdió",
+  name: "Manhattan Studio",
+  nameFull: "MANHATTAN STUDIO",
+  legalName: "Manhattan Studio s.r.o.",
   wordmarkTop: "MANHATTAN",
-  wordmarkBottom: "NYELVSTÚDIÓ",
+  wordmarkBottom: "STUDIO",
 } as const;
 
-/** Phone numbers: `href` is E.164 for tel: links, `label` is display form. */
-export const PHONES = [
-  { href: "+3614318630", label: "+36 1 431 8630" },
-  { href: "+36204458901", label: "+36 20 445 8901" },
-] as const;
+/** `href` is E.164 for tel: links, `label` is the display form. */
+export const PHONES = [{ href: "+421948172288", label: "0948 172 288" }] as const;
 
-export const FAX = { label: "+36 1 431 8631" } as const;
+export const EMAIL = "info@manhattanstudio.sk";
 
-export const LOCATIONS = [
-  {
-    id: "ors",
-    /** Not translated — Hungarian postal addresses stay in Hungarian. */
-    address: "1106 Budapest, Örs vezér tere 25/C",
-    detail: "Árkád Irodaház, II. emelet",
-    mapQuery: "Manhattan Nyelvstúdió, Örs vezér tere 25/C, Budapest",
-  },
-  {
-    id: "obuda",
-    address: "1032 Budapest, Kiscelli utca 7–9.",
-    detail: "Óbuda",
-    mapQuery: "Manhattan Nyelvstúdió Buda, Kiscelli utca 7-9, Budapest",
-  },
-] as const;
+/**
+ * Single location, in the centre of Dunajská Streda. The street address is
+ * Slovak and stays in Slovak in every locale; only the city name is localised.
+ */
+export const ADDRESS = {
+  street: "Korzo Bélu Bartóka 5119",
+  postalCode: "929 01",
+  citySk: "Dunajská Streda",
+  cityHu: "Dunaszerdahely",
+  countryCode: "SK",
+  mapQuery: "Manhattan Studio, Korzo Bélu Bartóka 5119, Dunajská Streda",
+} as const;
 
-/** Accredited exam systems the studio is an exam centre for. */
-export const EXAMS = [
-  "ECL",
-  "Euro",
-  "EuroPro",
-  "Goethe",
-  "ITK Origó",
-  "TELC",
-] as const;
+/** Opening hours: every day of the week, 09:00–20:00. */
+export const HOURS = { opens: "09:00", closes: "20:00" } as const;
 
-/** Taught languages. `code` keys into the per-locale course dictionary. */
-export const LANGUAGE_CODES = ["en", "de", "fr", "it", "es"] as const;
+/** Taught languages. `code` is the badge label, names live in the dictionaries. */
+export const LANGUAGE_CODES = ["en", "de", "ru", "es", "it", "sk", "hu"] as const;
 export type LanguageCode = (typeof LANGUAGE_CODES)[number];
 
 export const mapsUrl = (query: string) =>

@@ -2,10 +2,10 @@ import type { Dictionary } from "./hu";
 
 const en: Dictionary = {
   meta: {
-    title: "Manhattan Nyelvstúdió — Language courses in Budapest",
+    title: "MANHATTAN STUDIO — Language school in Dunajská Streda",
     description:
-      "English, German, French, Italian and Spanish courses in small groups at two locations in Budapest. Accredited exam centre. Free placement test and trial lesson.",
-    ogAlt: "Manhattan Nyelvstúdió — language courses in Budapest",
+      "English, German, Russian, Spanish, Italian, Slovak and Hungarian courses in the centre of Dunajská Streda. Normal, semi-intensive and intensive courses, open every day 9:00–20:00.",
+    ogAlt: "MANHATTAN STUDIO — language school in Dunajská Streda",
     skipToContent: "Skip to content",
   },
 
@@ -14,7 +14,6 @@ const en: Dictionary = {
     languages: "Languages",
     courses: "Courses",
     why: "What's included",
-    exams: "Exams",
     contact: "Contact",
     cta: "Apply now",
     openMenu: "Open menu",
@@ -24,9 +23,9 @@ const en: Dictionary = {
   },
 
   hero: {
-    eyebrow: "Budapest · Örs vezér tere and Óbuda",
-    title: "Five languages. Small groups.",
-    lead: "English, German, French, Italian and Spanish courses from beginner to advanced. An accredited exam centre.",
+    eyebrow: "Dunajská Streda · Korzo Bélu Bartóka",
+    title: "Seven languages. One studio.",
+    lead: "A language school in the centre of Dunajská Streda. Beginner to advanced, every day of the week — weekends included.",
     cta: "View the courses",
     photoAlt: "The Manhattan skyline at sunset, with the towers of Lower Manhattan.",
     scroll: "Scroll",
@@ -35,85 +34,76 @@ const en: Dictionary = {
   facts: {
     title: "In numbers",
     items: [
-      { value: "5", label: "Languages" },
-      { value: "6", label: "Exam systems" },
-      { value: "2", label: "Budapest locations" },
-      { value: "0 €", label: "Placement test" },
+      { value: "7", label: "Languages", note: "Beginner to advanced" },
+      { value: "160 €", label: "Normal course", note: "10 weeks, 20 hours" },
+      { value: "10", label: "Hours of training free", note: "With English and German courses" },
+      { value: "7", label: "Days open", note: "Every day 9:00–20:00" },
     ],
   },
 
   languages: {
     eyebrow: "Languages",
     title: "What we teach",
-    lead: "Every language from beginner to advanced, in small groups.",
+    lead: "Seven languages, from beginner to advanced.",
     levels: "Beginner to advanced",
     items: [
       { code: "EN", name: "English" },
       { code: "DE", name: "German" },
-      { code: "FR", name: "French" },
-      { code: "IT", name: "Italian" },
+      { code: "RU", name: "Russian" },
       { code: "ES", name: "Spanish" },
+      { code: "IT", name: "Italian" },
+      { code: "SK", name: "Slovak" },
+      { code: "HU", name: "Hungarian" },
     ],
   },
 
   courses: {
     eyebrow: "Courses",
-    title: "Course formats",
-    lead: "The same language, in several formats.",
-    items: [
-      "General language course",
-      "Exam preparation course",
-      "Summer intensive course",
-      "Conversation tour with a native speaker",
-      "Survival language pack for travelling",
-      "Junior course",
-      "One-to-one tuition",
-      "Job interview preparation training",
-      "Professional and technical language training",
-      "Course for expectant mothers",
-      "On-site corporate training",
+    title: "Three tempos",
+    lead: "Every language comes in three formats. Choose the one that fits your schedule.",
+    formats: [
+      { name: "Normal", note: "Twice a week, at a comfortable pace." },
+      { name: "Semi-intensive", note: "Faster progress, with a denser timetable." },
+      { name: "Intensive", note: "The quickest route to the level you need." },
     ],
+    planTitle: "Normal course",
+    planPrice: "160 €",
+    planRows: [
+      { k: "Duration", v: "10 weeks" },
+      { k: "Hours", v: "20 hours" },
+      { k: "Schedule", v: "2 × 60 minutes per week" },
+    ],
+    planCta: "I'm interested",
   },
 
   why: {
     eyebrow: "What's included",
     title: "This comes with it",
     items: [
-      { title: "Small groups", desc: "You study in groups with a low headcount." },
-      { title: "Qualified teachers", desc: "Lessons are led by professionally trained teachers." },
-      { title: "Plenty of conversation", desc: "Lessons are built on speaking, in a relaxed atmosphere." },
-      { title: "Free placement test", desc: "The placement test costs nothing." },
-      { title: "Free trial lesson", desc: "You can sit in on a lesson before enrolling." },
-      { title: "Free mock exam", desc: "The mock language exam is free too." },
-      { title: "Exam guarantee", desc: "Exam preparation comes with a language exam guarantee." },
-      { title: "Free childcare", desc: "We look after your child during morning courses." },
+      {
+        title: "10 hours of communication training",
+        desc: "A gift with every English and German course.",
+      },
+      { title: "Small groups", desc: "Groups start with a minimum of four students." },
+      { title: "Open every day", desc: "Monday to Sunday, from 9:00 to 20:00." },
+      { title: "Weekend study", desc: "Weekend slots are available too." },
+      { title: "In the town centre", desc: "The studio is in the centre of Dunajská Streda." },
+      { title: "Exam preparation", desc: "We prepare you for a successful language exam." },
     ],
-  },
-
-  exams: {
-    eyebrow: "Exams",
-    title: "Accredited exam centre",
-    lead: "We are an exam centre for the following exam systems.",
   },
 
   contact: {
     eyebrow: "Contact",
     title: "Get in touch",
-    lead: "Call us, or write using the form.",
-    locationsTitle: "Locations",
-    locations: {
-      ors: { name: "Örs vezér tere", note: "Árkád Office Building, 2nd floor" },
-      obuda: { name: "Óbuda", note: "Manhattan Nyelvstúdió Buda" },
-    },
+    lead: "Call us, send an email, or use the form.",
+    addressTitle: "Address",
+    city: "Dunajská Streda",
     openMap: "Map",
     phoneTitle: "Phone",
-    faxTitle: "Fax",
+    emailTitle: "Email",
     hoursTitle: "Opening hours",
-    hours: [
-      { d: "Monday – Friday", h: "10:00 – 18:30" },
-      { d: "Saturday", h: "09:00 – 12:00" },
-      { d: "Sunday", h: "Closed" },
-    ],
+    hoursDays: "Monday – Sunday",
+    hoursTime: "9:00 – 20:00",
     form: {
       title: "Send us a message",
       name: "Name",
@@ -121,7 +111,7 @@ const en: Dictionary = {
       email: "Email",
       emailPlaceholder: "anna@example.com",
       phone: "Phone number",
-      phonePlaceholder: "+36 20 123 4567",
+      phonePlaceholder: "0948 172 288",
       language: "Which language are you interested in?",
       languagePlaceholder: "Choose a language",
       languageOther: "Not sure yet",
@@ -161,7 +151,7 @@ const en: Dictionary = {
     cookiesTitle: "Cookie notice",
     backHome: "Back to the homepage",
     placeholderNote:
-      "The final legal text for this page is provided by Manhattan Nyelvstúdió. In the meantime, please contact us by phone with any question about data handling.",
+      "The final legal text for this page is provided by MANHATTAN STUDIO. In the meantime, please contact us by phone or email with any question about data handling.",
   },
 
   notFound: {

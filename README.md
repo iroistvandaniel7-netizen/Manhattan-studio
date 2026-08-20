@@ -1,7 +1,7 @@
-# Manhattan Nyelvstúdió — website
+# MANHATTAN STUDIO — website
 
-Trilingual (HU / SK / EN) marketing site for Manhattan Nyelvstúdió, built as a
-statically-generated Next.js app.
+Trilingual (HU / SK / EN) marketing site for MANHATTAN STUDIO, the language school
+in Dunajská Streda, built as a statically-generated Next.js app.
 
 **Design direction:** blue, white and black — nothing else. The blue is `#0039A6`,
 the New York subway's A/C/E line blue: a flat, printed blue used as a solid fill,
@@ -10,7 +10,7 @@ they read as chosen. Sharp corners, hairline rules, flat fills, no shadows.
 
 The supplied Manhattan photograph runs full-bleed behind the hero, desaturated to
 luminance and composited over the blue so the picture joins the palette instead of
-fighting it. The five languages are marked with round subway-bullet badges — the only
+fighting it. The seven languages are marked with round subway-bullet badges — the only
 piece of New York iconography on the page, and it does real work: the code identifies
 the language before the name is read.
 
@@ -65,32 +65,33 @@ A hidden honeypot field silently absorbs bot submissions.
 
 ## Content provenance
 
-Every fact on the site — addresses, phone numbers, fax, opening hours, languages,
-course formats, exam systems, and the free placement test / trial lesson / childcare /
-exam guarantee claims — comes from Manhattan Nyelvstúdió's own published information.
-Nothing was invented. Copy was rewritten to be shorter and more direct, but no claim,
-figure, or contact detail was added that could not be verified.
+Every fact on the site traces back to MANHATTAN STUDIO's own published information:
+the seven languages, the three course formats, the normal-course terms (160 €, 10
+weeks, 20 hours, 2 × 60 min per week), the 10 hours of communication training
+included with English and German courses, the four-student minimum for a group, the
+address, phone, email and the Monday–Sunday 09:00–20:00 opening hours.
 
-Structured facts live in one place, `src/lib/site.ts`, so they are edited once:
+Structured facts live in one place, `src/lib/site.ts`:
 
 ```ts
-PHONES, FAX, LOCATIONS, EXAMS, SITE_URL, BRAND
+BRAND, PHONES, EMAIL, ADDRESS, HOURS, LANGUAGE_CODES, SITE_URL
 ```
 
-### Two things are deliberately not final
+### Read this before launch
 
-1. **No email address.** None could be verified, so none is shown. The form plus two
-   phone numbers cover contact. To add one, put it in `src/lib/site.ts` and render it
-   in `src/components/sections/Contact.tsx`.
+**manhattanstudio.sk is blocked by this environment's network policy**, so the site
+could not be read directly. The facts above were gathered from the studio's published
+listings instead. Two consequences:
 
-2. **No prices, testimonials or slogans.** The studio's site could not be reached
-   from this environment (the network policy blocks the domain), so the content here
-   is limited to facts that could be verified from its published listings: the five
-   languages, the eleven course formats, the six exam systems, the free placement
-   test / trial lesson / mock exam / childcare, the exam guarantee, both addresses,
-   the phone numbers, the fax and the opening hours. Anything not on that list was
-   removed rather than guessed. When the site is reachable, reconcile the
-   dictionaries against it before launch.
+1. **Verify the price.** `160 €` for the normal course was reported consistently
+   alongside the 10 weeks / 20 hours / 2 × 60 min terms, but it may not apply
+   identically to every language. Check it per language before going live.
+2. **Reconcile the rest.** Anything on the studio's site that isn't listed above —
+   additional course types, discounts, teacher profiles, FAQ answers, testimonials —
+   is simply missing here rather than wrong. It was left out rather than guessed.
+
+Nothing on the page is invented. No prices, claims, slogans or testimonials were
+written that could not be traced back to the studio.
 
 The `/adatvedelem` and `/cookie` pages are intentionally `noindex` and carry no
 invented legal text — they state that the final wording comes from the studio.
@@ -125,7 +126,7 @@ Routing, `hreflang`, the sitemap, and the language switcher all derive from `loc
 - Per-locale `title`, `description`, canonical, `hreflang` (incl. `x-default`),
   OpenGraph and Twitter tags.
 - Generated per-locale OG images (`opengraph-image.tsx`).
-- `LanguageSchool` JSON-LD with the real addresses, phones and opening hours.
+- `LanguageSchool` JSON-LD with the real address, phone, email and opening hours.
 - `sitemap.xml` and `robots.txt` generated from the locale list.
 
 ---
@@ -161,8 +162,8 @@ src/
 │   └── icon.svg
 ├── components/
 │   ├── layout/            Header, Footer, LanguageSwitcher, LegalPage
-│   ├── sections/          Hero, Facts, Languages, Courses, Why, Exams,
-│   │                      Contact, ContactForm
+│   ├── sections/          Hero, Facts, Languages, Courses, Why, Contact,
+│   │                      ContactForm
 │   ├── ui/                Button, Eyebrow, Reveal, Marquee, NoBreak
 │   └── graphics/          Icons
 ├── i18n/                  config, dictionaries, types

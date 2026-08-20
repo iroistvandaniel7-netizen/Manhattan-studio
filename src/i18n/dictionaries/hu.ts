@@ -4,28 +4,28 @@ import type { Widen } from "../types";
  * Hungarian dictionary — the reference shape. `sk.ts` and `en.ts` are typed
  * against `Dictionary`, so a missing key in any locale is a build error.
  *
- * CONTENT RULE: every fact here traces back to Manhattan Nyelvstúdió's own
- * published information — the languages, the course formats, the exam
- * systems, the free placement test / trial lesson / mock exam / childcare,
- * the exam guarantee, the two addresses, the phone numbers, the fax and the
- * opening hours. Nothing is invented. Do not add claims, figures, prices,
- * slogans or testimonials that cannot be traced back to the studio.
+ * CONTENT RULE: every fact traces back to MANHATTAN STUDIO's own published
+ * information (manhattanstudio.sk, Dunajská Streda) — the seven languages,
+ * the three course formats, the normal-course terms, the free communication
+ * training with English and German, the minimum group size, the address,
+ * phone, email and opening hours. Nothing is invented. Do not add claims,
+ * figures, prices, slogans or testimonials that cannot be traced back to the
+ * studio.
  */
 const hu = {
   meta: {
-    title: "Manhattan Nyelvstúdió — Nyelvtanfolyamok Budapesten",
+    title: "MANHATTAN STUDIO — Nyelviskola Dunaszerdahelyen",
     description:
-      "Angol, német, francia, olasz és spanyol nyelvtanfolyamok kis csoportokban, Budapest két helyszínén. Akkreditált nyelvvizsgaközpont. Ingyenes szintfelmérés és próbaóra.",
-    ogAlt: "Manhattan Nyelvstúdió — nyelvtanfolyamok Budapesten",
+      "Angol, német, orosz, spanyol, olasz, szlovák és magyar nyelvtanfolyamok Dunaszerdahely szívében. Normál, félintenzív és intenzív kurzusok, a hét minden napján 9:00–20:00.",
+    ogAlt: "MANHATTAN STUDIO — nyelviskola Dunaszerdahelyen",
     skipToContent: "Ugrás a tartalomra",
   },
 
   nav: {
     home: "Kezdőlap",
     languages: "Nyelvek",
-    courses: "Tanfolyamok",
+    courses: "Kurzusok",
     why: "Amit kapsz",
-    exams: "Nyelvvizsga",
     contact: "Kapcsolat",
     cta: "Jelentkezem",
     openMenu: "Menü megnyitása",
@@ -35,9 +35,9 @@ const hu = {
   },
 
   hero: {
-    eyebrow: "Budapest · Örs vezér tere és Óbuda",
-    title: "Öt nyelv. Kis csoportok.",
-    lead: "Angol, német, francia, olasz és spanyol nyelvtanfolyamok kezdő szinttől haladóig. Akkreditált nyelvvizsgaközpont.",
+    eyebrow: "Dunaszerdahely · Korzo Bélu Bartóka",
+    title: "Hét nyelv. Egy stúdió.",
+    lead: "Nyelviskola Dunaszerdahely szívében. Kezdőtől haladóig, a hét minden napján — hétvégén is.",
     cta: "Kurzusok megtekintése",
     photoAlt: "Manhattan látképe naplementében, az alsó-manhattani felhőkarcolókkal.",
     scroll: "Görgess",
@@ -46,85 +46,76 @@ const hu = {
   facts: {
     title: "Számokban",
     items: [
-      { value: "5", label: "Nyelv" },
-      { value: "6", label: "Nyelvvizsgarendszer" },
-      { value: "2", label: "Budapesti helyszín" },
-      { value: "0 €", label: "Szintfelmérés" },
+      { value: "7", label: "Nyelv", note: "Kezdőtől haladóig" },
+      { value: "160 €", label: "Normál kurzus", note: "10 hét, 20 óra" },
+      { value: "10", label: "Óra tréning ajándékba", note: "Angol és német kurzushoz" },
+      { value: "7", label: "Nap nyitva", note: "Minden nap 9:00–20:00" },
     ],
   },
 
   languages: {
     eyebrow: "Nyelvek",
     title: "Amit tanítunk",
-    lead: "Minden nyelvet kezdő szinttől haladóig, kis csoportokban.",
+    lead: "Hét nyelv, kezdő szinttől haladóig.",
     levels: "Kezdőtől haladóig",
     items: [
       { code: "EN", name: "Angol" },
       { code: "DE", name: "Német" },
-      { code: "FR", name: "Francia" },
-      { code: "IT", name: "Olasz" },
+      { code: "RU", name: "Orosz" },
       { code: "ES", name: "Spanyol" },
+      { code: "IT", name: "Olasz" },
+      { code: "SK", name: "Szlovák" },
+      { code: "HU", name: "Magyar" },
     ],
   },
 
   courses: {
-    eyebrow: "Tanfolyamok",
-    title: "Tanfolyamtípusok",
-    lead: "Ugyanaz a nyelv, többféle formában.",
-    items: [
-      "Általános nyelvtanfolyam",
-      "Nyelvvizsga-felkészítő",
-      "Nyári intenzív tanfolyam",
-      "Társalgási túra anyanyelvi tanárral",
-      "Túlélő nyelvi csomag utazáshoz",
-      "Junior tanfolyam",
-      "Egyéni oktatás",
-      "Állásinterjú-felkészítő tréning",
-      "Szaknyelvi oktatás",
-      "Kismama tanfolyam",
-      "Céges oktatás a helyszínen",
+    eyebrow: "Kurzusok",
+    title: "Három tempó",
+    lead: "Minden nyelvet három formában tanulhatsz. Válaszd azt, ami az időbeosztásodhoz illik.",
+    formats: [
+      { name: "Normál", note: "Heti két alkalom, kényelmes tempóban." },
+      { name: "Félintenzív", note: "Gyorsabb haladás, sűrűbb órabeosztással." },
+      { name: "Intenzív", note: "A leggyorsabb út a kívánt szintig." },
     ],
+    planTitle: "Normál kurzus",
+    planPrice: "160 €",
+    planRows: [
+      { k: "Időtartam", v: "10 hét" },
+      { k: "Óraszám", v: "20 óra" },
+      { k: "Beosztás", v: "Heti 2 × 60 perc" },
+    ],
+    planCta: "Érdekel",
   },
 
   why: {
     eyebrow: "Amit kapsz",
     title: "Ez jár hozzá",
     items: [
-      { title: "Kis csoportok", desc: "Kis létszámú csoportokban tanulsz." },
-      { title: "Képzett tanárok", desc: "Szakképzett oktatók vezetik az órákat." },
-      { title: "Sok beszélgetés", desc: "Az órák a beszédre épülnek, oldott hangulatban." },
-      { title: "Ingyenes szintfelmérés", desc: "A szintfelmérés díjtalan." },
-      { title: "Ingyenes próbaóra", desc: "Jelentkezés előtt beülhetsz egy órára." },
-      { title: "Ingyenes próbanyelvvizsga", desc: "A próbanyelvvizsga is díjtalan." },
-      { title: "Nyelvvizsga-garancia", desc: "A felkészítéshez nyelvvizsga-garancia jár." },
-      { title: "Ingyenes gyermekmegőrzés", desc: "A délelőtti tanfolyamok alatt vigyázunk a gyerekre." },
+      {
+        title: "10 óra kommunikációs tréning",
+        desc: "Az angol és német kurzusokhoz ajándékba adjuk.",
+      },
+      { title: "Kis csoportok", desc: "A csoportok minimum négy fővel indulnak." },
+      { title: "Nyitva minden nap", desc: "Hétfőtől vasárnapig, 9:00 és 20:00 között." },
+      { title: "Hétvégén is tanulhatsz", desc: "A hétvégi időpontok is választhatók." },
+      { title: "A város szívében", desc: "A stúdió Dunaszerdahely központjában van." },
+      { title: "Nyelvvizsgára készítünk", desc: "Felkészítünk a sikeres nyelvvizsgára." },
     ],
-  },
-
-  exams: {
-    eyebrow: "Nyelvvizsga",
-    title: "Akkreditált nyelvvizsgaközpont",
-    lead: "Az alábbi nyelvvizsgarendszerekben vagyunk vizsgaközpont.",
   },
 
   contact: {
     eyebrow: "Kapcsolat",
     title: "Elérhetőség",
-    lead: "Hívj minket, vagy írj az űrlapon.",
-    locationsTitle: "Helyszínek",
-    locations: {
-      ors: { name: "Örs vezér tere", note: "Árkád Irodaház, II. emelet" },
-      obuda: { name: "Óbuda", note: "Manhattan Nyelvstúdió Buda" },
-    },
+    lead: "Hívj, írj e-mailt, vagy töltsd ki az űrlapot.",
+    addressTitle: "Cím",
+    city: "Dunaszerdahely",
     openMap: "Térkép",
     phoneTitle: "Telefon",
-    faxTitle: "Fax",
+    emailTitle: "E-mail",
     hoursTitle: "Nyitvatartás",
-    hours: [
-      { d: "Hétfő – Péntek", h: "10:00 – 18:30" },
-      { d: "Szombat", h: "09:00 – 12:00" },
-      { d: "Vasárnap", h: "Zárva" },
-    ],
+    hoursDays: "Hétfő – Vasárnap",
+    hoursTime: "9:00 – 20:00",
     form: {
       title: "Írj nekünk",
       name: "Név",
@@ -132,7 +123,7 @@ const hu = {
       email: "E-mail",
       emailPlaceholder: "anna@example.com",
       phone: "Telefonszám",
-      phonePlaceholder: "+36 20 123 4567",
+      phonePlaceholder: "0948 172 288",
       language: "Melyik nyelv érdekel?",
       languagePlaceholder: "Válassz nyelvet",
       languageOther: "Még nem tudom",
@@ -172,7 +163,7 @@ const hu = {
     cookiesTitle: "Cookie-tájékoztató",
     backHome: "Vissza a kezdőlapra",
     placeholderNote:
-      "Ennek az oldalnak a végleges jogi szövegét a Manhattan Nyelvstúdió adja meg. Addig is bármilyen adatkezeléssel kapcsolatos kérdéssel fordulj hozzánk telefonon.",
+      "Ennek az oldalnak a végleges jogi szövegét a MANHATTAN STUDIO adja meg. Addig is bármilyen adatkezeléssel kapcsolatos kérdéssel fordulj hozzánk telefonon vagy e-mailben.",
   },
 
   notFound: {

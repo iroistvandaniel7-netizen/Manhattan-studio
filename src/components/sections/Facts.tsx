@@ -18,11 +18,14 @@ export default function Facts({ dict }: { dict: Dictionary }) {
               }`}
             >
               <dt className="sr-only">{item.label}</dt>
-              <dd className="text-[clamp(2.75rem,6vw,4.5rem)] font-extrabold leading-none tracking-[-0.05em] tabular-nums">
+              <dd className="text-[clamp(2.5rem,5.5vw,4rem)] font-extrabold leading-none tracking-[-0.05em] tabular-nums">
                 {item.value}
               </dd>
-              <dd className="mt-3 text-sm font-medium text-white/80" aria-hidden="true">
+              <dd className="mt-3 text-sm font-semibold" aria-hidden="true">
                 {item.label}
+              </dd>
+              <dd className="mt-1 max-w-[24ch] text-xs leading-relaxed text-white/75">
+                {item.note}
               </dd>
             </Reveal>
           ))}

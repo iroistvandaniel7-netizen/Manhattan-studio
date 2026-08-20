@@ -7,7 +7,6 @@ import Facts from "@/components/sections/Facts";
 import Languages from "@/components/sections/Languages";
 import Courses from "@/components/sections/Courses";
 import Why from "@/components/sections/Why";
-import Exams from "@/components/sections/Exams";
 import Contact from "@/components/sections/Contact";
 
 export default async function HomePage({
@@ -27,7 +26,6 @@ export default async function HomePage({
       <Languages dict={dict} />
       <Courses dict={dict} />
       <Why dict={dict} />
-      <Exams dict={dict} />
       <Contact dict={dict} locale={locale} />
     </>
   );

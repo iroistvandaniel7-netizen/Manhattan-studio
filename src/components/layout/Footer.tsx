@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { BRAND, FAX, LOCATIONS, PHONES } from "@/lib/site";
+import { ADDRESS, BRAND, EMAIL, PHONES } from "@/lib/site";
 
 export default function Footer({
   locale,
@@ -17,7 +17,6 @@ export default function Footer({
     { href: "#languages", label: dict.nav.languages },
     { href: "#courses", label: dict.nav.courses },
     { href: "#why", label: dict.nav.why },
-    { href: "#exams", label: dict.nav.exams },
     { href: "#contact", label: dict.nav.contact },
   ];
 
@@ -84,22 +83,21 @@ export default function Footer({
                   </a>
                 </li>
               ))}
-              <li className="text-sm text-white/60">
-                {dict.contact.faxTitle}: {FAX.label}
+              <li>
+                <a
+                  href={`mailto:${EMAIL}`}
+                  className="link-underline text-sm text-white/85 transition-colors duration-200 hover:text-white"
+                >
+                  {EMAIL}
+                </a>
               </li>
             </ul>
 
-            <ul className="mt-5 flex flex-col gap-3">
-              {LOCATIONS.map((location) => (
-                <li key={location.id} className="text-sm leading-relaxed text-white/70">
-                  <span className="font-medium text-white/90">
-                    {dict.contact.locations[location.id].name}
-                  </span>
-                  <br />
-                  <span lang="hu">{location.address}</span>
-                </li>
-              ))}
-            </ul>
+            <address className="mt-5 text-sm not-italic leading-relaxed text-white/70">
+              <span lang="sk">{ADDRESS.street}</span>
+              <br />
+              {ADDRESS.postalCode} {dict.contact.city}
+            </address>
           </div>
         </div>
 
