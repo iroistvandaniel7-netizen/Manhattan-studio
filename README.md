@@ -14,8 +14,16 @@ fighting it. The seven languages are marked with round subway-bullet badges — 
 piece of New York iconography on the page, and it does real work: the code identifies
 the language before the name is read.
 
-Motion is deliberately restrained: scroll reveals, a slow drift on the hero
-photograph, one marquee band, and hover states. Nothing else moves.
+Every section carries a faint decorative layer — a flag watermark, a pulsing ring or
+a dot grid — behind the content at very low opacity, `pointer-events: none` and
+`aria-hidden`. The flags are texture only: a flag stands for a country, not a
+language, so the subway-bullet code is always what identifies a language.
+
+The second section is the page's motion piece: panning diagonal stripes, a drifting
+Union Jack and a pulsing ring, all CSS. It is not a video file — see below.
+
+Type over the photograph and over flat colour carries `text-shadow-strong` /
+`text-shadow-lift` so it never depends on the ground behind it.
 
 ---
 
@@ -174,3 +182,16 @@ src/
 The hero photograph (`public/manhattan-skyline-sunset.jpg`) was supplied by the
 client. Confirm the usage rights before going live — it was not sourced or licensed
 by this project.
+
+### Using a real video in the second section
+
+The second section's background is animated with CSS rather than a video, because no
+video asset could be fetched in the environment this was built in. A CSS background
+also costs nothing to download, scales to any width, and stops under
+`prefers-reduced-motion` — none of which is true of an autoplaying video.
+
+To swap one in, drop the file into `public/` and replace the decorative block in
+`src/components/sections/Facts.tsx` with a `<video>`; the exact markup is written out
+in a comment at the top of that file. Keep it muted, looping and low-opacity so the
+figures stay legible, and keep the reduced-motion path in mind — an autoplaying video
+should be paused when the user has asked for less motion.

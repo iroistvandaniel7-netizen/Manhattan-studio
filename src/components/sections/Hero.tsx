@@ -42,7 +42,7 @@ export default function Hero({ dict }: { dict: Dictionary }) {
 
       <div className="container-x relative">
         <Reveal>
-          <p className="flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-white/75">
+          <p className="text-shadow-strong flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.22em] text-white/85">
             <span aria-hidden="true" className="inline-block size-2 bg-white" />
             {dict.hero.eyebrow}
           </p>
@@ -55,14 +55,14 @@ export default function Hero({ dict }: { dict: Dictionary }) {
         <Reveal delay={60}>
           <h1
             id="hero-title"
-            className="mt-6 max-w-4xl text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:mt-8"
+            className="text-shadow-strong mt-6 max-w-4xl text-[clamp(2.5rem,7vw,5.5rem)] font-extrabold leading-[1.02] tracking-[-0.04em] text-white sm:mt-8"
           >
             {dict.hero.title}
           </h1>
         </Reveal>
 
         <Reveal delay={120}>
-          <p className="mt-7 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
+          <p className="text-shadow-strong mt-7 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg">
             {dict.hero.lead}
           </p>
         </Reveal>

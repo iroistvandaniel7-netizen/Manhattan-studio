@@ -34,6 +34,43 @@
   --animate-marquee: marquee 34s linear infinite;
   --animate-scroll-cue: scroll-cue 2.1s ease-in-out infinite;
   --animate-slow-zoom: slow-zoom 24s ease-in-out infinite alternate;
+  --animate-stripes: stripes 14s linear infinite;
+  --animate-flag-sway: flag-sway 16s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 6s ease-in-out infinite;
+}
+
+/* Diagonal stripes panning across the second section. */
+@keyframes stripes {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    /* One full tile of the 28px repeating gradient. */
+    background-position: 56px 0;
+  }
+}
+
+/* A slow drift on the decorative flag watermarks, so they are never static. */
+@keyframes flag-sway {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-1.5deg) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -1.5%, 0) rotate(1.5deg) scale(1.04);
+  }
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.12;
+  }
 }
 
 @keyframes marquee {
@@ -178,6 +215,32 @@
 [data-js] [data-shown="true"] .line-mask > span,
 [data-js] .line-mask[data-shown="true"] > span {
   transform: none;
+}
+
+/* ------------------------------------------------------------------ *
+ * Text shadows
+ * Two weights: `lift` for type on flat colour, where the shadow only has to
+ * separate the letterforms from the ground; `strong` for type over the
+ * photograph, where it has to hold contrast against whatever is behind it.
+ * ------------------------------------------------------------------ */
+@utility text-shadow-lift {
+  text-shadow: 0 1px 12px rgba(10, 14, 26, 0.35);
+}
+
+@utility text-shadow-strong {
+  text-shadow:
+    0 2px 26px rgba(10, 14, 26, 0.72),
+    0 1px 4px rgba(10, 14, 26, 0.55);
+}
+
+/* Diagonal stripe field used behind the second section. */
+@utility stripe-field {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, 0.14) 0 2px,
+    transparent 2px 28px
+  );
+  background-size: 56px 56px;
 }
 
 .edge-fade {

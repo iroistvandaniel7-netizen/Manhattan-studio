@@ -3,6 +3,7 @@ import type { Locale } from "@/i18n/config";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 import ContactForm from "./ContactForm";
+import SectionDecor from "@/components/ui/SectionDecor";
 import { ADDRESS, EMAIL, PHONES, mapsUrl } from "@/lib/site";
 
 export default function Contact({
@@ -13,7 +14,13 @@ export default function Contact({
   locale: Locale;
 }) {
   return (
-    <section id="contact" className="py-section" aria-labelledby="contact-title">
+    <section
+      id="contact"
+      className="relative isolate overflow-hidden py-section"
+      aria-labelledby="contact-title"
+    >
+      <SectionDecor flag="SK" side="left" accent="ring" />
+
       <div className="container-x">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-12">
           {/* Details */}

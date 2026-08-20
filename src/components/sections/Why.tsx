@@ -1,11 +1,18 @@
 import type { Dictionary } from "@/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
+import SectionDecor from "@/components/ui/SectionDecor";
 
 /** What the studio includes — one flat grid, no icons, no cards. */
 export default function Why({ dict }: { dict: Dictionary }) {
   return (
-    <section id="why" className="py-section" aria-labelledby="why-title">
+    <section
+      id="why"
+      className="relative isolate overflow-hidden py-section"
+      aria-labelledby="why-title"
+    >
+      <SectionDecor flag="IT" side="right" accent="dots" />
+
       <div className="container-x">
         <div className="max-w-2xl">
           <Reveal>

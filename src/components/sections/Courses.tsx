@@ -2,6 +2,7 @@ import type { Dictionary } from "@/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 import Marquee from "@/components/ui/Marquee";
+import SectionDecor from "@/components/ui/SectionDecor";
 
 /**
  * The three course formats, plus the published terms of the normal course.
@@ -10,7 +11,13 @@ import Marquee from "@/components/ui/Marquee";
  */
 export default function Courses({ dict }: { dict: Dictionary }) {
   return (
-    <section id="courses" className="bg-blue-soft py-section" aria-labelledby="courses-title">
+    <section
+      id="courses"
+      className="relative isolate overflow-hidden bg-blue-soft py-section"
+      aria-labelledby="courses-title"
+    >
+      <SectionDecor flag="DE" side="left" accent="ring" />
+
       <div className="container-x">
         <div className="max-w-2xl">
           <Reveal>

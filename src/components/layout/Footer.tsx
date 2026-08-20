@@ -27,7 +27,7 @@ export default function Footer({
           {/* Wordmark */}
           <div className="lg:col-span-5">
             <Link href={home} className="inline-block leading-none" aria-label={BRAND.nameFull}>
-              <span className="block text-xl font-extrabold tracking-[0.14em] sm:text-2xl">
+              <span className="text-shadow-lift block text-xl font-extrabold tracking-[0.14em] sm:text-2xl">
                 {BRAND.wordmarkTop}
               </span>
               <span className="mt-1.5 block text-[0.625rem] font-medium tracking-[0.3em] text-white/60 sm:text-xs">
