@@ -1,9 +1,7 @@
 import Image from "next/image";
 import type { Dictionary } from "@/i18n";
-import Button from "@/components/ui/Button";
 import Reveal from "@/components/ui/Reveal";
 import StudyScene from "@/components/graphics/StudyScene";
-import { FlagMark } from "@/components/graphics/Flags";
 import heroImage from "../../../public/manhattan-skyline-sunset.jpg";
 
 /**
@@ -49,17 +47,10 @@ export default function Hero({ dict }: { dict: Dictionary }) {
       <span className="sr-only">{dict.hero.photoAlt}</span>
 
       <div className="container-x relative">
-        <Reveal>
-          <p className="label text-shadow-strong flex items-center gap-3 text-white/85">
-            <FlagMark className="h-[0.75rem] w-[1.15rem]" />
-            {dict.hero.eyebrow}
-          </p>
-        </Reveal>
-
         <Reveal delay={60}>
           <h1
             id="hero-title"
-            className="text-shadow-strong mt-6 max-w-4xl text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.92] tracking-[-0.045em] text-white sm:mt-8"
+            className="text-shadow-strong max-w-4xl text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.92] tracking-[-0.045em] text-white"
           >
             {dict.hero.title}
           </h1>
@@ -69,12 +60,6 @@ export default function Hero({ dict }: { dict: Dictionary }) {
           <p className="text-shadow-strong mt-7 max-w-xl text-base leading-relaxed text-white/90 sm:text-lg">
             {dict.hero.lead}
           </p>
-        </Reveal>
-
-        <Reveal delay={200}>
-          <Button href="#courses" variant="onDark" withArrow className="mt-9">
-            {dict.hero.cta}
-          </Button>
         </Reveal>
       </div>
     </section>

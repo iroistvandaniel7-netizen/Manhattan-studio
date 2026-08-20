@@ -45,12 +45,17 @@ export default function LanguageSwitcher({
         return (
           <span key={code} className="flex items-center">
             {i > 0 ? (
-              <span aria-hidden="true" className={`mx-2 h-3 w-px ${divider}`} />
+              <span
+                aria-hidden="true"
+                data-on-photo={invert ? "rule" : undefined}
+                className={`mx-2 h-3 w-px ${divider}`}
+              />
             ) : null}
             <Link
               href={hrefFor(code)}
               hrefLang={code}
               lang={code}
+              data-on-photo={invert ? "true" : undefined}
               aria-current={isActive ? "true" : undefined}
               title={localeName[code]}
               className={`link-underline label text-[0.625rem] transition-colors duration-300 ${

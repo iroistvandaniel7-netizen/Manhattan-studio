@@ -112,6 +112,7 @@ export default function Header({
             {BRAND.wordmarkTop}
           </span>
           <span
+            data-on-photo={onPhoto ? "true" : undefined}
             className={`label mt-1 block text-[0.5625rem] ${
               onPhoto ? "text-white/70" : "text-slate-500"
             }`}
@@ -145,6 +146,7 @@ export default function Header({
 
           <a
             href="#contact"
+            data-on-photo={onPhoto ? "cta" : undefined}
             className={`label hidden px-6 py-3.5 transition-colors duration-200 sm:inline-flex ${
               onPhoto
                 ? "bg-white text-blue hover:bg-blue-soft"
