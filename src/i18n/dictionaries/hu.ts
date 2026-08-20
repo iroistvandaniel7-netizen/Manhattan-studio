@@ -31,12 +31,12 @@ const hu = {
     eyebrow: "Budapest · Örs vezér tere & Óbuda",
     titleLines: ["Tanulj nyelveket.", "Nyiss új", "világokat."],
     lead: "Öt nyelv, kis csoportok, rengeteg beszélgetés. Olyan nyelvtudást építünk, amit a hétköznapokban, a munkádban és az utazásaidon is magabiztosan használsz.",
-    ctaPrimary: "Megnézem a tanfolyamokat",
+    ctaPrimary: "Kurzusok megtekintése",
     ctaSecondary: "Kapcsolat",
     scroll: "Görgess",
     badge: "Ingyenes szintfelmérés és próbaóra",
     sceneAlt:
-      "Illusztráció: a Central Park tava aranyóra idején, háttérben a manhattani felhőkarcolókkal.",
+      "Manhattan látképe naplementében: az alsó-manhattani felhőkarcolók a Hudson és az East River között.",
   },
 
   trust: {

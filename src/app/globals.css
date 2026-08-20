@@ -320,15 +320,25 @@
   will-change: auto;
 }
 
-/* Line-by-line headline reveal: each line rides up out of a clipping mask. */
+/*
+ * Line-by-line headline reveal: each line rides up out of a clipping mask.
+ *
+ * `overflow: hidden` clips at the padding box, so padding cannot be used to
+ * make room for glyphs — it would expose the span in its hidden position.
+ * Instead the span carries enough leading to contain Poppins' accents and
+ * descenders (á, ő, í, g, j all overflow a tight display line-height), and
+ * the mask is pulled back with negative margins so the visual rhythm stays
+ * tight: 1.28em box − 2 × 0.16em margin = 0.96em of line advance.
+ */
 .line-mask {
   display: block;
   overflow: hidden;
-  padding-block: 0.06em;
+  margin-block: -0.245em;
 }
 
 .line-mask > span {
   display: block;
+  line-height: 1.45;
 }
 
 [data-js] .line-mask > span {

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
@@ -21,8 +22,16 @@ export default function Header({
   const [activeId, setActiveId] = useState<string>("");
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const pathname = usePathname();
 
   const home = `/${locale}`;
+
+  /*
+   * Only the home page opens with the full-bleed photograph. While the header
+   * floats over it, the type has to invert to stay legible; everywhere else —
+   * and as soon as the cream bar fades in on scroll — it goes back to ink.
+   */
+  const onPhoto = pathname === home && !scrolled && !open;
   const nav: NavItem[] = [
     { href: home, label: dict.nav.home },
     { href: "#courses", label: dict.nav.courses },
@@ -121,7 +130,9 @@ export default function Header({
         <Link
           href={home}
           onClick={close}
-          className="group/logo shrink-0 leading-none"
+          className={`group/logo shrink-0 leading-none transition-colors duration-500 ${
+            onPhoto ? "text-white [text-shadow:0_2px_18px_rgba(4,10,18,0.7)]" : "text-ink"
+          }`}
           aria-label={BRAND.nameFull}
         >
           <span className="block text-[0.95rem] font-extrabold tracking-[0.18em] sm:text-base lg:text-[1.0625rem]">
@@ -130,9 +141,13 @@ export default function Header({
           <span className="mt-0.5 flex items-center gap-2">
             <span
               aria-hidden="true"
-              className="h-px w-0 bg-ink transition-[width] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/logo:w-6"
+              className="h-px w-0 bg-current transition-[width] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/logo:w-6"
             />
-            <span className="text-[0.5625rem] font-medium tracking-[0.34em] text-graphite-500 sm:text-[0.625rem]">
+            <span
+              className={`text-[0.5625rem] font-medium tracking-[0.34em] sm:text-[0.625rem] ${
+                onPhoto ? "text-white/75" : "text-graphite-500"
+              }`}
+            >
               {BRAND.wordmarkBottom}
             </span>
           </span>
@@ -145,7 +160,11 @@ export default function Header({
               key={item.href}
               href={item.href}
               data-active={isActive(item.href) ? "true" : "false"}
-              className="link-underline py-1 text-[0.8125rem] font-semibold tracking-[0.02em] text-graphite-700 transition-colors duration-300 hover:text-ink data-[active=true]:text-ink"
+              className={`link-underline py-1 text-[0.8125rem] font-semibold tracking-[0.02em] transition-colors duration-300 ${
+                onPhoto
+                  ? "text-white/85 [text-shadow:0_2px_14px_rgba(4,10,18,0.7)] hover:text-white data-[active=true]:text-white"
+                  : "text-graphite-700 hover:text-ink data-[active=true]:text-ink"
+              }`}
             >
               {item.label}
             </Link>
@@ -154,7 +173,11 @@ export default function Header({
 
         <div className="flex items-center gap-4 lg:gap-6">
           {/* Kept visible at every width — the switcher is a primary control. */}
-          <LanguageSwitcher locale={locale} label={dict.nav.languageLabel} />
+          <LanguageSwitcher
+            locale={locale}
+            label={dict.nav.languageLabel}
+            invert={onPhoto}
+          />
 
           <a
             href="#contact"
@@ -173,19 +196,23 @@ export default function Header({
             aria-label={open ? dict.nav.closeMenu : dict.nav.openMenu}
             className="relative z-10 flex size-11 items-center justify-center xl:hidden"
           >
-            <span className="relative block h-3.5 w-6">
+            <span
+              className={`relative block h-3.5 w-6 transition-colors duration-500 ${
+                onPhoto ? "text-white" : "text-ink"
+              }`}
+            >
               <span
-                className={`absolute left-0 block h-px w-full bg-ink transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                className={`absolute left-0 block h-px w-full bg-current transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   open ? "top-1/2 rotate-45" : "top-0"
                 }`}
               />
               <span
-                className={`absolute left-0 top-1/2 block h-px bg-ink transition-all duration-300 ${
+                className={`absolute left-0 top-1/2 block h-px bg-current transition-all duration-300 ${
                   open ? "w-0 opacity-0" : "w-full opacity-100"
                 }`}
               />
               <span
-                className={`absolute left-0 block h-px w-full bg-ink transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                className={`absolute left-0 block h-px w-full bg-current transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   open ? "top-1/2 -rotate-45" : "top-full"
                 }`}
               />

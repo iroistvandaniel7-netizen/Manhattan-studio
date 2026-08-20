@@ -32,7 +32,7 @@ const sk: Dictionary = {
     scroll: "Posúvaj",
     badge: "Rozraďovací test a ukážková hodina zdarma",
     sceneAlt:
-      "Ilustrácia: jazero v Central Parku počas zlatej hodiny, v pozadí manhattanské mrakodrapy.",
+      "Panoráma Manhattanu pri západe slnka: mrakodrapy Dolného Manhattanu medzi riekami Hudson a East River.",
   },
 
   trust: {

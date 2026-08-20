@@ -27,12 +27,12 @@ const en: Dictionary = {
     eyebrow: "Budapest · Örs vezér tere & Óbuda",
     titleLines: ["Learn languages.", "Open up new", "worlds."],
     lead: "Five languages, small groups and a lot of talking. We build the kind of language skills you actually use with confidence — in everyday life, at work and on the road.",
-    ctaPrimary: "Explore the courses",
+    ctaPrimary: "View the courses",
     ctaSecondary: "Get in touch",
     scroll: "Scroll",
     badge: "Free placement test and trial lesson",
     sceneAlt:
-      "Illustration: the Central Park lake at golden hour, with the Manhattan skyline rising behind it.",
+      "The Manhattan skyline at sunset: the towers of Lower Manhattan between the Hudson and the East River.",
   },
 
   trust: {
