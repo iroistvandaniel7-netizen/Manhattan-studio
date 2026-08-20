@@ -55,14 +55,19 @@ export default function Testimonials({ dict }: { dict: Dictionary }) {
   return (
     <section
       id="method"
-      className="border-t border-graphite-200 bg-bone py-section"
+      className="on-ink relative isolate overflow-hidden bg-park-900 py-section text-cream"
       aria-labelledby="method-title"
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(70%_90%_at_15%_0%,rgba(47,154,114,0.28),transparent_60%),radial-gradient(60%_80%_at_92%_100%,rgba(240,169,59,0.14),transparent_58%)]"
+      />
+
       <div className="container-x">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6">
             <Reveal>
-              <Eyebrow>{dict.method.eyebrow}</Eyebrow>
+              <Eyebrow invert>{dict.method.eyebrow}</Eyebrow>
             </Reveal>
             <Reveal delay={80}>
               <h2
@@ -74,7 +79,7 @@ export default function Testimonials({ dict }: { dict: Dictionary }) {
             </Reveal>
           </div>
           <Reveal delay={150} className="lg:col-span-5 lg:col-start-8 lg:pt-4">
-            <p className="text-base leading-relaxed text-graphite-600">
+            <p className="text-base leading-relaxed text-cream/70">
               {dict.method.lead}
             </p>
           </Reveal>
@@ -102,12 +107,12 @@ export default function Testimonials({ dict }: { dict: Dictionary }) {
               if (Math.abs(delta) > 48) go(index + (delta < 0 ? 1 : -1));
               touchStart.current = null;
             }}
-            className="relative border-t border-graphite-300/70"
+            className="relative border-t border-cream/20"
           >
             {/* Oversized opening quotation mark */}
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute -top-6 left-0 select-none text-[clamp(6rem,14vw,12rem)] font-extrabold leading-none tracking-[-0.06em] text-graphite-300/45 sm:-top-10"
+              className="pointer-events-none absolute -top-6 left-0 select-none text-[clamp(6rem,14vw,12rem)] font-extrabold leading-none tracking-[-0.06em] text-gold-400/30 sm:-top-10"
             >
               &ldquo;
             </span>
@@ -131,17 +136,17 @@ export default function Testimonials({ dict }: { dict: Dictionary }) {
                       }`}
                     >
                       <blockquote>
-                        <p className="max-w-4xl text-[clamp(1.375rem,3.6vw,2.75rem)] font-medium leading-[1.22] tracking-[-0.025em] text-ink">
+                        <p className="max-w-4xl text-[clamp(1.375rem,3.6vw,2.75rem)] font-medium leading-[1.22] tracking-[-0.025em] text-cream">
                           {quote.text}
                         </p>
                       </blockquote>
-                      <figcaption className="mt-8 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-graphite-500 sm:mt-10">
-                        <span aria-hidden="true" className="h-px w-8 bg-graphite-400" />
+                      <figcaption className="mt-8 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-gold-400 sm:mt-10">
+                        <span aria-hidden="true" className="h-px w-8 bg-gold-400" />
                         {quote.author ? (
-                          <span className="text-ink">
+                          <span className="text-cream">
                             {quote.author}
                             {quote.role ? (
-                              <span className="ml-2 font-medium text-graphite-500">
+                              <span className="ml-2 font-medium text-cream/60">
                                 {quote.role}
                               </span>
                             ) : null}
@@ -157,7 +162,7 @@ export default function Testimonials({ dict }: { dict: Dictionary }) {
             </div>
 
             {/* Controls */}
-            <div className="mt-12 flex items-center justify-between gap-6 border-t border-graphite-300/70 pt-6 sm:mt-16">
+            <div className="mt-12 flex items-center justify-between gap-6 border-t border-cream/20 pt-6 sm:mt-16">
               <ol className="flex items-center gap-2.5">
                 {quotes.map((_, i) => (
                   <li key={i}>
@@ -171,8 +176,8 @@ export default function Testimonials({ dict }: { dict: Dictionary }) {
                       <span
                         className={`block h-px transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                           i === index
-                            ? "w-10 bg-taxi"
-                            : "w-5 bg-graphite-400 group-hover/dot:w-8 group-hover/dot:bg-ink"
+                            ? "w-10 bg-gold-400"
+                            : "w-5 bg-cream/40 group-hover/dot:w-8 group-hover/dot:bg-cream"
                         }`}
                       />
                     </button>
@@ -185,7 +190,7 @@ export default function Testimonials({ dict }: { dict: Dictionary }) {
                   type="button"
                   onClick={() => go(index - 1)}
                   aria-label={dict.method.prev}
-                  className="flex size-12 items-center justify-center border border-graphite-300 transition-colors duration-400 hover:border-ink hover:bg-ink hover:text-paper"
+                  className="flex size-12 items-center justify-center border border-cream/30 transition-colors duration-400 hover:border-gold-400 hover:bg-gold-400 hover:text-ink"
                 >
                   <span aria-hidden="true">←</span>
                 </button>
@@ -193,7 +198,7 @@ export default function Testimonials({ dict }: { dict: Dictionary }) {
                   type="button"
                   onClick={() => go(index + 1)}
                   aria-label={dict.method.next}
-                  className="flex size-12 items-center justify-center border border-graphite-300 transition-colors duration-400 hover:border-ink hover:bg-ink hover:text-paper"
+                  className="flex size-12 items-center justify-center border border-cream/30 transition-colors duration-400 hover:border-gold-400 hover:bg-gold-400 hover:text-ink"
                 >
                   <span aria-hidden="true">→</span>
                 </button>

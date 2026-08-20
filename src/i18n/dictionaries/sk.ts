@@ -31,6 +31,8 @@ const sk: Dictionary = {
     ctaSecondary: "Kontakt",
     scroll: "Posúvaj",
     badge: "Rozraďovací test a ukážková hodina zdarma",
+    sceneAlt:
+      "Ilustrácia: jazero v Central Parku počas zlatej hodiny, v pozadí manhattanské mrakodrapy.",
   },
 
   trust: {

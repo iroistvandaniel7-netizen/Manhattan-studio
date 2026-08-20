@@ -31,6 +31,8 @@ const en: Dictionary = {
     ctaSecondary: "Get in touch",
     scroll: "Scroll",
     badge: "Free placement test and trial lesson",
+    sceneAlt:
+      "Illustration: the Central Park lake at golden hour, with the Manhattan skyline rising behind it.",
   },
 
   trust: {

@@ -35,6 +35,8 @@ const hu = {
     ctaSecondary: "Kapcsolat",
     scroll: "Görgess",
     badge: "Ingyenes szintfelmérés és próbaóra",
+    sceneAlt:
+      "Illusztráció: a Central Park tava aranyóra idején, háttérben a manhattani felhőkarcolókkal.",
   },
 
   trust: {

@@ -8,7 +8,7 @@ import Skyline from "@/components/graphics/Skyline";
 export default function CTA({ dict }: { dict: Dictionary }) {
   return (
     <section
-      className="on-ink grain relative isolate overflow-hidden bg-ink py-section text-paper"
+      className="grain relative isolate overflow-hidden bg-[linear-gradient(120deg,var(--color-gold-400)_0%,var(--color-gold-500)_28%,var(--color-sunset-500)_70%,var(--color-sunset-700)_100%)] py-section text-ink"
       aria-labelledby="cta-title"
     >
       <Parallax
@@ -16,7 +16,7 @@ export default function CTA({ dict }: { dict: Dictionary }) {
         className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 flex justify-center"
       >
         <Skyline
-          className="h-[32vh] w-[160%] max-w-none text-paper opacity-[0.16] sm:h-[36vh] sm:w-[130%] lg:h-[44vh] lg:w-[112%]"
+          className="h-[32vh] w-[160%] max-w-none text-park-900 opacity-[0.22] sm:h-[36vh] sm:w-[130%] lg:h-[44vh] lg:w-[112%]"
           variant="outline"
           strokeWidth={1}
         />
@@ -24,7 +24,7 @@ export default function CTA({ dict }: { dict: Dictionary }) {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(95%_65%_at_50%_38%,var(--color-ink)_30%,transparent_84%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(90%_60%_at_50%_36%,rgba(251,224,172,0.55),transparent_78%)]"
       />
 
       <div className="container-x relative text-center">
@@ -38,17 +38,17 @@ export default function CTA({ dict }: { dict: Dictionary }) {
         </h2>
 
         <Reveal delay={130}>
-          <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-paper/65 sm:text-lg">
+          <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-ink/75 sm:text-lg">
             {dict.cta.lead}
           </p>
         </Reveal>
 
         <Reveal delay={210}>
           <div className="mt-11 flex flex-col justify-center gap-3 sm:flex-row">
-            <Button href="#contact" variant="solid-invert" withArrow>
+            <Button href="#contact" variant="solid" withArrow>
               {dict.cta.primary}
             </Button>
-            <Button href="#contact" variant="outline-invert">
+            <Button href="#contact" variant="outline">
               {dict.cta.secondary}
             </Button>
           </div>

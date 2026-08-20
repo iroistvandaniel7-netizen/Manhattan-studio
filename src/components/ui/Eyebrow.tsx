@@ -14,10 +14,13 @@ export default function Eyebrow({
   return (
     <p
       className={`flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.26em] ${
-        invert ? "text-paper/60" : "text-graphite-500"
+        invert ? "text-gold-400" : "text-graphite-500"
       } ${className}`}
     >
-      <span aria-hidden="true" className="inline-block size-1.5 bg-taxi" />
+      <span
+        aria-hidden="true"
+        className={`inline-block size-1.5 ${invert ? "bg-gold-400" : "bg-sunset-500"}`}
+      />
       {children}
     </p>
   );

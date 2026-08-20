@@ -3,9 +3,18 @@ import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 import NoBreak from "@/components/ui/NoBreak";
 
+/* The steps are a real sequence, so the numbering carries information.
+   Colour tracks progress from first enquiry through to confident use. */
+const STEP_ACCENTS = [
+  { num: "group-hover/step:text-gold-500", rule: "bg-gold-500" },
+  { num: "group-hover/step:text-sunset-500", rule: "bg-sunset-500" },
+  { num: "group-hover/step:text-lake-600", rule: "bg-lake-600" },
+  { num: "group-hover/step:text-park-600", rule: "bg-park-600" },
+] as const;
+
 export default function Process({ dict }: { dict: Dictionary }) {
   return (
-    <section className="py-section" aria-labelledby="process-title">
+    <section className="bg-paper py-section" aria-labelledby="process-title">
       <div className="container-x">
         <div className="grid gap-8 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-6">
@@ -29,7 +38,9 @@ export default function Process({ dict }: { dict: Dictionary }) {
         </div>
 
         <ol className="mt-14 grid gap-px border-y border-graphite-200 bg-graphite-200 sm:mt-20 sm:grid-cols-2 xl:grid-cols-4">
-          {dict.process.steps.map((step, i) => (
+          {dict.process.steps.map((step, i) => {
+            const accent = STEP_ACCENTS[i % STEP_ACCENTS.length];
+            return (
             <Reveal
               as="li"
               key={step.n}
@@ -39,10 +50,12 @@ export default function Process({ dict }: { dict: Dictionary }) {
               {/* Progress rule that fills on hover */}
               <span
                 aria-hidden="true"
-                className="absolute inset-x-1 top-0 h-px origin-left scale-x-0 bg-ink transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/step:scale-x-100 sm:inset-x-6"
+                className={`absolute inset-x-1 top-0 h-[3px] origin-left scale-x-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/step:scale-x-100 sm:inset-x-6 ${accent.rule}`}
               />
 
-              <span className="text-[clamp(2.75rem,6vw,4.5rem)] font-extrabold leading-none tracking-[-0.06em] text-graphite-200 transition-colors duration-500 group-hover/step:text-ink">
+              <span
+                className={`text-[clamp(2.75rem,6vw,4.5rem)] font-extrabold leading-none tracking-[-0.06em] text-graphite-400 transition-colors duration-500 ${accent.num}`}
+              >
                 {step.n}
               </span>
 
@@ -53,7 +66,8 @@ export default function Process({ dict }: { dict: Dictionary }) {
                 </p>
               </div>
             </Reveal>
-          ))}
+            );
+          })}
         </ol>
       </div>
     </section>

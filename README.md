@@ -3,10 +3,16 @@
 Trilingual (HU / SK / EN) marketing site for Manhattan Nyelvstúdió, built as a
 statically-generated Next.js app.
 
-**Design direction:** editorial, monochrome, New York. Pure black-and-white with a
-single micro-accent, oversized Poppins display type, hairline rules, sharp corners,
-and hand-drawn Manhattan line-art (skyline, Brooklyn Bridge, street grid) layered
-into the backgrounds.
+**Design direction:** a golden-hour Central Park poster. The hero is a hand-built
+illustration — the lake in the foreground, the Midtown skyline behind the tree line —
+rendered as three parallaxing SVG layers with drifting clouds, shimmering water,
+twinkling windows and a bird crossing the frame.
+
+Colour follows a warm New York palette (park greens, gold, sunset coral, lake teal on
+cream), and each section takes its own ground so scrolling moves through a sequence of
+colour fields rather than one flat wash: bright hero → deep park green → cream →
+midnight → sunset. Type is Poppins throughout, pushed hard on weight contrast: 800 for
+display, wide-tracked uppercase for utility labels.
 
 ---
 
@@ -135,8 +141,12 @@ Routing, `hreflang`, the sitemap, and the language switcher all derive from `loc
 - Carousel is keyboard-operable (←/→), swipeable, pauses on hover/focus/tab-away, and
   announces position via `aria-live`.
 - Focus rings are visible everywhere and invert on dark sections.
-- **`prefers-reduced-motion: reduce` disables every animation** and resolves all
-  scroll-reveals to their final state, so no content can stay hidden.
+- **`prefers-reduced-motion: reduce` disables every animation** — including the
+  scene's clouds, shimmer, twinkle and sway — and resolves all scroll-reveals and
+  gradient text fills to their final state, so no content can stay hidden or unpainted.
+- Text contrast was audited against WCAG AA across the palette. Where copy sits on the
+  illustration rather than a flat colour, it carries a text-shadow so it cannot fall
+  below threshold if the scene shifts.
 - Scroll reveals are progressive: the hidden state is armed by a `data-js` attribute,
   so without JavaScript the full page renders normally.
 
@@ -161,11 +171,18 @@ src/
 │   │                      Process, Testimonials, CTA, Contact, ContactForm
 │   ├── ui/                Button, Eyebrow, Reveal, Parallax, Counter,
 │   │                      Marquee, NoBreak
-│   └── graphics/          Skyline, BridgeLines, GridMap, Icons
+│   └── graphics/          CentralPark, Skyline, BridgeLines, GridMap, Icons
 ├── i18n/                  config, dictionaries, types
 ├── lib/site.ts            all studio facts
 └── proxy.ts               locale redirect
 ```
 
 All Manhattan artwork is hand-built SVG in `components/graphics` — no stock imagery
-and no third-party assets, so there is nothing to license.
+and no third-party assets, so there is nothing to license. `CentralPark.tsx` holds the
+hero illustration as three layers (`ParkSky`, `ParkSkyline`, `ParkWater`) sharing one
+viewBox; the Hero parallaxes them at different speeds for depth.
+
+Because the layers are sliced to cover, they crop hard from the sides on narrow
+screens. Everything that carries the picture — sun, landmark towers, tree clusters,
+boats — is kept inside the central band of the viewBox so the scene still reads on a
+phone. Keep new elements inside roughly x 560–1050.

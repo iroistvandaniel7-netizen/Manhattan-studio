@@ -112,7 +112,7 @@ export default function Header({
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color,box-shadow] duration-500 ${
         scrolled || open
-          ? "border-b border-graphite-200 bg-paper/80 backdrop-blur-xl"
+          ? "border-b border-graphite-200 bg-cream/85 shadow-[0_10px_40px_-28px_rgba(10,40,32,0.5)] backdrop-blur-xl"
           : "border-b border-transparent bg-transparent"
       }`}
     >
@@ -158,7 +158,7 @@ export default function Header({
 
           <a
             href="#contact"
-            className="hidden bg-ink px-6 py-3.5 text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-paper transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_12px_26px_-12px_rgba(10,10,10,0.6)] sm:inline-flex"
+            className="hidden bg-[linear-gradient(100deg,var(--color-gold-500),var(--color-sunset-500))] px-6 py-3.5 text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-ink transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-12px_rgba(228,87,46,0.7)] sm:inline-flex"
           >
             {dict.nav.cta}
           </a>

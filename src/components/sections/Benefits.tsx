@@ -4,11 +4,23 @@ import Reveal from "@/components/ui/Reveal";
 import NoBreak from "@/components/ui/NoBreak";
 import { BENEFIT_ICONS } from "@/components/graphics/Icons";
 
+/**
+ * Each benefit tile takes a colour from the palette. The cycle is longer than
+ * any single screenful, so a scrolling reader never sees the same pairing
+ * twice in a row.
+ */
+const BENEFIT_ACCENTS = [
+  { tile: "border-park-600 bg-park-100", icon: "text-park-800" },
+  { tile: "border-gold-500 bg-gold-200", icon: "text-gold-600" },
+  { tile: "border-lake-600 bg-lake-300/40", icon: "text-lake-700" },
+  { tile: "border-sunset-500 bg-sunset-300/35", icon: "text-sunset-700" },
+] as const;
+
 export default function Benefits({ dict }: { dict: Dictionary }) {
   return (
     <section
       id="why"
-      className="border-t border-graphite-200 bg-bone py-section"
+      className="border-t border-graphite-200 bg-cream py-section"
       aria-labelledby="why-title"
     >
       <div className="container-x">
@@ -39,6 +51,7 @@ export default function Benefits({ dict }: { dict: Dictionary }) {
           <ul className="lg:col-span-7">
             {dict.benefits.items.map((item, i) => {
               const Icon = BENEFIT_ICONS[i] ?? BENEFIT_ICONS[0];
+              const accent = BENEFIT_ACCENTS[i % BENEFIT_ACCENTS.length];
               return (
                 <Reveal
                   as="li"
@@ -47,8 +60,10 @@ export default function Benefits({ dict }: { dict: Dictionary }) {
                   className="group/row border-t border-graphite-300/70 last:border-b"
                 >
                   <div className="flex items-start gap-5 py-7 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-2 sm:gap-8 sm:py-9">
-                    <span className="relative mt-0.5 flex size-11 shrink-0 items-center justify-center border border-graphite-300 transition-colors duration-500 group-hover/row:border-ink group-hover/row:bg-ink sm:size-12">
-                      <Icon className="size-5 transition-colors duration-500 group-hover/row:text-paper sm:size-[1.375rem]" />
+                    <span
+                      className={`relative mt-0.5 flex size-11 shrink-0 items-center justify-center border transition-all duration-500 group-hover/row:scale-105 sm:size-12 ${accent.tile}`}
+                    >
+                      <Icon className={`size-5 sm:size-[1.375rem] ${accent.icon}`} />
                     </span>
                     <div>
                       <h3 className="text-lg font-bold tracking-[-0.02em] sm:text-xl">
@@ -60,7 +75,7 @@ export default function Benefits({ dict }: { dict: Dictionary }) {
                     </div>
                     <span
                       aria-hidden="true"
-                      className="ml-auto hidden self-center text-graphite-300 opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-1 group-hover/row:text-ink group-hover/row:opacity-100 sm:block"
+                      className="ml-auto hidden self-center text-graphite-300 opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/row:translate-x-1 group-hover/row:text-sunset-600 group-hover/row:opacity-100 sm:block"
                     >
                       →
                     </span>

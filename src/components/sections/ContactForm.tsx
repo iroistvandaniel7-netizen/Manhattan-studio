@@ -103,8 +103,8 @@ export default function ContactForm({
 
   if (status === "success") {
     return (
-      <div className="flex min-h-[28rem] flex-col justify-center border border-ink p-8 sm:p-12">
-        <span aria-hidden="true" className="mb-6 inline-block size-2 bg-taxi" />
+      <div className="flex min-h-[28rem] flex-col justify-center border-2 border-park-600 bg-park-100/50 p-8 sm:p-12">
+        <span aria-hidden="true" className="mb-6 inline-block size-2 bg-park-500" />
         <h3 className="text-[clamp(1.75rem,3.4vw,2.5rem)] font-bold tracking-[-0.03em]">
           {t.successTitle}
         </h3>
@@ -129,7 +129,7 @@ export default function ContactForm({
       ref={formRef}
       onSubmit={onSubmit}
       noValidate
-      className="flex h-full flex-col border border-graphite-200 p-6 sm:p-10"
+      className="flex h-full flex-col border border-graphite-200 bg-paper p-6 shadow-[0_20px_60px_-40px_rgba(20,18,15,0.4)] sm:p-10"
     >
       <h3 className="text-lg font-bold tracking-[-0.02em]">{t.title}</h3>
 
@@ -138,7 +138,7 @@ export default function ContactForm({
         ref={summaryRef}
         tabIndex={-1}
         role={invalidCount ? "alert" : undefined}
-        className={invalidCount ? "mt-6 border-l-2 border-ink bg-graphite-50 p-4" : "sr-only"}
+        className={invalidCount ? "mt-6 border-l-2 border-sunset-500 bg-sunset-300/20 p-4" : "sr-only"}
       >
         {invalidCount ? (
           <p className="text-[0.8125rem] leading-relaxed text-graphite-700">
@@ -198,8 +198,8 @@ export default function ContactForm({
             defaultValue=""
             aria-invalid={errors.language ? "true" : undefined}
             aria-describedby={errors.language ? errorId("language") : undefined}
-            className={`mt-2.5 w-full appearance-none border-b bg-transparent bg-[length:1rem] bg-[right_0.1rem_center] bg-no-repeat py-3 pr-7 text-sm transition-colors duration-300 focus:border-ink focus:outline-none ${
-              errors.language ? "border-ink" : "border-graphite-300"
+            className={`mt-2.5 w-full appearance-none border-b-2 bg-transparent bg-[length:1rem] bg-[right_0.1rem_center] bg-no-repeat py-3 pr-7 text-sm transition-colors duration-300 focus:border-sunset-500 focus:outline-none ${
+              errors.language ? "border-sunset-600" : "border-graphite-300"
             }`}
             style={{
               backgroundImage:
@@ -236,8 +236,8 @@ export default function ContactForm({
           placeholder={t.messagePlaceholder}
           aria-invalid={errors.message ? "true" : undefined}
           aria-describedby={errors.message ? errorId("message") : undefined}
-          className={`mt-2.5 w-full resize-y border-b bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-graphite-300 focus:border-ink focus:outline-none ${
-            errors.message ? "border-ink" : "border-graphite-300"
+          className={`mt-2.5 w-full resize-y border-b-2 bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-graphite-400 focus:border-sunset-500 focus:outline-none ${
+            errors.message ? "border-sunset-600" : "border-graphite-300"
           }`}
         />
         <FieldError id={errorId("message")} message={errors.message} />
@@ -254,7 +254,7 @@ export default function ContactForm({
         <button
           type="submit"
           disabled={status === "sending"}
-          className="group/submit inline-flex w-full items-center justify-center gap-3 bg-ink px-8 py-4.5 text-[0.8125rem] font-semibold uppercase tracking-[0.14em] text-paper transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_14px_30px_-12px_rgba(10,10,10,0.55)] disabled:cursor-wait disabled:opacity-60 disabled:hover:translate-y-0 sm:w-auto"
+          className="group/submit inline-flex w-full items-center justify-center gap-3 bg-[linear-gradient(100deg,var(--color-gold-500),var(--color-sunset-500))] px-8 py-4.5 text-[0.8125rem] font-semibold uppercase tracking-[0.14em] text-ink transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_16px_36px_-12px_rgba(228,87,46,0.65)] disabled:cursor-wait disabled:opacity-60 disabled:hover:translate-y-0 sm:w-auto"
         >
           {status === "sending" ? t.sending : t.submit}
           {status === "sending" ? null : (
@@ -269,7 +269,7 @@ export default function ContactForm({
 
         {/* Delivery failure: always paired with a phone number that works. */}
         {failure ? (
-          <div role="alert" className="mt-6 border-l-2 border-ink bg-graphite-50 p-4">
+          <div role="alert" className="mt-6 border-l-2 border-sunset-500 bg-sunset-300/20 p-4">
             <p className="text-[0.8125rem] leading-relaxed text-graphite-700">{failure}</p>
             <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
               {PHONES.map((phone) => (
@@ -330,7 +330,7 @@ function Field({
           {label} {required ? <span aria-hidden="true">*</span> : null}
         </span>
         {hint ? (
-          <span className="font-medium normal-case tracking-normal text-graphite-400">
+          <span className="font-medium normal-case tracking-normal text-graphite-500">
             ({hint})
           </span>
         ) : null}
@@ -342,8 +342,8 @@ function Field({
         required={required}
         aria-invalid={error ? "true" : undefined}
         aria-describedby={error ? errorId : undefined}
-        className={`mt-2.5 w-full border-b bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-graphite-300 focus:border-ink focus:outline-none ${
-          error ? "border-ink" : "border-graphite-300"
+        className={`mt-2.5 w-full border-b-2 bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-graphite-400 focus:border-sunset-500 focus:outline-none ${
+          error ? "border-sunset-600" : "border-graphite-300"
         }`}
         {...rest}
       />

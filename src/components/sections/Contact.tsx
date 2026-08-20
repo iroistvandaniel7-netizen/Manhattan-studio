@@ -17,7 +17,7 @@ export default function Contact({
   return (
     <section
       id="contact"
-      className="border-t border-graphite-200 py-section"
+      className="border-t border-graphite-200 bg-cream py-section"
       aria-labelledby="contact-title"
     >
       <div className="container-x">
@@ -61,7 +61,7 @@ export default function Contact({
                             href={mapsUrl(location.mapQuery)}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="link-underline mt-2 inline-block text-xs font-semibold tracking-[0.02em] text-graphite-500 hover:text-ink"
+                            className="link-underline mt-2 inline-block text-xs font-semibold tracking-[0.02em] text-lake-700 hover:text-sunset-600"
                           >
                             {dict.contact.openMap} ↗
                           </a>

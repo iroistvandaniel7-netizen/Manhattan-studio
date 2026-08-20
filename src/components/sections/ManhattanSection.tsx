@@ -15,7 +15,7 @@ export default function ManhattanSection({ dict }: { dict: Dictionary }) {
   return (
     <section
       id="manhattan"
-      className="on-ink grain relative isolate overflow-hidden bg-ink py-section text-paper"
+      className="on-ink grain relative isolate overflow-hidden bg-midnight py-section text-cream"
       aria-labelledby="manhattan-title"
     >
       {/* --- Background layer ------------------------------------------ */}
@@ -25,14 +25,14 @@ export default function ManhattanSection({ dict }: { dict: Dictionary }) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-1/2 -z-10 -translate-y-1/2 select-none text-center"
       >
-        <span className="block text-[26vw] font-extrabold leading-none tracking-[-0.06em] text-paper/[0.045]">
+        <span className="block text-[26vw] font-extrabold leading-none tracking-[-0.06em] text-gold-400/[0.07]">
           MANHATTAN
         </span>
       </div>
 
       <Parallax
         speed={0.08}
-        className="pointer-events-none absolute -left-[10%] top-[6%] -z-10 w-[78vw] max-w-3xl text-paper opacity-[0.14] lg:left-[-4%] lg:w-[42vw]"
+        className="pointer-events-none absolute -left-[10%] top-[6%] -z-10 w-[78vw] max-w-3xl text-lake-300 opacity-[0.2] lg:left-[-4%] lg:w-[42vw]"
       >
         <BridgeLines className="h-auto w-full" strokeWidth={1.1} />
       </Parallax>
@@ -42,15 +42,20 @@ export default function ManhattanSection({ dict }: { dict: Dictionary }) {
         className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 flex justify-center"
       >
         <Skyline
-          className="h-[30vh] w-[150%] max-w-none text-paper opacity-[0.2] sm:h-[34vh] sm:w-[124%] lg:h-[42vh] lg:w-[108%]"
+          className="h-[30vh] w-[150%] max-w-none text-lake-300 opacity-[0.26] sm:h-[34vh] sm:w-[124%] lg:h-[42vh] lg:w-[108%]"
           variant="outline"
           strokeWidth={1}
         />
       </Parallax>
 
+      {/* Sodium-light glow rising off the city, plus a cold sky above it */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(105%_70%_at_50%_45%,var(--color-ink)_28%,transparent_82%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_70%_at_50%_115%,rgba(240,169,59,0.3),transparent_58%),radial-gradient(90%_60%_at_78%_106%,rgba(228,87,46,0.22),transparent_55%),radial-gradient(100%_70%_at_50%_-10%,rgba(29,79,92,0.55),transparent_60%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(100%_66%_at_50%_44%,var(--color-midnight)_24%,transparent_84%)]"
       />
 
       {/* --- Content --------------------------------------------------- */}
@@ -69,7 +74,7 @@ export default function ManhattanSection({ dict }: { dict: Dictionary }) {
               </h2>
             </Reveal>
             <Reveal delay={170}>
-              <p className="mt-8 max-w-2xl text-base leading-relaxed text-paper/65 sm:text-lg">
+              <p className="mt-8 max-w-2xl text-base leading-relaxed text-cream/70 sm:text-lg">
                 {dict.manhattan.lead}
               </p>
             </Reveal>
@@ -82,17 +87,17 @@ export default function ManhattanSection({ dict }: { dict: Dictionary }) {
                 <Reveal
                   key={point.k}
                   delay={220 + i * 90}
-                  className="group/pt border-t border-paper/20 py-6 last:border-b sm:py-7"
+                  className="group/pt border-t border-cream/20 py-6 last:border-b sm:py-7"
                 >
                   <dt className="flex items-baseline gap-4">
-                    <span className="text-[0.6875rem] font-semibold tabular-nums tracking-[0.2em] text-paper/40">
+                    <span className="text-[0.6875rem] font-semibold tabular-nums tracking-[0.2em] text-gold-400">
                       0{i + 1}
                     </span>
                     <span className="text-xl font-bold tracking-[-0.02em] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/pt:translate-x-1.5 sm:text-2xl">
                       {point.k}
                     </span>
                   </dt>
-                  <dd className="mt-2.5 pl-[2.4rem] text-sm leading-relaxed text-paper/60">
+                  <dd className="mt-2.5 pl-[2.4rem] text-sm leading-relaxed text-cream/65">
                     {point.v}
                   </dd>
                 </Reveal>
@@ -103,12 +108,12 @@ export default function ManhattanSection({ dict }: { dict: Dictionary }) {
       </div>
 
       {/* Marquee band */}
-      <div className="relative mt-16 border-y border-paper/15 py-5 sm:mt-24">
+      <div className="relative mt-16 border-y border-cream/15 py-5 sm:mt-24">
         <Marquee
           text={dict.manhattan.marquee}
           repeat={3}
           className="edge-fade"
-          itemClassName="px-2 text-[clamp(1.5rem,3.4vw,2.75rem)] font-extrabold uppercase tracking-[-0.02em] text-paper/25 whitespace-pre"
+          itemClassName="px-2 text-[clamp(1.5rem,3.4vw,2.75rem)] font-extrabold uppercase tracking-[-0.02em] text-gold-400/30 whitespace-pre"
         />
       </div>
     </section>

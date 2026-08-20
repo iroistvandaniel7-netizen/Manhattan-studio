@@ -28,9 +28,15 @@ export default function LanguageSwitcher({
     return segments.join("/") || `/${target}`;
   };
 
-  const idle = invert ? "text-paper/55" : "text-graphite-400";
-  const active = invert ? "text-paper" : "text-ink";
-  const divider = invert ? "bg-paper/25" : "bg-graphite-300";
+  /*
+   * Full class strings, never interpolated fragments: Tailwind scans source
+   * text, so a constructed `hover:${...}` would never be generated.
+   */
+  const idle = invert
+    ? "text-cream/70 hover:text-gold-400"
+    : "text-graphite-500 hover:text-ink";
+  const active = invert ? "text-gold-400" : "text-ink";
+  const divider = invert ? "bg-cream/30" : "bg-graphite-300";
 
   return (
     <nav aria-label={label} className={`flex items-center ${className}`}>
@@ -48,7 +54,7 @@ export default function LanguageSwitcher({
               aria-current={isActive ? "true" : undefined}
               title={localeName[code]}
               className={`link-underline text-xs font-semibold tracking-[0.12em] transition-colors duration-300 ${
-                isActive ? active : `${idle} hover:${invert ? "text-paper" : "text-ink"}`
+                isActive ? active : idle
               }`}
               data-active={isActive ? "true" : "false"}
             >

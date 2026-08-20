@@ -1,79 +1,94 @@
 import type { Dictionary } from "@/i18n";
 import Button from "@/components/ui/Button";
-import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 import Parallax from "@/components/ui/Parallax";
-import Skyline from "@/components/graphics/Skyline";
-import GridMap from "@/components/graphics/GridMap";
+import { ParkSky, ParkSkyline, ParkWater } from "@/components/graphics/CentralPark";
 
+/**
+ * Full-bleed Central Park at golden hour.
+ *
+ * The three scene layers parallax at increasing speeds, so the sky drifts
+ * slowly behind a skyline that drifts behind the water.
+ *
+ * Contrast strategy: rather than dropping a heavy scrim over the whole frame
+ * — which drains the colour the scene exists for — the headline sits in the
+ * bright upper sky as dark ink with a soft light halo, and the supporting
+ * copy sits in a frosted cream panel. The lake stays fully saturated.
+ */
 export default function Hero({ dict }: { dict: Dictionary }) {
+  const lines = dict.hero.titleLines;
+
   return (
+    // The heavier bottom padding on small screens lifts the card clear of the
+    // foreground bank, so the park still reads underneath it.
     <section
-      className="relative isolate overflow-hidden pt-32 pb-20 sm:pt-40 lg:pt-48 lg:pb-28"
+      className="relative isolate flex min-h-[100svh] flex-col justify-between overflow-hidden pt-28 pb-24 sm:pt-32 sm:pb-14 lg:pt-36"
       aria-labelledby="hero-title"
     >
-      {/* --- Background layer ------------------------------------------ */}
+      {/* --- Scene ------------------------------------------------------ */}
+      <div className="absolute inset-0 -z-10" role="img" aria-label={dict.hero.sceneAlt}>
+        <Parallax speed={0.04} className="absolute inset-0">
+          <ParkSky className="h-full w-full" />
+        </Parallax>
 
-      {/* Street grid, bleeding off the right edge for an editorial crop. */}
-      <Parallax
-        speed={0.06}
-        className="pointer-events-none absolute -right-[28%] -top-[14%] -z-10 w-[110vw] max-w-none text-graphite-300 opacity-[0.16] sm:-right-[18%] lg:right-[-8%] lg:w-[62vw] lg:opacity-[0.2]"
-      >
-        <GridMap className="h-auto w-full" strokeWidth={0.9} />
-      </Parallax>
+        <Parallax speed={0.09} className="absolute inset-0">
+          <ParkSkyline className="h-full w-full" />
+        </Parallax>
 
-      {/* Skyline, deliberately running past the viewport edges. */}
-      <Parallax
-        speed={0.1}
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 flex justify-center"
-      >
-        <Skyline
-          className="h-[38vh] w-[150%] max-w-none text-graphite-400 opacity-[0.28] sm:h-[42vh] sm:w-[128%] lg:h-[54vh] lg:w-[112%] lg:opacity-[0.22]"
-          variant="outline"
-          strokeWidth={1.1}
-        />
-      </Parallax>
+        <Parallax speed={0.15} className="absolute inset-0">
+          <ParkWater className="h-full w-full" />
+        </Parallax>
+      </div>
 
-      {/* Softens the graphics behind the text so contrast never suffers. */}
+      {/* Warm poster wash tying the frame together. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(120%_85%_at_18%_28%,var(--color-paper)_38%,transparent_78%)]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-paper to-transparent"
+        className="pointer-events-none absolute inset-0 -z-10 mix-blend-soft-light bg-[radial-gradient(70%_48%_at_62%_44%,rgba(255,198,105,0.55),transparent_72%)]"
       />
 
-      {/* --- Content --------------------------------------------------- */}
-      <div className="container-x">
+      {/* A light lift behind the header only, so the nav stays legible. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-32 bg-[linear-gradient(to_bottom,rgba(253,250,243,0.72),transparent)]"
+      />
+
+      {/* --- Headline, over the open sky -------------------------------- */}
+      <div className="container-x relative">
         <Reveal>
-          <Eyebrow>{dict.hero.eyebrow}</Eyebrow>
+          <p className="flex items-center gap-3 text-[0.6875rem] font-semibold uppercase tracking-[0.26em] text-park-900">
+            <span aria-hidden="true" className="inline-block size-1.5 bg-sunset-600" />
+            {dict.hero.eyebrow}
+          </p>
         </Reveal>
 
         <h1
           id="hero-title"
-          className="mt-7 text-[clamp(2.75rem,10.5vw,8.5rem)] font-extrabold leading-[0.92] tracking-[-0.045em] sm:mt-9"
+          className="mt-5 text-[clamp(2.5rem,7.6vw,6.25rem)] font-extrabold leading-[0.94] tracking-[-0.045em] text-ink [text-shadow:0_2px_30px_rgba(253,250,243,0.7)] sm:mt-7"
         >
-          {dict.hero.titleLines.map((line, i) => (
+          {lines.map((line, i) => (
             <Reveal key={line} className="line-mask" delay={i * 110}>
-              <span>{line}</span>
+              {/* The closing line takes the accent, so the eye lands there. */}
+              <span className={i === lines.length - 1 ? "text-sunset-700" : undefined}>
+                {line}
+              </span>
             </Reveal>
           ))}
         </h1>
+      </div>
 
-        <div className="mt-10 grid gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-16">
-          <Reveal delay={140} className="lg:col-span-6 xl:col-span-5">
-            <p className="max-w-xl text-base leading-relaxed text-graphite-600 sm:text-lg">
+      {/*
+       * Frosted content card, deliberately kept to the left third so the
+       * lake, the boats and the far shore stay in view beside it.
+       */}
+      <div className="container-x relative mt-8 flex items-end justify-between gap-8">
+        <Reveal delay={160} className="w-full max-w-xl">
+          <div className="border border-cream/60 bg-cream/85 p-5 shadow-[0_24px_60px_-30px_rgba(10,40,32,0.6)] backdrop-blur-xl sm:p-7">
+            <p className="text-[0.9375rem] leading-relaxed text-graphite-700 sm:text-[1.0625rem]">
               {dict.hero.lead}
             </p>
-          </Reveal>
 
-          <Reveal
-            delay={220}
-            className="flex flex-col gap-5 lg:col-span-6 lg:items-end xl:col-span-7"
-          >
-            <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Button href="#courses" variant="solid" withArrow>
+            <div className="mt-5 flex flex-col gap-2.5 sm:mt-6 sm:flex-row">
+              <Button href="#courses" variant="sunset" withArrow>
                 {dict.hero.ctaPrimary}
               </Button>
               <Button href="#contact" variant="outline">
@@ -81,26 +96,29 @@ export default function Hero({ dict }: { dict: Dictionary }) {
               </Button>
             </div>
 
-            <p className="flex items-center gap-2.5 text-xs font-medium tracking-[0.02em] text-graphite-500">
-              <span aria-hidden="true" className="inline-block size-1.5 bg-taxi" />
+            <p className="mt-6 flex items-center gap-2.5 border-t border-graphite-200 pt-5 text-xs font-semibold text-park-800">
+              <span
+                aria-hidden="true"
+                className="inline-block size-1.5 animate-float bg-park-500 motion-reduce:animate-none"
+              />
               {dict.hero.badge}
             </p>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
 
-        {/* Scroll cue */}
+        {/* Scroll cue, sitting out on the open water */}
         <Reveal
-          delay={320}
-          className="mt-16 hidden items-center gap-4 lg:mt-24 lg:flex"
+          delay={260}
+          className="hidden shrink-0 flex-col items-center gap-3 pb-2 lg:flex"
         >
-          <span className="relative block h-12 w-px overflow-hidden bg-graphite-200">
+          <span className="text-[0.625rem] font-semibold uppercase tracking-[0.28em] text-cream [text-shadow:0_1px_10px_rgba(6,22,18,0.9)] [writing-mode:vertical-rl]">
+            {dict.hero.scroll}
+          </span>
+          <span className="relative block h-14 w-px overflow-hidden bg-cream/40">
             <span
               aria-hidden="true"
-              className="absolute inset-x-0 top-0 block h-1/2 animate-scroll-cue bg-ink motion-reduce:animate-none"
+              className="absolute inset-x-0 top-0 block h-1/2 animate-scroll-cue bg-gold-400 motion-reduce:animate-none"
             />
-          </span>
-          <span className="text-[0.625rem] font-semibold uppercase tracking-[0.28em] text-graphite-400">
-            {dict.hero.scroll}
           </span>
         </Reveal>
       </div>
