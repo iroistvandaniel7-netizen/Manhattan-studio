@@ -238,22 +238,16 @@ export type Place = {
   code: string;
   lon: number;
   lat: number;
-  label?: { dx: number; dy: number; anchor: "start" | "end" };
+  /** Preferred side for a label anchored at this point. */
+  label: { dx: number; dy: number; anchor: "start" | "end" };
 };
 
 /** Every place one language is spoken, in degrees — what the globe works in. */
 export function placesFor(code: string): Place[] {
   return (LANGUAGE_REGIONS[code] ?? []).flatMap((key) => {
     const region = REGIONS[key];
-    return region.points.map(([lon, lat], i) => ({
-      key,
-      code,
-      lon,
-      lat,
-      ...(i === 0
-        ? { label: { dx: region.dx, dy: region.dy, anchor: region.anchor } }
-        : {}),
-    }));
+    const label = { dx: region.dx, dy: region.dy, anchor: region.anchor };
+    return region.points.map(([lon, lat]) => ({ key, code, lon, lat, label }));
   });
 }
 

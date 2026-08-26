@@ -57,14 +57,10 @@ const hu = {
     eyebrow: "Nyelvek",
     title: "Amit tanítunk",
     lead: "Hét nyelv, kezdő szinttől haladóig.",
-    levels: "Kezdőtől haladóig",
     map: {
-      caption: "A hét nyelv a világtérképen",
-      hint: "Válassz nyelvet — megmutatjuk, hol beszélik.",
-      all: "Mind a hét",
+      caption: "A hét nyelv a világtérképen, Dunaszerdahelyről nézve",
+      drag: "Húzd a földgömböt",
       spokenIn: "Hol beszélik",
-      greetingLabel: "Így köszönnek",
-      reset: "Vissza a világtérképhez",
     },
     /* Országok, ahol az adott nyelv hivatalos vagy mindennapi használatban van. */
     regions: {

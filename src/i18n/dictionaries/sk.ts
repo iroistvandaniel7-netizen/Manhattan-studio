@@ -45,14 +45,10 @@ const sk: Dictionary = {
     eyebrow: "Jazyky",
     title: "Čo učíme",
     lead: "Sedem jazykov, od začiatočníkov po pokročilých.",
-    levels: "Od začiatočníkov po pokročilých",
     map: {
-      caption: "Sedem jazykov na mape sveta",
-      hint: "Vyberte jazyk — ukážeme, kde sa ním hovorí.",
-      all: "Všetkých sedem",
+      caption: "Sedem jazykov na mape sveta, z pohľadu Dunajskej Stredy",
+      drag: "Potiahnite zemeguľu",
       spokenIn: "Kde sa ním hovorí",
-      greetingLabel: "Takto pozdravia",
-      reset: "Späť na mapu sveta",
     },
     regions: {
       gb: "Spojené kráľovstvo",

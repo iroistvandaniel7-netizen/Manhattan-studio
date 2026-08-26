@@ -45,14 +45,10 @@ const en: Dictionary = {
     eyebrow: "Languages",
     title: "What we teach",
     lead: "Seven languages, from beginner to advanced.",
-    levels: "Beginner to advanced",
     map: {
-      caption: "The seven languages on the world map",
-      hint: "Pick a language — we'll mark where it is spoken.",
-      all: "All seven",
+      caption: "The seven languages on the world map, seen from Dunajská Streda",
+      drag: "Drag the globe",
       spokenIn: "Where it's spoken",
-      greetingLabel: "How they say hello",
-      reset: "Back to the world map",
     },
     regions: {
       gb: "United Kingdom",
