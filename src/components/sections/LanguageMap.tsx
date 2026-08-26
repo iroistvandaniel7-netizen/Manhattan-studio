@@ -1,18 +1,14 @@
 "use client";
 
-import { useId, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import type { Dictionary } from "@/i18n";
 import { FLAGS } from "@/components/graphics/Flags";
+import DotBoard from "@/components/graphics/DotBoard";
+import Globe, { viewCentre, type GlobePoint } from "@/components/graphics/Globe";
 import {
-  DOT,
-  DOT_FIELD,
   LANGUAGE_REGIONS,
-  MAP_H,
-  MAP_W,
-  STEP_PX,
-  STUDIO,
-  markersFor,
-  routeTo,
+  STUDIO_LONLAT,
+  placesFor,
   type RegionKey,
 } from "@/components/graphics/worldMap";
 import { GREETINGS } from "@/lib/site";
@@ -20,19 +16,19 @@ import { GREETINGS } from "@/lib/site";
 type Languages = Dictionary["languages"];
 
 /**
- * The seven languages on a destination board.
+ * The seven languages on a globe.
  *
- * The board is a lamp matrix — every cell of the grid is a lamp, the ones over
- * land are lit — and the studio sits on it as an open ring in Dunajská Streda.
- * Choosing a language marks every place it is spoken and draws the route there
- * from the classroom, so the graphic answers the question a list cannot: how
- * far this language actually takes you. English opens onto four continents;
- * Slovak lands on the studio's own doorstep.
+ * Real Natural Earth coastlines on a lit sphere, turning slowly and draggable.
+ * The studio in Dunajská Streda is marked on it, and choosing a language marks
+ * every place that language is spoken and arcs a great circle to each one from
+ * the classroom — so the graphic answers what a list of seven names cannot: how
+ * far this language takes you. English opens onto four continents; Slovak lands
+ * where the globe was already pointing.
  *
- * The board is deliberately not zoomable. At one lamp per five degrees a zoom
- * would only enlarge the grain, and the places named under the map already say
- * everything the picture does — which is also why the board is `aria-hidden`
- * and the language list beside it is the real control.
+ * The globe is decoration in the accessibility tree. The language buttons and
+ * the places named under it are the content, and they carry everything the
+ * picture shows. Until the coastline data arrives — and for good if scripting
+ * never runs — a flat board holds the same information in the first response.
  */
 export default function LanguageMap({
   dict,
@@ -41,205 +37,69 @@ export default function LanguageMap({
   dict: Languages;
   city: string;
 }) {
-  const uid = useId();
   const [active, setActive] = useState<string | null>(null);
+  const [ready, setReady] = useState(false);
+  const onReady = useCallback(() => setReady(true), []);
 
-  const markers = useMemo(
-    () => dict.items.flatMap((language) => markersFor(language.code)),
-    [dict.items],
+  const points = useMemo<GlobePoint[]>(
+    () =>
+      dict.items.flatMap((language) =>
+        placesFor(language.code).map((place) => ({
+          key: place.key,
+          lon: place.lon,
+          lat: place.lat,
+          label: place.label,
+          lit: active === null ? false : place.code === active,
+        })),
+      ),
+    [dict.items, active],
   );
 
-  const routes = useMemo(() => {
-    if (!active) return [];
-    return markersFor(active)
-      .map((marker) => ({ key: marker.key, d: routeTo(marker) }))
-      .filter((route): route is { key: RegionKey; d: string } => route.d !== null);
-  }, [active]);
+  const routes = useMemo<[number, number][]>(
+    () => (active ? placesFor(active).map((place) => [place.lon, place.lat]) : []),
+    [active],
+  );
+
+  const focus = useMemo<[number, number] | null>(
+    () =>
+      active
+        ? viewCentre([STUDIO_LONLAT, ...routes, ...routes], STUDIO_LONLAT)
+        : null,
+    [active, routes],
+  );
 
   const selected = dict.items.find((language) => language.code === active) ?? null;
   const regions: RegionKey[] = active ? (LANGUAGE_REGIONS[active] ?? []) : [];
 
   return (
     <div className="on-dark mt-12 border-2 border-ink bg-ink text-white sm:mt-16">
-      <div className="grid lg:grid-cols-[minmax(0,1fr)_15.5rem]">
-        {/* --- The board --- */}
-        <div className="order-1 border-b border-white/12 lg:order-none lg:border-b-0 lg:border-r">
-          <div className="relative overflow-hidden">
-            {/*
-              The board keeps the whole world at every width, so on a phone it
-              is only a few hundred pixels wide. Markers and routes are scaled
-              up there instead, which keeps them readable without cropping
-              anything off the map.
-            */}
-            <svg
-              viewBox={`0 0 ${MAP_W} ${MAP_H}`}
-              className="block h-auto w-full [--mark:1.75] sm:[--mark:1.3] lg:[--mark:1]"
-              aria-hidden="true"
-              focusable="false"
+      <div className="grid lg:grid-cols-[minmax(0,1fr)_17rem]">
+        {/* --- The globe --- */}
+        <div className="border-b border-white/12 lg:border-b-0 lg:border-r">
+          <div
+            data-globe-stage=""
+            className="relative mx-auto aspect-square w-full max-w-[38rem] p-3 sm:p-5"
+          >
+            <Globe
+              points={points}
+              routes={routes}
+              origin={STUDIO_LONLAT}
+              originLabel={city}
+              focus={focus}
+              onReady={onReady}
+            />
+
+            {/* Held until the coastlines land, and kept for good without them. */}
+            <div
+              className={`pointer-events-none absolute inset-0 flex items-center justify-center px-4 transition-opacity duration-700 ${
+                ready ? "opacity-0" : "opacity-100"
+              }`}
             >
-              <defs>
-                {/* Every cell of the grid, lit or not — the hardware itself. */}
-                <pattern
-                  id={`${uid}-lamps`}
-                  width={STEP_PX}
-                  height={STEP_PX}
-                  patternUnits="userSpaceOnUse"
-                >
-                  <rect
-                    x={(STEP_PX - DOT) / 2}
-                    y={(STEP_PX - DOT) / 2}
-                    width={DOT}
-                    height={DOT}
-                    fill="#ffffff"
-                    fillOpacity="0.04"
-                  />
-                </pattern>
-                <linearGradient id={`${uid}-sweep`} x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0" stopColor="#4d8dff" stopOpacity="0" />
-                  <stop offset="0.72" stopColor="#4d8dff" stopOpacity="0.14" />
-                  <stop offset="1" stopColor="#4d8dff" stopOpacity="0" />
-                </linearGradient>
-                <clipPath id={`${uid}-frame`}>
-                  <rect width={MAP_W} height={MAP_H} />
-                </clipPath>
-              </defs>
-
-              <g clipPath={`url(#${uid}-frame)`}>
-                <rect width={MAP_W} height={MAP_H} fill={`url(#${uid}-lamps)`} />
-                <path
-                  data-land="true"
-                  d={DOT_FIELD}
-                  fill="#4d8dff"
-                  fillOpacity={active ? 0.34 : 0.62}
-                  className="transition-[fill-opacity] duration-700"
-                />
-
-                {/*
-                  Routes out of the classroom, keyed so they redraw per
-                  language. The `data-` hooks on this group, the markers, the
-                  caption and the list are how the static preview export swaps
-                  states without React.
-                */}
-                <g data-routes="">
-                {routes.map((route, i) => (
-                  <path
-                    key={`${active}-${route.key}`}
-                    d={route.d}
-                    pathLength={1}
-                    fill="none"
-                    stroke="#ffffff"
-                    strokeOpacity="0.5"
-                    strokeDasharray="1"
-                    className="animate-route [stroke-width:calc(1.1*var(--mark))]"
-                    style={{ animationDelay: `${i * 110}ms` }}
-                  />
-                ))}
-                </g>
-
-                <g data-markers="">
-                {markers.map((marker, i) => {
-                  const lit = !active || marker.code === active;
-                  return (
-                    <g
-                      key={`${marker.code}-${marker.key}-${i}`}
-                      style={{
-                        transform: `translate(${marker.x}px, ${marker.y}px) scale(var(--mark))`,
-                      }}
-                    >
-                      {lit && active ? (
-                        <>
-                          <rect
-                            x={-8}
-                            y={-8}
-                            width={16}
-                            height={16}
-                            fill="#4d8dff"
-                            fillOpacity="0.3"
-                          />
-                          <circle
-                            r={8}
-                            fill="none"
-                            stroke="#4d8dff"
-                            strokeWidth={1.5}
-                            className="map-ring animate-pin-ring motion-reduce:hidden"
-                            style={{ animationDelay: `${i * 170}ms` }}
-                          />
-                        </>
-                      ) : null}
-                      <rect
-                        x={-4.5}
-                        y={-4.5}
-                        width={9}
-                        height={9}
-                        fill="#ffffff"
-                        fillOpacity={lit ? 1 : 0.13}
-                        className="transition-[fill-opacity] duration-500"
-                      />
-                      {/*
-                        The country code, placed by hand per region. It is what
-                        separates three markers a few units apart in Central
-                        Europe from one indistinct blot.
-                      */}
-                      {lit && active && marker.label ? (
-                        <text
-                          x={marker.label.dx}
-                          y={marker.label.dy}
-                          textAnchor={marker.label.anchor}
-                          fill="#ffffff"
-                          fillOpacity="0.8"
-                          fontSize={8.5}
-                          fontWeight={600}
-                          letterSpacing="0.06em"
-                          className="hidden font-mono sm:inline"
-                        >
-                          {marker.key.toUpperCase()}
-                        </text>
-                      ) : null}
-                    </g>
-                  );
-                })}
-                </g>
-
-                {/* The studio. An open ring, so it never reads as one more place. */}
-                <g
-                  style={{
-                    transform: `translate(${STUDIO.x}px, ${STUDIO.y}px) scale(var(--mark))`,
-                  }}
-                >
-                  <circle
-                    r={11}
-                    fill="none"
-                    stroke="#ffffff"
-                    strokeOpacity={active ? 0.9 : 0.55}
-                    strokeWidth={1.4}
-                    className="transition-[stroke-opacity] duration-500"
-                  />
-                  <path
-                    d="M-16 0h9M7 0h9M0-16v9M0 7v9"
-                    stroke="#ffffff"
-                    strokeOpacity="0.3"
-                    strokeWidth={1}
-                  />
-                </g>
-              </g>
-
-              {/* Refresh line, travelling across the board. */}
-              <rect
-                width={80}
-                height={MAP_H}
-                fill={`url(#${uid}-sweep)`}
-                className="animate-sweep motion-reduce:hidden"
-              />
-            </svg>
-
-            {/* The one place on the board that is named on it. */}
-            <p className="label pointer-events-none absolute bottom-3 left-3 flex items-center gap-2 bg-ink/75 px-2 py-1 text-white/70 sm:bottom-4 sm:left-5">
-              <span aria-hidden="true" className="inline-block size-1.5 rounded-full bg-white/70" />
-              {city}
-            </p>
+              <DotBoard />
+            </div>
           </div>
 
-          {/* --- What the board is showing, in words --- */}
+          {/* --- What the globe is showing, in words --- */}
           <div
             data-board-info=""
             aria-live="polite"
@@ -279,7 +139,7 @@ export default function LanguageMap({
         </div>
 
         {/* --- The languages --- */}
-        <div className="order-2 lg:order-none">
+        <div>
           <ul data-lang-list="" className="grid h-full grid-cols-2 sm:grid-cols-4 lg:grid-cols-1">
             {dict.items.map((language, i) => {
               const Flag = FLAGS[language.code];

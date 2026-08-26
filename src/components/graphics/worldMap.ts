@@ -230,6 +230,33 @@ export const LANGUAGE_REGIONS: Record<string, RegionKey[]> = {
   HU: ["hu"],
 };
 
+/** The studio in Dunajská Streda, as longitude and latitude. */
+export const STUDIO_LONLAT: [number, number] = [17.63, 47.99];
+
+export type Place = {
+  key: RegionKey;
+  code: string;
+  lon: number;
+  lat: number;
+  label?: { dx: number; dy: number; anchor: "start" | "end" };
+};
+
+/** Every place one language is spoken, in degrees — what the globe works in. */
+export function placesFor(code: string): Place[] {
+  return (LANGUAGE_REGIONS[code] ?? []).flatMap((key) => {
+    const region = REGIONS[key];
+    return region.points.map(([lon, lat], i) => ({
+      key,
+      code,
+      lon,
+      lat,
+      ...(i === 0
+        ? { label: { dx: region.dx, dy: region.dy, anchor: region.anchor } }
+        : {}),
+    }));
+  });
+}
+
 export type Marker = {
   key: RegionKey;
   code: string;

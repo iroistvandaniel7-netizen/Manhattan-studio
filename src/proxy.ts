@@ -40,7 +40,9 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   // Everything except Next internals, the metadata routes and static assets.
+  // `/geo` holds the globe's coastline data, which is fetched, not visited —
+  // sending it through the locale redirect would hand the fetch an HTML page.
   matcher: [
-    "/((?!_next|api|favicon.ico|icon.svg|apple-icon.png|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml|webmanifest)$).*)",
+    "/((?!_next|api|geo/|favicon.ico|icon.svg|apple-icon.png|robots.txt|sitemap.xml|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml|json|webmanifest)$).*)",
   ],
 };
