@@ -36,13 +36,13 @@ export default function DotBoard({ className = "" }: { className?: string }) {
             width={DOT}
             height={DOT}
             fill="#ffffff"
-            fillOpacity="0.04"
+            fillOpacity="0.05"
           />
         </pattern>
       </defs>
 
       <rect width={MAP_W} height={MAP_H} fill="url(#board-lamps)" />
-      <path d={DOT_FIELD} fill="#4d8dff" fillOpacity="0.55" />
+      <path d={DOT_FIELD} fill="#e0479f" fillOpacity="0.55" />
 
       {markers.map((marker, i) => (
         <rect

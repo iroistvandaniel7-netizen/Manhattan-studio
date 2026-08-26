@@ -103,8 +103,8 @@ export default function ContactForm({
 
   if (status === "success") {
     return (
-      <div className="flex min-h-[28rem] flex-col justify-center border-2 border-blue bg-blue-soft p-8 sm:p-12">
-        <span aria-hidden="true" className="mb-6 inline-block size-2 bg-blue" />
+      <div className="flex min-h-[28rem] flex-col justify-center border-2 border-accent bg-accent-soft p-8 sm:p-12">
+        <span aria-hidden="true" className="mb-6 inline-block size-2 bg-accent" />
         <h3 className="text-[clamp(1.75rem,3.4vw,2.5rem)] font-bold tracking-[-0.03em]">
           {t.successTitle}
         </h3>
@@ -138,7 +138,7 @@ export default function ContactForm({
         ref={summaryRef}
         tabIndex={-1}
         role={invalidCount ? "alert" : undefined}
-        className={invalidCount ? "mt-6 border-l-2 border-blue bg-blue-soft p-4" : "sr-only"}
+        className={invalidCount ? "mt-6 border-l-2 border-accent bg-accent-soft p-4" : "sr-only"}
       >
         {invalidCount ? (
           <p className="text-[0.8125rem] leading-relaxed text-slate-600">
@@ -198,8 +198,8 @@ export default function ContactForm({
             defaultValue=""
             aria-invalid={errors.language ? "true" : undefined}
             aria-describedby={errors.language ? errorId("language") : undefined}
-            className={`mt-2.5 w-full appearance-none border-b-2 bg-transparent bg-[length:1rem] bg-[right_0.1rem_center] bg-no-repeat py-3 pr-7 text-sm transition-colors duration-300 focus:border-blue focus:outline-none ${
-              errors.language ? "border-blue" : "border-slate-300"
+            className={`mt-2.5 w-full appearance-none border-b-2 bg-transparent bg-[length:1rem] bg-[right_0.1rem_center] bg-no-repeat py-3 pr-7 text-sm transition-colors duration-300 focus:border-accent focus:outline-none ${
+              errors.language ? "border-accent" : "border-slate-300"
             }`}
             style={{
               backgroundImage:
@@ -236,8 +236,8 @@ export default function ContactForm({
           placeholder={t.messagePlaceholder}
           aria-invalid={errors.message ? "true" : undefined}
           aria-describedby={errors.message ? errorId("message") : undefined}
-          className={`mt-2.5 w-full resize-y border-b-2 bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-slate-400 focus:border-blue focus:outline-none ${
-            errors.message ? "border-blue" : "border-slate-300"
+          className={`mt-2.5 w-full resize-y border-b-2 bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-slate-400 focus:border-accent focus:outline-none ${
+            errors.message ? "border-accent" : "border-slate-300"
           }`}
         />
         <FieldError id={errorId("message")} message={errors.message} />
@@ -254,7 +254,7 @@ export default function ContactForm({
         <button
           type="submit"
           disabled={status === "sending"}
-          className="group/submit inline-flex w-full items-center justify-center gap-3 bg-blue px-8 py-4.5 text-[0.8125rem] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:bg-blue-deep disabled:cursor-wait disabled:opacity-60 sm:w-auto"
+          className="group/submit inline-flex w-full items-center justify-center gap-3 bg-accent px-8 py-4.5 text-[0.8125rem] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:bg-accent-deep disabled:cursor-wait disabled:opacity-60 sm:w-auto"
         >
           {status === "sending" ? t.sending : t.submit}
           {status === "sending" ? null : (
@@ -269,7 +269,7 @@ export default function ContactForm({
 
         {/* Delivery failure: always paired with a phone number that works. */}
         {failure ? (
-          <div role="alert" className="mt-6 border-l-2 border-blue bg-blue-soft p-4">
+          <div role="alert" className="mt-6 border-l-2 border-accent bg-accent-soft p-4">
             <p className="text-[0.8125rem] leading-relaxed text-slate-600">{failure}</p>
             <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
               {PHONES.map((phone) => (
@@ -342,8 +342,8 @@ function Field({
         required={required}
         aria-invalid={error ? "true" : undefined}
         aria-describedby={error ? errorId : undefined}
-        className={`mt-2.5 w-full border-b-2 bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-slate-400 focus:border-blue focus:outline-none ${
-          error ? "border-blue" : "border-slate-300"
+        className={`mt-2.5 w-full border-b-2 bg-transparent py-3 text-sm transition-colors duration-300 placeholder:text-slate-400 focus:border-accent focus:outline-none ${
+          error ? "border-accent" : "border-slate-300"
         }`}
         {...rest}
       />

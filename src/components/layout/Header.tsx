@@ -129,7 +129,7 @@ export default function Header({
               href={item.href}
               data-on-photo={onPhoto ? "true" : undefined}
               className={`link-underline py-1 text-[0.8125rem] font-semibold tracking-[-0.01em] ${
-                onPhoto ? "text-white/90 hover:text-white" : "text-ink hover:text-blue"
+                onPhoto ? "text-white/90 hover:text-white" : "text-ink hover:text-accent"
               }`}
             >
               {item.label}
@@ -149,8 +149,8 @@ export default function Header({
             data-on-photo={onPhoto ? "cta" : undefined}
             className={`label hidden px-6 py-3.5 transition-colors duration-200 sm:inline-flex ${
               onPhoto
-                ? "bg-white text-blue hover:bg-blue-soft"
-                : "bg-blue text-white hover:bg-blue-deep"
+                ? "bg-white text-accent hover:bg-accent-soft"
+                : "bg-accent text-white hover:bg-accent-deep"
             }`}
           >
             {dict.nav.cta}
@@ -214,7 +214,7 @@ export default function Header({
           <a
             href="#contact"
             onClick={close}
-            className="label mt-auto inline-flex shrink-0 items-center justify-center bg-blue px-7 py-4.5 text-white"
+            className="label mt-auto inline-flex shrink-0 items-center justify-center bg-accent px-7 py-4.5 text-white"
           >
             {dict.nav.cta}
           </a>

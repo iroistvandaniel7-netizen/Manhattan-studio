@@ -8,9 +8,9 @@ const base =
 
 /* Flat fills only — no gradients, no shadows, no rounded corners. */
 const variants: Record<Variant, string> = {
-  primary: "bg-blue text-white hover:bg-blue-deep",
+  primary: "bg-accent text-white hover:bg-accent-deep",
   outline: "border-2 border-ink text-ink hover:bg-ink hover:text-white",
-  onDark: "bg-white text-blue hover:bg-blue-soft",
+  onDark: "bg-white text-accent hover:bg-accent-soft",
 };
 
 export default function Button({

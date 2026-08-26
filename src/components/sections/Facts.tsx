@@ -3,7 +3,7 @@ import Reveal from "@/components/ui/Reveal";
 import StudyScene from "@/components/graphics/StudyScene";
 
 /**
- * The figures band. A full-bleed blue ground with the study scene running
+ * The figures band. A full-bleed accent ground with the study scene running
  * along its base and the four figures stepped across it — each one dropped a
  * little lower than the last, so the row reads as a hand-set line of type
  * rather than four equal boxes.
@@ -15,7 +15,7 @@ export default function Facts({ dict }: { dict: Dictionary }) {
   return (
     <section
       aria-label={dict.facts.title}
-      className="on-dark relative isolate overflow-hidden bg-blue text-white"
+      className="on-dark relative isolate overflow-hidden bg-accent text-white"
     >
       {/* Panning stripes */}
       <div

@@ -13,7 +13,7 @@ export function generateStaticParams() {
 export const alt = BRAND.nameFull;
 
 /**
- * Social card: flat blue ground, white type, no imagery. `next/og` supports
+ * Social card: flat accent ground, white type, no imagery. `next/og` supports
  * only a subset of CSS, so nothing here depends on the site's stylesheet.
  */
 export default async function Image({

@@ -5,8 +5,8 @@ import StudyScene from "@/components/graphics/StudyScene";
 import heroImage from "../../../public/manhattan-skyline-sunset.jpg";
 
 /**
- * Full-bleed Manhattan photograph as a blue duotone: the image is desaturated
- * to luminance and composited over a flat blue ground, which recolours the
+ * Full-bleed Manhattan photograph as a duotone: the image is desaturated to
+ * luminance and composited over a flat accent ground, which recolours the
  * whole frame in one hue so the picture belongs to the palette.
  *
  * The desk of people sits along the bottom edge, cut off by the fold, so the
@@ -15,11 +15,11 @@ import heroImage from "../../../public/manhattan-skyline-sunset.jpg";
 export default function Hero({ dict }: { dict: Dictionary }) {
   return (
     <section
-      className="on-dark relative isolate flex min-h-[94svh] items-end overflow-hidden pt-28 pb-40 sm:pb-48"
+      className="on-dark relative isolate flex min-h-[94svh] items-end overflow-hidden pt-28 pb-52 sm:pb-80"
       aria-labelledby="hero-title"
     >
       {/* Duotone photograph */}
-      <div aria-hidden="true" className="absolute inset-0 -z-20 bg-blue">
+      <div aria-hidden="true" className="absolute inset-0 -z-20 bg-accent">
         <Image
           src={heroImage}
           alt=""
@@ -28,14 +28,14 @@ export default function Hero({ dict }: { dict: Dictionary }) {
           sizes="100vw"
           placeholder="blur"
           quality={82}
-          className="animate-slow-zoom object-cover object-[50%_42%] mix-blend-luminosity motion-reduce:animate-none"
+          className="animate-drone object-cover object-[50%_42%] mix-blend-luminosity motion-reduce:animate-none"
         />
       </div>
 
       {/* Contrast scrim, weighted to the bottom where the copy sits */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(6,8,15,0.94)_0%,rgba(6,8,15,0.76)_32%,rgba(6,8,15,0.4)_60%,rgba(6,8,15,0.3)_100%)]"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(11,7,16,0.95)_0%,rgba(11,7,16,0.82)_34%,rgba(11,7,16,0.52)_62%,rgba(11,7,16,0.34)_100%)]"
       />
 
       {/* Figures along the fold */}

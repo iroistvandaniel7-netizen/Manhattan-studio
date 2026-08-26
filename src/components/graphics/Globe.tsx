@@ -92,16 +92,55 @@ const ALTERNATES: [number, number, "start" | "end"][] = [
   [0, 1, "start"],
 ];
 
+/**
+ * The point to turn toward so a set of places is on the near side: the
+ * direction of their mean position on the sphere. Falls back to the origin
+ * when the places cancel each other out, which is what happens for a language
+ * spoken on opposite sides of the world.
+ */
+function viewCentre(
+  points: [number, number][],
+  fallback: [number, number],
+): [number, number] {
+  let x = 0;
+  let y = 0;
+  let z = 0;
+  for (const [lon, lat] of points) {
+    const [vx, vy, vz] = toVector(lon, lat);
+    x += vx;
+    y += vy;
+    z += vz;
+  }
+  const length = Math.hypot(x, y, z);
+  if (length < 0.15) return fallback;
+  // Keep the pole off the edge of the frame; a steep tilt reads as a mistake.
+  return [
+    Math.atan2(x / length, z / length) / DEG,
+    Math.max(-52, Math.min(52, Math.asin(y / length) / DEG)),
+  ];
+}
+
+/** Shortest signed way round from one longitude to another. */
+function shortWay(from: number, to: number): number {
+  return ((((to - from) % 360) + 540) % 360) - 180;
+}
+
+/** Europe, which is what this section is about. */
+const HOME_VIEW: [number, number] = [15, 46];
+
 export default function Globe({
   places,
   origin,
   originLabel,
+  active,
   className = "",
   onReady,
 }: {
   places: GlobePlace[];
   origin: [number, number];
   originLabel: string;
+  /** Badge code of the language to turn to and raise, or null to drift. */
+  active: string | null;
   className?: string;
   onReady?: () => void;
 }) {
@@ -111,10 +150,35 @@ export default function Globe({
    * the loop runs on its own clock and reads the latest scene each frame, so a
    * change must not tear it down and restart it.
    */
-  const scene = useRef({ places, origin, originLabel });
+  const scene = useRef({ places, origin, originLabel, active });
   useEffect(() => {
-    scene.current = { places, origin, originLabel };
-  }, [places, origin, originLabel]);
+    scene.current = { places, origin, originLabel, active };
+  }, [places, origin, originLabel, active]);
+
+  /** Where the view is anchored, and a flight toward a new anchor. */
+  const anchor = useRef({ lon: HOME_VIEW[0], lat: HOME_VIEW[1] });
+  const flight = useRef<
+    { lon0: number; lat0: number; dLon: number; lat1: number; start: number } | null
+  >(null);
+
+  useEffect(() => {
+    const to = active
+      ? viewCentre(
+          [
+            origin,
+            ...places.filter((p) => p.lang === active).map((p): [number, number] => [p.lon, p.lat]),
+          ],
+          origin,
+        )
+      : HOME_VIEW;
+    flight.current = {
+      lon0: anchor.current.lon,
+      lat0: anchor.current.lat,
+      dLon: shortWay(anchor.current.lon, to[0]),
+      lat1: to[1],
+      start: performance.now(),
+    };
+  }, [active, places, origin]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -126,9 +190,14 @@ export default function Globe({
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const graticule = geoGraticule10();
 
-    const centre = { lon: 12, lat: 18 };
+    /*
+     * The view is an anchor plus a slow sway around it, rather than a full
+     * spin. Europe is the subject of this section, and a globe that turns all
+     * the way round spends most of its time showing the Pacific.
+     */
+    const centre = { lon: HOME_VIEW[0], lat: HOME_VIEW[1] };
+    let phase = 0;
     let drag: { x: number; y: number; lon: number; lat: number } | null = null;
-    let idleUntil = 0;
     /** The language under the pointer, if any. Kept out of React: it changes on
      *  every mouse move and nothing outside the canvas needs to know. */
     let hovered: string | null = null;
@@ -163,11 +232,24 @@ export default function Globe({
     let over: HTMLCanvasElement | null = null;
 
     const geometry = () => {
-      const cx = width / 2;
+      /*
+       * Above `lg` the heading is laid over the section on the left and the
+       * flags run down the right, so the sphere is centred in what is left
+       * between them rather than in the frame. The breakpoint matches
+       * Tailwind's `lg`, where that layout swaps to a stack.
+       */
+      const wide = width >= 1024;
+      const leftGutter = wide ? Math.min(470, width * 0.33) : 0;
+      const rightGutter = wide ? 110 : 0;
+      const cx = (leftGutter + (width - rightGutter)) / 2;
       const cy = height / 2;
-      // Room for the atmosphere, and for a label hanging off a marker at the limb.
-      const radius = Math.min(width, height) * 0.5 * 0.86;
-      return { cx, cy, radius };
+      /*
+       * Fit the atmosphere, not the sphere. The halo reaches 1.14 radii, and a
+       * halo cut off by the edges of the frame is exactly what makes a
+       * perfectly round planet read as stretched.
+       */
+      const room = Math.min(cx - leftGutter, width - rightGutter - cx, cy, height - cy);
+      return { cx, cy, radius: Math.max(40, room / 1.14) };
     };
 
     const buildLayers = (ratio: number) => {
@@ -187,20 +269,20 @@ export default function Globe({
       const back = make();
       if (back.c) {
         const c = back.c;
-        const air = c.createRadialGradient(cx, cy, radius * 0.96, cx, cy, radius * 1.22);
-        air.addColorStop(0, "rgba(77,141,255,0.34)");
-        air.addColorStop(0.34, "rgba(77,141,255,0.13)");
-        air.addColorStop(1, "rgba(77,141,255,0)");
+        const air = c.createRadialGradient(cx, cy, radius * 0.95, cx, cy, radius * 1.14);
+        air.addColorStop(0, "rgba(255,92,196,0.32)");
+        air.addColorStop(0.34, "rgba(255,92,196,0.12)");
+        air.addColorStop(1, "rgba(255,92,196,0)");
         c.fillStyle = air;
         c.beginPath();
-        c.arc(cx, cy, radius * 1.22, 0, TAU);
+        c.arc(cx, cy, radius * 1.14, 0, TAU);
         c.fill();
 
         const sea = c.createRadialGradient(lx, ly, radius * 0.04, cx, cy, radius * 1.34);
-        sea.addColorStop(0, "#1c58bb");
-        sea.addColorStop(0.36, "#0b3a8e");
-        sea.addColorStop(0.7, "#062354");
-        sea.addColorStop(1, "#020b22");
+        sea.addColorStop(0, "#94146c");
+        sea.addColorStop(0.36, "#690c4f");
+        sea.addColorStop(0.7, "#420733");
+        sea.addColorStop(1, "#150218");
         c.fillStyle = sea;
         c.beginPath();
         c.arc(cx, cy, radius, 0, TAU);
@@ -219,21 +301,21 @@ export default function Globe({
         const shade = c.createRadialGradient(lx, ly, radius * 0.08, lx, ly, radius * 2);
         shade.addColorStop(0, "rgba(255,255,255,0.10)");
         shade.addColorStop(0.3, "rgba(255,255,255,0)");
-        shade.addColorStop(0.62, "rgba(2,6,20,0.32)");
-        shade.addColorStop(1, "rgba(1,3,12,0.82)");
+        shade.addColorStop(0.62, "rgba(16,2,20,0.32)");
+        shade.addColorStop(1, "rgba(10,1,13,0.82)");
         c.fillStyle = shade;
         c.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
 
         const sheen = c.createRadialGradient(lx, ly, 0, lx, ly, radius * 0.52);
-        sheen.addColorStop(0, "rgba(214,234,255,0.15)");
-        sheen.addColorStop(1, "rgba(214,234,255,0)");
+        sheen.addColorStop(0, "rgba(255,224,244,0.15)");
+        sheen.addColorStop(1, "rgba(255,224,244,0)");
         c.fillStyle = sheen;
         c.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
         c.restore();
 
         c.beginPath();
         c.arc(cx, cy, radius, 0, TAU);
-        c.strokeStyle = "rgba(122,176,255,0.42)";
+        c.strokeStyle = "rgba(255,124,206,0.42)";
         c.lineWidth = Math.max(1, radius * 0.005);
         c.stroke();
       }
@@ -287,6 +369,8 @@ export default function Globe({
     const draw = () => {
       if (!data || width < 8 || height < 8) return;
       const { places: marks, origin: home, originLabel: homeName } = scene.current;
+      // A flag pressed outside beats whatever the pointer happens to be over.
+      const raised = scene.current.active ?? hovered;
 
       const { cx, cy, radius } = geometry();
       const unit = radius / 270;
@@ -314,7 +398,7 @@ export default function Globe({
       /* Graticule. */
       context.beginPath();
       path(graticule);
-      context.strokeStyle = "rgba(165,205,255,0.10)";
+      context.strokeStyle = "rgba(255,190,230,0.10)";
       context.lineWidth = 0.6;
       context.stroke();
 
@@ -322,15 +406,15 @@ export default function Globe({
       const lx = cx - radius * 0.42;
       const ly = cy - radius * 0.48;
       context.save();
-      context.shadowColor = "rgba(2,8,26,0.85)";
+      context.shadowColor = "rgba(12,3,18,0.85)";
       context.shadowBlur = radius * 0.05;
       context.shadowOffsetX = radius * 0.012;
       context.shadowOffsetY = radius * 0.024;
       const ground = context.createRadialGradient(lx, ly, radius * 0.04, cx, cy, radius * 1.36);
-      ground.addColorStop(0, "#f4f7ff");
-      ground.addColorStop(0.4, "#cfdcf5");
-      ground.addColorStop(0.76, "#7d90bc");
-      ground.addColorStop(1, "#3a4970");
+      ground.addColorStop(0, "#fff5fb");
+      ground.addColorStop(0.4, "#f0d5e7");
+      ground.addColorStop(0.76, "#a8709a");
+      ground.addColorStop(1, "#552a4c");
       context.fillStyle = ground;
       context.beginPath();
       path(data.land);
@@ -340,7 +424,7 @@ export default function Globe({
       /* Borders, then a hairline of surf along every coast. */
       context.beginPath();
       path(data.borders);
-      context.strokeStyle = "rgba(22,42,92,0.45)";
+      context.strokeStyle = "rgba(88,18,66,0.45)";
       context.lineWidth = Math.max(0.5, radius * 0.0022);
       context.stroke();
 
@@ -369,7 +453,7 @@ export default function Globe({
       const write = (text: string, x: number, y: number, alpha: number) => {
         context.globalAlpha = alpha;
         context.lineJoin = "round";
-        context.strokeStyle = "rgba(3,9,26,0.92)";
+        context.strokeStyle = "rgba(14,4,20,0.92)";
         context.lineWidth = Math.max(3, 3.6 * unit);
         context.strokeText(text, x, y);
         context.fillStyle = "#ffffff";
@@ -379,11 +463,11 @@ export default function Globe({
 
       /* Routes, drawn only for the language under the pointer. */
       const home3 = place(home[0], home[1]);
-      if (hovered) {
+      if (raised) {
         context.lineCap = "round";
         context.lineJoin = "round";
         for (const mark of marks) {
-          if (mark.lang !== hovered) continue;
+          if (mark.lang !== raised) continue;
           const to: [number, number] = [mark.lon, mark.lat];
           const span = geoDistance(home, to);
           if (span < 0.02) continue;
@@ -419,7 +503,7 @@ export default function Globe({
               drawing = true;
             }
           }
-          context.strokeStyle = "rgba(4,14,40,0.55)";
+          context.strokeStyle = "rgba(20,4,28,0.55)";
           context.lineWidth = Math.max(2.4, 3.4 * unit);
           context.stroke();
           context.strokeStyle = "rgba(255,255,255,0.92)";
@@ -434,17 +518,17 @@ export default function Globe({
         if (p.hidden || p.z <= 0) continue;
         // Fade out over the last few degrees rather than blinking off the edge.
         const edge = Math.max(0, Math.min(1, p.z * 6));
-        const up = !hovered || mark.lang === hovered;
+        const up = !raised || mark.lang === raised;
         const size = up ? 1 : 0.7;
 
         context.globalAlpha = edge * (up ? 1 : 0.45);
-        if (hovered && up) {
-          context.fillStyle = "rgba(20,70,180,0.45)";
+        if (raised && up) {
+          context.fillStyle = "rgba(194,0,122,0.55)";
           context.beginPath();
           context.arc(p.x, p.y, 8 * unit, 0, TAU);
           context.fill();
         }
-        context.strokeStyle = "rgba(3,9,26,0.8)";
+        context.strokeStyle = "rgba(14,4,20,0.8)";
         context.lineWidth = Math.max(2.4, 3.2 * unit);
         context.beginPath();
         context.arc(p.x, p.y, 5.4 * size * unit, 0, TAU);
@@ -454,7 +538,7 @@ export default function Globe({
         context.beginPath();
         context.arc(p.x, p.y, 5.4 * size * unit, 0, TAU);
         context.stroke();
-        context.fillStyle = "rgba(3,9,26,0.8)";
+        context.fillStyle = "rgba(14,4,20,0.8)";
         context.beginPath();
         context.arc(p.x, p.y, 3.6 * size * unit, 0, TAU);
         context.fill();
@@ -532,7 +616,7 @@ export default function Globe({
         context.beginPath();
         context.moveTo(ax + (dx / len) * from, ay + (dy / len) * from);
         context.lineTo(ax + (dx / len) * to, ay + (dy / len) * to);
-        context.strokeStyle = "rgba(3,9,26,0.75)";
+        context.strokeStyle = "rgba(14,4,20,0.75)";
         context.lineWidth = Math.max(2.4, 3 * unit);
         context.stroke();
         context.strokeStyle = "rgba(255,255,255,0.75)";
@@ -561,7 +645,7 @@ export default function Globe({
           context.stroke();
         };
 
-        context.strokeStyle = "rgba(3,9,26,0.8)";
+        context.strokeStyle = "rgba(14,4,20,0.8)";
         context.lineWidth = Math.max(3, 3.8 * unit);
         context.beginPath();
         context.arc(home3.x, home3.y, 12.5 * unit, 0, TAU);
@@ -595,13 +679,16 @@ export default function Globe({
 
       // Front-most first, so a language squarely in view keeps its chosen side.
       for (const mark of [...byLanguage.values()].sort((a, b) => b.z - a.z)) {
+        // One language raised means one language named: half a dozen dimmed
+        // names over the pale continents reads as smudging, not as context.
+        if (raised && mark.lang !== raised) continue;
         const spot = findSpot(mark.name, mark.x, mark.y, [
           mark.label.dx,
           mark.label.dy,
           mark.label.anchor,
         ]);
         if (!spot) continue;
-        const alpha = Math.min(1, mark.z * 6) * (hovered && mark.lang !== hovered ? 0.4 : 1);
+        const alpha = Math.min(1, mark.z * 6);
         if (spot.ring > 20) leader(mark.x, mark.y, spot.x, spot.y, alpha);
         context.textAlign = spot.align === "end" ? "right" : "left";
         write(mark.name, spot.x, spot.y, alpha);
@@ -627,7 +714,22 @@ export default function Globe({
       if (!onScreen || !data) return;
       painted = now;
 
-      if (!drag && now >= idleUntil && !reduced) centre.lon += 4.2 * delta;
+      const journey = flight.current;
+      if (journey) {
+        const t = reduced ? 1 : Math.min(1, (now - journey.start) / 1400);
+        const eased = 1 - Math.pow(1 - t, 3);
+        anchor.current.lon = journey.lon0 + journey.dLon * eased;
+        anchor.current.lat = journey.lat0 + (journey.lat1 - journey.lat0) * eased;
+        if (t >= 1) flight.current = null;
+      } else if (!drag && !reduced) {
+        phase += delta * ((Math.PI * 2) / 54);
+      }
+
+      centre.lon = anchor.current.lon + Math.sin(phase) * 16;
+      centre.lat = Math.max(
+        -72,
+        Math.min(72, anchor.current.lat + Math.sin(phase * 0.63) * 4),
+      );
       centre.lon = ((((centre.lon + 180) % 360) + 360) % 360) - 180;
       if (sweep < 1) sweep = reduced ? 1 : Math.min(1, sweep + delta / 0.7);
 
@@ -675,7 +777,13 @@ export default function Globe({
     };
 
     const onDown = (event: PointerEvent) => {
-      drag = { x: event.clientX, y: event.clientY, lon: centre.lon, lat: centre.lat };
+      flight.current = null;
+      drag = {
+        x: event.clientX,
+        y: event.clientY,
+        lon: anchor.current.lon,
+        lat: anchor.current.lat,
+      };
       pickLanguage(event.clientX, event.clientY);
       canvas.setPointerCapture(event.pointerId);
     };
@@ -685,17 +793,15 @@ export default function Globe({
         return;
       }
       const { radius } = geometry();
-      centre.lon = drag.lon - ((event.clientX - drag.x) / (radius || 1)) * 90;
-      centre.lat = Math.max(
+      anchor.current.lon = drag.lon - ((event.clientX - drag.x) / (radius || 1)) * 90;
+      anchor.current.lat = Math.max(
         -72,
         Math.min(72, drag.lat - ((event.clientY - drag.y) / (radius || 1)) * 90),
       );
-      idleUntil = performance.now() + 2600;
     };
     const onUp = (event: PointerEvent) => {
       if (!drag) return;
       drag = null;
-      idleUntil = performance.now() + 2600;
       if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
     };
     const onLeave = () => {

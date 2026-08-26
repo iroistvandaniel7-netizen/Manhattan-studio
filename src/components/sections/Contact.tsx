@@ -49,7 +49,7 @@ export default function Contact({
                   <li key={phone.href}>
                     <a
                       href={`tel:${phone.href}`}
-                      className="link-underline font-display text-2xl font-extrabold tracking-[-0.03em] text-blue sm:text-3xl"
+                      className="link-underline font-display text-2xl font-extrabold tracking-[-0.03em] text-accent sm:text-3xl"
                     >
                       {phone.label}
                     </a>
@@ -64,7 +64,7 @@ export default function Contact({
               </h3>
               <a
                 href={`mailto:${EMAIL}`}
-                className="link-underline mt-4 inline-block font-mono text-sm font-semibold text-blue sm:text-base"
+                className="link-underline mt-4 inline-block font-mono text-sm font-semibold text-accent sm:text-base"
               >
                 {EMAIL}
               </a>
@@ -85,7 +85,7 @@ export default function Contact({
                 href={mapsUrl(ADDRESS.mapQuery)}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-underline mt-2 inline-block text-xs font-semibold text-blue"
+                className="link-underline mt-2 inline-block text-xs font-semibold text-accent"
               >
                 {dict.contact.openMap} ↗
               </a>

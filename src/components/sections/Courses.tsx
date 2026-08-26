@@ -20,7 +20,7 @@ export default function Courses({ dict }: { dict: Dictionary }) {
   return (
     <section
       id="courses"
-      className="relative isolate overflow-hidden bg-blue-soft py-section"
+      className="relative isolate overflow-hidden bg-accent-soft py-section"
       aria-labelledby="courses-title"
     >
       <div className="container-x">
@@ -67,7 +67,7 @@ export default function Courses({ dict }: { dict: Dictionary }) {
                       key={seg}
                       className={`h-3 flex-1 transition-all duration-500 ${
                         seg <= i
-                          ? "bg-blue group-hover/pace:h-5"
+                          ? "bg-accent group-hover/pace:h-5"
                           : "bg-ink/10 group-hover/pace:h-4"
                       }`}
                       style={{ transitionDelay: `${seg * 70}ms` }}
@@ -104,7 +104,7 @@ export default function Courses({ dict }: { dict: Dictionary }) {
 
             <a
               href="#contact"
-              className="group/cta label inline-flex items-center justify-center gap-3 bg-white px-8 py-4 text-ink transition-colors duration-200 hover:bg-blue hover:text-white lg:shrink-0"
+              className="group/cta label inline-flex items-center justify-center gap-3 bg-white px-8 py-4 text-ink transition-colors duration-200 hover:bg-accent hover:text-white lg:shrink-0"
             >
               {dict.courses.planCta}
               <span
@@ -124,7 +124,7 @@ export default function Courses({ dict }: { dict: Dictionary }) {
           text={dict.languages.items.map((l) => l.name).join("  ·  ") + "  ·  "}
           repeat={2}
           className="edge-fade"
-          itemClassName="whitespace-pre px-2 font-display text-[clamp(1.25rem,2.6vw,2rem)] font-extrabold uppercase tracking-[-0.02em] text-blue"
+          itemClassName="whitespace-pre px-2 font-display text-[clamp(1.25rem,2.6vw,2rem)] font-extrabold uppercase tracking-[-0.02em] text-accent"
         />
       </div>
     </section>

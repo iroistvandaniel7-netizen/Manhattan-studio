@@ -17,7 +17,7 @@ export default function NotFound() {
   return (
     <section className="py-section">
       <div className="container-x">
-        <h1 className="text-[clamp(5rem,16vw,12rem)] font-extrabold leading-[0.85] tracking-[-0.05em] text-blue">
+        <h1 className="text-[clamp(5rem,16vw,12rem)] font-extrabold leading-[0.85] tracking-[-0.05em] text-accent">
           404
         </h1>
 
@@ -28,7 +28,7 @@ export default function NotFound() {
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{message.lead}</p>
               <Link
                 href={message.href}
-                className="link-underline mt-4 inline-block text-[0.8125rem] font-semibold text-blue"
+                className="link-underline mt-4 inline-block text-[0.8125rem] font-semibold text-accent"
               >
                 {message.cta} →
               </Link>

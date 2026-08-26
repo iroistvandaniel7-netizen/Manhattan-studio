@@ -34,8 +34,8 @@ export default function LanguageSwitcher({
    */
   const idle = invert
     ? "text-white/70 hover:text-white"
-    : "text-slate-500 hover:text-blue";
-  const active = invert ? "text-white" : "text-blue";
+    : "text-slate-500 hover:text-accent";
+  const active = invert ? "text-white" : "text-accent";
   const divider = invert ? "bg-white/35" : "bg-slate-300";
 
   return (

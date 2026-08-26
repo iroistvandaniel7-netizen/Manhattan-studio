@@ -15,23 +15,28 @@ export default function Languages({ dict }: { dict: Dictionary }) {
   return (
     <section
       id="languages"
-      className="on-dark relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink text-white"
+      className="on-dark relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink text-white lg:block"
       aria-labelledby="languages-title"
     >
-      <div className="container-x relative z-10 pt-28 sm:pt-32">
+      {/*
+        Stacked on a phone, laid over the sphere above `lg`. Overlaying is what
+        lets the globe have the whole section rather than the leftovers under a
+        heading, which is most of the reason it was small.
+      */}
+      <div className="container-x relative z-10 pt-24 sm:pt-28 lg:absolute lg:inset-x-0 lg:top-0 lg:pt-32">
         <Reveal>
           <Eyebrow invert>{dict.languages.eyebrow}</Eyebrow>
         </Reveal>
         <Reveal delay={70}>
           <h2
             id="languages-title"
-            className="mt-5 max-w-2xl text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95]"
+            className="mt-5 max-w-md text-[clamp(2.25rem,5vw,3.75rem)] leading-[0.95]"
           >
             {dict.languages.title}
           </h2>
         </Reveal>
         <Reveal delay={130}>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-white/75">
+          <p className="mt-5 max-w-sm text-base leading-relaxed text-white/75">
             {dict.languages.lead}
           </p>
         </Reveal>

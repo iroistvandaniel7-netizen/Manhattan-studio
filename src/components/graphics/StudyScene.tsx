@@ -43,9 +43,9 @@ export default function StudyScene({
   className?: string;
   tone?: Tone;
 }) {
-  const ink = tone === "light" ? "#06080f" : "#ffffff";
+  const ink = tone === "light" ? "#0b0710" : "#ffffff";
   const accent = tone === "light" ? "#0039a6" : "#9db8ee";
-  const bubbleFill = tone === "light" ? "#ffffff" : "#06080f";
+  const bubbleFill = tone === "light" ? "#ffffff" : "#0b0710";
   const bubbleStroke = tone === "light" ? "#0039a6" : "#9db8ee";
   const bubbleText = tone === "light" ? "#0039a6" : "#ffffff";
 

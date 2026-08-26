@@ -130,7 +130,7 @@ export function FlagMark({ className = "" }: FlagProps) {
   return (
     <span
       aria-hidden="true"
-      className={`inline-block shrink-0 overflow-hidden shadow-[0_0_0_1px_rgba(6,8,15,0.18)] ${className}`}
+      className={`inline-block shrink-0 overflow-hidden shadow-[0_0_0_1px_rgba(11,7,16,0.18)] ${className}`}
     >
       <FlagGB className="block h-full w-full" />
     </span>
