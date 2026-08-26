@@ -37,7 +37,10 @@
 
   --animate-marquee: marquee 34s linear infinite;
   --animate-scroll-cue: scroll-cue 2.1s ease-in-out infinite;
-  --animate-drone: drone 54s ease-in-out infinite;
+  /* `linear`: the figure-eight already carries the changes of pace, and an
+     easing curve on top of it puts a stall at every keyframe. */
+  --animate-drone: drone 34s linear infinite;
+  --animate-drone-fore: drone-fore 34s linear infinite;
   --animate-stripes: stripes 14s linear infinite;
   --animate-flag-sway: flag-sway 16s ease-in-out infinite;
   --animate-pulse-ring: pulse-ring 6s ease-in-out infinite;
@@ -76,29 +79,107 @@
 /*
  * The hero photograph, flown rather than zoomed.
  *
- * A single scale ramp reads as a slide transition. A drone drifts sideways and
- * down the skyline while it climbs, so the path turns at every stop and never
- * retraces itself. The scale never drops below 1.12, which is what keeps the
- * edges of the frame off screen while the image is translated.
+ * Three things separate drone footage from a slow zoom, and the path has to
+ * carry all of them:
+ *
+ *   Travel that never stops. A handful of keyframes on `ease-in-out`
+ *   decelerates to nearly zero at every stop, and a camera that keeps halting
+ *   reads as a still image drifting. So the stops trace a smooth closed
+ *   figure-eight and the animation runs `linear` — the curve supplies the
+ *   changes of pace, the timing function stays out of the way.
+ *
+ *   A path that closes. The horizontal sweep runs at one cycle and the
+ *   vertical at two, which is what bends the loop into a figure-eight: it
+ *   returns to its start with the same velocity it left at, so the restart is
+ *   invisible and the orbit never retraces itself.
+ *
+ *   Bank. A drone tips into its turns. Half a degree is far too little to
+ *   notice as rotation and is most of why the frame reads as flown.
+ *
+ * Amplitude is bounded by the scale: translating by t% of the element shows an
+ * edge unless the image overhangs by at least that much, so |t| must stay under
+ * 50 × (scale − 1). The scale bottoms out at 1.16, allowing 8%; the path stays
+ * within 4.5% horizontally and 2.2% vertically, leaving room for the corners
+ * the bank sweeps out.
  */
 @keyframes drone {
   0% {
-    transform: scale(1.14) translate3d(-2.4%, 1.6%, 0);
+    transform: scale(1.253) rotate(-0.354deg) translate3d(0%, 0%, 0);
   }
-  22% {
-    transform: scale(1.2) translate3d(1.2%, 0.4%, 0);
+  8.333% {
+    transform: scale(1.26) rotate(-0.129deg) translate3d(2.25%, 1.9%, 0);
   }
-  46% {
-    transform: scale(1.16) translate3d(2.6%, -1.9%, 0);
+  16.667% {
+    transform: scale(1.253) rotate(0.129deg) translate3d(3.9%, 1.9%, 0);
   }
-  70% {
-    transform: scale(1.24) translate3d(-0.6%, -1%, 0);
+  25% {
+    transform: scale(1.235) rotate(0.354deg) translate3d(4.5%, 0%, 0);
   }
-  88% {
-    transform: scale(1.18) translate3d(-2.8%, 0.2%, 0);
+  33.333% {
+    transform: scale(1.21) rotate(0.483deg) translate3d(3.9%, -1.9%, 0);
+  }
+  41.667% {
+    transform: scale(1.185) rotate(0.483deg) translate3d(2.25%, -1.9%, 0);
+  }
+  50% {
+    transform: scale(1.167) rotate(0.354deg) translate3d(0%, 0%, 0);
+  }
+  58.333% {
+    transform: scale(1.16) rotate(0.129deg) translate3d(-2.25%, 1.9%, 0);
+  }
+  66.667% {
+    transform: scale(1.167) rotate(-0.129deg) translate3d(-3.9%, 1.9%, 0);
+  }
+  75% {
+    transform: scale(1.185) rotate(-0.354deg) translate3d(-4.5%, 0%, 0);
+  }
+  83.333% {
+    transform: scale(1.21) rotate(-0.483deg) translate3d(-3.9%, -1.9%, 0);
+  }
+  91.667% {
+    transform: scale(1.235) rotate(-0.483deg) translate3d(-2.25%, -1.9%, 0);
   }
   100% {
-    transform: scale(1.14) translate3d(-2.4%, 1.6%, 0);
+    transform: scale(1.253) rotate(-0.354deg) translate3d(0%, 0%, 0);
+  }
+}
+
+/*
+ * The figures along the fold, on the same orbit but a shorter one and half a
+ * beat late. Near things sweep past faster than far ones, and a foreground
+ * that slides against the skyline is the whole reason the frame reads as
+ * having depth rather than one flat picture being pushed around.
+ *
+ * The band cannot simply be translated. Its artwork is an SVG fitted with
+ * `meet`, so it sits centred inside its box with the leftover width as empty
+ * gutters — and those gutters are exactly zero once the viewport is narrow
+ * enough for width rather than height to drive the fit. Sliding it sideways
+ * would pull its ends into frame on precisely the phones where it matters.
+ *
+ * So the scale carries the overhang the drift is spent out of, anchored to the
+ * bottom edge so the desk stays welded to the fold. `scale(s) translate(t%)`
+ * applies the translate in local coordinates first, so the frame moves by
+ * s × t of the width while the overhang is (s − 1) ÷ 2 either side: at the
+ * tightest point of the orbit that is 1.59% of travel against 3% of room.
+ *
+ * Horizontal only. These are people at desks, and a desk that rises and banks
+ * is a desk falling over.
+ */
+@keyframes drone-fore {
+  0% {
+    transform: scale(1.08) translate3d(1.5%, 0, 0);
+  }
+  25% {
+    transform: scale(1.07) translate3d(0.55%, 0, 0);
+  }
+  50% {
+    transform: scale(1.06) translate3d(-1.5%, 0, 0);
+  }
+  75% {
+    transform: scale(1.07) translate3d(-0.55%, 0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate3d(1.5%, 0, 0);
   }
 }
 

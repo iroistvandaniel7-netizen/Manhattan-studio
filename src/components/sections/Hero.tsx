@@ -38,8 +38,15 @@ export default function Hero({ dict }: { dict: Dictionary }) {
         className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgba(11,7,16,0.95)_0%,rgba(11,7,16,0.82)_34%,rgba(11,7,16,0.52)_62%,rgba(11,7,16,0.34)_100%)]"
       />
 
-      {/* Figures along the fold */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10">
+      {/*
+        Figures along the fold, sliding against the skyline on the same orbit.
+        Scaled from the bottom edge so the desk stays welded to the fold while
+        the band overhangs enough to be drifted — see `drone-fore`.
+      */}
+      <div
+        aria-hidden="true"
+        className="animate-drone-fore pointer-events-none absolute inset-x-0 bottom-0 -z-10 origin-bottom motion-reduce:animate-none"
+      >
         <StudyScene tone="dark" className="h-[36vw] max-h-72 w-full opacity-40" />
       </div>
 
