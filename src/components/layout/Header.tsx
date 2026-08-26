@@ -6,6 +6,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
 import { BRAND } from "@/lib/site";
+import Logo from "@/components/graphics/Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header({
@@ -100,25 +101,20 @@ export default function Header({
       }`}
     >
       <div className="container-x flex h-20 items-center justify-between gap-6">
-        {/* Wordmark */}
+        {/*
+          The compact lockup: skyline, wordmark and both rules, without the
+          bilingual line. At the full mark's proportions a legible subtitle
+          would need more height than the bar has.
+        */}
         <Link
           href={home}
           onClick={close}
           data-on-photo={onPhoto ? "true" : undefined}
+          style={onPhoto ? ({ "--logo-rule": "currentColor" } as React.CSSProperties) : undefined}
           className={`shrink-0 leading-none ${onPhoto ? "text-white" : "text-ink"}`}
           aria-label={BRAND.nameFull}
         >
-          <span className="font-display block text-base font-extrabold tracking-[0.06em] sm:text-lg">
-            {BRAND.wordmarkTop}
-          </span>
-          <span
-            data-on-photo={onPhoto ? "true" : undefined}
-            className={`label mt-1 block text-[0.5625rem] ${
-              onPhoto ? "text-white/70" : "text-slate-500"
-            }`}
-          >
-            {BRAND.wordmarkBottom}
-          </span>
+          <Logo compact className="h-11 w-auto sm:h-12" />
         </Link>
 
         {/* Desktop navigation */}

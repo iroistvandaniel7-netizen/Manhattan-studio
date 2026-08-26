@@ -383,6 +383,9 @@ html:not([data-js]) [data-sticky] {
 
 html:not([data-js]) [data-sticky] [data-on-photo] {
   color: var(--color-ink);
+  /* The logo's rules follow the type over the photograph; on the solid bar they
+     go back to the brand colour with everything else. */
+  --logo-rule: var(--color-accent);
 }
 
 /* The hairline between locale links and the filled call to action carry their

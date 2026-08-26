@@ -23,7 +23,7 @@ export default function Languages({ dict }: { dict: Dictionary }) {
         lets the globe have the whole section rather than the leftovers under a
         heading, which is most of the reason it was small.
       */}
-      <div className="container-x relative z-10 pt-24 sm:pt-28 lg:absolute lg:inset-x-0 lg:top-0 lg:pt-32">
+      <div className="container-x relative z-10 pt-20 sm:pt-28 lg:absolute lg:inset-x-0 lg:top-0 lg:pt-32">
         <Reveal>
           <Eyebrow invert>{dict.languages.eyebrow}</Eyebrow>
         </Reveal>
@@ -43,7 +43,7 @@ export default function Languages({ dict }: { dict: Dictionary }) {
         {/* Next to the lead rather than under the sphere: at the foot of a
             full-height section the hint sits on the fold and is missed. */}
         <Reveal delay={190}>
-          <p className="label mt-7 flex items-center gap-2.5 text-white/60">
+          <p className="label mt-6 flex items-center gap-2.5 text-white/60">
             <span aria-hidden="true" className="text-sm leading-none">
               ↔
             </span>

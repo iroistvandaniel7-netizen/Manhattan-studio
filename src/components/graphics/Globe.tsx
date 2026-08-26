@@ -249,7 +249,18 @@ export default function Globe({
        * perfectly round planet read as stretched.
        */
       const room = Math.min(cx - leftGutter, width - rightGutter - cx, cy, height - cy);
-      return { cx, cy, radius: Math.max(40, room / 1.14) };
+      /*
+       * Wide: fit the atmosphere, not the sphere. The halo reaches 1.14 radii,
+       * and a halo cut off by the edges of the frame is exactly what makes a
+       * perfectly round planet read as stretched.
+       *
+       * Narrow: a phone has no room for a whole planet *and* a readable Europe,
+       * so fly closer instead. The sphere runs past the frame on every side,
+       * which crops evenly and reads as a close orbit — the curve still shows
+       * in the four corners — rather than as a squashed globe.
+       */
+      const radius = wide ? room / 1.14 : room * 1.18;
+      return { cx, cy, radius: Math.max(40, radius) };
     };
 
     const buildLayers = (ratio: number) => {

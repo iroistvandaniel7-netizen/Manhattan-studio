@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
+import Logo from "@/components/graphics/Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { ADDRESS, BRAND, EMAIL, PHONES } from "@/lib/site";
 
@@ -26,13 +27,9 @@ export default function Footer({
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-10">
           {/* Wordmark */}
           <div className="lg:col-span-5">
+            {/* The full mark here — the footer has the room the bar does not. */}
             <Link href={home} className="inline-block leading-none" aria-label={BRAND.nameFull}>
-              <span className="text-shadow-lift font-display block text-2xl font-extrabold tracking-[0.04em] sm:text-3xl">
-                {BRAND.wordmarkTop}
-              </span>
-              <span className="label mt-1.5 block text-[0.625rem] text-white/60">
-                {BRAND.wordmarkBottom}
-              </span>
+              <Logo className="h-auto w-56 sm:w-64" />
             </Link>
 
             <div className="mt-8">
