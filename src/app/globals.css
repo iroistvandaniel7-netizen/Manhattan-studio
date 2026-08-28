@@ -481,20 +481,19 @@ html:not([data-js]) [data-sticky] [data-on-photo="cta"] {
 }
 
 /*
- * The globe is a canvas, and a canvas is blank without scripting. The list of
- * languages beside it is `sr-only` — for screen readers, which cannot see a
- * canvas either — so where there is no JavaScript that same list becomes the
- * visible content, in place of a picture that will never draw.
+ * The globe is a canvas, and a canvas is blank without scripting — so the
+ * languages are read from the list beside it, which is ordinary markup and
+ * needs no help. What does need help is the list's disclosure: each row keeps
+ * its countries collapsed until the row is chosen, and without JavaScript no
+ * row can ever be chosen. Open every one of them there. Seven rows that look
+ * pressable and do nothing is worse than no interaction at all.
+ *
+ * `!important` because the collapsed state is a utility class on the element
+ * itself, and would otherwise win on source order.
  */
-html:not([data-js]) .bare-reveal {
-  position: static;
-  width: auto;
-  height: auto;
-  margin: 0;
-  overflow: visible;
-  clip: auto;
-  clip-path: none;
-  white-space: normal;
+html:not([data-js]) .bare-open {
+  grid-template-rows: 1fr !important;
+  opacity: 1 !important;
 }
 
 /* ------------------------------------------------------------------ *

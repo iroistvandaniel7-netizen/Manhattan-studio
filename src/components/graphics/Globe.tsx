@@ -233,16 +233,24 @@ export default function Globe({
 
     const geometry = () => {
       /*
-       * Above `lg` the heading is laid over the section on the left and the
-       * flags run down the right, so the sphere is centred in what is left
-       * between them rather than in the frame. The breakpoint matches
-       * Tailwind's `lg`, where that layout swaps to a stack.
+       * Above `lg` the heading and the language list run down the left of the
+       * section, so the sphere is centred in what is left beside them rather
+       * than in the frame. The breakpoint matches Tailwind's `lg`, where that
+       * layout swaps to a stack.
        */
       const wide = width >= 1024;
       const leftGutter = wide ? Math.min(470, width * 0.33) : 0;
       const rightGutter = wide ? 110 : 0;
       const cx = (leftGutter + (width - rightGutter)) / 2;
-      const cy = height / 2;
+      /*
+       * Narrow: lift the sphere off centre. The list sits over the lower part
+       * of the section on a phone, and a sphere centred in the frame puts its
+       * equator — where the markers and the one label are — directly behind
+       * the first rows. The radius is set by the width at these sizes, so
+       * raising the centre moves the subject into the clear band without
+       * costing any size.
+       */
+      const cy = wide ? height / 2 : height * 0.44;
       /*
        * Fit the atmosphere, not the sphere. The halo reaches 1.14 radii, and a
        * halo cut off by the edges of the frame is exactly what makes a
@@ -289,11 +297,20 @@ export default function Globe({
         c.arc(cx, cy, radius * 1.14, 0, TAU);
         c.fill();
 
+        /*
+         * The ocean is nearly black.
+         *
+         * It used to be magenta under near-white continents, which put the
+         * brightest value on the landmass: the eye read white shapes on pink
+         * water, and the planet came out as a stain rather than a sphere. The
+         * accent belongs to the light, so the water goes dark and the land
+         * carries the colour.
+         */
         const sea = c.createRadialGradient(lx, ly, radius * 0.04, cx, cy, radius * 1.34);
-        sea.addColorStop(0, "#94146c");
-        sea.addColorStop(0.36, "#690c4f");
-        sea.addColorStop(0.7, "#420733");
-        sea.addColorStop(1, "#150218");
+        sea.addColorStop(0, "#2a0620");
+        sea.addColorStop(0.36, "#1a0413");
+        sea.addColorStop(0.7, "#0f0209");
+        sea.addColorStop(1, "#050104");
         c.fillStyle = sea;
         c.beginPath();
         c.arc(cx, cy, radius, 0, TAU);
@@ -309,24 +326,25 @@ export default function Globe({
         c.arc(cx, cy, radius, 0, TAU);
         c.clip();
 
-        const shade = c.createRadialGradient(lx, ly, radius * 0.08, lx, ly, radius * 2);
-        shade.addColorStop(0, "rgba(255,255,255,0.10)");
-        shade.addColorStop(0.3, "rgba(255,255,255,0)");
-        shade.addColorStop(0.62, "rgba(16,2,20,0.32)");
-        shade.addColorStop(1, "rgba(10,1,13,0.82)");
+        /*
+         * The terminator. No white sheen any more: a white highlight over
+         * magenta continents desaturates exactly the part of the planet the eye
+         * goes to first. The lit side is left alone and the night side is
+         * carried nearly to black, which is what gives the disc its roundness.
+         */
+        const shade = c.createRadialGradient(lx, ly, radius * 0.1, lx, ly, radius * 1.95);
+        shade.addColorStop(0, "rgba(255,255,255,0)");
+        shade.addColorStop(0.34, "rgba(255,255,255,0)");
+        shade.addColorStop(0.64, "rgba(8,1,10,0.42)");
+        shade.addColorStop(1, "rgba(4,0,6,0.93)");
         c.fillStyle = shade;
-        c.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
-
-        const sheen = c.createRadialGradient(lx, ly, 0, lx, ly, radius * 0.52);
-        sheen.addColorStop(0, "rgba(255,224,244,0.15)");
-        sheen.addColorStop(1, "rgba(255,224,244,0)");
-        c.fillStyle = sheen;
         c.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
         c.restore();
 
+        /* A rim of light along the limb, brightest where the sun is. */
         c.beginPath();
         c.arc(cx, cy, radius, 0, TAU);
-        c.strokeStyle = "rgba(255,124,206,0.42)";
+        c.strokeStyle = "rgba(255,124,206,0.5)";
         c.lineWidth = Math.max(1, radius * 0.005);
         c.stroke();
       }
@@ -406,43 +424,43 @@ export default function Globe({
       context.arc(cx, cy, radius, 0, TAU);
       context.clip();
 
-      /* Graticule. */
+      /*
+       * Meridians, over the water only — they are drawn before the land and
+       * painted over by it. On a globe this busy a full graticule crossing the
+       * continents is the difference between a planet and a wireframe.
+       */
+      const lx = cx - radius * 0.42;
+      const ly = cy - radius * 0.48;
       context.beginPath();
       path(graticule);
-      context.strokeStyle = "rgba(255,190,230,0.10)";
+      context.strokeStyle = "rgba(255,120,205,0.07)";
       context.lineWidth = 0.6;
       context.stroke();
 
-      /* Land, with a soft shadow so it sits above the water. */
-      const lx = cx - radius * 0.42;
-      const ly = cy - radius * 0.48;
-      context.save();
-      context.shadowColor = "rgba(12,3,18,0.85)";
-      context.shadowBlur = radius * 0.05;
-      context.shadowOffsetX = radius * 0.012;
-      context.shadowOffsetY = radius * 0.024;
-      const ground = context.createRadialGradient(lx, ly, radius * 0.04, cx, cy, radius * 1.36);
-      ground.addColorStop(0, "#fff5fb");
-      ground.addColorStop(0.4, "#f0d5e7");
-      ground.addColorStop(0.76, "#a8709a");
-      ground.addColorStop(1, "#552a4c");
+      /* Land: the lit face carries the accent, falling to near-black at the
+         terminator. This is the section's colour, and it is on the continents. */
+      const ground = context.createRadialGradient(lx, ly, radius * 0.04, cx, cy, radius * 1.3);
+      ground.addColorStop(0, "#e8479f");
+      ground.addColorStop(0.34, "#c22a7f");
+      ground.addColorStop(0.68, "#75184f");
+      ground.addColorStop(1, "#2e0921");
       context.fillStyle = ground;
       context.beginPath();
       path(data.land);
       context.fill();
-      context.restore();
 
-      /* Borders, then a hairline of surf along every coast. */
+      /* Borders as a darker seam, then a bright hairline along every coast —
+         the crispness of that edge is most of what reads as expensive. */
       context.beginPath();
       path(data.borders);
-      context.strokeStyle = "rgba(88,18,66,0.45)";
+      context.strokeStyle = "rgba(28,4,20,0.5)";
       context.lineWidth = Math.max(0.5, radius * 0.0022);
       context.stroke();
 
       context.beginPath();
       path(data.land);
-      context.strokeStyle = "rgba(255,255,255,0.24)";
-      context.lineWidth = Math.max(0.4, radius * 0.0018);
+      context.strokeStyle = "rgba(255,170,224,0.5)";
+      context.lineWidth = Math.max(0.5, radius * 0.002);
       context.stroke();
 
       context.restore();
@@ -452,10 +470,10 @@ export default function Globe({
       if (over) context.drawImage(over, 0, 0, width, height);
 
       /*
-       * Everything from here up is drawn over a globe that is near-white where
-       * the land is and near-black over the ocean, so every mark carries a dark
-       * outline and every word a dark halo. Without one, half of them vanish
-       * depending on where the globe has turned to.
+       * Everything from here up is drawn over a globe that runs from bright
+       * magenta on the lit continents to near-black on the night side, so every
+       * mark carries a dark outline and every word a dark halo. Without one,
+       * half of them vanish depending on where the globe has turned to.
        */
       const fontSize = Math.max(11, Math.min(17, 11 * unit));
       context.font = `600 ${fontSize}px ${mono}`;
@@ -523,16 +541,26 @@ export default function Globe({
         }
       }
 
-      /* Marked places. */
+      /*
+       * Marked places — only for the raised language.
+       *
+       * Every place of every language used to be marked at all times: some two
+       * dozen dots, of which only the front-most of each language was ever
+       * named. The rest were anonymous specks sitting on the continents, and
+       * they read as dirt on the lens. A mark nobody can identify is noise, so
+       * the globe now shows the studio and, when a language is chosen, that
+       * language's places and nothing else.
+       */
       for (const mark of marks) {
+        if (mark.lang !== raised) continue;
         const p = place(mark.lon, mark.lat);
         if (p.hidden || p.z <= 0) continue;
         // Fade out over the last few degrees rather than blinking off the edge.
         const edge = Math.max(0, Math.min(1, p.z * 6));
-        const up = !raised || mark.lang === raised;
-        const size = up ? 1 : 0.7;
+        const up = true;
+        const size = 1;
 
-        context.globalAlpha = edge * (up ? 1 : 0.45);
+        context.globalAlpha = edge;
         if (raised && up) {
           context.fillStyle = "rgba(194,0,122,0.55)";
           context.beginPath();
@@ -680,29 +708,39 @@ export default function Globe({
         }
       }
 
-      const byLanguage = new Map<string, GlobePlace & { x: number; y: number; z: number }>();
-      for (const mark of marks) {
-        const p = place(mark.lon, mark.lat);
-        if (p.hidden || p.z <= 0.16) continue;
-        const best = byLanguage.get(mark.lang);
-        if (!best || p.z > best.z) byLanguage.set(mark.lang, { ...mark, ...p });
-      }
+      /*
+       * One name on the sphere, and only when a language is chosen.
+       *
+       * All seven used to be written at once. Five of them are taught within a
+       * few hundred kilometres of each other, so on a phone their names landed
+       * in a single thumbprint of Central Europe and had to be fanned outward
+       * on leader lines — which is exactly the tangle this section was accused
+       * of. The countries are read in the list beside the globe, where type can
+       * do the job properly; the sphere says *where*, once, at whichever of the
+       * language's places is facing the reader most squarely.
+       */
+      if (raised) {
+        let front: (GlobePlace & { x: number; y: number; z: number }) | null = null;
+        for (const mark of marks) {
+          if (mark.lang !== raised) continue;
+          const p = place(mark.lon, mark.lat);
+          if (p.hidden || p.z <= 0.16) continue;
+          if (!front || p.z > front.z) front = { ...mark, ...p };
+        }
 
-      // Front-most first, so a language squarely in view keeps its chosen side.
-      for (const mark of [...byLanguage.values()].sort((a, b) => b.z - a.z)) {
-        // One language raised means one language named: half a dozen dimmed
-        // names over the pale continents reads as smudging, not as context.
-        if (raised && mark.lang !== raised) continue;
-        const spot = findSpot(mark.name, mark.x, mark.y, [
-          mark.label.dx,
-          mark.label.dy,
-          mark.label.anchor,
-        ]);
-        if (!spot) continue;
-        const alpha = Math.min(1, mark.z * 6);
-        if (spot.ring > 20) leader(mark.x, mark.y, spot.x, spot.y, alpha);
-        context.textAlign = spot.align === "end" ? "right" : "left";
-        write(mark.name, spot.x, spot.y, alpha);
+        if (front) {
+          const spot = findSpot(front.name, front.x, front.y, [
+            front.label.dx,
+            front.label.dy,
+            front.label.anchor,
+          ]);
+          if (spot) {
+            const alpha = Math.min(1, front.z * 6);
+            if (spot.ring > 20) leader(front.x, front.y, spot.x, spot.y, alpha);
+            context.textAlign = spot.align === "end" ? "right" : "left";
+            write(front.name, spot.x, spot.y, alpha);
+          }
+        }
       }
 
       context.textAlign = "left";
