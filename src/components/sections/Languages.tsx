@@ -55,16 +55,6 @@ export default function Languages({ dict }: { dict: Dictionary }) {
             {dict.languages.lead}
           </p>
         </Reveal>
-        {/* Next to the lead rather than under the sphere: at the foot of a
-            full-height section the hint sits on the fold and is missed. */}
-        <Reveal delay={190}>
-          <p className="label pointer-events-auto mt-6 flex w-fit items-center gap-2.5 text-white/55">
-            <span aria-hidden="true" className="text-sm leading-none">
-              ↔
-            </span>
-            {dict.languages.map.drag}
-          </p>
-        </Reveal>
       </div>
 
       {/*

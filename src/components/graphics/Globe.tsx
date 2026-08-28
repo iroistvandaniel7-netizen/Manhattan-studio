@@ -92,34 +92,6 @@ const ALTERNATES: [number, number, "start" | "end"][] = [
   [0, 1, "start"],
 ];
 
-/**
- * The point to turn toward so a set of places is on the near side: the
- * direction of their mean position on the sphere. Falls back to the origin
- * when the places cancel each other out, which is what happens for a language
- * spoken on opposite sides of the world.
- */
-function viewCentre(
-  points: [number, number][],
-  fallback: [number, number],
-): [number, number] {
-  let x = 0;
-  let y = 0;
-  let z = 0;
-  for (const [lon, lat] of points) {
-    const [vx, vy, vz] = toVector(lon, lat);
-    x += vx;
-    y += vy;
-    z += vz;
-  }
-  const length = Math.hypot(x, y, z);
-  if (length < 0.15) return fallback;
-  // Keep the pole off the edge of the frame; a steep tilt reads as a mistake.
-  return [
-    Math.atan2(x / length, z / length) / DEG,
-    Math.max(-52, Math.min(52, Math.asin(y / length) / DEG)),
-  ];
-}
-
 /** Shortest signed way round from one longitude to another. */
 function shortWay(from: number, to: number): number {
   return ((((to - from) % 360) + 540) % 360) - 180;
@@ -162,15 +134,21 @@ export default function Globe({
   >(null);
 
   useEffect(() => {
-    const to = active
-      ? viewCentre(
-          [
-            origin,
-            ...places.filter((p) => p.lang === active).map((p): [number, number] => [p.lon, p.lat]),
-          ],
-          origin,
-        )
-      : HOME_VIEW;
+    /*
+     * Turn to the language's own country, not to the middle of everywhere it
+     * is spoken.
+     *
+     * Averaging the places was the obvious reading of "show me this language"
+     * and the wrong one: English is taught for Britain, Ireland, the States,
+     * Canada, Australia, New Zealand, South Africa and India, and eight points
+     * scattered over the whole sphere very nearly cancel out — the average
+     * landed in open ocean, pointing at no country at all. The first region of
+     * each language is its home one, so press English and Britain comes round.
+     * The rest are still marked and still have routes drawn to them; they are
+     * simply not what the globe aims at.
+     */
+    const home = places.find((p) => p.lang === active);
+    const to: [number, number] = active && home ? [home.lon, home.lat] : HOME_VIEW;
     flight.current = {
       lon0: anchor.current.lon,
       lat0: anchor.current.lat,
@@ -197,7 +175,6 @@ export default function Globe({
      */
     const centre = { lon: HOME_VIEW[0], lat: HOME_VIEW[1] };
     let phase = 0;
-    let drag: { x: number; y: number; lon: number; lat: number } | null = null;
     /** The language under the pointer, if any. Kept out of React: it changes on
      *  every mouse move and nothing outside the canvas needs to know. */
     let hovered: string | null = null;
@@ -243,14 +220,15 @@ export default function Globe({
       const rightGutter = wide ? 110 : 0;
       const cx = (leftGutter + (width - rightGutter)) / 2;
       /*
-       * Narrow: lift the sphere off centre. The list sits over the lower part
-       * of the section on a phone, and a sphere centred in the frame puts its
-       * equator — where the markers and the one label are — directly behind
-       * the first rows. The radius is set by the width at these sizes, so
-       * raising the centre moves the subject into the clear band without
-       * costing any size.
+       * Narrow: lift the sphere well off centre. The list sits over the lower
+       * part of the section on a phone, and the middle of the sphere is where
+       * the chosen country lands — so a sphere centred in the frame puts the
+       * one thing the reader just asked to see directly behind the first rows.
+       * 0.36 puts it in the band between the heading and the list, with room
+       * for its label. The radius is set by the width at these sizes, so
+       * raising the centre costs no size at all.
        */
-      const cy = wide ? height / 2 : height * 0.44;
+      const cy = wide ? height / 2 : height * 0.36;
       /*
        * Fit the atmosphere, not the sphere. The halo reaches 1.14 radii, and a
        * halo cut off by the edges of the frame is exactly what makes a
@@ -754,12 +732,30 @@ export default function Globe({
      */
     const MIN_FRAME_MS = 32;
     let painted = 0;
+    /** When the off-screen flag was last checked against the element's box. */
+    let checked = 0;
 
     const tick = (now: number) => {
       frame = requestAnimationFrame(tick);
       if (now - painted < MIN_FRAME_MS) return;
       const delta = Math.min(0.05, (now - last) / 1000);
       last = now;
+
+      /*
+       * Skipping frames while the globe is off screen is worth doing, but not
+       * worth trusting an observer alone for. An IntersectionObserver reports
+       * `false` the moment it starts watching something below the fold, and its
+       * later notifications are best-effort: under load they can simply not
+       * arrive, and then the flag never comes back and the planet is frozen for
+       * good — visibly so, because the first frame is painted straight from the
+       * fetch and does not go through here. So when the flag is down, confirm
+       * it against the box twice a second before believing it.
+       */
+      if (!onScreen && now - checked > 500) {
+        checked = now;
+        const box = canvas.getBoundingClientRect();
+        onScreen = box.bottom > -120 && box.top < window.innerHeight + 120;
+      }
       if (!onScreen || !data) return;
       painted = now;
 
@@ -770,7 +766,7 @@ export default function Globe({
         anchor.current.lon = journey.lon0 + journey.dLon * eased;
         anchor.current.lat = journey.lat0 + (journey.lat1 - journey.lat0) * eased;
         if (t >= 1) flight.current = null;
-      } else if (!drag && !reduced) {
+      } else if (!reduced) {
         phase += delta * ((Math.PI * 2) / 54);
       }
 
@@ -798,7 +794,15 @@ export default function Globe({
 
     frame = requestAnimationFrame(tick);
 
-    /* Pointer: drag to turn, hover to raise a language. */
+    /*
+     * Pointer: hover to raise a language, and nothing else.
+     *
+     * The globe used to be draggable. It is turned by the list now — pressing
+     * a language flies it to that country — and a sphere that both flies on
+     * its own and follows the finger fights itself: a drag leaves the view
+     * somewhere the list did not put it, and on a phone every attempt to
+     * scroll past the section grabbed the planet instead.
+     */
     const pickLanguage = (clientX: number, clientY: number) => {
       const rect = canvas.getBoundingClientRect();
       const px = clientX - rect.left;
@@ -825,43 +829,23 @@ export default function Globe({
       }
     };
 
-    const onDown = (event: PointerEvent) => {
-      flight.current = null;
-      drag = {
-        x: event.clientX,
-        y: event.clientY,
-        lon: anchor.current.lon,
-        lat: anchor.current.lat,
-      };
-      pickLanguage(event.clientX, event.clientY);
-      canvas.setPointerCapture(event.pointerId);
-    };
+    /*
+     * Only `pointermove` is listened for, and only to raise a language on
+     * hover. Touch fires it too, but a tap that raises a language and then
+     * leaves it raised with nothing under the finger would be a dead end, so
+     * `pointerdown` — which every touch sends first — clears it back.
+     */
     const onMove = (event: PointerEvent) => {
-      if (!drag) {
-        pickLanguage(event.clientX, event.clientY);
-        return;
-      }
-      const { radius } = geometry();
-      anchor.current.lon = drag.lon - ((event.clientX - drag.x) / (radius || 1)) * 90;
-      anchor.current.lat = Math.max(
-        -72,
-        Math.min(72, drag.lat - ((event.clientY - drag.y) / (radius || 1)) * 90),
-      );
-    };
-    const onUp = (event: PointerEvent) => {
-      if (!drag) return;
-      drag = null;
-      if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+      if (event.pointerType === "touch") return;
+      pickLanguage(event.clientX, event.clientY);
     };
     const onLeave = () => {
       hovered = null;
       sweep = 1;
     };
 
-    canvas.addEventListener("pointerdown", onDown);
     canvas.addEventListener("pointermove", onMove);
-    canvas.addEventListener("pointerup", onUp);
-    canvas.addEventListener("pointercancel", onUp);
+    canvas.addEventListener("pointerdown", onLeave);
     canvas.addEventListener("pointerleave", onLeave);
 
     return () => {
@@ -869,10 +853,8 @@ export default function Globe({
       cancelAnimationFrame(frame);
       observer.disconnect();
       visibility.disconnect();
-      canvas.removeEventListener("pointerdown", onDown);
       canvas.removeEventListener("pointermove", onMove);
-      canvas.removeEventListener("pointerup", onUp);
-      canvas.removeEventListener("pointercancel", onUp);
+      canvas.removeEventListener("pointerdown", onLeave);
       canvas.removeEventListener("pointerleave", onLeave);
     };
   }, [onReady]);
@@ -883,7 +865,7 @@ export default function Globe({
       aria-hidden="true"
       // `font-mono` is here so the drawing code can read the resolved family
       // off the element; canvas has no access to the CSS variable itself.
-      className={`font-mono block h-full w-full cursor-grab touch-pan-y active:cursor-grabbing ${className}`}
+      className={`font-mono block h-full w-full ${className}`}
     />
   );
 }

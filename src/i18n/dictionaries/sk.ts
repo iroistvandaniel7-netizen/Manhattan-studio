@@ -46,8 +46,6 @@ const sk: Dictionary = {
     title: "Čo učíme",
     lead: "Sedem jazykov, od začiatočníkov po pokročilých.",
     map: {
-      caption: "Sedem jazykov na mape sveta, z pohľadu Dunajskej Stredy",
-      drag: "Potiahnite zemeguľu",
       spokenIn: "Kde sa ním hovorí",
     },
     regions: {

@@ -46,8 +46,6 @@ const en: Dictionary = {
     title: "What we teach",
     lead: "Seven languages, from beginner to advanced.",
     map: {
-      caption: "The seven languages on the world map, seen from Dunajská Streda",
-      drag: "Drag the globe",
       spokenIn: "Where it's spoken",
     },
     regions: {

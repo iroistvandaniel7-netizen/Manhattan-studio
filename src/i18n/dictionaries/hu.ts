@@ -58,8 +58,6 @@ const hu = {
     title: "Amit tanítunk",
     lead: "Hét nyelv, kezdő szinttől haladóig.",
     map: {
-      caption: "A hét nyelv a világtérképen, Dunaszerdahelyről nézve",
-      drag: "Húzd a földgömböt",
       spokenIn: "Hol beszélik",
     },
     /* Országok, ahol az adott nyelv hivatalos vagy mindennapi használatban van. */
