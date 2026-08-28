@@ -6,11 +6,14 @@ import type { Widen } from "../types";
  *
  * CONTENT RULE: every fact traces back to MANHATTAN STUDIO's own published
  * information (manhattanstudio.sk, Dunajská Streda) — the seven languages,
- * the three course formats, the normal-course terms, the free communication
- * training with English and German, the minimum group size, the address,
- * phone, email and opening hours. Nothing is invented. Do not add claims,
- * figures, prices, slogans or testimonials that cannot be traced back to the
- * studio.
+ * the free communication training with English and German, the minimum group
+ * size, the address, phone, email and opening hours. Nothing is invented. Do
+ * not add claims, figures, slogans or testimonials that cannot be traced back
+ * to the studio.
+ *
+ * Prices are not here. They live in `src/lib/catalogue.ts`, in cents, because
+ * the checkout endpoint prices every order from the same file the page reads —
+ * a price written twice is a price that will disagree with itself.
  */
 const hu = {
   meta: {
@@ -47,7 +50,7 @@ const hu = {
     title: "Számokban",
     items: [
       { value: "7", label: "Nyelv", note: "Kezdőtől haladóig" },
-      { value: "160 €", label: "Normál kurzus", note: "10 hét, 20 óra" },
+      { value: "16,50 €", label: "Egyéni óra ettől", note: "10 órás csomagban" },
       { value: "10", label: "Óra tréning ajándékba", note: "Angol és német kurzushoz" },
       { value: "7", label: "Nap nyitva", note: "Minden nap 9:00–20:00" },
     ],
@@ -99,21 +102,83 @@ const hu = {
 
   courses: {
     eyebrow: "Kurzusok",
-    title: "Három tempó",
-    lead: "Minden nyelvet három formában tanulhatsz. Válaszd azt, ami az időbeosztásodhoz illik.",
-    formats: [
-      { name: "Normál", note: "Heti két alkalom, kényelmes tempóban." },
-      { name: "Félintenzív", note: "Gyorsabb haladás, sűrűbb órabeosztással." },
-      { name: "Intenzív", note: "A leggyorsabb út a kívánt szintig." },
-    ],
-    planTitle: "Normál kurzus",
-    planPrice: "160 €",
-    planRows: [
-      { k: "Időtartam", v: "10 hét" },
-      { k: "Óraszám", v: "20 óra" },
-      { k: "Beosztás", v: "Heti 2 × 60 perc" },
-    ],
-    planCta: "Érdekel",
+    title: "Árak",
+    lead: "Csoportos angol kurzusok meghirdetett áron, és egyéni órák minden nyelvre.",
+
+    groupTitle: "Csoportos kurzusok",
+    groupNote:
+      "A többi nyelv csoportos óráiról érdeklődj a stúdióban — az induló csoportokat a jelentkezők szintjéhez igazítjuk.",
+    groupEnquire: "Érdeklődöm a csoportos órákról",
+
+    privateTitle: "Egyéni órák",
+    privateLead:
+      "Az egyéni órák mind a hét nyelvre érvényesek, a csomag megvásárlása után választod ki, melyiket tanulod.",
+    perHour: "óránként",
+
+    hours: "óra",
+    lesson: "óra",
+    lessons: "óra",
+
+    items: {
+      "cambridge-30": {
+        name: "Cambridge felkészítő",
+        note: "Felkészítés a Cambridge nyelvvizsgára.",
+      },
+      "english-a1a2-20": {
+        name: "Angol A1–A2",
+        note: "Kezdő és újrakezdő szint, csoportban.",
+      },
+      "english-b1b2-20": {
+        name: "Angol B1–B2",
+        note: "Középhaladó szint, csoportban.",
+      },
+      "private-1": { name: "1 egyéni óra", note: "" },
+      "private-5": { name: "5 egyéni óra", note: "" },
+      "private-10": { name: "10 egyéni óra", note: "" },
+    },
+
+    add: "Kosárba",
+    added: "A kosárban",
+  },
+
+  shop: {
+    cartTitle: "Kosár",
+    open: "Kosár",
+    empty: "A kosarad üres.",
+    emptyNote: "Válassz egy kurzust vagy egy egyéni csomagot.",
+    remove: "Törlés",
+    quantity: "Mennyiség",
+    increase: "Több",
+    decrease: "Kevesebb",
+    total: "Összesen",
+    checkout: "Tovább a megrendeléshez",
+    continue: "Vásárlás folytatása",
+    itemCount: "tétel",
+
+    checkoutTitle: "Megrendelés",
+    checkoutLead: "Add meg az adataidat, és felvesszük veled a kapcsolatot.",
+    summary: "A rendelésed",
+    name: "Név",
+    email: "E-mail",
+    phone: "Telefonszám",
+    note: "Megjegyzés",
+    notePlaceholder: "Melyik nyelvet tanulnád, mikor érnél rá?",
+    optional: "nem kötelező",
+    submit: "Megrendelés elküldése",
+    sending: "Küldés…",
+
+    /* A payment provider is not connected yet, so say what actually happens. */
+    payLater:
+      "A fizetés még nem online történik: a megrendelés után felvesszük veled a kapcsolatot, és a stúdióban vagy átutalással rendezed.",
+
+    doneTitle: "Megkaptuk a rendelésed",
+    doneLead: "Hamarosan jelentkezünk a részletekkel.",
+    orderRef: "Rendelés azonosítója",
+
+    errorTitle: "A megrendelést nem sikerült elküldeni",
+    errorLead: "Hívj minket, és felvesszük a rendelést telefonon.",
+    required: "Kötelező mező",
+    invalidEmail: "Érvényes e-mail címet adj meg",
   },
 
   why: {

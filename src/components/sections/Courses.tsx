@@ -1,21 +1,32 @@
 import type { Dictionary } from "@/i18n";
+import type { Locale } from "@/i18n/config";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 import Marquee from "@/components/ui/Marquee";
+import AddToCart from "@/components/shop/AddToCart";
+import { GROUP_COURSES, PRIVATE_PACKAGES, formatPrice, hourlyRate } from "@/lib/catalogue";
 
 /**
- * The three tempos, shown as a pace meter.
+ * The price list, and the shop.
  *
- * The one thing that genuinely separates the formats is how fast they run, so
- * each is drawn with a filled bar — one segment, two, three. That encodes the
- * real difference; it is not decoration, and it is why the formats are ranked
- * here when nothing else on the page is.
+ * Two groups, because they are sold differently and the difference matters to
+ * the reader: the group courses are three specific English courses with a
+ * published price, and the private packages are one ladder that covers all
+ * seven languages. Splitting the packages per language would have made
+ * twenty-one prices out of three, and every one of them the same.
  *
- * The normal course's published terms sit underneath as a wide specification
- * strip in the mono face, rather than as a pricing card.
+ * Only the courses the studio has actually priced appear here. Group lessons
+ * in the other six languages are arranged at the studio, and the section says
+ * so rather than showing a figure nobody quoted.
  */
-export default function Courses({ dict }: { dict: Dictionary }) {
-  const SEGMENTS = 3;
+export default function Courses({
+  dict,
+  locale,
+}: {
+  dict: Dictionary;
+  locale: Locale;
+}) {
+  const copy = dict.courses;
 
   return (
     <section
@@ -26,100 +37,137 @@ export default function Courses({ dict }: { dict: Dictionary }) {
       <div className="container-x">
         <div className="max-w-2xl">
           <Reveal>
-            <Eyebrow>{dict.courses.eyebrow}</Eyebrow>
+            <Eyebrow>{copy.eyebrow}</Eyebrow>
           </Reveal>
           <Reveal delay={70}>
             <h2
               id="courses-title"
               className="mt-5 text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95]"
             >
-              {dict.courses.title}
+              {copy.title}
             </h2>
           </Reveal>
           <Reveal delay={130}>
-            <p className="mt-5 text-base leading-relaxed text-slate-600">
-              {dict.courses.lead}
-            </p>
+            <p className="mt-5 text-base leading-relaxed text-slate-600">{copy.lead}</p>
           </Reveal>
         </div>
 
-        {/* Pace meter */}
-        <ul className="mt-14 sm:mt-20">
-          {dict.courses.formats.map((format, i) => (
-            <Reveal
-              as="li"
-              key={format.name}
-              delay={i * 90}
-              className="group/pace border-t-2 border-ink/15 py-7 last:border-b-2 sm:py-9"
-            >
-              <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-12">
-                <h3 className="font-display text-[clamp(1.75rem,4vw,3rem)] font-extrabold leading-none tracking-[-0.04em] lg:w-[28%] lg:shrink-0">
-                  {format.name}
-                </h3>
+        {/* --- Group courses ------------------------------------------- */}
+        <Reveal delay={60} className="mt-14 sm:mt-20">
+          <h3 className="font-display text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold tracking-[-0.035em]">
+            {copy.groupTitle}
+          </h3>
+        </Reveal>
 
-                {/* Filled segments = relative pace */}
-                <div
-                  className="flex gap-1.5 lg:w-[26%] lg:shrink-0"
-                  aria-hidden="true"
-                >
-                  {Array.from({ length: SEGMENTS }, (_, seg) => (
-                    <span
-                      key={seg}
-                      className={`h-3 flex-1 transition-all duration-500 ${
-                        seg <= i
-                          ? "bg-accent group-hover/pace:h-5"
-                          : "bg-ink/10 group-hover/pace:h-4"
-                      }`}
-                      style={{ transitionDelay: `${seg * 70}ms` }}
-                    />
-                  ))}
-                </div>
+        <ul className="mt-8 grid gap-px bg-ink/12 sm:mt-10 lg:grid-cols-3">
+          {GROUP_COURSES.map((product, i) => {
+            const item = copy.items[product.id as keyof typeof copy.items];
+            return (
+              <Reveal
+                as="li"
+                key={product.id}
+                delay={i * 80}
+                className="flex flex-col bg-accent-soft p-7 sm:p-8"
+              >
+                <h4 className="font-display text-xl font-extrabold tracking-[-0.03em] sm:text-2xl">
+                  {item.name}
+                </h4>
+                {item.note ? (
+                  <p className="mt-2.5 text-sm leading-relaxed text-slate-600">{item.note}</p>
+                ) : null}
 
-                <p className="max-w-md text-base leading-relaxed text-slate-600">
-                  {format.note}
+                <p className="font-display mt-6 text-[clamp(2rem,4vw,2.75rem)] font-extrabold leading-none tracking-[-0.045em] text-accent">
+                  {formatPrice(product.price, locale)}
                 </p>
-              </div>
-            </Reveal>
-          ))}
+                <p className="label mt-3 text-slate-600">
+                  {product.hours} {copy.hours} · {formatPrice(hourlyRate(product), locale)}{" "}
+                  {copy.perHour}
+                </p>
+
+                <AddToCart
+                  id={product.id}
+                  name={item.name}
+                  add={copy.add}
+                  added={copy.added}
+                  className="mt-7"
+                />
+              </Reveal>
+            );
+          })}
         </ul>
 
-        {/* Specification strip for the normal course */}
-        <Reveal delay={120} className="mt-12 sm:mt-16">
-          <div className="flex flex-col gap-8 bg-ink p-7 text-white sm:p-9 lg:flex-row lg:items-center lg:gap-12">
-            <div className="lg:shrink-0">
-              <p className="label text-white/60">{dict.courses.planTitle}</p>
-              <p className="font-display mt-2 text-[clamp(2.5rem,6vw,4rem)] font-extrabold leading-none tracking-[-0.05em]">
-                {dict.courses.planPrice}
-              </p>
-            </div>
-
-            <dl className="flex flex-1 flex-wrap gap-x-10 gap-y-5">
-              {dict.courses.planRows.map((row) => (
-                <div key={row.k} className="min-w-32">
-                  <dt className="label text-white/55">{row.k}</dt>
-                  <dd className="mt-1.5 font-mono text-base font-semibold">{row.v}</dd>
-                </div>
-              ))}
-            </dl>
-
+        {/* The six languages without a published group price. */}
+        <Reveal delay={100} className="mt-8">
+          <div className="flex flex-col gap-5 border-2 border-ink/15 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+            <p className="max-w-xl text-sm leading-relaxed text-slate-600">
+              {copy.groupNote}
+            </p>
             <a
               href="#contact"
-              className="group/cta label inline-flex items-center justify-center gap-3 bg-white px-8 py-4 text-ink transition-colors duration-200 hover:bg-accent hover:text-white lg:shrink-0"
+              className="label group/ask inline-flex shrink-0 items-center gap-3 bg-ink px-6 py-3.5 text-white transition-colors duration-200 hover:bg-accent"
             >
-              {dict.courses.planCta}
+              {copy.groupEnquire}
               <span
                 aria-hidden="true"
-                className="transition-transform duration-200 group-hover/cta:translate-x-1"
+                className="transition-transform duration-200 group-hover/ask:translate-x-1"
               >
                 →
               </span>
             </a>
           </div>
         </Reveal>
+
+        {/* --- Private lessons ----------------------------------------- */}
+        <Reveal delay={60} className="mt-16 sm:mt-24">
+          <h3 className="font-display text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold tracking-[-0.035em]">
+            {copy.privateTitle}
+          </h3>
+          <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-600">
+            {copy.privateLead}
+          </p>
+        </Reveal>
+
+        <ul className="mt-8 grid gap-px bg-white/50 sm:mt-10 lg:grid-cols-3">
+          {PRIVATE_PACKAGES.map((product, i) => {
+            const item = copy.items[product.id as keyof typeof copy.items];
+            return (
+              <Reveal
+                as="li"
+                key={product.id}
+                delay={i * 80}
+                className="flex flex-col bg-ink p-7 text-white sm:p-8"
+              >
+                <h4 className="font-display text-xl font-extrabold tracking-[-0.03em] sm:text-2xl">
+                  {item.name}
+                </h4>
+                <p className="font-display mt-6 text-[clamp(2rem,4vw,2.75rem)] font-extrabold leading-none tracking-[-0.045em]">
+                  {formatPrice(product.price, locale)}
+                </p>
+                {/*
+                  The per-hour rate is what makes the ladder legible: 17.50,
+                  then 17.00, then 16.50. Without it the packages are three
+                  numbers and the reader has to do the division.
+                */}
+                <p className="label mt-3 text-white/60">
+                  {formatPrice(hourlyRate(product), locale)} {copy.perHour}
+                </p>
+
+                <AddToCart
+                  id={product.id}
+                  name={item.name}
+                  add={copy.add}
+                  added={copy.added}
+                  tone="dark"
+                  className="mt-7"
+                />
+              </Reveal>
+            );
+          })}
+        </ul>
       </div>
 
       {/* Moving band of the seven languages */}
-      <div className="mt-16 border-y-2 border-ink bg-white py-4 sm:mt-20">
+      <div className="mt-16 border-y-2 border-ink bg-white py-4 sm:mt-24">
         <Marquee
           text={dict.languages.items.map((l) => l.name).join("  ·  ") + "  ·  "}
           repeat={2}

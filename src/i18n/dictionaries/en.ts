@@ -35,7 +35,7 @@ const en: Dictionary = {
     title: "In numbers",
     items: [
       { value: "7", label: "Languages", note: "Beginner to advanced" },
-      { value: "160 €", label: "Normal course", note: "10 weeks, 20 hours" },
+      { value: "€16.50", label: "Private lesson from", note: "in the 10-lesson package" },
       { value: "10", label: "Hours of training free", note: "With English and German courses" },
       { value: "7", label: "Days open", note: "Every day 9:00–20:00" },
     ],
@@ -86,21 +86,82 @@ const en: Dictionary = {
 
   courses: {
     eyebrow: "Courses",
-    title: "Three tempos",
-    lead: "Every language comes in three formats. Choose the one that fits your schedule.",
-    formats: [
-      { name: "Normal", note: "Twice a week, at a comfortable pace." },
-      { name: "Semi-intensive", note: "Faster progress, with a denser timetable." },
-      { name: "Intensive", note: "The quickest route to the level you need." },
-    ],
-    planTitle: "Normal course",
-    planPrice: "160 €",
-    planRows: [
-      { k: "Duration", v: "10 weeks" },
-      { k: "Hours", v: "20 hours" },
-      { k: "Schedule", v: "2 × 60 minutes per week" },
-    ],
-    planCta: "I'm interested",
+    title: "Prices",
+    lead: "Group English courses at published prices, and private lessons in every language.",
+
+    groupTitle: "Group courses",
+    groupNote:
+      "For group lessons in the other languages, ask at the studio — groups open to suit the levels of those enrolling.",
+    groupEnquire: "Ask about group lessons",
+
+    privateTitle: "Private lessons",
+    privateLead:
+      "Private lessons are good for all seven languages; you choose which one after buying the package.",
+    perHour: "per hour",
+
+    hours: "hours",
+    lesson: "lesson",
+    lessons: "lessons",
+
+    items: {
+      "cambridge-30": {
+        name: "Cambridge preparation",
+        note: "Preparation for the Cambridge exam.",
+      },
+      "english-a1a2-20": {
+        name: "English A1–A2",
+        note: "Beginner and returning learners, in a group.",
+      },
+      "english-b1b2-20": {
+        name: "English B1–B2",
+        note: "Intermediate level, in a group.",
+      },
+      "private-1": { name: "1 private lesson", note: "" },
+      "private-5": { name: "5 private lessons", note: "" },
+      "private-10": { name: "10 private lessons", note: "" },
+    },
+
+    add: "Add to basket",
+    added: "In your basket",
+  },
+
+  shop: {
+    cartTitle: "Basket",
+    open: "Basket",
+    empty: "Your basket is empty.",
+    emptyNote: "Choose a course or a package of private lessons.",
+    remove: "Remove",
+    quantity: "Quantity",
+    increase: "More",
+    decrease: "Fewer",
+    total: "Total",
+    checkout: "Continue to order",
+    continue: "Keep browsing",
+    itemCount: "items",
+
+    checkoutTitle: "Your order",
+    checkoutLead: "Leave your details and we will get in touch.",
+    summary: "Your order",
+    name: "Name",
+    email: "Email",
+    phone: "Phone number",
+    note: "Note",
+    notePlaceholder: "Which language would you learn, and when are you free?",
+    optional: "optional",
+    submit: "Send order",
+    sending: "Sending…",
+
+    payLater:
+      "Payment is not online yet: after you order we will contact you, and you settle at the studio or by bank transfer.",
+
+    doneTitle: "We have your order",
+    doneLead: "We will be in touch shortly with the details.",
+    orderRef: "Order reference",
+
+    errorTitle: "The order could not be sent",
+    errorLead: "Give us a call and we will take the order by phone.",
+    required: "Required field",
+    invalidEmail: "Enter a valid email address",
   },
 
   why: {

@@ -35,7 +35,7 @@ const sk: Dictionary = {
     title: "V číslach",
     items: [
       { value: "7", label: "Jazykov", note: "Od začiatočníkov po pokročilých" },
-      { value: "160 €", label: "Normálny kurz", note: "10 týždňov, 20 hodín" },
+      { value: "16,50 €", label: "Individuálna hodina od", note: "v balíku 10 hodín" },
       { value: "10", label: "Hodín tréningu zdarma", note: "Ku kurzom angličtiny a nemčiny" },
       { value: "7", label: "Dní otvorené", note: "Každý deň 9:00 – 20:00" },
     ],
@@ -86,21 +86,82 @@ const sk: Dictionary = {
 
   courses: {
     eyebrow: "Kurzy",
-    title: "Tri tempá",
-    lead: "Každý jazyk sa dá študovať v troch formách. Vyberte si tú, ktorá sadne vášmu rozvrhu.",
-    formats: [
-      { name: "Normálny", note: "Dvakrát týždenne, pohodlným tempom." },
-      { name: "Polointenzívny", note: "Rýchlejší postup, hustejší rozvrh." },
-      { name: "Intenzívny", note: "Najrýchlejšia cesta k požadovanej úrovni." },
-    ],
-    planTitle: "Normálny kurz",
-    planPrice: "160 €",
-    planRows: [
-      { k: "Trvanie", v: "10 týždňov" },
-      { k: "Počet hodín", v: "20 hodín" },
-      { k: "Rozvrh", v: "2 × 60 minút týždenne" },
-    ],
-    planCta: "Mám záujem",
+    title: "Cenník",
+    lead: "Skupinové kurzy angličtiny za zverejnené ceny a individuálne hodiny pre všetky jazyky.",
+
+    groupTitle: "Skupinové kurzy",
+    groupNote:
+      "Na skupinové hodiny ostatných jazykov sa informujte v štúdiu — skupiny otvárame podľa úrovne prihlásených.",
+    groupEnquire: "Mám záujem o skupinové hodiny",
+
+    privateTitle: "Individuálne hodiny",
+    privateLead:
+      "Individuálne hodiny platia pre všetkých sedem jazykov; jazyk si vyberiete po kúpe balíka.",
+    perHour: "za hodinu",
+
+    hours: "hod.",
+    lesson: "hodina",
+    lessons: "hodín",
+
+    items: {
+      "cambridge-30": {
+        name: "Príprava na Cambridge",
+        note: "Príprava na skúšku Cambridge.",
+      },
+      "english-a1a2-20": {
+        name: "Angličtina A1 – A2",
+        note: "Začiatočníci a mierne pokročilí, v skupine.",
+      },
+      "english-b1b2-20": {
+        name: "Angličtina B1 – B2",
+        note: "Stredne pokročilí, v skupine.",
+      },
+      "private-1": { name: "1 individuálna hodina", note: "" },
+      "private-5": { name: "5 individuálnych hodín", note: "" },
+      "private-10": { name: "10 individuálnych hodín", note: "" },
+    },
+
+    add: "Do košíka",
+    added: "V košíku",
+  },
+
+  shop: {
+    cartTitle: "Košík",
+    open: "Košík",
+    empty: "Váš košík je prázdny.",
+    emptyNote: "Vyberte si kurz alebo balík individuálnych hodín.",
+    remove: "Odstrániť",
+    quantity: "Množstvo",
+    increase: "Viac",
+    decrease: "Menej",
+    total: "Spolu",
+    checkout: "Pokračovať k objednávke",
+    continue: "Pokračovať v nákupe",
+    itemCount: "položiek",
+
+    checkoutTitle: "Objednávka",
+    checkoutLead: "Zadajte svoje údaje a ozveme sa vám.",
+    summary: "Vaša objednávka",
+    name: "Meno",
+    email: "E-mail",
+    phone: "Telefónne číslo",
+    note: "Poznámka",
+    notePlaceholder: "Ktorý jazyk by ste sa učili a kedy máte čas?",
+    optional: "nepovinné",
+    submit: "Odoslať objednávku",
+    sending: "Odosielam…",
+
+    payLater:
+      "Platba zatiaľ neprebieha online: po objednávke sa vám ozveme a zaplatíte v štúdiu alebo prevodom.",
+
+    doneTitle: "Objednávku sme prijali",
+    doneLead: "Čoskoro sa vám ozveme s podrobnosťami.",
+    orderRef: "Číslo objednávky",
+
+    errorTitle: "Objednávku sa nepodarilo odoslať",
+    errorLead: "Zavolajte nám a objednávku prijmeme telefonicky.",
+    required: "Povinné pole",
+    invalidEmail: "Zadajte platnú e-mailovú adresu",
   },
 
   why: {

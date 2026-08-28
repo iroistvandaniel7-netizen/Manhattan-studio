@@ -17,11 +17,10 @@ each figure breathing on its own delay, one head nodding over a page, one hand
 tracking a line of writing, and speech bubbles surfacing greetings in the seven taught
 languages. It runs along the base of the hero, the figures band and the ink section.
 
-Sections deliberately avoid the usual shapes. The languages are a departures-board
-list rather than a card grid; the course formats are a pace meter, because pace is the
-one thing that genuinely separates them; the course terms are a mono specification
-strip rather than a pricing card; the included items hang in an alternating column
-rather than a grid of equal boxes.
+Sections deliberately avoid the usual shapes. The languages are a list beside a
+globe that flies to whichever country is chosen; the price list separates the group
+courses from the private-lesson ladder, because they are bought differently; the
+included items hang in an alternating column rather than a grid of equal boxes.
 
 The supplied Manhattan photograph runs full-bleed behind the hero, desaturated to
 luminance and composited over the blue so the picture joins the palette.
@@ -72,13 +71,51 @@ A hidden honeypot field silently absorbs bot submissions.
 
 ---
 
+## The shop
+
+The price list is a shop: each course and package can be put in a basket, and the
+basket is ordered through `POST /api/checkout`.
+
+**The browser sends product ids and quantities. It never sends prices.** Every
+amount is recomputed on the server from `src/lib/catalogue.ts`, because a basket
+that posts its own figures is a basket a customer can rewrite. Quantities are
+clamped and unknown ids are dropped.
+
+```bash
+# .env.local
+STRIPE_SECRET_KEY=      # when set, checkout creates a Stripe Checkout Session
+ORDER_WEBHOOK_URL=      # where orders are delivered when Stripe is not connected
+```
+
+Which path runs depends on what is configured, not on a flag:
+
+- **`STRIPE_SECRET_KEY` set** — a Stripe Checkout Session is created and the browser
+  is sent to it. The line amounts come from the catalogue; the names come from the
+  request so the payment page reads in the customer's own language. This path is
+  written to Stripe's documented API but **has not been exercised against it** — the
+  studio has no keys yet. Test it with a test key before taking real money.
+- **not set** — the current state. The order is delivered to `ORDER_WEBHOOK_URL`
+  (falling back to `CONTACT_WEBHOOK_URL`), the customer is given an order reference,
+  and the basket says plainly that payment is arranged with the studio afterwards.
+  It never claims a payment it did not take.
+
+With neither a Stripe key nor a webhook, the endpoint answers `503` in production
+rather than silently dropping an order, and the basket shows the studio's phone
+number. Set at least one before launch.
+
+Baskets are kept in the browser's own `localStorage`, read through
+`useSyncExternalStore` so the server renders an empty basket and the two never
+disagree. Storage is treated as untrusted: ids are checked against the catalogue and
+quantities clamped on the way back in.
+
+---
+
 ## Content provenance
 
 Every fact on the site traces back to MANHATTAN STUDIO's own published information:
-the seven languages, the three course formats, the normal-course terms (160 €, 10
-weeks, 20 hours, 2 × 60 min per week), the 10 hours of communication training
-included with English and German courses, the four-student minimum for a group, the
-address, phone, email and the Monday–Sunday 09:00–20:00 opening hours.
+the seven languages, the address, phone, email and the Monday–Sunday 09:00–20:00
+opening hours, the 10 hours of communication training included with English and
+German courses, and the four-student minimum for a group.
 
 Structured facts live in one place, `src/lib/site.ts`:
 
@@ -86,18 +123,24 @@ Structured facts live in one place, `src/lib/site.ts`:
 BRAND, PHONES, EMAIL, ADDRESS, HOURS, LANGUAGE_CODES, SITE_URL
 ```
 
-### Read this before launch
+**Prices live in `src/lib/catalogue.ts`** and are the studio's own, given in August
+2026 — three group English courses and a ladder of private-lesson packages. That
+file is the only place a price is written down: the shop reads it, and so does the
+checkout endpoint, which re-prices every order from it rather than trusting what the
+browser sends.
 
-**manhattanstudio.sk is blocked by this environment's network policy**, so the site
-could not be read directly. The facts above were gathered from the studio's published
-listings instead. Two consequences:
+Two deliberate absences, both because the studio has not quoted a figure:
 
-1. **Verify the price.** `160 €` for the normal course was reported consistently
-   alongside the 10 weeks / 20 hours / 2 × 60 min terms, but it may not apply
-   identically to every language. Check it per language before going live.
-2. **Reconcile the rest.** Anything on the studio's site that isn't listed above —
-   additional course types, discounts, teacher profiles, FAQ answers, testimonials —
-   is simply missing here rather than wrong. It was left out rather than guessed.
+1. **Group courses in the other six languages.** The section says to ask at the
+   studio rather than showing a number nobody gave. Add them to `GROUP_COURSES`
+   when there is a price to add.
+2. **Tax.** The prices are shown and charged exactly as given, with no VAT line.
+   If the studio has to show tax separately, that belongs in the catalogue and the
+   checkout together, not in one of them.
+
+Anything else on the studio's site that isn't here — additional course types,
+discounts, teacher profiles, FAQ answers, testimonials — is missing rather than
+wrong. It was left out rather than guessed.
 
 Nothing on the page is invented. No prices, claims, slogans or testimonials were
 written that could not be traced back to the studio.
