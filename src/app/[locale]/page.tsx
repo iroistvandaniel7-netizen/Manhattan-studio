@@ -7,6 +7,7 @@ import Facts from "@/components/sections/Facts";
 import Languages from "@/components/sections/Languages";
 import Courses from "@/components/sections/Courses";
 import Why from "@/components/sections/Why";
+import People from "@/components/sections/People";
 import Contact from "@/components/sections/Contact";
 import { CartProvider } from "@/components/shop/CartProvider";
 import Basket from "@/components/shop/Basket";
@@ -33,6 +34,7 @@ export default async function HomePage({
       <Languages dict={dict} />
       <Courses dict={dict} locale={locale} />
       <Why dict={dict} />
+      <People dict={dict} />
       <Contact dict={dict} locale={locale} />
       <Basket dict={dict} locale={locale} />
     </CartProvider>

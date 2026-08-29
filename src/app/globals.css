@@ -99,6 +99,62 @@
   }
 }
 
+/*
+ * The people band, revealed by a wipe rather than by slicing.
+ *
+ * The obvious way to bring five people in one after another is to cut the
+ * photograph into five and stagger them. It cannot be done here: measured
+ * column by column, the darkest gaps between the figures still carry 35–45%
+ * of their ink, because the five overlap at the shoulders. A cut there tears
+ * an arm in half for the length of the animation.
+ *
+ * So the picture is never cut. A soft-edged mask sweeps across it instead, and
+ * the five arrive in order because that is the order they stand in — which is
+ * the same effect, from the image's own structure rather than against it.
+ *
+ * The mask is 260% of the element, so moving it from one edge to the other
+ * carries the soft edge all the way across. `mask-position` is a plain
+ * position animation, which every engine can do; animating a percentage inside
+ * the gradient would need `@property` and would fall back to a hard jump.
+ */
+@keyframes people-wipe {
+  from {
+    mask-position: 100% 0;
+    -webkit-mask-position: 100% 0;
+    opacity: 0.4;
+  }
+  to {
+    mask-position: 0% 0;
+    -webkit-mask-position: 0% 0;
+    opacity: 1;
+  }
+}
+
+.people-wipe {
+  --mask: linear-gradient(to right, #000 0%, #000 42%, transparent 62%);
+  mask-image: var(--mask);
+  -webkit-mask-image: var(--mask);
+  mask-size: 260% 100%;
+  -webkit-mask-size: 260% 100%;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+}
+
+/*
+ * Hidden only where something can un-hide it. Without JavaScript the observer
+ * never runs, so the band must start finished — the same contract the rest of
+ * the reveals keep.
+ */
+[data-js] .people-wipe {
+  mask-position: 100% 0;
+  -webkit-mask-position: 100% 0;
+  opacity: 0.4;
+}
+
+[data-js] [data-shown="true"] .people-wipe {
+  animation: people-wipe 1.7s var(--ease-out-expo) forwards;
+}
+
 @keyframes scroll-cue {
   0% {
     transform: translateY(-60%);
@@ -565,6 +621,17 @@ html:not([data-js]) .bare-open {
 
   [data-js] .line-mask > span {
     transform: none !important;
+  }
+
+  /*
+   * The band is masked away until its animation runs. With animation off it
+   * would simply never arrive, so it resolves to fully revealed — the same
+   * trap the speech bubbles have, and the same fix.
+   */
+  .people-wipe {
+    mask-position: 0% 0 !important;
+    -webkit-mask-position: 0% 0 !important;
+    opacity: 1 !important;
   }
 
   /*

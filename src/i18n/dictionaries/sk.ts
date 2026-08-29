@@ -238,6 +238,10 @@ const sk: Dictionary = {
     cookies: "Cookies",
   },
 
+  people: {
+    alt: "Päť usmiatych ľudí vedľa seba na svetlom pozadí",
+  },
+
   legal: {
     privacyTitle: "Zásady ochrany osobných údajov",
     cookiesTitle: "Informácie o cookies",

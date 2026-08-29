@@ -238,6 +238,10 @@ const en: Dictionary = {
     cookies: "Cookies",
   },
 
+  people: {
+    alt: "Five smiling people side by side against a light background",
+  },
+
   legal: {
     privacyTitle: "Privacy notice",
     cookiesTitle: "Cookie notice",

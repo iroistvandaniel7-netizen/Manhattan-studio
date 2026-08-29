@@ -255,6 +255,11 @@ const hu = {
     cookies: "Cookie-k",
   },
 
+  /* A kép leírása, nem állítás róluk: nem tudjuk, kik ők. */
+  people: {
+    alt: "Öt mosolygó ember egymás mellett, világos háttér előtt",
+  },
+
   legal: {
     privacyTitle: "Adatvédelmi tájékoztató",
     cookiesTitle: "Cookie-tájékoztató",
