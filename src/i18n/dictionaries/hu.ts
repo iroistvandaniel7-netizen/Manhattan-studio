@@ -27,6 +27,7 @@ const hu = {
   nav: {
     home: "Kezdőlap",
     languages: "Nyelvek",
+    quiz: "Szintfelmérő",
     courses: "Kurzusok",
     why: "Amit kapsz",
     contact: "Kapcsolat",
@@ -258,6 +259,56 @@ const hu = {
   /* A kép leírása, nem állítás róluk: nem tudjuk, kik ők. */
   people: {
     alt: "Öt mosolygó ember egymás mellett, világos háttér előtt",
+  },
+
+  /*
+   * A szintfelmérő. A kérdések angolul vannak, és nincsenek lefordítva —
+   * angoltudást mérnek, a fordításuk magát a mérendő dolgot fordítaná le.
+   * Itt csak a keret van.
+   *
+   * A záró szöveg ajánlás, nem szintbesorolás: tizenöt böngészőben kitöltött
+   * kérdés nem mér CEFR-szintet, és a lap ezt ki is mondja.
+   */
+  quiz: {
+    eyebrow: "Szintfelmérő",
+    title: "Milyen az angolod?",
+    lead: "15 kérdés, körülbelül két perc. A végén megmutatjuk az eredményed, és hogy melyik kurzussal érdemes kezdened.",
+
+    questionLabel: "Kérdés",
+    progressLabel: "Haladás",
+    tiers: {
+      basic: "Alapszint",
+      mid: "Középszint",
+      high: "Haladó",
+    },
+
+    correct: "Helyes",
+    wrong: "Nem ez az",
+    solution: "A helyes válasz:",
+
+    scoreTitle: "Az eredményed",
+    recommendTitle: "Ezt a kurzust ajánljuk",
+    seeAll: "Összes kurzus és ár",
+    again: "Újra kitöltöm",
+
+    bands: {
+      starter: {
+        title: "Kezdő és újrakezdő",
+        desc: "Érdemes az alapokkal kezdeni: igeidők, mondatszerkezet, mindennapi szókincs.",
+      },
+      core: {
+        title: "Középhaladó",
+        desc: "Az alapok megvannak. A következő lépés, hogy magabiztosan is használd őket.",
+      },
+      advanced: {
+        title: "Haladó",
+        desc: "Erős alapod van. Innen a nyelvvizsga felé érdemes lépni.",
+      },
+    },
+
+    disclaimer:
+      "Ez tájékoztató teszt, nem hivatalos szintfelmérés — a pontos szintedet a stúdióban beszéljük át.",
+    bare: "A teszt kitöltéséhez JavaScript szükséges. Addig is nézd meg a kurzusokat és az árakat.",
   },
 
   legal: {

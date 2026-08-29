@@ -597,6 +597,49 @@ html:not([data-js]) .bare-open {
   opacity: 1 !important;
 }
 
+/*
+ * The level check is a game, and a game is nothing without scripting: the
+ * board would render, the options would look pressable, and not one of them
+ * would do anything. So without JavaScript the board is not shown at all and
+ * a line takes its place pointing at the price list — which is where the test
+ * was going to send the reader anyway.
+ *
+ * Two rules rather than one class toggled: the default has to be the working
+ * one, or the board would be hidden for the moment before `data-js` lands.
+ */
+.quiz-bare {
+  display: none;
+}
+
+html:not([data-js]) .quiz-bare {
+  display: block;
+}
+
+html:not([data-js]) .quiz-board {
+  display: none;
+}
+
+/*
+ * Each question replaces the last in place. Without a transition the swap is
+ * a jump cut — the eye loses which line is new — so the incoming block lifts
+ * a few pixels as it arrives. Short, because it happens fifteen times and
+ * anything longer starts to feel like waiting for the board.
+ */
+@keyframes quiz-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+[data-js] .quiz-in {
+  animation: quiz-in 0.42s var(--ease-out-expo) both;
+}
+
 /* ------------------------------------------------------------------ *
  * Reduced motion
  * ------------------------------------------------------------------ */

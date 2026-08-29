@@ -12,6 +12,7 @@ const en: Dictionary = {
   nav: {
     home: "Home",
     languages: "Languages",
+    quiz: "Level check",
     courses: "Courses",
     why: "What's included",
     contact: "Contact",
@@ -240,6 +241,48 @@ const en: Dictionary = {
 
   people: {
     alt: "Five smiling people side by side against a light background",
+  },
+
+  quiz: {
+    eyebrow: "Level check",
+    title: "How good is your English?",
+    lead: "Fifteen questions, about two minutes. At the end you'll see your score and which course to start with.",
+
+    questionLabel: "Question",
+    progressLabel: "Progress",
+    tiers: {
+      basic: "Elementary",
+      mid: "Intermediate",
+      high: "Advanced",
+    },
+
+    correct: "Correct",
+    wrong: "Not quite",
+    solution: "The answer is:",
+
+    scoreTitle: "Your score",
+    recommendTitle: "We'd recommend this course",
+    seeAll: "All courses and prices",
+    again: "Take it again",
+
+    bands: {
+      starter: {
+        title: "Beginner and returning",
+        desc: "Worth starting with the foundations: tenses, sentence structure, everyday vocabulary.",
+      },
+      core: {
+        title: "Intermediate",
+        desc: "The basics are there. The next step is using them with confidence.",
+      },
+      advanced: {
+        title: "Advanced",
+        desc: "A strong base. From here it's worth aiming at the exam.",
+      },
+    },
+
+    disclaimer:
+      "This is an indicative test, not an official placement — we'll go through your exact level at the studio.",
+    bare: "The test needs JavaScript. In the meantime, have a look at the courses and prices.",
   },
 
   legal: {

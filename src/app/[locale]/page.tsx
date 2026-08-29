@@ -5,6 +5,7 @@ import { isLocale } from "@/i18n/config";
 import Hero from "@/components/sections/Hero";
 import Facts from "@/components/sections/Facts";
 import Languages from "@/components/sections/Languages";
+import Quiz from "@/components/sections/Quiz";
 import Courses from "@/components/sections/Courses";
 import Why from "@/components/sections/Why";
 import People from "@/components/sections/People";
@@ -32,6 +33,9 @@ export default async function HomePage({
       <Hero dict={dict} />
       <Facts dict={dict} />
       <Languages dict={dict} />
+      {/* Before the price list, not after: the test ends on a course, and the
+          shelf it recommends from is the next thing the reader scrolls into. */}
+      <Quiz dict={dict} locale={locale} />
       <Courses dict={dict} locale={locale} />
       <Why dict={dict} />
       <People dict={dict} />

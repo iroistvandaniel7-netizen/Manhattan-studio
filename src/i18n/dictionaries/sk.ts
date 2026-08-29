@@ -12,6 +12,7 @@ const sk: Dictionary = {
   nav: {
     home: "Úvod",
     languages: "Jazyky",
+    quiz: "Test úrovne",
     courses: "Kurzy",
     why: "Čo získate",
     contact: "Kontakt",
@@ -240,6 +241,48 @@ const sk: Dictionary = {
 
   people: {
     alt: "Päť usmiatych ľudí vedľa seba na svetlom pozadí",
+  },
+
+  quiz: {
+    eyebrow: "Rozraďovací test",
+    title: "Aká je tvoja angličtina?",
+    lead: "15 otázok, približne dve minúty. Na konci uvidíš svoj výsledok a kurz, ktorým sa oplatí začať.",
+
+    questionLabel: "Otázka",
+    progressLabel: "Priebeh",
+    tiers: {
+      basic: "Základná úroveň",
+      mid: "Stredná úroveň",
+      high: "Pokročilá úroveň",
+    },
+
+    correct: "Správne",
+    wrong: "Nie celkom",
+    solution: "Správna odpoveď:",
+
+    scoreTitle: "Tvoj výsledok",
+    recommendTitle: "Odporúčame tento kurz",
+    seeAll: "Všetky kurzy a ceny",
+    again: "Vyplniť znova",
+
+    bands: {
+      starter: {
+        title: "Začiatočník a navrátilec",
+        desc: "Oplatí sa začať od základov: slovesné časy, stavba vety, každodenná slovná zásoba.",
+      },
+      core: {
+        title: "Mierne pokročilý",
+        desc: "Základy máš. Ďalším krokom je používať ich s istotou.",
+      },
+      advanced: {
+        title: "Pokročilý",
+        desc: "Máš silný základ. Odtiaľto má zmysel mieriť na jazykovú skúšku.",
+      },
+    },
+
+    disclaimer:
+      "Toto je orientačný test, nie oficiálne rozradenie — presnú úroveň preberieme v štúdiu.",
+    bare: "Test vyžaduje JavaScript. Zatiaľ si pozri kurzy a ceny.",
   },
 
   legal: {

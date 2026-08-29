@@ -38,6 +38,7 @@ export default function Header({
 
   const nav = [
     { href: "#languages", label: dict.nav.languages },
+    { href: "#quiz", label: dict.nav.quiz },
     { href: "#courses", label: dict.nav.courses },
     { href: "#why", label: dict.nav.why },
     { href: "#contact", label: dict.nav.contact },

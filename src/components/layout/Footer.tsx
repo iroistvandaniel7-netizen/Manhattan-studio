@@ -16,6 +16,7 @@ export default function Footer({
   const nav = [
     { href: home, label: dict.nav.home },
     { href: "#languages", label: dict.nav.languages },
+    { href: "#quiz", label: dict.nav.quiz },
     { href: "#courses", label: dict.nav.courses },
     { href: "#why", label: dict.nav.why },
     { href: "#contact", label: dict.nav.contact },
