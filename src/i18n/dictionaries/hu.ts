@@ -50,7 +50,7 @@ const hu = {
     title: "Számokban",
     items: [
       { value: "7", label: "Nyelv", note: "Kezdőtől haladóig" },
-      { value: "16,50 €", label: "Egyéni óra ettől", note: "10 órás csomagban" },
+      { value: "165 €", label: "10 egyéni óra", note: "Bármelyik nyelvre" },
       { value: "10", label: "Óra tréning ajándékba", note: "Angol és német kurzushoz" },
       { value: "7", label: "Nap nyitva", note: "Minden nap 9:00–20:00" },
     ],
@@ -113,7 +113,6 @@ const hu = {
     privateTitle: "Egyéni órák",
     privateLead:
       "Az egyéni órák mind a hét nyelvre érvényesek, a csomag megvásárlása után választod ki, melyiket tanulod.",
-    perHour: "óránként",
 
     hours: "óra",
     lesson: "óra",

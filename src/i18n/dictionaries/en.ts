@@ -35,7 +35,7 @@ const en: Dictionary = {
     title: "In numbers",
     items: [
       { value: "7", label: "Languages", note: "Beginner to advanced" },
-      { value: "€16.50", label: "Private lesson from", note: "in the 10-lesson package" },
+      { value: "€165", label: "10 private lessons", note: "In any language" },
       { value: "10", label: "Hours of training free", note: "With English and German courses" },
       { value: "7", label: "Days open", note: "Every day 9:00–20:00" },
     ],
@@ -97,7 +97,6 @@ const en: Dictionary = {
     privateTitle: "Private lessons",
     privateLead:
       "Private lessons are good for all seven languages; you choose which one after buying the package.",
-    perHour: "per hour",
 
     hours: "hours",
     lesson: "lesson",

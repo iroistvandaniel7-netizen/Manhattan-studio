@@ -35,7 +35,7 @@ const sk: Dictionary = {
     title: "V číslach",
     items: [
       { value: "7", label: "Jazykov", note: "Od začiatočníkov po pokročilých" },
-      { value: "16,50 €", label: "Individuálna hodina od", note: "v balíku 10 hodín" },
+      { value: "165 €", label: "10 individuálnych hodín", note: "Pre ktorýkoľvek jazyk" },
       { value: "10", label: "Hodín tréningu zdarma", note: "Ku kurzom angličtiny a nemčiny" },
       { value: "7", label: "Dní otvorené", note: "Každý deň 9:00 – 20:00" },
     ],
@@ -97,7 +97,6 @@ const sk: Dictionary = {
     privateTitle: "Individuálne hodiny",
     privateLead:
       "Individuálne hodiny platia pre všetkých sedem jazykov; jazyk si vyberiete po kúpe balíka.",
-    perHour: "za hodinu",
 
     hours: "hod.",
     lesson: "hodina",

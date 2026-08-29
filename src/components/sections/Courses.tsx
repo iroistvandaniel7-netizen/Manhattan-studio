@@ -2,10 +2,9 @@ import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
-import Marquee from "@/components/ui/Marquee";
 import CardRail from "@/components/ui/CardRail";
 import AddToCart from "@/components/shop/AddToCart";
-import { GROUP_COURSES, PRIVATE_PACKAGES, formatPrice, hourlyRate } from "@/lib/catalogue";
+import { GROUP_COURSES, PRIVATE_PACKAGES, formatPrice } from "@/lib/catalogue";
 
 /**
  * The price list, and the shop.
@@ -101,8 +100,7 @@ export default function Courses({
                     {formatPrice(product.price, locale)}
                   </p>
                   <p className="label mt-3 text-slate-600">
-                    {product.hours} {copy.hours} · {formatPrice(hourlyRate(product), locale)}{" "}
-                    {copy.perHour}
+                    {product.hours} {copy.hours}
                   </p>
 
                   <AddToCart
@@ -168,14 +166,6 @@ export default function Courses({
                   <p className="font-display mt-auto pt-7 text-[clamp(2rem,4vw,2.75rem)] font-extrabold leading-none tracking-[-0.045em]">
                     {formatPrice(product.price, locale)}
                   </p>
-                  {/*
-                    The per-hour rate is what makes the ladder legible: 17.50,
-                    then 17.00, then 16.50. Without it the packages are three
-                    numbers and the reader has to do the division.
-                  */}
-                  <p className="label mt-3 text-white/65">
-                    {formatPrice(hourlyRate(product), locale)} {copy.perHour}
-                  </p>
 
                   <AddToCart
                     id={product.id}
@@ -190,16 +180,6 @@ export default function Courses({
             })}
           </CardRail>
         </Reveal>
-      </div>
-
-      {/* Moving band of the seven languages */}
-      <div className="mt-16 border-y-2 border-ink bg-white py-4 sm:mt-24">
-        <Marquee
-          text={dict.languages.items.map((l) => l.name).join("  ·  ") + "  ·  "}
-          repeat={2}
-          className="edge-fade"
-          itemClassName="whitespace-pre px-2 font-display text-[clamp(1.25rem,2.6vw,2rem)] font-extrabold uppercase tracking-[-0.02em] text-accent"
-        />
       </div>
     </section>
   );

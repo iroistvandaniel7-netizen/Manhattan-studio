@@ -60,11 +60,6 @@ export function findProduct(id: string): Product | undefined {
   return BY_ID.get(id);
 }
 
-/** Per-hour rate in cents, for showing what a bigger package saves. */
-export function hourlyRate(product: Product): number {
-  return Math.round(product.price / product.hours);
-}
-
 /**
  * Cents as money, in the reader's own convention — 17,50 € in Hungarian and
  * Slovak, €17.50 in English. `Intl` knows all of this; hand-rolling it is how
