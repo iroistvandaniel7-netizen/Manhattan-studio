@@ -52,7 +52,7 @@ export default function Contact({
                   <li key={phone.href}>
                     <a
                       href={`tel:${phone.href}`}
-                      className="link-underline font-display text-2xl font-extrabold tracking-[-0.03em] text-accent sm:text-3xl"
+                      className="link-underline font-display text-2xl font-extrabold tracking-[-0.018em] text-accent sm:text-3xl"
                     >
                       {phone.label}
                     </a>

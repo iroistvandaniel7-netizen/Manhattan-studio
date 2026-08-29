@@ -29,10 +29,24 @@
   --color-slate-600: #5a4b57;
   --color-line: #e7dce4;
 
-  /* Three faces, three jobs: display / running text / labels and figures. */
-  --font-display: var(--font-display-src), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-body-src), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-mono-src), ui-monospace, "SFMono-Regular", monospace;
+  /*
+   * One family, three jobs. The names stay because the roles do: components
+   * ask for a display voice or a label voice, and this is where that is
+   * answered. Swapping the family later is these three lines again.
+   *
+   * `--font-mono` is a misnomer now and kept deliberately — it is the label
+   * and figure voice, and renaming it would touch every component that sets a
+   * label for no gain.
+   *
+   * It is no longer monospaced, and Poppins has no tabular figures either:
+   * `font-variant-numeric: tabular-nums` was measured against it and changes
+   * nothing, so there is no point asking. Digits stacked in a column will sit
+   * very slightly ragged — a `1` is barely half the width of a `0`. The only
+   * place that stacks any is the basket's line totals, at most six of them.
+   */
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
   --spacing-section: clamp(5rem, 10vw, 9rem);
 
@@ -340,7 +354,12 @@
   h3 {
     font-family: var(--font-display);
     font-weight: 800;
-    letter-spacing: -0.035em;
+    /*
+     * Half what the previous face wanted. Bricolage was a narrow grotesque and
+     * took -0.035em happily; Poppins is geometric, with round wide bowls, and
+     * the same value pulls the o's and e's into their neighbours.
+     */
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 

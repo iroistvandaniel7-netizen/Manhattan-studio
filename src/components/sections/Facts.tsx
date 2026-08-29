@@ -43,7 +43,7 @@ export default function Facts({ dict }: { dict: Dictionary }) {
               className={`border-t-2 border-white/45 pt-5 ${step[i % step.length]}`}
             >
               <dt className="sr-only">{item.label}</dt>
-              <dd className="text-shadow-lift font-display text-[clamp(3rem,7vw,5rem)] font-extrabold leading-[0.85] tracking-[-0.05em]">
+              <dd className="text-shadow-lift font-display text-[clamp(3rem,7vw,5rem)] font-extrabold leading-[0.85] tracking-[-0.028em]">
                 {item.value}
               </dd>
               <dd className="label mt-4 text-white" aria-hidden="true">

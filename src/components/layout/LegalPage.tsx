@@ -23,7 +23,7 @@ export default function LegalPage({
   return (
     <section className="py-section">
       <div className="container-x max-w-3xl">
-        <h1 className="mt-10 text-[clamp(2rem,5vw,3.5rem)] font-extrabold leading-[1] tracking-[-0.04em]">
+        <h1 className="mt-10 text-[clamp(2rem,5vw,3.5rem)] font-extrabold leading-[1] tracking-[-0.022em]">
           {title}
         </h1>
 

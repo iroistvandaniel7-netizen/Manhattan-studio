@@ -77,7 +77,7 @@ export default function Courses({
             previous={copy.railPrevious}
             next={copy.railNext}
             heading={
-              <h3 className="font-display text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold tracking-[-0.035em]">
+              <h3 className="font-display text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold tracking-[-0.012em]">
                 {copy.groupTitle}
               </h3>
             }
@@ -90,7 +90,7 @@ export default function Courses({
                   className={`${card} border border-ink/12 bg-white`}
                 >
                   <p className="label text-slate-500">{copy.groupBadge}</p>
-                  <h4 className="font-display mt-3 text-2xl font-extrabold tracking-[-0.035em]">
+                  <h4 className="font-display mt-3 text-2xl font-extrabold tracking-[-0.012em]">
                     {item.name}
                   </h4>
                   {item.note ? (
@@ -99,7 +99,7 @@ export default function Courses({
 
                   {/* `mt-auto` so the price and the button sit on one line
                       across the rail however long the description runs. */}
-                  <p className="font-display mt-auto pt-7 text-[clamp(2rem,4vw,2.75rem)] font-extrabold leading-none tracking-[-0.045em] text-accent">
+                  <p className="font-display mt-auto pt-7 text-[clamp(2rem,4vw,2.75rem)] font-extrabold leading-none tracking-[-0.015em] text-accent">
                     {formatPrice(product.price, locale)}
                   </p>
                   <p className="label mt-3 text-slate-600">
@@ -147,7 +147,7 @@ export default function Courses({
             previous={copy.railPrevious}
             next={copy.railNext}
             heading={
-              <h3 className="font-display text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold tracking-[-0.035em]">
+              <h3 className="font-display text-[clamp(1.5rem,3vw,2.25rem)] font-extrabold tracking-[-0.012em]">
                 {copy.privateTitle}
               </h3>
             }
@@ -162,11 +162,11 @@ export default function Courses({
               return (
                 <article key={product.id} className={`${card} bg-ink text-white`}>
                   <p className="label text-white/55">{copy.privateBadge}</p>
-                  <h4 className="font-display mt-3 text-2xl font-extrabold tracking-[-0.035em]">
+                  <h4 className="font-display mt-3 text-2xl font-extrabold tracking-[-0.012em]">
                     {item.name}
                   </h4>
 
-                  <p className="font-display mt-auto pt-7 text-[clamp(2rem,4vw,2.75rem)] font-extrabold leading-none tracking-[-0.045em] text-accent-lift">
+                  <p className="font-display mt-auto pt-7 text-[clamp(2rem,4vw,2.75rem)] font-extrabold leading-none tracking-[-0.015em] text-accent-lift">
                     {formatPrice(product.price, locale)}
                   </p>
 

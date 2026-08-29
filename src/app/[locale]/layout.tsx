@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Instrument_Sans, Martian_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { notFound } from "next/navigation";
 import "../globals.css";
 
@@ -10,34 +10,29 @@ import { htmlLang, isLocale, locales, type Locale } from "@/i18n/config";
 import { ADDRESS, BRAND, EMAIL, HOURS, PHONES, SITE_URL } from "@/lib/site";
 
 /*
- * Three faces, each with a job.
+ * One face: Poppins.
  *
- * Bricolage Grotesque is the display voice — a variable grotesque with
- * deliberately irregular joins, so headlines have a hand in them rather than
- * reading as another geometric sans. Instrument Sans carries running text.
- * Martian Mono is the utility face: wide, monospaced, used only for labels,
- * codes and figures, where it gives the page the character of station
- * signage and printed timetables.
+ * The three roles the page is built on — display, running text, and the
+ * uppercase labels — are still three roles; they are just cut from the same
+ * family now, separated by weight, size and tracking rather than by design.
+ * That is why the variables keep their names: every component still asks for
+ * the voice it wants, and this file decides what answers.
  *
- * latin-ext carries the Hungarian ő/ű and the Slovak ľ/š/č/ž.
+ * Weights are declared rather than inherited: Poppins is not a variable font
+ * on Google Fonts, so each one is a separate file and asking for all nine
+ * would be most of a megabyte for weights nothing uses. These five are exactly
+ * the ones the page sets — 800 included, because the display voice is
+ * `font-extrabold` and a missing weight is not a fallback, it is the browser
+ * smearing the 700 outward and calling it bold.
+ *
+ * latin-ext carries the Hungarian ő/ű and the Slovak ľ/š/č/ž — without it
+ * those letters drop to a system font in the middle of a word.
  */
-const display = Bricolage_Grotesque({
+const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
-  variable: "--font-display-src",
-});
-
-const body = Instrument_Sans({
-  subsets: ["latin", "latin-ext"],
-  display: "swap",
-  variable: "--font-body-src",
-});
-
-const mono = Martian_Mono({
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "600", "700"],
-  display: "swap",
-  variable: "--font-mono-src",
+  variable: "--font-poppins",
 });
 
 export const dynamicParams = false;
@@ -153,7 +148,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={htmlLang[typedLocale]}
-      className={`${display.variable} ${body.variable} ${mono.variable}`}
+      className={poppins.variable}
       suppressHydrationWarning
     >
       <head>

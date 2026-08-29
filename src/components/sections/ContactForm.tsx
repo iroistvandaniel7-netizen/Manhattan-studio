@@ -105,7 +105,7 @@ export default function ContactForm({
     return (
       <div className="flex min-h-[28rem] flex-col justify-center border-2 border-accent bg-accent-soft p-8 sm:p-12">
         <span aria-hidden="true" className="mb-6 inline-block size-2 bg-accent" />
-        <h3 className="text-[clamp(1.75rem,3.4vw,2.5rem)] font-bold tracking-[-0.03em]">
+        <h3 className="text-[clamp(1.75rem,3.4vw,2.5rem)] font-bold tracking-[-0.018em]">
           {t.successTitle}
         </h3>
         <p className="mt-4 max-w-md text-sm leading-relaxed text-slate-600">
@@ -131,7 +131,7 @@ export default function ContactForm({
       noValidate
       className="flex h-full flex-col border-2 border-ink bg-white p-6 sm:p-10"
     >
-      <h3 className="font-display text-xl font-extrabold tracking-[-0.03em]">{t.title}</h3>
+      <h3 className="font-display text-xl font-extrabold tracking-[-0.018em]">{t.title}</h3>
 
       {/* Error summary — focusable so it can be announced on submit. */}
       <div

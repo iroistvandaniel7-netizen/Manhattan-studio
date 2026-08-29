@@ -124,7 +124,7 @@ export default function Header({
               key={item.href}
               href={item.href}
               data-on-photo={onPhoto ? "true" : undefined}
-              className={`link-underline py-1 text-[0.8125rem] font-semibold tracking-[-0.01em] ${
+              className={`link-underline py-1 text-[0.8125rem] font-semibold tracking-[-0.006em] ${
                 onPhoto ? "text-white/90 hover:text-white" : "text-ink hover:text-accent"
               }`}
             >
@@ -200,7 +200,7 @@ export default function Header({
                 key={item.href}
                 href={item.href}
                 onClick={close}
-                className="font-display border-b border-line py-4 text-3xl font-extrabold tracking-[-0.03em]"
+                className="font-display border-b border-line py-4 text-3xl font-extrabold tracking-[-0.018em]"
               >
                 {item.label}
               </a>

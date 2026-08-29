@@ -57,7 +57,7 @@ export default function Hero({ dict }: { dict: Dictionary }) {
         <Reveal delay={60}>
           <h1
             id="hero-title"
-            className="text-shadow-strong max-w-4xl text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.92] tracking-[-0.045em] text-white"
+            className="text-shadow-strong max-w-4xl text-[clamp(2.75rem,8vw,6.5rem)] leading-[0.92] tracking-[-0.015em] text-white"
           >
             {dict.hero.title}
           </h1>

@@ -164,7 +164,7 @@ export default function LanguageGlobe({
                     </span>
 
                     <span
-                      className={`font-display min-w-0 flex-1 text-lg font-extrabold tracking-[-0.025em] transition-colors duration-300 sm:text-xl ${
+                      className={`font-display min-w-0 flex-1 text-lg font-extrabold tracking-[-0.015em] transition-colors duration-300 sm:text-xl ${
                         on ? "text-white" : "text-white/80 group-hover:text-white"
                       }`}
                     >

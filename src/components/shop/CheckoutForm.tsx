@@ -99,7 +99,7 @@ export default function CheckoutForm({
   if (state === "done") {
     return (
       <div className="mt-6" role="status">
-        <p className="font-display text-lg font-extrabold tracking-[-0.03em]">
+        <p className="font-display text-lg font-extrabold tracking-[-0.018em]">
           {copy.doneTitle}
         </p>
         <p className="mt-2 text-sm leading-relaxed text-slate-600">{copy.doneLead}</p>

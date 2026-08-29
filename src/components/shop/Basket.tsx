@@ -113,7 +113,7 @@ export default function Basket({
             className="relative flex h-full w-full max-w-md flex-col overflow-y-auto bg-white"
           >
             <div className="flex items-center justify-between border-b border-line px-6 py-5">
-              <h2 className="font-display text-xl font-extrabold tracking-[-0.03em]">
+              <h2 className="font-display text-xl font-extrabold tracking-[-0.018em]">
                 {copy.cartTitle}
               </h2>
               <button
@@ -132,7 +132,7 @@ export default function Basket({
                 return (
                   <li key={line.product.id} className="flex gap-4 py-5">
                     <div className="min-w-0 flex-1">
-                      <p className="font-display font-extrabold tracking-[-0.02em]">
+                      <p className="font-display font-extrabold tracking-[-0.012em]">
                         {item.name}
                       </p>
                       {/*
@@ -207,7 +207,7 @@ export default function Basket({
                 <span className="label text-slate-500">{copy.total}</span>
                 <span
                   data-basket-total
-                  className="font-display text-2xl font-extrabold tracking-[-0.03em]"
+                  className="font-display text-2xl font-extrabold tracking-[-0.018em]"
                 >
                   {formatPrice(cart.priced.total, locale)}
                 </span>

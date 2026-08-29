@@ -51,7 +51,7 @@ export default function Why({ dict }: { dict: Dictionary }) {
               }`}
             >
               <div className="flex flex-col gap-3 lg:flex-row lg:items-baseline lg:gap-10">
-                <h3 className="flex items-center gap-3 font-display text-[clamp(1.25rem,2.6vw,1.875rem)] font-extrabold leading-tight tracking-[-0.03em] lg:w-[46%] lg:shrink-0">
+                <h3 className="flex items-center gap-3 font-display text-[clamp(1.25rem,2.6vw,1.875rem)] font-extrabold leading-tight tracking-[-0.018em] lg:w-[46%] lg:shrink-0">
                   <FlagMark className="h-[0.8rem] w-[1.2rem]" />
                   <span className="transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/item:translate-x-1.5">
                     {item.title}
