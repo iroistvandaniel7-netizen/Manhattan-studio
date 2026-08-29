@@ -425,6 +425,20 @@
   background-size: 56px 56px;
 }
 
+/*
+ * A rail scrolls, but its scrollbar is not the control — the arrows and the
+ * swipe are. Hiding it keeps the row of cards reading as a row of cards.
+ * The overflow itself stays, so keyboard scrolling and swiping both work.
+ */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 .edge-fade {
   -webkit-mask-image: linear-gradient(
     to right,

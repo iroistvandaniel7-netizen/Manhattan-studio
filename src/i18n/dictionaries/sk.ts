@@ -121,6 +121,11 @@ const sk: Dictionary = {
       "private-10": { name: "10 individuálnych hodín", note: "" },
     },
 
+    groupBadge: "Angličtina",
+    privateBadge: "Pre všetky jazyky",
+    railPrevious: "Predchádzajúce",
+    railNext: "Ďalšie",
+
     add: "Do košíka",
     added: "V košíku",
   },

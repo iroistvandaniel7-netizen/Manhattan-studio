@@ -137,6 +137,11 @@ const hu = {
       "private-10": { name: "10 egyéni óra", note: "" },
     },
 
+    groupBadge: "Angol",
+    privateBadge: "Minden nyelvre",
+    railPrevious: "Előző",
+    railNext: "Következő",
+
     add: "Kosárba",
     added: "A kosárban",
   },

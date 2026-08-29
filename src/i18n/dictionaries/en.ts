@@ -121,6 +121,11 @@ const en: Dictionary = {
       "private-10": { name: "10 private lessons", note: "" },
     },
 
+    groupBadge: "English",
+    privateBadge: "Any language",
+    railPrevious: "Previous",
+    railNext: "Next",
+
     add: "Add to basket",
     added: "In your basket",
   },
