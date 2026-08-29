@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
+import Landmarks from "@/components/graphics/Landmarks";
 import Reveal from "@/components/ui/Reveal";
 import StudyScene from "@/components/graphics/StudyScene";
 import { FlagMark } from "@/components/graphics/Flags";
@@ -19,6 +20,8 @@ export default function Why({ dict }: { dict: Dictionary }) {
       className="on-dark relative isolate overflow-hidden bg-ink py-section text-white"
       aria-labelledby="why-title"
     >
+      <Landmarks scene={2} tone="dark" />
+
       {/* The desk of people along the bottom edge */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10">
         <StudyScene tone="dark" className="h-[34vw] max-h-64 w-full opacity-[0.16]" />

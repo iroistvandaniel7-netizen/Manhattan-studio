@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/i18n";
 import Reveal from "@/components/ui/Reveal";
+import Landmarks from "@/components/graphics/Landmarks";
 import StudyScene from "@/components/graphics/StudyScene";
 
 /**
@@ -17,6 +18,8 @@ export default function Facts({ dict }: { dict: Dictionary }) {
       aria-label={dict.facts.title}
       className="on-dark relative isolate overflow-hidden bg-accent text-white"
     >
+      <Landmarks scene={0} tone="dark" />
+
       {/* Panning stripes */}
       <div
         aria-hidden="true"

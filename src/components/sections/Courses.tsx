@@ -1,6 +1,7 @@
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
 import Eyebrow from "@/components/ui/Eyebrow";
+import Landmarks from "@/components/graphics/Landmarks";
 import Reveal from "@/components/ui/Reveal";
 import CardRail from "@/components/ui/CardRail";
 import AddToCart from "@/components/shop/AddToCart";
@@ -49,7 +50,9 @@ export default function Courses({
       className="relative isolate overflow-hidden bg-accent-soft py-section"
       aria-labelledby="courses-title"
     >
-      <div className="container-x">
+      <Landmarks scene={1} />
+
+      <div className="container-x relative">
         <div className="max-w-2xl">
           <Reveal>
             <Eyebrow>{copy.eyebrow}</Eyebrow>
@@ -163,7 +166,7 @@ export default function Courses({
                     {item.name}
                   </h4>
 
-                  <p className="font-display mt-auto pt-7 text-[clamp(2rem,4vw,2.75rem)] font-extrabold leading-none tracking-[-0.045em]">
+                  <p className="font-display mt-auto pt-7 text-[clamp(2rem,4vw,2.75rem)] font-extrabold leading-none tracking-[-0.045em] text-accent-lift">
                     {formatPrice(product.price, locale)}
                   </p>
 

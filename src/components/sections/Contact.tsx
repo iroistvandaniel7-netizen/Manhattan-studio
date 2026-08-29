@@ -1,6 +1,7 @@
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
 import Eyebrow from "@/components/ui/Eyebrow";
+import Landmarks from "@/components/graphics/Landmarks";
 import Reveal from "@/components/ui/Reveal";
 import ContactForm from "./ContactForm";
 import { ADDRESS, EMAIL, PHONES, mapsUrl } from "@/lib/site";
@@ -18,6 +19,8 @@ export default function Contact({
       className="relative isolate overflow-hidden py-section"
       aria-labelledby="contact-title"
     >
+      <Landmarks scene={3} />
+
       <div className="container-x">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-12">
           {/* Details */}
