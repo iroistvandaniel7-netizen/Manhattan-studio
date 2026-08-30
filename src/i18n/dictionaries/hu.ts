@@ -28,6 +28,7 @@ const hu = {
     home: "Kezdőlap",
     languages: "Nyelvek",
     quiz: "Szintfelmérő",
+    gallery: "Galéria",
     courses: "Kurzusok",
     why: "Amit kapsz",
     contact: "Kapcsolat",
@@ -309,6 +310,51 @@ const hu = {
     disclaimer:
       "Ez tájékoztató teszt, nem hivatalos szintfelmérés — a pontos szintedet a stúdióban beszéljük át.",
     bare: "A teszt kitöltéséhez JavaScript szükséges. Addig is nézd meg a kurzusokat és az árakat.",
+  },
+
+  /*
+   * A galéria. A képleírások azt mondják el, ami a képen látszik, és semmi
+   * többet — nem tudjuk, kik a képeken szereplők, és nem is állítunk róluk
+   * semmit.
+   *
+   * A Times Square-es kép nem a stúdióban készült, ezért nem is a stúdió
+   * képei közé kerül: külön áll, saját aláírással, és a négy stúdiófotót egy
+   * cím vezeti be. Így a felépítés maga mondja meg, melyik hol készült.
+   */
+  gallery: {
+    eyebrow: "Galéria",
+    title: "A stúdió",
+    lead: "Fényképek a dunaszerdahelyi stúdióról — a bejárattól a tantermekig.",
+    metaDescription:
+      "Fényképek a MANHATTAN STUDIO nyelviskoláról Dunaszerdahelyen: bejárat, tantermek, órák.",
+
+    bannerAlt: "Times Square New Yorkban: óriásplakátok, sárga taxi és járókelők.",
+    bannerCaption: "Times Square, New York",
+
+    inside: "A stúdióban",
+
+    photos: {
+      entrance:
+        "A stúdió bejárata a MANHATTAN nyelvstúdió táblájával; két ember tankönyvvel a lépcsőn.",
+      board:
+        "Tanterem: valaki a fehér táblára ír, a falon nyelvtani és szókincstáblák.",
+      teacher:
+        "Tanterem a táblával és a poszterekkel; az asztalon tankönyv, jegyzetek és képkártyák.",
+      kids: "Felnőtt és gyerek képes kártyákkal játszik a szőnyegen, játékokkal berendezett szobában.",
+    },
+
+    open: "Nagyítás",
+    close: "Bezárás",
+    previous: "Előző kép",
+    next: "Következő kép",
+  },
+
+  contactPage: {
+    title: "Kapcsolat",
+    lead: "Gyere be a stúdióba, hívj minket, vagy írd meg, mire van szükséged — és visszajelzünk.",
+    metaDescription:
+      "MANHATTAN STUDIO nyelviskola Dunaszerdahelyen: cím, telefonszám, e-mail és nyitvatartás.",
+    findUs: "Elérhetőségek",
   },
 
   legal: {

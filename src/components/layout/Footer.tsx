@@ -13,13 +13,16 @@ export default function Footer({
   dict: Dictionary;
 }) {
   const home = `/${locale}`;
+  /* Paths, not bare hashes: the footer is on every page, and `#courses` from
+     the gallery points at nothing. See the same note in the header. */
   const nav = [
     { href: home, label: dict.nav.home },
-    { href: "#languages", label: dict.nav.languages },
-    { href: "#quiz", label: dict.nav.quiz },
-    { href: "#courses", label: dict.nav.courses },
-    { href: "#why", label: dict.nav.why },
-    { href: "#contact", label: dict.nav.contact },
+    { href: `${home}#languages`, label: dict.nav.languages },
+    { href: `${home}#quiz`, label: dict.nav.quiz },
+    { href: `${home}#courses`, label: dict.nav.courses },
+    { href: `${home}#why`, label: dict.nav.why },
+    { href: `${home}/galeria`, label: dict.nav.gallery },
+    { href: `${home}/kapcsolat`, label: dict.nav.contact },
   ];
 
   return (

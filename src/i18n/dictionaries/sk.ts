@@ -13,6 +13,7 @@ const sk: Dictionary = {
     home: "Úvod",
     languages: "Jazyky",
     quiz: "Test úrovne",
+    gallery: "Galéria",
     courses: "Kurzy",
     why: "Čo získate",
     contact: "Kontakt",
@@ -283,6 +284,42 @@ const sk: Dictionary = {
     disclaimer:
       "Toto je orientačný test, nie oficiálne rozradenie — presnú úroveň preberieme v štúdiu.",
     bare: "Test vyžaduje JavaScript. Zatiaľ si pozri kurzy a ceny.",
+  },
+
+  gallery: {
+    eyebrow: "Galéria",
+    title: "Štúdio",
+    lead: "Fotografie štúdia v Dunajskej Strede — od vchodu po učebne.",
+    metaDescription:
+      "Fotografie jazykového štúdia MANHATTAN v Dunajskej Strede: vchod, učebne, hodiny.",
+
+    bannerAlt: "Times Square v New Yorku: veľkoplošné reklamy, žltý taxík a okoloidúci.",
+    bannerCaption: "Times Square, New York",
+
+    inside: "V štúdiu",
+
+    photos: {
+      entrance:
+        "Vchod do štúdia s tabuľou jazykového štúdia MANHATTAN; dvaja ľudia s učebnicami na schodoch.",
+      board:
+        "Učebňa: niekto píše na bielu tabuľu, na stenách gramatické a slovné tabuľky.",
+      teacher:
+        "Učebňa s tabuľou a plagátmi; na stole učebnica, poznámky a obrázkové kartičky.",
+      kids: "Dospelý a dieťa sa hrajú s obrázkovými kartičkami na koberci v izbe s hračkami.",
+    },
+
+    open: "Zväčšiť",
+    close: "Zavrieť",
+    previous: "Predchádzajúca fotografia",
+    next: "Ďalšia fotografia",
+  },
+
+  contactPage: {
+    title: "Kontakt",
+    lead: "Príď do štúdia, zavolaj nám alebo napíš, čo potrebuješ — ozveme sa ti.",
+    metaDescription:
+      "Jazykové štúdio MANHATTAN v Dunajskej Strede: adresa, telefón, e-mail a otváracie hodiny.",
+    findUs: "Kontaktné údaje",
   },
 
   legal: {

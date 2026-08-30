@@ -13,6 +13,7 @@ const en: Dictionary = {
     home: "Home",
     languages: "Languages",
     quiz: "Level check",
+    gallery: "Gallery",
     courses: "Courses",
     why: "What's included",
     contact: "Contact",
@@ -283,6 +284,42 @@ const en: Dictionary = {
     disclaimer:
       "This is an indicative test, not an official placement — we'll go through your exact level at the studio.",
     bare: "The test needs JavaScript. In the meantime, have a look at the courses and prices.",
+  },
+
+  gallery: {
+    eyebrow: "Gallery",
+    title: "The studio",
+    lead: "Photographs of the studio in Dunajská Streda — from the door to the classrooms.",
+    metaDescription:
+      "Photographs of MANHATTAN STUDIO in Dunajská Streda: the entrance, the classrooms, lessons.",
+
+    bannerAlt: "Times Square in New York: billboards, a yellow cab and people on the street.",
+    bannerCaption: "Times Square, New York",
+
+    inside: "Inside the studio",
+
+    photos: {
+      entrance:
+        "The studio entrance with the MANHATTAN language studio sign; two people on the steps holding coursebooks.",
+      board:
+        "A classroom: someone writing on the whiteboard, grammar and vocabulary charts on the walls.",
+      teacher:
+        "A classroom with the whiteboard and posters; a coursebook, notes and picture cards on the table.",
+      kids: "An adult and a child playing with picture cards on a rug, in a room set up with toys.",
+    },
+
+    open: "Enlarge",
+    close: "Close",
+    previous: "Previous photo",
+    next: "Next photo",
+  },
+
+  contactPage: {
+    title: "Contact",
+    lead: "Come to the studio, give us a call, or tell us what you need — we'll get back to you.",
+    metaDescription:
+      "MANHATTAN STUDIO language school in Dunajská Streda: address, phone, email and opening hours.",
+    findUs: "Contact details",
   },
 
   legal: {

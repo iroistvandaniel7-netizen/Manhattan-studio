@@ -36,12 +36,23 @@ export default function Header({
    */
   const onPhoto = pathname === home && !scrolled && !open;
 
+  /*
+   * Every section link carries the home path, not a bare `#hash`.
+   *
+   * These used to be `#languages` and the like, which is fine while the site
+   * is one page and silently dead the moment it is not: from the gallery or
+   * the contact page there is no `#languages` in the document, so the link
+   * does nothing at all. With the path in front, the browser goes home and
+   * then to the section — and on the home page itself it is still just a
+   * scroll, because it is the same document.
+   */
   const nav = [
-    { href: "#languages", label: dict.nav.languages },
-    { href: "#quiz", label: dict.nav.quiz },
-    { href: "#courses", label: dict.nav.courses },
-    { href: "#why", label: dict.nav.why },
-    { href: "#contact", label: dict.nav.contact },
+    { href: `${home}#languages`, label: dict.nav.languages },
+    { href: `${home}#quiz`, label: dict.nav.quiz },
+    { href: `${home}#courses`, label: dict.nav.courses },
+    { href: `${home}#why`, label: dict.nav.why },
+    { href: `${home}/galeria`, label: dict.nav.gallery },
+    { href: `${home}/kapcsolat`, label: dict.nav.contact },
   ];
 
   useEffect(() => {
@@ -119,18 +130,24 @@ export default function Header({
         </Link>
 
         {/* Desktop navigation */}
-        <nav className="hidden items-center gap-8 lg:flex" aria-label={dict.nav.home}>
+        {/*
+          A sixth item made this bar tight at exactly 1024px, where a two-word
+          label ("Amit kapsz") broke across two lines and left that one item
+          sitting half a line lower than its neighbours. `nowrap` is the fix;
+          the smaller gap below `xl` is what pays for it.
+        */}
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-8" aria-label={dict.nav.home}>
           {nav.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               data-on-photo={onPhoto ? "true" : undefined}
-              className={`link-underline py-1 text-[0.8125rem] font-semibold tracking-[-0.006em] ${
+              className={`link-underline whitespace-nowrap py-1 text-[0.8125rem] font-semibold tracking-[-0.006em] ${
                 onPhoto ? "text-white/90 hover:text-white" : "text-ink hover:text-accent"
               }`}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -141,8 +158,8 @@ export default function Header({
             invert={onPhoto}
           />
 
-          <a
-            href="#contact"
+          <Link
+            href={`${home}/kapcsolat`}
             data-on-photo={onPhoto ? "cta" : undefined}
             className={`label hidden px-6 py-3.5 transition-colors duration-200 sm:inline-flex ${
               onPhoto
@@ -151,7 +168,7 @@ export default function Header({
             }`}
           >
             {dict.nav.cta}
-          </a>
+          </Link>
 
           {/* Hamburger */}
           <button
@@ -197,24 +214,24 @@ export default function Header({
         <div className="container-x flex h-[calc(100dvh-5rem)] flex-col gap-8 overflow-y-auto py-8">
           <nav className="flex flex-col" aria-label={dict.nav.openMenu}>
             {nav.map((item) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 onClick={close}
                 className="font-display border-b border-line py-4 text-3xl font-extrabold tracking-[-0.018em]"
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
-          <a
-            href="#contact"
+          <Link
+            href={`${home}/kapcsolat`}
             onClick={close}
             className="label mt-auto inline-flex shrink-0 items-center justify-center bg-accent px-7 py-4.5 text-white"
           >
             {dict.nav.cta}
-          </a>
+          </Link>
         </div>
       </div>
     </header>
