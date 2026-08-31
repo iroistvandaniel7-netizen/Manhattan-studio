@@ -174,6 +174,13 @@ const hu = {
     sending: "Küldés…",
 
     /* A payment provider is not connected yet, so say what actually happens. */
+    /* Amit a vevő a gomb fölött olvas, aszerint, hogy be van-e kötve a fizetés.
+       A szerver dönti el, nem egy külön kapcsoló: így nem tud olyan állapot
+       lenni, ahol az oldal mást ír, mint amit a rendszer csinál. */
+    payNow:
+      "A fizetés a következő lépésben, a Stripe biztonságos oldalán történik. Bankkártyával fizetsz, és utána azonnal visszaigazolást kapsz.",
+    submitPay: "Tovább a fizetéshez",
+
     payLater:
       "A fizetés még nem online történik: a megrendelés után felvesszük veled a kapcsolatot, és a stúdióban vagy átutalással rendezed.",
 
@@ -357,6 +364,13 @@ const hu = {
     findUs: "Elérhetőségek",
   },
 
+  thanks: {
+    eyebrow: "Megrendelés",
+    title: "Köszönjük a rendelésed!",
+    lead: "A fizetés sikerült. A rendelésed megérkezett hozzánk, és hamarosan jelentkezünk az időpontokkal.",
+    next: "A rendelés azonosítóját érdemes megőrizned — erre tudsz hivatkozni, ha kérdésed van. Ha valami nem stimmel, hívj minket bátran.",
+    metaDescription: "Köszönjük a rendelésed a MANHATTAN STUDIO nyelviskolánál.",
+  },
   legal: {
     privacyTitle: "Adatvédelmi tájékoztató",
     cookiesTitle: "Cookie-tájékoztató",

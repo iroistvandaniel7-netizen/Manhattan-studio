@@ -157,6 +157,10 @@ const en: Dictionary = {
     submit: "Send order",
     sending: "Sending…",
 
+    payNow:
+      "Payment happens in the next step, on Stripe's secure page. You pay by card and get confirmation right away.",
+    submitPay: "Continue to payment",
+
     payLater:
       "Payment is not online yet: after you order we will contact you, and you settle at the studio or by bank transfer.",
 
@@ -322,6 +326,13 @@ const en: Dictionary = {
     findUs: "Contact details",
   },
 
+  thanks: {
+    eyebrow: "Order",
+    title: "Thank you for your order!",
+    lead: "Your payment went through. We have your order and will be in touch shortly with times.",
+    next: "Keep your order reference — quote it if you have any questions. If something looks wrong, just give us a call.",
+    metaDescription: "Thank you for your order at MANHATTAN STUDIO.",
+  },
   legal: {
     privacyTitle: "Privacy notice",
     cookiesTitle: "Cookie notice",

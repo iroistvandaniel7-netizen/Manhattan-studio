@@ -22,6 +22,9 @@ export default async function HomePage({
   if (!isLocale(locale)) notFound();
 
   const dict = getDictionary(locale);
+  /* Read here, on the server, where the real key lives. The basket needs to
+     know whether it is promising a payment page or a phone call. */
+  const payOnline = Boolean(process.env.STRIPE_SECRET_KEY);
 
   return (
     /*
@@ -40,7 +43,7 @@ export default async function HomePage({
       <Why dict={dict} />
       <People dict={dict} />
       <Contact dict={dict} locale={locale} />
-      <Basket dict={dict} locale={locale} />
+      <Basket dict={dict} locale={locale} payOnline={payOnline} />
     </CartProvider>
   );
 }

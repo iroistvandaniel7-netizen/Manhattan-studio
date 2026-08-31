@@ -22,9 +22,11 @@ import CheckoutForm from "./CheckoutForm";
 export default function Basket({
   dict,
   locale,
+  payOnline = false,
 }: {
   dict: Dictionary;
   locale: Locale;
+  payOnline?: boolean;
 }) {
   const cart = useCart();
   const copy = dict.shop;
@@ -213,7 +215,12 @@ export default function Basket({
                 </span>
               </p>
 
-              <CheckoutForm dict={dict} locale={locale} onDone={() => setOpen(false)} />
+              <CheckoutForm
+                dict={dict}
+                locale={locale}
+                payOnline={payOnline}
+                onDone={() => setOpen(false)}
+              />
             </div>
           </div>
         </div>

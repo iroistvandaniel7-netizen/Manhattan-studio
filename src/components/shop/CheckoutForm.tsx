@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
 import { PHONES } from "@/lib/site";
@@ -25,15 +25,48 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 export default function CheckoutForm({
   dict,
   locale,
+  payOnline = false,
   onDone,
 }: {
   dict: Dictionary;
   locale: Locale;
+  /* Whether a payment provider is connected. Decided on the server from the
+     presence of the key itself, so the promise made here and what the endpoint
+     actually does cannot come apart. */
+  payOnline?: boolean;
   onDone?: () => void;
 }) {
   const cart = useCart();
   const copy = dict.shop;
   const [state, setState] = useState<State>("idle");
+
+  /*
+   * Whether payment is online, corrected against the running server.
+   *
+   * The prop is the page's answer, and the page is statically generated — so
+   * it is the answer that was true when the site was built. Right in the
+   * ordinary case, and wrong on the day somebody sets the Stripe key without
+   * rebuilding. This form only exists while the basket is open, so asking then
+   * costs one small request and removes a state where the shop describes a
+   * flow it no longer runs.
+   */
+  const [online, setOnline] = useState(payOnline);
+  useEffect(() => {
+    let live = true;
+    fetch("/api/checkout")
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: { payOnline?: boolean } | null) => {
+        if (live && data && typeof data.payOnline === "boolean") setOnline(data.payOnline);
+      })
+      .catch(() => {
+        /* Keep the page's answer. A basket that works is worth more than a
+           perfectly worded one. */
+      });
+    return () => {
+      live = false;
+    };
+  }, []);
+
   const [reference, setReference] = useState("");
   const [invalid, setInvalid] = useState<string[]>([]);
 
@@ -125,7 +158,9 @@ export default function CheckoutForm({
 
   return (
     <form onSubmit={onSubmit} noValidate className="mt-6">
-      <p className="text-[0.8125rem] leading-relaxed text-slate-600">{copy.payLater}</p>
+      <p className="text-[0.8125rem] leading-relaxed text-slate-600">
+        {online ? copy.payNow : copy.payLater}
+      </p>
 
       <div className="mt-5 flex flex-col gap-4">
         <label className="block">
@@ -210,7 +245,7 @@ export default function CheckoutForm({
         data-checkout-submit
         className="label mt-6 w-full bg-accent px-6 py-4 text-white transition-colors duration-200 hover:bg-accent-deep disabled:opacity-60"
       >
-        {state === "sending" ? copy.sending : copy.submit}
+        {state === "sending" ? copy.sending : online ? copy.submitPay : copy.submit}
       </button>
     </form>
   );

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { CURRENCY, MAX_QUANTITY, priceBasket, type CartLine } from "@/lib/catalogue";
+import { buildOrder, deliver, orderReference } from "@/lib/orders";
 
 /**
  * Orders from the shop.
@@ -25,18 +26,17 @@ export const runtime = "nodejs";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 
+/**
+ * Stripe's API root, overridable so the checkout can be exercised end to end
+ * against a local stand-in. Nothing but the test harness ever sets it, and
+ * anyone who can set environment variables on the server already owns it.
+ */
+export function stripeApiBase(): string {
+  return process.env.STRIPE_API_BASE ?? "https://api.stripe.com";
+}
+
 const str = (value: unknown, max: number) =>
   typeof value === "string" ? value.trim().slice(0, max) : "";
-
-/** Order reference: short, unambiguous when read aloud over the phone. */
-function orderReference(): string {
-  const alphabet = "ACDEFHJKLMNPRTUVWXY349";
-  let tail = "";
-  const bytes = crypto.getRandomValues(new Uint8Array(5));
-  for (const byte of bytes) tail += alphabet[byte % alphabet.length];
-  const now = new Date();
-  return `MS-${String(now.getFullYear()).slice(2)}${String(now.getMonth() + 1).padStart(2, "0")}-${tail}`;
-}
 
 type Payload = {
   lines?: unknown;
@@ -79,16 +79,49 @@ async function createStripeSession(
   origin: string,
   locale: string,
   reference: string,
-  email: string,
+  buyer: { name: string; email: string; phone: string; note: string },
   priced: ReturnType<typeof priceBasket>,
   names: Record<string, string>,
 ): Promise<string | null> {
   const form = new URLSearchParams();
   form.set("mode", "payment");
-  form.set("success_url", `${origin}/${locale}?order=${reference}`);
-  form.set("cancel_url", `${origin}/${locale}/kosar`);
+  /* Where Stripe sends the customer back. The success page is a real page that
+     shows the reference; cancelling returns to the price list with the basket
+     still in it, so changing your mind costs nothing. An earlier version
+     pointed `cancel_url` at `/kosar`, which is not a route — the basket is a
+     panel — so anyone who backed out landed on a 404. */
+  form.set("success_url", `${origin}/${locale}/koszonjuk?ref=${reference}`);
+  form.set("cancel_url", `${origin}/${locale}#courses`);
   form.set("client_reference_id", reference);
-  if (email) form.set("customer_email", email);
+  /* Stripe's own page, in the reader's language. */
+  form.set("locale", locale);
+  if (buyer.email) form.set("customer_email", buyer.email);
+
+  /*
+   * Everything the studio needs to fulfil the order, carried on the session.
+   *
+   * Stripe tells us a payment succeeded; it does not know who wanted what. The
+   * webhook rebuilds the order from these, so what the studio receives after a
+   * payment is the same order the customer filled in — not a bare amount.
+   *
+   * Stripe caps a metadata value at 500 characters. The catalogue has six
+   * products and a basket holds each at most once, so `lines` cannot get near
+   * that; the free-text fields are cut to be sure.
+   */
+  const meta: Record<string, string> = {
+    reference,
+    locale,
+    name: buyer.name.slice(0, 400),
+    phone: buyer.phone.slice(0, 60),
+    note: buyer.note.slice(0, 450),
+    lines: priced.lines
+      .map((line) => `${line.product.id}:${line.quantity}`)
+      .join(",")
+      .slice(0, 450),
+  };
+  for (const [key_, value] of Object.entries(meta)) {
+    if (value) form.set(`metadata[${key_}]`, value);
+  }
 
   priced.lines.forEach((line, index) => {
     const at = (field: string) => `line_items[${index}]${field}`;
@@ -101,7 +134,7 @@ async function createStripeSession(
     );
   });
 
-  const response = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+  const response = await fetch(`${stripeApiBase()}/v1/checkout/sessions`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${key}`,
@@ -121,6 +154,26 @@ async function createStripeSession(
   const session: unknown = await response.json();
   const url = (session as { url?: unknown }).url;
   return typeof url === "string" ? url : null;
+}
+
+/**
+ * What the shop is currently able to do.
+ *
+ * The basket needs this to describe the right flow, and it cannot get it from
+ * the page: the home page is statically generated, so anything it reads from
+ * the environment is frozen at build time. Set the Stripe key on a running
+ * server without rebuilding and the basket would go on promising a phone call
+ * while the endpoint sends people to a payment page.
+ *
+ * A route handler is evaluated per request, so this is the live answer.
+ */
+export const dynamic = "force-dynamic";
+
+export async function GET() {
+  return NextResponse.json(
+    { payOnline: Boolean(process.env.STRIPE_SECRET_KEY) },
+    { headers: { "Cache-Control": "no-store" } },
+  );
 }
 
 export async function POST(request: Request) {
@@ -156,19 +209,7 @@ export async function POST(request: Request) {
   }
 
   const reference = orderReference();
-  const order = {
-    reference,
-    ...buyer,
-    currency: CURRENCY,
-    lines: priced.lines.map((line) => ({
-      id: line.product.id,
-      quantity: line.quantity,
-      unitAmount: line.product.price,
-      amount: line.total,
-    })),
-    total: priced.total,
-    receivedAt: new Date().toISOString(),
-  };
+  const order = buildOrder(reference, buyer, priced.lines, priced.total, false);
 
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   if (stripeKey) {
@@ -179,7 +220,7 @@ export async function POST(request: Request) {
         origin,
         buyer.locale,
         reference,
-        buyer.email,
+        buyer,
         priced,
         // Line names come from the request rather than the catalogue: the
         // catalogue has no localised names, and Stripe's page should read in
@@ -187,39 +228,49 @@ export async function POST(request: Request) {
         // them were computed here.
         readNames(body.lines),
       );
-      if (url) return NextResponse.json({ ok: true, reference, url });
+
+      if (url) {
+        /*
+         * The order is NOT delivered to the studio here, and that is the whole
+         * point of the payment flow: at this moment nobody has paid. A session
+         * is an intention. `/api/stripe/webhook` delivers it when Stripe says
+         * the money actually arrived.
+         *
+         * Unless the webhook cannot possibly run. With no signing secret there
+         * is nothing to verify Stripe's callbacks against, so that endpoint
+         * refuses everything — and a shop that takes card payments and never
+         * tells anyone what was bought is worse than one that takes none. In
+         * that half-configured state the order is delivered now, marked
+         * unpaid, so the studio at least knows somebody is buying.
+         */
+        if (!process.env.STRIPE_WEBHOOK_SECRET) {
+          console.warn(
+            "[checkout] STRIPE_WEBHOOK_SECRET is not set — orders cannot be " +
+              "confirmed by Stripe. Delivering this one as unpaid instead.",
+          );
+          await deliver({ ...order, paid: false, awaitingPayment: true });
+        }
+        return NextResponse.json({ ok: true, reference, url });
+      }
     } catch (error) {
       console.error("[checkout] Stripe request failed:", error);
     }
     // Fall through: an order recorded is better than a basket lost.
   }
 
-  const webhook = process.env.ORDER_WEBHOOK_URL ?? process.env.CONTACT_WEBHOOK_URL;
+  const { configured, delivered } = await deliver(order);
 
-  if (!webhook) {
+  if (!configured) {
     if (process.env.NODE_ENV !== "production") {
       console.info("[checkout] no ORDER_WEBHOOK_URL set — order:", order);
       return NextResponse.json({ ok: true, reference, delivered: false });
     }
     return NextResponse.json({ error: "not_configured" }, { status: 503 });
   }
-
-  try {
-    const response = await fetch(webhook, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(order),
-      signal: AbortSignal.timeout(10_000),
-    });
-    if (!response.ok) {
-      console.error("[checkout] webhook rejected the order:", response.status);
-      return NextResponse.json({ error: "delivery_failed" }, { status: 502 });
-    }
-    return NextResponse.json({ ok: true, reference, delivered: true });
-  } catch (error) {
-    console.error("[checkout] webhook request failed:", error);
+  if (!delivered) {
     return NextResponse.json({ error: "delivery_failed" }, { status: 502 });
   }
+  return NextResponse.json({ ok: true, reference, delivered: true });
 }
 
 /** Display names the browser sent, for Stripe's own page. Labels only. */

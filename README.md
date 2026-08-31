@@ -83,25 +83,61 @@ clamped and unknown ids are dropped.
 
 ```bash
 # .env.local
-STRIPE_SECRET_KEY=      # when set, checkout creates a Stripe Checkout Session
-ORDER_WEBHOOK_URL=      # where orders are delivered when Stripe is not connected
+STRIPE_SECRET_KEY=      # sk_live_… — turns on card payment
+STRIPE_WEBHOOK_SECRET=  # whsec_… — how a paid order is confirmed
+ORDER_WEBHOOK_URL=      # where orders are delivered, paid or not
+NEXT_PUBLIC_SITE_URL=   # where Stripe returns the customer
 ```
 
 Which path runs depends on what is configured, not on a flag:
 
-- **`STRIPE_SECRET_KEY` set** — a Stripe Checkout Session is created and the browser
-  is sent to it. The line amounts come from the catalogue; the names come from the
-  request so the payment page reads in the customer's own language. This path is
-  written to Stripe's documented API but **has not been exercised against it** — the
-  studio has no keys yet. Test it with a test key before taking real money.
-- **not set** — the current state. The order is delivered to `ORDER_WEBHOOK_URL`
-  (falling back to `CONTACT_WEBHOOK_URL`), the customer is given an order reference,
-  and the basket says plainly that payment is arranged with the studio afterwards.
-  It never claims a payment it did not take.
+- **Both Stripe variables set** — the customer goes to Stripe's hosted page and pays
+  by card. The line amounts come from the catalogue; the names come from the request
+  so the payment page reads in the customer's own language.
+- **Neither set** — the order is delivered straight to `ORDER_WEBHOOK_URL` (falling
+  back to `CONTACT_WEBHOOK_URL`), the customer is given an order reference, and the
+  basket says plainly that payment is arranged with the studio afterwards. It never
+  claims a payment it did not take.
+- **Only `STRIPE_SECRET_KEY` set** — a half-configured state. Payment works but
+  nothing can confirm it, so checkout logs a warning and delivers the order
+  immediately marked `paid: false, awaitingPayment: true`. Better than a shop that
+  takes money and tells nobody what for. Set the signing secret.
 
-With neither a Stripe key nor a webhook, the endpoint answers `503` in production
-rather than silently dropping an order, and the basket shows the studio's phone
-number. Set at least one before launch.
+### What confirms an order
+
+Not the customer coming back. `success_url` is a redirect the browser follows, and a
+browser can be sent anywhere by anyone; a customer who pays and closes the tab never
+follows it at all. So the thank-you page thanks, and **`POST /api/stripe/webhook`**
+is what tells the studio an order is real.
+
+That endpoint is the one place on this site where an unauthenticated request makes
+the studio act, so it verifies before it does anything: an HMAC-SHA256 signature over
+the exact bytes received, compared in constant time, inside a five-minute window so a
+captured request cannot be replayed later. Unverified events get a `400` and change
+nothing.
+
+Stripe retries until it gets a `200`, so the endpoint answers `200` to events it does
+not handle — an error would have Stripe retry forever and eventually disable the
+endpoint for the events that matter. Repeat deliveries of the same session are
+recognised and dropped; a delivery that fails answers `500` so Stripe retries it.
+
+To connect it: **Dashboard → Developers → Webhooks → Add endpoint**, pointed at
+`https://your-site/api/stripe/webhook`, subscribed to `checkout.session.completed`
+and `checkout.session.async_payment_succeeded`. Copy the signing secret into
+`STRIPE_WEBHOOK_SECRET`.
+
+### What is not handled
+
+VAT and invoicing (Stripe Tax is not configured — the catalogue's figures are charged
+as they stand), refunds beyond Stripe's own dashboard, group capacity, and any
+automatic email to the customer. The customer sees a reference on screen; the studio
+gets the order on its webhook.
+
+### Testing it
+
+`STRIPE_API_BASE` points the checkout at a stand-in, so the whole path — session,
+signed webhook, delivery — runs locally without keys. Set it nowhere but a test.
+Verify against Stripe's own test keys before taking real money.
 
 Baskets are kept in the browser's own `localStorage`, read through
 `useSyncExternalStore` so the server renders an empty basket and the two never

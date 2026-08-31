@@ -157,6 +157,10 @@ const sk: Dictionary = {
     submit: "Odoslať objednávku",
     sending: "Odosielam…",
 
+    payNow:
+      "Platba prebehne v ďalšom kroku na zabezpečenej stránke Stripe. Zaplatíte kartou a hneď dostanete potvrdenie.",
+    submitPay: "Pokračovať k platbe",
+
     payLater:
       "Platba zatiaľ neprebieha online: po objednávke sa vám ozveme a zaplatíte v štúdiu alebo prevodom.",
 
@@ -322,6 +326,13 @@ const sk: Dictionary = {
     findUs: "Kontaktné údaje",
   },
 
+  thanks: {
+    eyebrow: "Objednávka",
+    title: "Ďakujeme za objednávku!",
+    lead: "Platba prebehla úspešne. Objednávku sme dostali a čoskoro sa ti ozveme s termínmi.",
+    next: "Číslo objednávky si odlož — pomôže nám, keď sa budeš na ňu pýtať. Ak niečo nesedí, pokojne nám zavolaj.",
+    metaDescription: "Ďakujeme za objednávku v jazykovom štúdiu MANHATTAN.",
+  },
   legal: {
     privacyTitle: "Zásady ochrany osobných údajov",
     cookiesTitle: "Informácie o cookies",
