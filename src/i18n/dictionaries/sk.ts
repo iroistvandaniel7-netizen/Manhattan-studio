@@ -102,6 +102,8 @@ const sk: Dictionary = {
     privateLead:
       "Individuálne hodiny platia pre všetkých sedem jazykov; jazyk si vyberiete po kúpe balíka.",
 
+    privateValidity: "Zakúpené hodiny neexpirujú: platia dovtedy, kým ich nevyčerpáte.",
+
     hours: "hod.",
     lesson: "hodina",
     lessons: "hodín",

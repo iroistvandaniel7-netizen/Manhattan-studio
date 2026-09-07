@@ -102,6 +102,8 @@ const en: Dictionary = {
     privateLead:
       "Private lessons are good for all seven languages; you choose which one after buying the package.",
 
+    privateValidity: "Bought lessons do not expire: they stay valid until you have used them.",
+
     hours: "hours",
     lesson: "lesson",
     lessons: "lessons",

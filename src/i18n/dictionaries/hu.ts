@@ -121,6 +121,10 @@ const hu = {
     privateLead:
       "Az egyéni órák mind a hét nyelvre érvényesek, a csomag megvásárlása után választod ki, melyiket tanulod.",
 
+    /* A stúdió megerősítette: a megvett órák nem évülnek el. Ez a vevőnek
+       jó hír, tehát ki van írva, nem az ÁSZF-ben elrejtve. */
+    privateValidity: "A megvásárolt órák nem járnak le: addig érvényesek, amíg fel nem használod őket.",
+
     hours: "óra",
     lesson: "óra",
     lessons: "óra",

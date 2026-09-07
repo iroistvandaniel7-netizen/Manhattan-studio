@@ -195,9 +195,17 @@ export default function Courses({
               </h3>
             }
             intro={
-              <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-600">
-                {copy.privateLead}
-              </p>
+              <>
+                <p className="mt-4 max-w-xl text-base leading-relaxed text-slate-600">
+                  {copy.privateLead}
+                </p>
+                {/* On the shelf, not in the terms: "these never expire" is the
+                    kind of thing a buyer weighs before choosing the ten-hour
+                    package over the single lesson. */}
+                <p className="mt-3 max-w-xl border-l-2 border-accent/40 pl-4 text-sm leading-relaxed text-slate-500">
+                  {copy.privateValidity}
+                </p>
+              </>
             }
           >
             {PRIVATE_PACKAGES.map((product) => {
