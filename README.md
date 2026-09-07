@@ -186,11 +186,15 @@ site should not decide them.
 
 **Refunds** happen in Stripe's dashboard; nothing here reverses an order.
 
-**Terms of sale.** The privacy and cookie notices are written and true, but selling
-to consumers in the EU also needs terms of sale and the company's registration
-details, and neither can be inferred from the code. `legal.privacyPending` in the
-dictionaries names exactly what is still missing, and both pages stay `noindex`
-until it lands.
+**Legal review of the terms.** `/[locale]/aszf` now carries real terms of sale —
+prices final, the course runs whatever the numbers, packages that never expire,
+14-day withdrawal settled pro rata, the nominated complaints address and the
+supervisory authority — all of it from what the studio stated or what the code
+demonstrably does. What it does not carry is a rule for lessons the studio has to
+call off, a notice period for rescheduling a private lesson, or a choice-of-law
+clause: the studio has not stated any of those, and an invented term is worse than
+a missing one. The page and the two notices stay `noindex`, and out of
+`sitemap.ts`, until a lawyer has read them.
 
 ### Testing it
 
