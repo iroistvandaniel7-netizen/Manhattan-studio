@@ -172,6 +172,9 @@ const en: Dictionary = {
     payLater:
       "Payment is not online yet: after you order we will contact you, and you settle at the studio or by bank transfer.",
 
+    termsNote: "Sending the order means you accept our terms:",
+    termsLink: "Terms of sale",
+
     mailSubject: "MANHATTAN STUDIO — order confirmation",
     mailIntro: "Thank you for your order. This is what we received:",
     mailPaidNext: "Your payment went through. We will be in touch shortly with times.",
@@ -197,7 +200,7 @@ const en: Dictionary = {
         title: "10 hours of communication training",
         desc: "A gift with every English and German course.",
       },
-      { title: "Small groups", desc: "Groups start with a minimum of four students." },
+      { title: "The course runs", desc: "An advertised course goes ahead even if fewer people enrol." },
       { title: "Open every day", desc: "Monday to Sunday, from 9:00 to 20:00." },
       { title: "Weekend study", desc: "Weekend slots are available too." },
       { title: "In the town centre", desc: "The studio is in the centre of Dunajská Streda." },
@@ -257,6 +260,7 @@ const en: Dictionary = {
     rights: "All rights reserved.",
     privacy: "Privacy",
     cookies: "Cookies",
+    terms: "Terms",
   },
 
   people: {
@@ -353,16 +357,19 @@ const en: Dictionary = {
   legal: {
     privacyTitle: "Privacy notice",
     cookiesTitle: "Cookie notice",
+    termsTitle: "Terms of sale",
     backHome: "Back to the home page",
     contactHeading: "A question about your data?",
+    termsContactHeading: "A question about your order?",
     controllerHeading: "Who processes your data",
+    sellerHeading: "Who you are buying from",
     vatNote:
       "The company has been registered for VAT under §4 of the Slovak VAT Act since 2 November 2023.",
 
     privacyLead:
       "This notice describes what this website asks you for, what happens to it, and what you can ask us to do about it.",
     privacyPending:
-      "This notice covers data processing. The terms of sale — cancellation, withdrawal and how groups are opened — are being prepared separately.",
+      "This notice covers data processing. The rules for ordering, paying and withdrawing are in the terms of sale — the link is in the footer.",
 
     privacySections: [
       {
@@ -402,6 +409,70 @@ const en: Dictionary = {
           "If you believe we are handling your data wrongly, you can complain to the Slovak data protection authority (Úrad na ochranu osobných údajov Slovenskej republiky).",
         ],
       },
+    ],
+
+    termsLead:
+      "This page sets out what you are buying, how an order is made, how you pay, and what you can do if you change your mind.",
+    termsPending:
+      "These terms are based on what the studio has supplied. They go to a lawyer before they become binding — until then this page is for information.",
+
+    termsSections: [
+      {
+        heading: "What you are buying",
+        body: [
+          "The studio sells language teaching: advertised group courses, and private lessons sold in packages. Every course and package says how many teaching hours it includes.",
+          "The prices shown are final. They include VAT, and nothing is added to the amount shown.",
+        ],
+      },
+      {
+        heading: "How an order is made",
+        body: [
+          "You put a course or a package in the basket, give your name and email address — phone and note are optional — and send the order.",
+          "The order gets a reference in the form MS-2609-ABCDE. Quote it whenever you ask about the order: it is how we find it.",
+          "The contract is made when the payment has arrived and we have confirmed the order by email. Until then the order is an offer.",
+        ],
+      },
+      {
+        heading: "Payment",
+        body: [
+          "Payment happens on Stripe's payment page, in euros. From there you come back to this site.",
+          "The studio never sees or stores your card details — Stripe handles those. All the studio gets back is that the payment went through, and for how much.",
+          "Exactly what you can pay with is shown on the payment page: it lists only the methods your card and your device both support.",
+        ],
+      },
+      {
+        heading: "The course runs",
+        body: [
+          "An advertised course goes ahead even if fewer people enrol than expected. Your place does not depend on the group filling up.",
+        ],
+      },
+      {
+        heading: "How long what you bought stays valid",
+        body: [
+          "Private packages do not expire. Bought lessons stay valid until you have used them — there is no deadline on them.",
+          "Group courses run at the advertised time, at the address given, for the number of hours stated.",
+        ],
+      },
+      {
+        heading: "If you change your mind",
+        body: [
+          "As a consumer ordering online you may withdraw within 14 days of the order, without giving a reason. An email to the address below with your order reference is enough.",
+          "If teaching began at your request before the 14 days were up, the withdrawal is settled pro rata: we deduct the price of the lessons already taught and return the rest.",
+          "If teaching has not started, the whole amount is returned. The money goes back the way you paid.",
+        ],
+      },
+      {
+        heading: "Supervisory authority",
+        body: [
+          "If a complaint is not resolved with us, you can take it to the Slovak Trade Inspection (Slovenská obchodná inšpekcia, SOI). Its contact details are at www.soi.sk.",
+        ],
+      },
+    ],
+
+    termsComplaintsHeading: "Complaints",
+    termsComplaintsBody: [
+      "If you are not happy with what you got, write to us. Give your order reference and say what the problem is.",
+      "We take the complaint and answer it within the period the law sets.",
     ],
 
     cookiesLead:

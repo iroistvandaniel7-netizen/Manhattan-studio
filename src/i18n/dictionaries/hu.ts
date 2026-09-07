@@ -197,6 +197,11 @@ const hu = {
     payLater:
       "A fizetés még nem online történik: a megrendelés után felvesszük veled a kapcsolatot, és a stúdióban vagy átutalással rendezed.",
 
+    /* A gomb alatt, nem fölötte: ott van, ahol a vevő dönt, és nem az utolsó,
+       amit a szeme megakad rajta a gomb megnyomása előtt. */
+    termsNote: "A megrendeléssel elfogadod a feltételeinket:",
+    termsLink: "Általános szerződési feltételek",
+
     /* A vevőnek küldött visszaigazoló e-mail szövege. Sima szöveg, nem HTML:
        minden levelezőben olvasható, és nincs mit elrontani rajta. */
     mailSubject: "MANHATTAN STUDIO — rendelés visszaigazolása",
@@ -225,7 +230,7 @@ const hu = {
         title: "10 óra kommunikációs tréning",
         desc: "Az angol és német kurzusokhoz ajándékba adjuk.",
       },
-      { title: "Kis csoportok", desc: "A csoportok minimum négy fővel indulnak." },
+      { title: "A kurzus elindul", desc: "A meghirdetett kurzust akkor is megtartjuk, ha kevesebben jelentkeznek." },
       { title: "Nyitva minden nap", desc: "Hétfőtől vasárnapig, 9:00 és 20:00 között." },
       { title: "Hétvégén is tanulhatsz", desc: "A hétvégi időpontok is választhatók." },
       { title: "A város szívében", desc: "A stúdió Dunaszerdahely központjában van." },
@@ -285,6 +290,7 @@ const hu = {
     rights: "Minden jog fenntartva.",
     privacy: "Adatvédelem",
     cookies: "Cookie-k",
+    terms: "ÁSZF",
   },
 
   /* A kép leírása, nem állítás róluk: nem tudjuk, kik ők. */
@@ -399,16 +405,19 @@ const hu = {
   legal: {
     privacyTitle: "Adatvédelmi tájékoztató",
     cookiesTitle: "Cookie-tájékoztató",
+    termsTitle: "Általános szerződési feltételek",
     backHome: "Vissza a kezdőlapra",
     contactHeading: "Kérdésed van az adataiddal kapcsolatban?",
+    termsContactHeading: "Kérdésed van a megrendeléssel kapcsolatban?",
     controllerHeading: "Ki kezeli az adataidat",
+    sellerHeading: "Kivel szerződsz",
     vatNote:
       "A társaság a szlovák áfatörvény §4 szerint 2023. november 2-tól áfaalany.",
 
     privacyLead:
       "Ez a tájékoztató azt írja le, milyen adatokat kér tőled ez a weboldal, mi történik velük, és mit kérhetsz velük kapcsolatban.",
     privacyPending:
-      "Ez a tájékoztató az adatkezelésről szól. Az általános szerződési feltételek — a lemondás, az elállás és a csoportindítás szabályai — külön dokumentumban készülnek.",
+      "Ez a tájékoztató az adatkezelésről szól. A megrendelés, a fizetés és az elállás szabályai az általános szerződési feltételekben olvashatók — a link a lap alján van.",
 
     privacySections: [
       {
@@ -448,6 +457,79 @@ const hu = {
           "Ha úgy érzed, rosszul kezeljük az adataidat, panasszal fordulhatsz a szlovák adatvédelmi hatósághoz (Úrad na ochranu osobných údajov Slovenskej republiky).",
         ],
       },
+    ],
+
+    /*
+     * Az ÁSZF.
+     *
+     * Minden mondat mögött vagy a stúdió által megadott adat áll, vagy annak
+     * leírása, amit a kód ténylegesen csinál — a fizetés a Stripe oldalán
+     * történik, a hivatkozási szám MS-ÉÉHH-XXXXX alakú, a kosár csak
+     * azonosítót küld. Amiről a stúdió nem nyilatkozott, az nincs benne:
+     * inkább hiányzik, mint hogy kitalált szabály legyen.
+     */
+    termsLead:
+      "Ez az oldal azt írja le, mit vásárolsz, hogyan jön létre a megrendelés, hogyan fizetsz, és mit tehetsz, ha meggondolod magad.",
+    termsPending:
+      "Ezek a feltételek a stúdió által megadott adatokon alapulnak. Mielőtt kötelező érvényűvé válnának, jogi ellenőrzésen mennek át — addig ez az oldal tájékoztatás.",
+
+    termsSections: [
+      {
+        heading: "Mit vásárolsz",
+        body: [
+          "A stúdió nyelvoktatást ad el: meghirdetett csoportos kurzusokat, és magánórákat, amelyeket órákból álló csomagokban lehet megvenni. Minden kurzusnál és csomagnál ki van írva, hány tanórát tartalmaz.",
+          "A feltüntetett árak véglegesek. Tartalmazzák az áfát, és a kiírt összegen felül semmilyen további díjat nem számítunk fel.",
+        ],
+      },
+      {
+        heading: "Hogyan jön létre a megrendelés",
+        body: [
+          "A kurzust vagy a csomagot kosárba teszed, megadod a neved és az e-mail-címed — a telefonszám és a megjegyzés nem kötelező —, majd elküldöd a megrendelést.",
+          "A megrendelés kap egy hivatkozási számot MS-2609-ABCDE alakban. Ezt add meg, ha a megrendelésről kérdezel: ez alapján találjuk meg.",
+          "A szerződés akkor jön létre, amikor a fizetés beérkezett, és a megrendelést e-mailben visszaigazoltuk. Addig a megrendelés ajánlat.",
+        ],
+      },
+      {
+        heading: "Fizetés",
+        body: [
+          "A fizetés a Stripe fizetési oldalán történik, euróban. Onnan visszakerülsz erre az oldalra.",
+          "A kártyaadataidat a stúdió nem látja és nem tárolja — azokat a Stripe kezeli. A stúdió csak azt kapja vissza, hogy a fizetés megtörtént, és mekkora összegről.",
+          "Hogy pontosan mivel lehet fizetni, azt a fizetési oldal mutatja meg: ott csak azok a módok jelennek meg, amelyeket a kártyád és az eszközöd is támogat.",
+        ],
+      },
+      {
+        heading: "A kurzus elindul",
+        body: [
+          "A meghirdetett kurzust akkor is megtartjuk, ha a vártnál kevesebben jelentkeznek. A helyed nem múlik azon, összejön-e a létszám.",
+        ],
+      },
+      {
+        heading: "Meddig érvényes, amit megvettél",
+        body: [
+          "A magánórás csomagok nem járnak le. A megvásárolt órák addig érvényesek, amíg fel nem használod őket — nincs rájuk határidő.",
+          "A csoportos kurzusok a meghirdetett időpontban futnak, a megadott helyszínen, a kiírt óraszámban.",
+        ],
+      },
+      {
+        heading: "Ha meggondolod magad",
+        body: [
+          "Fogyasztóként, aki interneten rendel, a megrendeléstől számított 14 napon belül indokolás nélkül elállhatsz. Elég egy e-mail az alább megadott címre, a megrendelés hivatkozási számával.",
+          "Ha a tanítás a kérésedre már a 14 nap letelte előtt elkezdődött, az elállást arányosan számoljuk el: a már megtartott órák árát levonjuk, a maradékot visszautaljuk.",
+          "Ha a tanítás még nem kezdődött el, a teljes összeget visszautaljuk. A pénz azon a módon megy vissza, amellyel fizettél.",
+        ],
+      },
+      {
+        heading: "Felügyeleti hatóság",
+        body: [
+          "Ha a panaszod nálunk nem oldódik meg, a szlovák Kereskedelmi Felügyelethez (Slovenská obchodná inšpekcia, SOI) fordulhatsz. Az elérhetőségei a www.soi.sk oldalon találhatók.",
+        ],
+      },
+    ],
+
+    termsComplaintsHeading: "Panasz, reklamáció",
+    termsComplaintsBody: [
+      "Ha nem vagy elégedett azzal, amit kaptál, írd meg. Add meg a megrendelés hivatkozási számát, és azt, hogy mi a baj.",
+      "A panaszt átvesszük, és a jogszabályban előírt határidőn belül válaszolunk rá.",
     ],
 
     cookiesLead:

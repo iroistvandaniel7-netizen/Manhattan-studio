@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Locale } from "@/i18n/config";
-import { ADDRESS, BRAND, COMPANY, EMAIL, PHONES } from "@/lib/site";
+import { ADDRESS, BRAND, COMPANY, COMPLAINTS_EMAIL, EMAIL, PHONES } from "@/lib/site";
 
 export type LegalSection = {
   heading: string;
@@ -11,7 +11,7 @@ export type LegalSection = {
 };
 
 /**
- * Shared shell for the privacy and cookie pages.
+ * Shared shell for the privacy, cookie and terms-of-sale pages.
  *
  * These now carry real text rather than a placeholder, and the distinction
  * matters: what they describe is what this site actually does, which is
@@ -20,10 +20,11 @@ export type LegalSection = {
  * exactly the fields they show, and each is sent to exactly one place. None of
  * that is a legal opinion; it is a description of the software.
  *
- * What is NOT here, and cannot be, is the company's registration details and
- * the terms of sale — those are the studio's to supply and its lawyer's to
- * approve. Where a page needs one, it says so in the open rather than
- * inventing a number.
+ * Every identifier and address on these pages is read from `lib/site.ts`, not
+ * retyped into three dictionaries — a company number that exists in three
+ * places is a company number that can end up wrong in one of them. Anything
+ * the studio has not supplied is absent rather than guessed, and `pending`
+ * says so in the open.
  */
 export default function LegalPage({
   locale,
@@ -33,6 +34,8 @@ export default function LegalPage({
   pending,
   controllerHeading,
   vatNote,
+  complaintsHeading,
+  complaintsBody,
   contactHeading,
   backLabel,
 }: {
@@ -45,6 +48,16 @@ export default function LegalPage({
   /** Set on pages that must identify the seller; omitted elsewhere. */
   controllerHeading?: string;
   vatNote?: string;
+  /**
+   * The complaints route, on the pages that have to name one.
+   *
+   * A separate block rather than another `sections` entry, because the address
+   * belongs to `lib/site.ts`: a complaints contact typed into three
+   * dictionaries is three addresses that can fall out of step, and the one on
+   * the contact page would be the fourth.
+   */
+  complaintsHeading?: string;
+  complaintsBody?: readonly string[];
   contactHeading: string;
   backLabel: string;
 }) {
@@ -123,6 +136,25 @@ export default function LegalPage({
             ) : null}
           </section>
         ))}
+
+        {complaintsHeading ? (
+          <section className="mt-12">
+            <h2 className="font-display text-xl font-extrabold tracking-[-0.015em] sm:text-2xl">
+              {complaintsHeading}
+            </h2>
+            {complaintsBody?.map((paragraph) => (
+              <p key={paragraph} className="mt-4 text-base leading-relaxed text-slate-600">
+                {paragraph}
+              </p>
+            ))}
+            <a
+              href={`mailto:${COMPLAINTS_EMAIL}`}
+              className="link-underline mt-4 inline-block text-base font-semibold text-accent"
+            >
+              {COMPLAINTS_EMAIL}
+            </a>
+          </section>
+        ) : null}
 
         {/* Whom to write to about any of it — from the same file the rest of
             the site reads, so there is one address on this site, not two. */}

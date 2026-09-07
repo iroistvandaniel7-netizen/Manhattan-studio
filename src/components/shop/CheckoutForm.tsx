@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
 import { PHONES } from "@/lib/site";
@@ -247,6 +248,20 @@ export default function CheckoutForm({
       >
         {state === "sending" ? copy.sending : online ? copy.submitPay : copy.submit}
       </button>
+
+      {/* The terms, where the order is actually placed. A link in the footer
+          is where somebody looks afterwards; this is where they agree. */}
+      <p className="mt-3 text-xs leading-relaxed text-slate-500">
+        {copy.termsNote}{" "}
+        <Link
+          href={`/${locale}/aszf`}
+          className="link-underline font-semibold text-accent"
+          target="_blank"
+          rel="noopener"
+        >
+          {copy.termsLink}
+        </Link>
+      </p>
     </form>
   );
 }

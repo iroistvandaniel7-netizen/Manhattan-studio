@@ -172,6 +172,9 @@ const sk: Dictionary = {
     payLater:
       "Platba zatiaľ neprebieha online: po objednávke sa vám ozveme a zaplatíte v štúdiu alebo prevodom.",
 
+    termsNote: "Odoslaním objednávky súhlasíte s našimi podmienkami:",
+    termsLink: "Všeobecné obchodné podmienky",
+
     mailSubject: "MANHATTAN STUDIO — potvrdenie objednávky",
     mailIntro: "Ďakujeme za objednávku! Prijali sme toto:",
     mailPaidNext: "Platba prebehla. Čoskoro sa vám ozveme s termínmi.",
@@ -197,7 +200,7 @@ const sk: Dictionary = {
         title: "10 hodín komunikačného tréningu",
         desc: "Ku kurzom angličtiny a nemčiny ho dávame ako darček.",
       },
-      { title: "Malé skupiny", desc: "Skupiny otvárame minimálne so štyrmi študentmi." },
+      { title: "Kurz sa otvorí", desc: "Vypísaný kurz otvoríme aj vtedy, keď sa prihlási menej ľudí." },
       { title: "Otvorené každý deň", desc: "Od pondelka do nedele, od 9:00 do 20:00." },
       { title: "Študovať sa dá aj cez víkend", desc: "Vybrať si môžete aj víkendové termíny." },
       { title: "V centre mesta", desc: "Štúdio sídli v centre Dunajskej Stredy." },
@@ -257,6 +260,7 @@ const sk: Dictionary = {
     rights: "Všetky práva vyhradené.",
     privacy: "Ochrana údajov",
     cookies: "Cookies",
+    terms: "Obchodné podmienky",
   },
 
   people: {
@@ -353,16 +357,19 @@ const sk: Dictionary = {
   legal: {
     privacyTitle: "Ochrana osobných údajov",
     cookiesTitle: "Informácie o cookies",
+    termsTitle: "Všeobecné obchodné podmienky",
     backHome: "Späť na úvod",
     contactHeading: "Máte otázku k svojim údajom?",
+    termsContactHeading: "Máte otázku k objednávke?",
     controllerHeading: "Kto spracúva vaše údaje",
+    sellerHeading: "S kým uzatvárate zmluvu",
     vatNote:
       "Spoločnosť je platiteľom DPH podľa §4 zákona o DPH od 2. novembra 2023.",
 
     privacyLead:
       "Tento dokument popisuje, aké údaje od vás táto stránka žiada, čo sa s nimi deje a čo v súvislosti s nimi môžete žiadať.",
     privacyPending:
-      "Tento dokument sa týka spracúvania údajov. Všeobecné obchodné podmienky — pravidlá zrušenia, odstúpenia a otvárania skupín — sa pripravujú samostatne.",
+      "Tento dokument sa týka spracúvania údajov. Pravidlá objednávky, platby a odstúpenia nájdete vo všeobecných obchodných podmienkach — odkaz je v päte stránky.",
 
     privacySections: [
       {
@@ -402,6 +409,70 @@ const sk: Dictionary = {
           "Ak máte pocit, že s vašimi údajmi nakladáme nesprávne, môžete sa obrátiť so sťažnosťou na Úrad na ochranu osobných údajov Slovenskej republiky.",
         ],
       },
+    ],
+
+    termsLead:
+      "Táto stránka popisuje, čo si kupujete, ako vzniká objednávka, ako sa platí a čo môžete urobiť, ak si to rozmyslíte.",
+    termsPending:
+      "Tieto podmienky vychádzajú z údajov, ktoré poskytlo štúdio. Predtým, než sa stanú záväznými, prejdú právnou kontrolou — dovtedy je táto stránka informatívna.",
+
+    termsSections: [
+      {
+        heading: "Čo si kupujete",
+        body: [
+          "Štúdio predáva jazykovú výučbu: vypísané skupinové kurzy a individuálne hodiny, ktoré sa dajú kúpiť v balíkoch. Pri každom kurze aj balíku je uvedené, koľko vyučovacích hodín obsahuje.",
+          "Uvedené ceny sú konečné. Obsahujú DPH a k uvedenej sume neúčtujeme žiadne ďalšie poplatky.",
+        ],
+      },
+      {
+        heading: "Ako vzniká objednávka",
+        body: [
+          "Kurz alebo balík vložíte do košíka, vyplníte meno a e-mail — telefón a poznámka sú nepovinné — a objednávku odošlete.",
+          "Objednávka dostane referenčné číslo v tvare MS-2609-ABCDE. Uveďte ho vždy, keď sa na objednávku pýtate: podľa neho ju nájdeme.",
+          "Zmluva vzniká vtedy, keď je platba prijatá a objednávku vám e-mailom potvrdíme. Dovtedy je objednávka návrhom.",
+        ],
+      },
+      {
+        heading: "Platba",
+        body: [
+          "Platí sa na platobnej stránke Stripe, v eurách. Odtiaľ sa vrátite späť na túto stránku.",
+          "Údaje o vašej karte štúdio nevidí ani neuchováva — spracúva ich Stripe. Štúdio dostane späť len informáciu, že platba prebehla, a akú mala sumu.",
+          "Čím presne sa dá zaplatiť, ukáže platobná stránka: zobrazí len tie spôsoby, ktoré podporuje vaša karta aj vaše zariadenie.",
+        ],
+      },
+      {
+        heading: "Kurz sa otvorí",
+        body: [
+          "Vypísaný kurz otvoríme aj vtedy, keď sa prihlási menej ľudí, než sme čakali. Vaše miesto nezávisí od toho, či sa skupina naplní.",
+        ],
+      },
+      {
+        heading: "Dokedy platí, čo ste si kúpili",
+        body: [
+          "Balíky individuálnych hodín neexpirujú. Zakúpené hodiny platia dovtedy, kým ich nevyčerpáte — nemajú žiadny termín.",
+          "Skupinové kurzy prebiehajú vo vypísanom termíne, na uvedenej adrese a v uvedenom rozsahu hodín.",
+        ],
+      },
+      {
+        heading: "Ak si to rozmyslíte",
+        body: [
+          "Ako spotrebiteľ, ktorý objednáva cez internet, môžete do 14 dní od objednávky odstúpiť od zmluvy bez uvedenia dôvodu. Stačí e-mail na nižšie uvedenú adresu s referenčným číslom objednávky.",
+          "Ak sa výučba na vašu žiadosť začala ešte pred uplynutím 14 dní, odstúpenie vyrovnáme pomerne: odrátame cenu už odučených hodín a zvyšok vrátime.",
+          "Ak sa výučba ešte nezačala, vrátime celú sumu. Peniaze posielame späť tým istým spôsobom, akým ste platili.",
+        ],
+      },
+      {
+        heading: "Dozorný orgán",
+        body: [
+          "Ak sa reklamácia u nás nevyrieši, môžete sa obrátiť na Slovenskú obchodnú inšpekciu (SOI). Jej kontakty nájdete na stránke www.soi.sk.",
+        ],
+      },
+    ],
+
+    termsComplaintsHeading: "Reklamácia",
+    termsComplaintsBody: [
+      "Ak nie ste s tým, čo ste dostali, spokojní, napíšte nám. Uveďte referenčné číslo objednávky a v čom je problém.",
+      "Reklamáciu prijmeme a odpovieme na ňu v lehote, ktorú stanovuje zákon.",
     ],
 
     cookiesLead:

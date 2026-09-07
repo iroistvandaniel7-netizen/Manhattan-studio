@@ -120,6 +120,12 @@ export default function Footer({
             >
               {dict.footer.cookies}
             </Link>
+            <Link
+              href={`${home}/aszf`}
+              className="link-underline text-xs text-white/70 hover:text-white"
+            >
+              {dict.footer.terms}
+            </Link>
             <a
               href="#top"
               className="link-underline text-xs text-white/70 hover:text-white"
