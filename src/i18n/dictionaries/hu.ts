@@ -390,11 +390,14 @@ const hu = {
     cookiesTitle: "Cookie-tájékoztató",
     backHome: "Vissza a kezdőlapra",
     contactHeading: "Kérdésed van az adataiddal kapcsolatban?",
+    controllerHeading: "Ki kezeli az adataidat",
+    vatNote:
+      "A társaság a szlovák áfatörvény §4 szerint 2023. november 2-tól áfaalany.",
 
     privacyLead:
       "Ez a tájékoztató azt írja le, milyen adatokat kér tőled ez a weboldal, mi történik velük, és mit kérhetsz velük kapcsolatban.",
     privacyPending:
-      "Két dolog hiányzik még ebből a tájékoztatóból, és csak a stúdió tudja megadni: a cég nyilvántartási adatai (IČO, DIČ), és hogy meddig őrizzük meg a megkereséseket és a rendeléseket. Amíg ezek nincsenek meg, ez az oldal nem jelenik meg a keresőkben.",
+      "Ez a tájékoztató az adatkezelésről szól. Az általános szerződési feltételek — a lemondás, az elállás és a csoportindítás szabályai — külön dokumentumban készülnek.",
 
     privacySections: [
       {
@@ -419,6 +422,12 @@ const hu = {
         body: [
           "Ezen az oldalon nincs Google Analytics, nincs Facebook-pixel, és nincs semmilyen más mérő- vagy hirdetési kód. Nem építünk rólad profilt, és nem követjük, mit néztél meg.",
           "Az oldal saját sütit sem használ. A részletek a cookie-tájékoztatóban.",
+        ],
+      },
+      {
+        heading: "Meddig őrizzük meg",
+        body: [
+          "A kurzus befejezésétől számított egy évig. Utána töröljük őket, kivéve amit számviteli vagy adójogszabály hosszabb ideig megőrizni rendel — a kiállított számlákat például a törvény szerinti ideig tartjuk meg.",
         ],
       },
       {

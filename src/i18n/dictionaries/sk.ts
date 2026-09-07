@@ -349,11 +349,14 @@ const sk: Dictionary = {
     cookiesTitle: "Informácie o cookies",
     backHome: "Späť na úvod",
     contactHeading: "Máte otázku k svojim údajom?",
+    controllerHeading: "Kto spracúva vaše údaje",
+    vatNote:
+      "Spoločnosť je platiteľom DPH podľa §4 zákona o DPH od 2. novembra 2023.",
 
     privacyLead:
       "Tento dokument popisuje, aké údaje od vás táto stránka žiada, čo sa s nimi deje a čo v súvislosti s nimi môžete žiadať.",
     privacyPending:
-      "Dve veci v tomto dokumente ešte chýbajú a môže ich doplniť iba štúdio: registračné údaje spoločnosti (IČO, DIČ) a to, ako dlho uchovávame správy a objednávky. Kým ich nemáme, táto stránka sa nezobrazuje vo vyhľadávačoch.",
+      "Tento dokument sa týka spracúvania údajov. Všeobecné obchodné podmienky — pravidlá zrušenia, odstúpenia a otvárania skupín — sa pripravujú samostatne.",
 
     privacySections: [
       {
@@ -378,6 +381,12 @@ const sk: Dictionary = {
         body: [
           "Na tejto stránke nie je Google Analytics, Facebook pixel ani žiadny iný merací či reklamný kód. Nevytvárame o vás profil a nesledujeme, čo ste si prezerali.",
           "Stránka nepoužíva ani vlastné cookies. Podrobnosti nájdete v informáciách o cookies.",
+        ],
+      },
+      {
+        heading: "Ako dlho ich uchovávame",
+        body: [
+          "Jeden rok od skončenia kurzu. Potom ich vymažeme, okrem toho, čo je podľa účtovných alebo daňových predpisov potrebné uchovávať dlhšie — vystavené faktúry napríklad uchovávame po zákonom stanovenú dobu.",
         ],
       },
       {

@@ -48,6 +48,8 @@ export default async function PrivacyPage({
       lead={dict.legal.privacyLead}
       sections={dict.legal.privacySections}
       pending={dict.legal.privacyPending}
+      controllerHeading={dict.legal.controllerHeading}
+      vatNote={dict.legal.vatNote}
       contactHeading={dict.legal.contactHeading}
       backLabel={dict.legal.backHome}
     />

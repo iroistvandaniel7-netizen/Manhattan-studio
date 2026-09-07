@@ -18,6 +18,33 @@ export const BRAND = {
   wordmarkBottom: "STUDIO",
 } as const;
 
+/**
+ * Registration details, as supplied by the studio.
+ *
+ * Required on a site that sells: a buyer has to be able to see who they are
+ * contracting with, and the VAT registration has to be on anything that names
+ * a price. These are identifiers, so they are not translated and not
+ * reformatted — they are reproduced exactly as issued.
+ */
+export const COMPANY = {
+  /** Company registration number. */
+  ico: "46787623",
+  /** Tax identification number. */
+  dic: "2023580097",
+  /** VAT identification number. */
+  icDph: "SK2023580097",
+  /** Registered for VAT under §4 of the Slovak VAT Act, from this date. */
+  vatRegisteredFrom: "2023-11-02",
+  vatBasis: "§4",
+} as const;
+
+/**
+ * How long the studio keeps what the site collects: one year from the end of
+ * the course. Stated in the privacy notice, and here so there is one answer
+ * rather than one per translation.
+ */
+export const RETENTION_YEARS = 1;
+
 /** `href` is E.164 for tel: links, `label` is the display form. */
 export const PHONES = [{ href: "+421948172288", label: "0948 172 288" }] as const;
 

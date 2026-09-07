@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Locale } from "@/i18n/config";
-import { ADDRESS, EMAIL, PHONES } from "@/lib/site";
+import { ADDRESS, BRAND, COMPANY, EMAIL, PHONES } from "@/lib/site";
 
 export type LegalSection = {
   heading: string;
@@ -31,6 +31,8 @@ export default function LegalPage({
   lead,
   sections,
   pending,
+  controllerHeading,
+  vatNote,
   contactHeading,
   backLabel,
 }: {
@@ -40,6 +42,9 @@ export default function LegalPage({
   sections: readonly LegalSection[];
   /** Shown when the page still needs something only the studio has. */
   pending?: string;
+  /** Set on pages that must identify the seller; omitted elsewhere. */
+  controllerHeading?: string;
+  vatNote?: string;
   contactHeading: string;
   backLabel: string;
 }) {
@@ -56,6 +61,42 @@ export default function LegalPage({
           <p className="mt-8 border-l-2 border-accent pl-6 text-base leading-relaxed text-slate-600">
             {pending}
           </p>
+        ) : null}
+
+        {/*
+          Who the reader is dealing with, on any page that needs it.
+
+          Registration numbers are identifiers, not prose: they are printed as
+          issued, in every language, and read from `lib/site.ts` so the site has
+          one set of them rather than three that can drift apart.
+        */}
+        {controllerHeading ? (
+          <section className="mt-12">
+            <h2 className="font-display text-xl font-extrabold tracking-[-0.015em] sm:text-2xl">
+              {controllerHeading}
+            </h2>
+            <dl className="mt-4 flex flex-col gap-2 text-base leading-relaxed">
+              <div className="flex flex-wrap gap-x-3">
+                <dt className="sr-only">{BRAND.nameFull}</dt>
+                <dd className="font-semibold">{BRAND.legalName}</dd>
+              </div>
+              <div className="flex flex-wrap gap-x-3">
+                <dt className="text-slate-500">IČO</dt>
+                <dd className="font-mono">{COMPANY.ico}</dd>
+              </div>
+              <div className="flex flex-wrap gap-x-3">
+                <dt className="text-slate-500">DIČ</dt>
+                <dd className="font-mono">{COMPANY.dic}</dd>
+              </div>
+              <div className="flex flex-wrap gap-x-3">
+                <dt className="text-slate-500">IČ DPH</dt>
+                <dd className="font-mono">{COMPANY.icDph}</dd>
+              </div>
+            </dl>
+            {vatNote ? (
+              <p className="mt-4 text-base leading-relaxed text-slate-600">{vatNote}</p>
+            ) : null}
+          </section>
         ) : null}
 
         {sections.map((section) => (

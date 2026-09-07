@@ -349,11 +349,14 @@ const en: Dictionary = {
     cookiesTitle: "Cookie notice",
     backHome: "Back to the home page",
     contactHeading: "A question about your data?",
+    controllerHeading: "Who processes your data",
+    vatNote:
+      "The company has been registered for VAT under §4 of the Slovak VAT Act since 2 November 2023.",
 
     privacyLead:
       "This notice describes what this website asks you for, what happens to it, and what you can ask us to do about it.",
     privacyPending:
-      "Two things are still missing from this notice, and only the studio can supply them: the company's registration details (IČO, DIČ) and how long we keep messages and orders. Until they are here, this page is kept out of search engines.",
+      "This notice covers data processing. The terms of sale — cancellation, withdrawal and how groups are opened — are being prepared separately.",
 
     privacySections: [
       {
@@ -378,6 +381,12 @@ const en: Dictionary = {
         body: [
           "There is no Google Analytics on this site, no Facebook pixel, and no other measurement or advertising code. We do not build a profile of you and do not record what you looked at.",
           "The site sets no cookies of its own either. The cookie notice has the detail.",
+        ],
+      },
+      {
+        heading: "How long we keep it",
+        body: [
+          "One year from the end of the course. After that it is deleted, except for anything accounting or tax law requires us to keep for longer — invoices, for instance, are kept for the period the law sets.",
         ],
       },
       {
