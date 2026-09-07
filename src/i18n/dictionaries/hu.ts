@@ -385,6 +385,8 @@ const hu = {
     metaDescription:
       "MANHATTAN STUDIO nyelviskola Dunaszerdahelyen: cím, telefonszám, e-mail és nyitvatartás.",
     findUs: "Elérhetőségek",
+    complaintsTitle: "Reklamáció",
+    complaintsNote: "Ha panaszod van a szolgáltatással kapcsolatban, ide írj — a bejelentést a törvényben előírt határidőn belül elintézzük.",
   },
 
   thanks: {

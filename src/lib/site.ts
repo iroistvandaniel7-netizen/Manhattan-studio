@@ -51,6 +51,16 @@ export const PHONES = [{ href: "+421948172288", label: "0948 172 288" }] as cons
 export const EMAIL = "info@manhattanstudio.sk";
 
 /**
+ * Where a complaint about the service goes, as nominated by the studio.
+ *
+ * Separate from `EMAIL` because it is a different promise: general enquiries
+ * are answered when someone gets to them, a complaint has a procedure and a
+ * deadline attached to it. Slovak consumer law requires the seller to name a
+ * complaints contact, and this is it.
+ */
+export const COMPLAINTS_EMAIL = "poor.marianna@gmail.com";
+
+/**
  * Single location, in the centre of Dunajská Streda. The street address is
  * Slovak and stays in Slovak in every locale; only the city name is localised.
  */

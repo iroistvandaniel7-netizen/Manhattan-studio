@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary } from "@/i18n";
 import { htmlLang, isLocale, locales } from "@/i18n/config";
-import { ADDRESS, EMAIL, PHONES, SITE_URL, mapsUrl } from "@/lib/site";
+import { ADDRESS, COMPLAINTS_EMAIL, EMAIL, PHONES, SITE_URL, mapsUrl } from "@/lib/site";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Landmarks from "@/components/graphics/Landmarks";
 import Reveal from "@/components/ui/Reveal";
@@ -139,7 +139,23 @@ export default async function ContactPage({
               </a>
             </Reveal>
 
+            {/* A complaint is a different errand from an enquiry, and it has a
+                deadline attached, so it gets its own line rather than being
+                folded into the general address. */}
             <Reveal delay={190} className={`mt-8 ${block}`}>
+              <h3 className="label text-slate-500">{copy.complaintsTitle}</h3>
+              <a
+                href={`mailto:${COMPLAINTS_EMAIL}`}
+                className="link-underline mt-3 inline-block text-base font-semibold text-accent"
+              >
+                {COMPLAINTS_EMAIL}
+              </a>
+              <p className="mt-3 text-sm leading-relaxed text-slate-500">
+                {copy.complaintsNote}
+              </p>
+            </Reveal>
+
+            <Reveal delay={230} className={`mt-8 ${block}`}>
               <h3 className="label text-slate-500">{dict.contact.hoursTitle}</h3>
               <div className="mt-3 flex items-baseline justify-between gap-4 border-b border-line pb-3">
                 <p className="text-sm text-slate-600">{dict.contact.hoursDays}</p>

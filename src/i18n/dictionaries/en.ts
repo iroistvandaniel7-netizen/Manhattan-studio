@@ -339,6 +339,8 @@ const en: Dictionary = {
     metaDescription:
       "MANHATTAN STUDIO language school in Dunajská Streda: address, phone, email and opening hours.",
     findUs: "Contact details",
+    complaintsTitle: "Complaints",
+    complaintsNote: "If you have a complaint about the service, write here — we handle complaints within the period the law sets.",
   },
 
   thanks: {

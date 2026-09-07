@@ -339,6 +339,8 @@ const sk: Dictionary = {
     metaDescription:
       "Jazykové štúdio MANHATTAN v Dunajskej Strede: adresa, telefón, e-mail a otváracie hodiny.",
     findUs: "Kontaktné údaje",
+    complaintsTitle: "Reklamácie",
+    complaintsNote: "Ak máte reklamáciu k službe, píšte sem — vybavíme ju v zákonom stanovenej lehote.",
   },
 
   thanks: {
