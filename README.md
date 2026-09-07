@@ -154,12 +154,43 @@ To connect it: **Dashboard → Developers → Webhooks → Add endpoint**, point
 and `checkout.session.async_payment_succeeded`. Copy the signing secret into
 `STRIPE_WEBHOOK_SECRET`.
 
+### A course that has filled up
+
+Add `soldOut: true` to a product's line in `src/lib/catalogue.ts` and that course
+closes: the card shows it as full and its buy button becomes an enquiry link, the
+level check stops recommending a place in it, the basket refuses to hold it, and
+the checkout drops it from any order — including one restored from a basket saved
+before it filled. Remove the flag to open it again.
+
+A switch, not a seat count. A count would need somewhere to live, something to
+decrement on every payment and something to put back on every refund, and each of
+those is a way to sell a ninth place in a group of eight. The studio knows when a
+group is full; this is that knowledge written down.
+
+### The customer's confirmation
+
+Optional, and inert until `RESEND_API_KEY` and `ORDER_FROM_EMAIL` are set. When
+they are, the customer gets a plain-text email naming the courses, the total and
+the reference, in their own language — sent after the order has been delivered to
+the studio, and never able to fail the checkout. For paid orders, Stripe's own
+receipt (Dashboard → Settings → Customer emails) is the document for the payment;
+this one is what names the courses.
+
 ### What is not handled
 
-VAT and invoicing (Stripe Tax is not configured — the catalogue's figures are charged
-as they stand), refunds beyond Stripe's own dashboard, group capacity, and any
-automatic email to the customer. The customer sees a reference on screen; the studio
-gets the order on its webhook.
+
+**VAT and invoicing.** Stripe Tax is not configured and the catalogue's figures are
+charged as they stand. Whether those figures are gross or net, and whether the studio
+needs a Slovak invoicing system behind this, are questions for its accountant — the
+site should not decide them.
+
+**Refunds** happen in Stripe's dashboard; nothing here reverses an order.
+
+**Terms of sale.** The privacy and cookie notices are written and true, but selling
+to consumers in the EU also needs terms of sale and the company's registration
+details, and neither can be inferred from the code. `legal.privacyPending` in the
+dictionaries names exactly what is still missing, and both pages stay `noindex`
+until it lands.
 
 ### Testing it
 

@@ -20,7 +20,7 @@ export async function generateMetadata({
 
   return {
     title: dict.legal.privacyTitle,
-    description: dict.legal.placeholderNote,
+    description: dict.legal.privacyLead,
     alternates: {
       canonical: `${SITE_URL}/${locale}/adatvedelem`,
       languages: Object.fromEntries(
@@ -45,7 +45,10 @@ export default async function PrivacyPage({
     <LegalPage
       locale={locale}
       title={dict.legal.privacyTitle}
-      note={dict.legal.placeholderNote}
+      lead={dict.legal.privacyLead}
+      sections={dict.legal.privacySections}
+      pending={dict.legal.privacyPending}
+      contactHeading={dict.legal.contactHeading}
       backLabel={dict.legal.backHome}
     />
   );

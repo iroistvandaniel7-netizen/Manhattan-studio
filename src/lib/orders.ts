@@ -1,4 +1,6 @@
-import { CURRENCY, type PricedLine } from "./catalogue";
+import { CURRENCY, formatPrice, type PricedLine } from "./catalogue";
+import { getDictionary } from "@/i18n";
+import { isLocale, defaultLocale } from "@/i18n/config";
 
 /**
  * Orders on their way out of the site.
@@ -74,6 +76,90 @@ export function buildOrder(
 }
 
 export type Delivery = { configured: boolean; delivered: boolean };
+
+/**
+ * The confirmation the customer gets, if the studio has set up a sender.
+ *
+ * Optional on purpose. Sending email needs an account somewhere, and the shop
+ * has to work before that account exists — so with no `RESEND_API_KEY` this
+ * does nothing at all and reports as much. Nothing else changes.
+ *
+ * For paid orders Stripe can also send its own receipt, and that receipt is
+ * the better document: it carries the payment. This is the one that goes out
+ * for an order placed before payment is connected, where otherwise the
+ * customer's only record is a screen they can close.
+ *
+ * A plain POST rather than the SDK, for the same reason as the Stripe call:
+ * one request does not justify a dependency to keep patched.
+ */
+/**
+ * The confirmation's subject and body, in the customer's own language.
+ *
+ * Plain text, not HTML: it reads the same in every mail client, there is
+ * nothing in it to render wrongly, and it cannot carry a tracking pixel — which
+ * would contradict the privacy notice two clicks away.
+ */
+export function confirmationText(order: Order): { subject: string; body: string } {
+  const locale = isLocale(order.locale) ? order.locale : defaultLocale;
+  const dict = getDictionary(locale);
+  const copy = dict.shop;
+
+  const lines = order.lines.map((line) => {
+    const item = dict.courses.items[line.id as keyof typeof dict.courses.items];
+    const name = item?.name ?? line.id;
+    return `- ${name} × ${line.quantity} — ${formatPrice(line.amount, locale)}`;
+  });
+
+  const body = [
+    copy.mailIntro,
+    "",
+    ...lines,
+    "",
+    `${copy.total}: ${formatPrice(order.total, locale)}`,
+    `${copy.orderRef}: ${order.reference}`,
+    "",
+    order.paid ? copy.mailPaidNext : copy.mailUnpaidNext,
+    "",
+    copy.mailOutro,
+  ].join("\n");
+
+  return { subject: `${copy.mailSubject} — ${order.reference}`, body };
+}
+
+export async function confirmToCustomer(
+  order: Order,
+  subject: string,
+  body: string,
+): Promise<{ configured: boolean; sent: boolean }> {
+  const key = process.env.RESEND_API_KEY;
+  const from = process.env.ORDER_FROM_EMAIL;
+  if (!key || !from || !order.email) return { configured: false, sent: false };
+
+  try {
+    const response = await fetch(`${process.env.RESEND_API_BASE ?? "https://api.resend.com"}/emails`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+        /* The reference, so a retry cannot send the same customer the same
+           confirmation twice. */
+        "Idempotency-Key": order.reference,
+      },
+      body: JSON.stringify({ from, to: [order.email], subject, text: body }),
+      signal: AbortSignal.timeout(10_000),
+    });
+    if (!response.ok) {
+      console.error("[orders] confirmation email refused:", response.status);
+      return { configured: true, sent: false };
+    }
+    return { configured: true, sent: true };
+  } catch (error) {
+    /* Never fatal. The order is already recorded; a missing confirmation is
+       worth a log line, not a failed checkout. */
+    console.error("[orders] confirmation email failed:", error);
+    return { configured: true, sent: false };
+  }
+}
 
 /**
  * Hand the order to whatever the studio has pointed at.

@@ -127,6 +127,10 @@ const sk: Dictionary = {
     railPrevious: "Predchádzajúce",
     railNext: "Ďalšie",
 
+    soldOut: "Obsadené",
+    soldOutNote: "Táto skupina je plná. Napíš nám a ozveme sa, keď otvoríme ďalšiu.",
+    soldOutAsk: "Chcem vedieť o ďalšej",
+
     add: "Do košíka",
     added: "V košíku",
   },
@@ -163,6 +167,13 @@ const sk: Dictionary = {
 
     payLater:
       "Platba zatiaľ neprebieha online: po objednávke sa vám ozveme a zaplatíte v štúdiu alebo prevodom.",
+
+    mailSubject: "MANHATTAN STUDIO — potvrdenie objednávky",
+    mailIntro: "Ďakujeme za objednávku! Prijali sme toto:",
+    mailPaidNext: "Platba prebehla. Čoskoro sa vám ozveme s termínmi.",
+    mailUnpaidNext:
+      "Platba zatiaľ neprebehla: ozveme sa vám a zaplatíte v štúdiu alebo prevodom.",
+    mailOutro: "Ak máte akúkoľvek otázku, odpovedzte na tento e-mail alebo nám zavolajte.",
 
     doneTitle: "Objednávku sme prijali",
     doneLead: "Čoskoro sa vám ozveme s podrobnosťami.",
@@ -334,11 +345,74 @@ const sk: Dictionary = {
     metaDescription: "Ďakujeme za objednávku v jazykovom štúdiu MANHATTAN.",
   },
   legal: {
-    privacyTitle: "Zásady ochrany osobných údajov",
+    privacyTitle: "Ochrana osobných údajov",
     cookiesTitle: "Informácie o cookies",
-    backHome: "Späť na úvodnú stránku",
-    placeholderNote:
-      "Konečné právne znenie tejto stránky poskytuje MANHATTAN STUDIO. Dovtedy sa s akoukoľvek otázkou týkajúcou sa spracovania údajov obráťte na nás telefonicky alebo e-mailom.",
+    backHome: "Späť na úvod",
+    contactHeading: "Máte otázku k svojim údajom?",
+
+    privacyLead:
+      "Tento dokument popisuje, aké údaje od vás táto stránka žiada, čo sa s nimi deje a čo v súvislosti s nimi môžete žiadať.",
+    privacyPending:
+      "Dve veci v tomto dokumente ešte chýbajú a môže ich doplniť iba štúdio: registračné údaje spoločnosti (IČO, DIČ) a to, ako dlho uchovávame správy a objednávky. Kým ich nemáme, táto stránka sa nezobrazuje vo vyhľadávačoch.",
+
+    privacySections: [
+      {
+        heading: "Aké údaje žiadame",
+        body: [
+          "Iba tie, ktoré sami vyplníte. Stránka o vás nezbiera nič sama od seba.",
+        ],
+        list: [
+          "Kontaktný formulár: meno, e-mail, telefónne číslo (nepovinné), jazyk, ktorý vás zaujíma, a vaša správa.",
+          "Objednávka: meno, e-mail, telefónne číslo (nepovinné), poznámka (nepovinná) a to, ktorý kurz alebo balík ste si vybrali.",
+        ],
+      },
+      {
+        heading: "Čo sa s nimi deje",
+        body: [
+          "Údaje z formulára a z objednávky prídu do štúdia, aby sme sa vám mohli ozvať a spustiť kurz. Nepredávame ich a nikomu ich neposkytujeme na marketingové účely.",
+          "Pri platbe kartou platbu spracúva Stripe na svojej vlastnej stránke. Číslo vašej karty štúdio nikdy nevidí ani neuchováva — Stripe nám oznámi iba to, že platba prebehla, a v akej výške.",
+        ],
+      },
+      {
+        heading: "Nesledujeme vás",
+        body: [
+          "Na tejto stránke nie je Google Analytics, Facebook pixel ani žiadny iný merací či reklamný kód. Nevytvárame o vás profil a nesledujeme, čo ste si prezerali.",
+          "Stránka nepoužíva ani vlastné cookies. Podrobnosti nájdete v informáciách o cookies.",
+        ],
+      },
+      {
+        heading: "Vaše práva",
+        body: [
+          "Kedykoľvek môžete žiadať, aby sme vám povedali, aké údaje o vás máme, aby sme ich opravili alebo vymazali, alebo aby sme ich ďalej nespracúvali. Stačí e-mail na adresu nižšie; musíme si overiť, že ste to naozaj vy.",
+          "Ak máte pocit, že s vašimi údajmi nakladáme nesprávne, môžete sa obrátiť so sťažnosťou na Úrad na ochranu osobných údajov Slovenskej republiky.",
+        ],
+      },
+    ],
+
+    cookiesLead:
+      "Stručne: táto stránka nepoužíva cookies. Nižšie je jediná vec, ktorú si váš prehliadač uloží.",
+
+    cookiesSections: [
+      {
+        heading: "Cookies nepoužívame",
+        body: [
+          "Táto stránka neukladá do vášho prehliadača žiadne cookies — ani vlastné, ani tretích strán. Preto tu nie je ani okno na súhlas s cookies: nie je s čím súhlasiť.",
+        ],
+      },
+      {
+        heading: "Košík ostáva vo vašom prehliadači",
+        body: [
+          "Keď si vložíte kurz do košíka, prehliadač si uloží, čo v ňom je, aby vám to zostalo aj po obnovení stránky. Nie je to cookie: neopúšťa to váš počítač a nikam to neposielame. K nám sa to dostane až vtedy, keď objednávku sami odošlete.",
+          "Kedykoľvek to viete odstrániť: vyprázdnite košík alebo vymažte údaje stránky v nastaveniach prehliadača.",
+        ],
+      },
+      {
+        heading: "Pri platbe",
+        body: [
+          "Platba kartou prebieha na stránke Stripe. Stripe na svojej stránke používa vlastné cookies podľa vlastných pravidiel — na tú stránku sa tieto informácie nevzťahujú.",
+        ],
+      },
+    ],
   },
 
   notFound: {

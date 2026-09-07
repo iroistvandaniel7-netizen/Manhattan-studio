@@ -143,6 +143,10 @@ const hu = {
     railPrevious: "Előző",
     railNext: "Következő",
 
+    soldOut: "Betelt",
+    soldOutNote: "Ez a csoport betelt. Írj nekünk, és szólunk, ha új indul.",
+    soldOutAsk: "Értesítést kérek",
+
     add: "Kosárba",
     added: "A kosárban",
   },
@@ -183,6 +187,16 @@ const hu = {
 
     payLater:
       "A fizetés még nem online történik: a megrendelés után felvesszük veled a kapcsolatot, és a stúdióban vagy átutalással rendezed.",
+
+    /* A vevőnek küldött visszaigazoló e-mail szövege. Sima szöveg, nem HTML:
+       minden levelezőben olvasható, és nincs mit elrontani rajta. */
+    mailSubject: "MANHATTAN STUDIO — rendelés visszaigazolása",
+    mailIntro: "Köszönjük a rendelésed! Az alábbiakat kaptuk meg:",
+    mailPaidNext:
+      "A fizetés megtörtént. Hamarosan jelentkezünk az időpontokkal.",
+    mailUnpaidNext:
+      "A fizetés még nem történt meg: felvesszük veled a kapcsolatot, és a stúdióban vagy átutalással rendezed.",
+    mailOutro: "Ha bármi kérdésed van, válaszolj erre a levélre, vagy hívj minket.",
 
     doneTitle: "Megkaptuk a rendelésed",
     doneLead: "Hamarosan jelentkezünk a részletekkel.",
@@ -375,8 +389,71 @@ const hu = {
     privacyTitle: "Adatvédelmi tájékoztató",
     cookiesTitle: "Cookie-tájékoztató",
     backHome: "Vissza a kezdőlapra",
-    placeholderNote:
-      "Ennek az oldalnak a végleges jogi szövegét a MANHATTAN STUDIO adja meg. Addig is bármilyen adatkezeléssel kapcsolatos kérdéssel fordulj hozzánk telefonon vagy e-mailben.",
+    contactHeading: "Kérdésed van az adataiddal kapcsolatban?",
+
+    privacyLead:
+      "Ez a tájékoztató azt írja le, milyen adatokat kér tőled ez a weboldal, mi történik velük, és mit kérhetsz velük kapcsolatban.",
+    privacyPending:
+      "Két dolog hiányzik még ebből a tájékoztatóból, és csak a stúdió tudja megadni: a cég nyilvántartási adatai (IČO, DIČ), és hogy meddig őrizzük meg a megkereséseket és a rendeléseket. Amíg ezek nincsenek meg, ez az oldal nem jelenik meg a keresőkben.",
+
+    privacySections: [
+      {
+        heading: "Milyen adatokat kérünk",
+        body: [
+          "Csak azt, amit te írsz be. Az oldal magától semmit nem gyűjt rólad.",
+        ],
+        list: [
+          "Kapcsolati űrlap: név, e-mail-cím, telefonszám (nem kötelező), a téged érdeklő nyelv, és az üzeneted.",
+          "Megrendelés: név, e-mail-cím, telefonszám (nem kötelező), megjegyzés (nem kötelező), és hogy melyik kurzust vagy csomagot választottad.",
+        ],
+      },
+      {
+        heading: "Mi történik velük",
+        body: [
+          "Az űrlap és a megrendelés adatai a stúdióhoz kerülnek, hogy fel tudjuk venni veled a kapcsolatot és el tudjuk indítani a kurzust. Nem adjuk el és nem adjuk át őket senkinek marketing céljából.",
+          "Bankkártyás fizetésnél a fizetést a Stripe bonyolítja, a saját oldalán. A kártyaszámodat a stúdió soha nem látja és nem tárolja — a Stripe csak azt jelzi vissza, hogy a fizetés megtörtént, és mennyiről.",
+        ],
+      },
+      {
+        heading: "Nem követünk",
+        body: [
+          "Ezen az oldalon nincs Google Analytics, nincs Facebook-pixel, és nincs semmilyen más mérő- vagy hirdetési kód. Nem építünk rólad profilt, és nem követjük, mit néztél meg.",
+          "Az oldal saját sütit sem használ. A részletek a cookie-tájékoztatóban.",
+        ],
+      },
+      {
+        heading: "A jogaid",
+        body: [
+          "Bármikor kérheted, hogy megmondjuk, milyen adataid vannak nálunk, hogy javítsuk vagy töröljük őket, vagy hogy ne kezeljük őket tovább. Elég egy e-mail az alábbi címre; igazolnunk kell, hogy tényleg te vagy az.",
+          "Ha úgy érzed, rosszul kezeljük az adataidat, panasszal fordulhatsz a szlovák adatvédelmi hatósághoz (Úrad na ochranu osobných údajov Slovenskej republiky).",
+        ],
+      },
+    ],
+
+    cookiesLead:
+      "Röviden: ez az oldal nem használ sütiket. Az alábbi az egyetlen dolog, amit a böngésződ eltárol.",
+
+    cookiesSections: [
+      {
+        heading: "Sütiket nem használunk",
+        body: [
+          "Ez az oldal nem helyez el sütit a böngésződben — sem sajátot, sem harmadik félét. Ezért nincs is süti-elfogadó ablak: nincs mit elfogadnod.",
+        ],
+      },
+      {
+        heading: "A kosarad a saját böngésződben marad",
+        body: [
+          "Ha kurzust teszel a kosárba, a böngésződ eltárolja, mi van benne, hogy frissítés után is megmaradjon. Ez nem süti: nem kerül el a gépedről, és nem küldjük sehová. Csak akkor jut el hozzánk, amikor te elküldöd a megrendelést.",
+          "Bármikor eltüntetheted: ürítsd ki a kosarat, vagy töröld az oldal adatait a böngésződ beállításaiban.",
+        ],
+      },
+      {
+        heading: "Fizetéskor",
+        body: [
+          "A bankkártyás fizetés a Stripe oldalán történik. A Stripe a saját oldalán a saját sütijeit használja, a saját szabályzata szerint — arra az oldalra ez a tájékoztató nem terjed ki.",
+        ],
+      },
+    ],
   },
 
   notFound: {

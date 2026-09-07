@@ -1,6 +1,12 @@
 import { NextResponse } from "next/server";
 import { CURRENCY, MAX_QUANTITY, priceBasket, type CartLine } from "@/lib/catalogue";
-import { buildOrder, deliver, orderReference } from "@/lib/orders";
+import {
+  buildOrder,
+  confirmToCustomer,
+  confirmationText,
+  deliver,
+  orderReference,
+} from "@/lib/orders";
 
 /**
  * Orders from the shop.
@@ -259,6 +265,13 @@ export async function POST(request: Request) {
   }
 
   const { configured, delivered } = await deliver(order);
+
+  /* The customer's own copy, when a sender is configured. Never blocks the
+     order: it is sent after delivery and its failure is a log line. */
+  if (delivered) {
+    const { subject, body: text } = confirmationText(order);
+    await confirmToCustomer(order, subject, text);
+  }
 
   if (!configured) {
     if (process.env.NODE_ENV !== "production") {

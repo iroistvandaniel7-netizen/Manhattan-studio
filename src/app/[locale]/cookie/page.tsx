@@ -20,7 +20,7 @@ export async function generateMetadata({
 
   return {
     title: dict.legal.cookiesTitle,
-    description: dict.legal.placeholderNote,
+    description: dict.legal.cookiesLead,
     alternates: {
       canonical: `${SITE_URL}/${locale}/cookie`,
       languages: Object.fromEntries(
@@ -44,7 +44,9 @@ export default async function CookiePage({
     <LegalPage
       locale={locale}
       title={dict.legal.cookiesTitle}
-      note={dict.legal.placeholderNote}
+      lead={dict.legal.cookiesLead}
+      sections={dict.legal.cookiesSections}
+      contactHeading={dict.legal.contactHeading}
       backLabel={dict.legal.backHome}
     />
   );

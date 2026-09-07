@@ -127,6 +127,10 @@ const en: Dictionary = {
     railPrevious: "Previous",
     railNext: "Next",
 
+    soldOut: "Full",
+    soldOutNote: "This group is full. Write to us and we'll let you know when the next one opens.",
+    soldOutAsk: "Let me know",
+
     add: "Add to basket",
     added: "In your basket",
   },
@@ -163,6 +167,13 @@ const en: Dictionary = {
 
     payLater:
       "Payment is not online yet: after you order we will contact you, and you settle at the studio or by bank transfer.",
+
+    mailSubject: "MANHATTAN STUDIO — order confirmation",
+    mailIntro: "Thank you for your order. This is what we received:",
+    mailPaidNext: "Your payment went through. We will be in touch shortly with times.",
+    mailUnpaidNext:
+      "Payment has not been taken yet: we will contact you, and you settle at the studio or by bank transfer.",
+    mailOutro: "If you have any questions, reply to this email or give us a call.",
 
     doneTitle: "We have your order",
     doneLead: "We will be in touch shortly with the details.",
@@ -336,9 +347,72 @@ const en: Dictionary = {
   legal: {
     privacyTitle: "Privacy notice",
     cookiesTitle: "Cookie notice",
-    backHome: "Back to the homepage",
-    placeholderNote:
-      "The final legal text for this page is provided by MANHATTAN STUDIO. In the meantime, please contact us by phone or email with any question about data handling.",
+    backHome: "Back to the home page",
+    contactHeading: "A question about your data?",
+
+    privacyLead:
+      "This notice describes what this website asks you for, what happens to it, and what you can ask us to do about it.",
+    privacyPending:
+      "Two things are still missing from this notice, and only the studio can supply them: the company's registration details (IČO, DIČ) and how long we keep messages and orders. Until they are here, this page is kept out of search engines.",
+
+    privacySections: [
+      {
+        heading: "What we ask for",
+        body: [
+          "Only what you type in. The site collects nothing about you on its own.",
+        ],
+        list: [
+          "Contact form: name, email address, phone number (optional), the language you are interested in, and your message.",
+          "Order: name, email address, phone number (optional), a note (optional), and which course or package you chose.",
+        ],
+      },
+      {
+        heading: "What happens to it",
+        body: [
+          "What you send through the form or as an order reaches the studio, so that we can get back to you and start the course. We do not sell it and do not pass it to anyone for marketing.",
+          "For card payments, the payment is handled by Stripe on its own page. The studio never sees or stores your card number — Stripe reports only that a payment was made, and for how much.",
+        ],
+      },
+      {
+        heading: "We do not track you",
+        body: [
+          "There is no Google Analytics on this site, no Facebook pixel, and no other measurement or advertising code. We do not build a profile of you and do not record what you looked at.",
+          "The site sets no cookies of its own either. The cookie notice has the detail.",
+        ],
+      },
+      {
+        heading: "Your rights",
+        body: [
+          "You can ask at any time what data we hold about you, ask us to correct or delete it, or ask us to stop using it. An email to the address below is enough; we have to satisfy ourselves that it really is you.",
+          "If you believe we are handling your data wrongly, you can complain to the Slovak data protection authority (Úrad na ochranu osobných údajov Slovenskej republiky).",
+        ],
+      },
+    ],
+
+    cookiesLead:
+      "In short: this site uses no cookies. Below is the one thing your browser does store.",
+
+    cookiesSections: [
+      {
+        heading: "We use no cookies",
+        body: [
+          "This site places no cookies in your browser — none of its own and none from third parties. That is also why there is no cookie consent banner: there is nothing to consent to.",
+        ],
+      },
+      {
+        heading: "Your basket stays in your own browser",
+        body: [
+          "When you put a course in the basket, your browser remembers what is in it so it survives a page refresh. This is not a cookie: it never leaves your computer and we do not send it anywhere. It reaches us only when you send the order yourself.",
+          "You can clear it at any time: empty the basket, or clear the site's data in your browser settings.",
+        ],
+      },
+      {
+        heading: "When you pay",
+        body: [
+          "Card payment happens on Stripe's page. Stripe uses its own cookies there, under its own policy — this notice does not cover that page.",
+        ],
+      },
+    ],
   },
 
   notFound: {

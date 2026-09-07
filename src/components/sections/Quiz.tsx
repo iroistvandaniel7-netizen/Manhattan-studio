@@ -215,15 +215,26 @@ export default function Quiz({ dict, locale }: { dict: Dictionary; locale: Local
                       </p>
                     </div>
 
+                    {/* The recommendation has to survive its course filling
+                        up: the test still ends somewhere useful, but it stops
+                        offering a place that no longer exists. */}
+                    {product.soldOut ? (
+                      <p className="mt-4 text-sm leading-relaxed text-white/70">
+                        {dict.courses.soldOutNote}
+                      </p>
+                    ) : null}
+
                     <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                      <AddToCart
-                        id={product.id}
-                        name={item.name}
-                        add={dict.courses.add}
-                        added={dict.courses.added}
-                        tone="dark"
-                        className="rounded-full sm:flex-1"
-                      />
+                      {product.soldOut ? null : (
+                        <AddToCart
+                          id={product.id}
+                          name={item.name}
+                          add={dict.courses.add}
+                          added={dict.courses.added}
+                          tone="dark"
+                          className="rounded-full sm:flex-1"
+                        />
+                      )}
                       <a
                         href="#courses"
                         className="label inline-flex items-center justify-center gap-3 rounded-full border border-white/25 px-6 py-4 text-white transition-colors duration-200 hover:border-accent-lift hover:text-accent-lift sm:flex-1"

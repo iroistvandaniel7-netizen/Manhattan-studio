@@ -28,6 +28,19 @@ export type Product = {
   hours: number;
   /** Lessons in the package — private packages only. */
   lessons?: number;
+  /**
+   * Set when a group has filled up and the studio has stopped taking places.
+   *
+   * A switch rather than a seat count, because a seat count is a number that
+   * has to be right: it would need somewhere to live, something to decrement
+   * on every payment, and something to put back when a place is refunded — and
+   * every one of those is a way to sell a tenth place in a group of eight. The
+   * studio knows when a group is full. This is that knowledge, written down.
+   *
+   * It is enforced on the server as well as hidden in the page: a basket saved
+   * before a course filled up must not go through afterwards.
+   */
+  soldOut?: boolean;
 };
 
 /**
@@ -36,6 +49,9 @@ export type Product = {
  * studio rather than showing a number nobody quoted.
  */
 export const GROUP_COURSES: Product[] = [
+  /* To close a course when its group fills: add `soldOut: true` to its line
+     here. The card then shows it as full, the button becomes an enquiry, and
+     the checkout refuses it. Remove the flag to open it again. */
   { id: "cambridge-30", kind: "group", price: 24000, hours: 30 },
   { id: "english-a1a2-20", kind: "group", price: 18000, hours: 20 },
   { id: "english-b1b2-20", kind: "group", price: 20000, hours: 20 },
@@ -111,6 +127,10 @@ export function priceBasket(lines: CartLine[]): {
   for (const line of lines) {
     const product = findProduct(line.id);
     if (!product) continue;
+    /* A course that has since filled up is dropped here, which is what makes
+       the flag mean something: a basket left open in a tab, or restored from
+       storage, cannot buy a place that no longer exists. */
+    if (product.soldOut) continue;
     const quantity = Math.min(MAX_QUANTITY, Math.max(0, Math.floor(line.quantity)));
     if (quantity < 1) continue;
     priced.push({ product, quantity, total: product.price * quantity });

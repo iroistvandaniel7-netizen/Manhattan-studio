@@ -87,9 +87,24 @@ export default function Courses({
               return (
                 <article
                   key={product.id}
-                  className={`${card} border border-ink/12 bg-white`}
+                  data-course={product.id}
+                  className={`${card} border border-ink/12 bg-white ${
+                    product.soldOut ? "opacity-70" : ""
+                  }`}
                 >
-                  <p className="label text-slate-500">{copy.groupBadge}</p>
+                  {/*
+                    A full group says so where the badge is, not in small print
+                    under the button. The reader should know before they read
+                    the price, or the price is a promise about something they
+                    cannot have.
+                  */}
+                  <p className="label text-slate-500">
+                    {product.soldOut ? (
+                      <span className="bg-ink px-2 py-1 text-white">{copy.soldOut}</span>
+                    ) : (
+                      copy.groupBadge
+                    )}
+                  </p>
                   <h4 className="font-display mt-3 text-2xl font-extrabold tracking-[-0.012em]">
                     {item.name}
                   </h4>
@@ -106,13 +121,33 @@ export default function Courses({
                     {product.hours} {copy.hours}
                   </p>
 
-                  <AddToCart
-                    id={product.id}
-                    name={item.name}
-                    add={copy.add}
-                    added={copy.added}
-                    className="mt-6 rounded-full"
-                  />
+                  {/* A full course keeps its place on the shelf — knowing a
+                      group exists is worth something even when it is closed —
+                      but the button becomes a way to hear about the next one
+                      rather than a control that does nothing. */}
+                  {product.soldOut ? (
+                    <div className="mt-6">
+                      <p className="text-sm leading-relaxed text-slate-600">
+                        {copy.soldOutNote}
+                      </p>
+                      <a
+                        href="#contact"
+                        data-soldout={product.id}
+                        className="label mt-4 inline-flex w-full items-center justify-center gap-3 rounded-full border border-ink/25 px-6 py-4 transition-colors duration-200 hover:border-accent hover:bg-accent hover:text-white"
+                      >
+                        {copy.soldOutAsk}
+                        <span aria-hidden="true">→</span>
+                      </a>
+                    </div>
+                  ) : (
+                    <AddToCart
+                      id={product.id}
+                      name={item.name}
+                      add={copy.add}
+                      added={copy.added}
+                      className="mt-6 rounded-full"
+                    />
+                  )}
                 </article>
               );
             })}

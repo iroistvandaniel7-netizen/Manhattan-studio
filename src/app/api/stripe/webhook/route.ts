@@ -1,7 +1,13 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 import { priceBasket, type CartLine } from "@/lib/catalogue";
-import { buildOrder, deliver, type Buyer } from "@/lib/orders";
+import {
+  buildOrder,
+  confirmToCustomer,
+  confirmationText,
+  deliver,
+  type Buyer,
+} from "@/lib/orders";
 
 /**
  * Stripe telling us a payment happened.
@@ -224,6 +230,12 @@ export async function POST(request: Request) {
   if (!configured) {
     console.error("[stripe] paid order with nowhere to deliver it:", order.reference);
   }
+
+  /* The customer's own copy of a paid order. Stripe's receipt, if the studio
+     has that switched on, is the document for the payment; this one names the
+     courses, which the receipt does not. */
+  const { subject, body: text } = confirmationText(order);
+  await confirmToCustomer(order, subject, text);
 
   return NextResponse.json({ ok: true, reference: order.reference });
 }

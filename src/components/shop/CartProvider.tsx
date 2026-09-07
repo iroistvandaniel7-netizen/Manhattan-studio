@@ -59,11 +59,14 @@ function parse(raw: string | null): CartLine[] {
     for (const entry of parsed) {
       if (!entry || typeof entry !== "object") continue;
       const { id, quantity } = entry as { id?: unknown; quantity?: unknown };
-      if (typeof id !== "string" || !findProduct(id)) continue;
+      const product = typeof id === "string" ? findProduct(id) : undefined;
+      if (!product || product.soldOut) continue;
       if (typeof quantity !== "number" || !Number.isFinite(quantity)) continue;
-      if (lines.some((line) => line.id === id)) continue;
+      if (lines.some((line) => line.id === product.id)) continue;
+      /* The catalogue's own id, not the stored one — they are the same string,
+         but this one is known to be a string and known to exist. */
       lines.push({
-        id,
+        id: product.id,
         quantity: Math.min(MAX_QUANTITY, Math.max(1, Math.floor(quantity))),
       });
     }
@@ -120,7 +123,9 @@ export function useCart() {
   const lines = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const add = useCallback((id: string) => {
-    if (!findProduct(id)) return;
+    /* A course that has filled up cannot be added, however the click arrived. */
+    const product = findProduct(id);
+    if (!product || product.soldOut) return;
     const current = getSnapshot();
     const existing = current.find((line) => line.id === id);
     write(
