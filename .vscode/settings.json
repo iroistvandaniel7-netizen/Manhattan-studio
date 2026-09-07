@@ -1,0 +1,48 @@
+{
+  // ---- TypeScript ------------------------------------------------------
+  // Use the TypeScript that ships with the project rather than the one bundled
+  // with VS Code. They are different versions, and the editor's errors should
+  // be the same errors `npm run typecheck` reports.
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  // Imports written the way the codebase writes them: "@/components/..." over
+  // a chain of "../../..".
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+
+  // ---- Tailwind 4 ------------------------------------------------------
+  // globals.css uses Tailwind 4's own at-rules — @theme, @utility, @apply —
+  // which VS Code's built-in CSS validator does not know and reports as
+  // errors. Silencing that rule is the standard fix; without it the file shows
+  // a dozen red squiggles that are all wrong.
+  "css.lint.unknownAtRules": "ignore",
+  // Tailwind autocomplete inside className="..." and template literals, which
+  // is where every class in this project lives.
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+
+  // ---- Formatting ------------------------------------------------------
+  // Off on purpose. This code does not match Prettier's defaults, so turning
+  // format on save on would rewrite whole files on the first edit and hide the
+  // actual change in the diff. Match the surrounding style by hand instead —
+  // or format the whole repository in one deliberate commit and switch this
+  // back on afterwards.
+  "editor.formatOnSave": false,
+
+  // ---- Housekeeping ----------------------------------------------------
+  // The build output is large and is never what you are searching for.
+  "search.exclude": {
+    "**/.next": true,
+    "**/node_modules": true,
+    "**/*.tsbuildinfo": true
+  },
+  "files.watcherExclude": {
+    "**/.next/**": true,
+    "**/node_modules/**": true
+  },
+  // The dictionaries and this site's copy are Hungarian, Slovak and English;
+  // trimming trailing whitespace and keeping a final newline is all the
+  // tidying that should happen automatically.
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true
+}

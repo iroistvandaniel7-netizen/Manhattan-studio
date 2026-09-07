@@ -1,0 +1,20 @@
+{
+  // VS Code offers these when the project is opened for the first time.
+  // Three, not a wall of them: a recommendation list nobody reads is a list
+  // everybody dismisses.
+  "recommendations": [
+    // Shows lint problems inline instead of only when `npm run lint` is run.
+    "dbaeumer.vscode-eslint",
+
+    // The one that earns its place in this project: autocomplete and colour
+    // previews for Tailwind classes, and hover to see what a utility expands
+    // to. Without it, `bg-accent-soft` is just a string.
+    "bradlc.vscode-tailwindcss"
+  ],
+
+  // Prettier is deliberately absent. The code in this repository does not
+  // match Prettier's defaults — 41 files differ — so installing it with format
+  // on save would rewrite nearly every file the first time each is touched,
+  // and bury real changes in whitespace. See .vscode/settings.json.
+  "unwantedRecommendations": []
+}

@@ -3,36 +3,64 @@
 Trilingual (HU / SK / EN) marketing site for MANHATTAN STUDIO, the language school
 in Dunajská Streda, built as a statically-generated Next.js app.
 
-**Design direction:** blue, white and black — nothing else. The blue is `#0039A6`,
-the New York subway's A/C/E line blue: a flat, printed blue used as a solid fill,
-never as a gradient. Sharp corners, hairline rules, no shadows.
+**Design direction:** magenta on white and near-black. The accent is `#c2007a`,
+lifted to `#e8479f` where it has to sit on ink and dropped to `#fce9f4` for pale
+grounds; the dark is `#0b0710` rather than black. One accent, spent deliberately —
+prices, the chosen language, a filled progress tick — and everything around it quiet.
 
-**Type** is three faces with three jobs. Bricolage Grotesque is the display voice, a
-variable grotesque with deliberately irregular joins so headlines have a hand in them.
-Instrument Sans carries running text. Martian Mono is the utility face — labels, codes
-and figures only — which gives the page the character of station signage.
+**Type** is Poppins throughout, asked for three jobs through three tokens
+(`--font-display`, `--font-sans`, `--font-mono`) so a component asks for a voice
+rather than a family. `--font-mono` is a misnomer kept on purpose: it is the label
+and figure voice, and renaming it would touch every component that sets a label.
 
 **The signature** is the study scene: a long desk of people drawn from primitives,
 each figure breathing on its own delay, one head nodding over a page, one hand
-tracking a line of writing, and speech bubbles surfacing greetings in the seven taught
-languages. It runs along the base of the hero, the figures band and the ink section.
+tracking a line of writing, and speech bubbles surfacing greetings in the seven
+taught languages. It runs along the base of the hero, the figures band and the ink
+section.
 
 Sections deliberately avoid the usual shapes. The languages are a list beside a
-globe that flies to whichever country is chosen; the price list separates the group
-courses from the private-lesson ladder, because they are bought differently; the
-included items hang in an alternating column rather than a grid of equal boxes.
+globe that flies to whichever country is chosen; the level check is fifteen
+gap-fill questions whose progress strip is also its scoreboard, ending on a course
+you can buy where it is recommended; the price list separates the group courses
+from the private-lesson ladder, because they are bought differently; the included
+items hang in an alternating column rather than a grid of equal boxes.
 
-The supplied Manhattan photograph runs full-bleed behind the hero, desaturated to
-luminance and composited over the blue so the picture joins the palette.
+The studio's Manhattan photograph runs full-bleed behind the hero, composited over
+the magenta with `mix-blend-luminosity` so the picture joins the palette, and drifts
+on a slow figure-eight so the frame reads as held from the air rather than still.
+English and American landmarks drift faintly behind every section at six per cent.
 
 ---
 
 ## Getting started
 
+Needs [Node.js 20 or newer](https://nodejs.org) (built on 22) and Git.
+
 ```bash
+git clone https://github.com/iroistvandaniel7-netizen/Manhattan-studio.git
+cd Manhattan-studio
+git checkout claude/manhattan-language-studio-site-s4cjha
 npm install
-npm run dev          # http://localhost:3000 → redirects to /hu
+cp .env.example .env.local     # optional; the site runs without it
+npm run dev                    # http://localhost:3000 → redirects to /hu
 ```
+
+### In VS Code
+
+Open the folder and accept the two recommended extensions when prompted —
+**ESLint** and **Tailwind CSS IntelliSense**. The second is the one that matters
+here: it completes and previews the utility classes every component is built from.
+
+`F5` starts the dev server with the debugger attached, so breakpoints work in server
+components, route handlers and `src/lib`. The second launch configuration attaches to
+the browser for client components — the globe, the level check, the basket.
+
+Format on save is **off** on purpose (`.vscode/settings.json` says why): this code
+predates any Prettier config and 41 files differ from Prettier's defaults, so turning
+it on would rewrite whole files on first edit and bury real changes in whitespace.
+Match the surrounding style by hand, or reformat the repository in one deliberate
+commit and switch it on afterwards.
 
 | Script              | Does                                        |
 | ------------------- | ------------------------------------------- |

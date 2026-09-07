@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // Breakpoints in server components, route handlers and lib/ — anything
+      // that runs on the server. Start here; this is the one you want most of
+      // the time, and it starts the dev server for you.
+      "name": "Next.js: szerver oldal",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "serverReadyAction": {
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      }
+    },
+    {
+      // Breakpoints in client components — the globe, the level check, the
+      // basket. Needs the dev server already running.
+      "name": "Next.js: böngésző oldal",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000/hu",
+      "webRoot": "${workspaceFolder}"
+    }
+  ]
+}
