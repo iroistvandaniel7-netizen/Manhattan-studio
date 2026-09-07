@@ -91,6 +91,8 @@ const sk: Dictionary = {
     title: "Cenník",
     lead: "Skupinové kurzy angličtiny za zverejnené ceny a individuálne hodiny pre všetky jazyky.",
 
+    priceNote: "Ceny sú konečné: k uvedenej sume neúčtujeme žiadne ďalšie poplatky.",
+
     groupTitle: "Skupinové kurzy",
     groupNote:
       "Na skupinové hodiny ostatných jazykov sa informujte v štúdiu — skupiny otvárame podľa úrovne prihlásených.",

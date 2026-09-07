@@ -91,6 +91,8 @@ const en: Dictionary = {
     title: "Prices",
     lead: "Group English courses at published prices, and private lessons in every language.",
 
+    priceNote: "Prices are final: nothing is added to the amount shown.",
+
     groupTitle: "Group courses",
     groupNote:
       "For group lessons in the other languages, ask at the studio — groups open to suit the levels of those enrolling.",

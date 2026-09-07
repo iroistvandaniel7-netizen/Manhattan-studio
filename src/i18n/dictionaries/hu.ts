@@ -107,6 +107,11 @@ const hu = {
     title: "Árak",
     lead: "Csoportos angol kurzusok meghirdetett áron, és egyéni órák minden nyelvre.",
 
+    /* Amit a vevő tudni akar, mielőtt kosárba tesz: nem jön rá semmi.
+       Az áfa jogcímét nem nevezi meg — az a stúdió könyvelőjének a dolga —,
+       csak azt mondja ki, ami a vevő szempontjából számít. */
+    priceNote: "Az árak véglegesek: a feltüntetett összegen felül nem számítunk fel semmilyen további díjat.",
+
     groupTitle: "Csoportos kurzusok",
     groupNote:
       "A többi nyelv csoportos óráiról érdeklődj a stúdióban — az induló csoportokat a jelentkezők szintjéhez igazítjuk.",

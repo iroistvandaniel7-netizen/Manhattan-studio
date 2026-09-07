@@ -68,6 +68,14 @@ export default function Courses({
           <Reveal delay={130}>
             <p className="mt-5 text-base leading-relaxed text-slate-600">{copy.lead}</p>
           </Reveal>
+          {/* Said once, at the top of the price list, rather than under every
+              card: it is true of all six and repeating it six times would read
+              as a disclaimer rather than as reassurance. */}
+          <Reveal delay={170}>
+            <p className="mt-4 border-l-2 border-accent/40 pl-4 text-sm leading-relaxed text-slate-500">
+              {copy.priceNote}
+            </p>
+          </Reveal>
         </div>
 
         {/* --- Group courses ------------------------------------------- */}

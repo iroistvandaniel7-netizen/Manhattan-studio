@@ -214,6 +214,9 @@ export default function Basket({
                   {formatPrice(cart.priced.total, locale)}
                 </span>
               </p>
+              <p className="mt-2 text-[0.8125rem] leading-relaxed text-slate-500">
+                {dict.courses.priceNote}
+              </p>
 
               <CheckoutForm
                 dict={dict}
