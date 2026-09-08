@@ -36,9 +36,14 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
  * Stripe's API root, overridable so the checkout can be exercised end to end
  * against a local stand-in. Nothing but the test harness ever sets it, and
  * anyone who can set environment variables on the server already owns it.
+ *
+ * `||`, not `??`: a host that imports variable names from `.env.example` — which
+ * is exactly what Vercel offers on first deploy — can define this as the empty
+ * string. `??` only falls back on null and undefined, so an empty value would
+ * survive and the request would go to a relative URL instead of Stripe.
  */
 export function stripeApiBase(): string {
-  return process.env.STRIPE_API_BASE ?? "https://api.stripe.com";
+  return process.env.STRIPE_API_BASE || "https://api.stripe.com";
 }
 
 const str = (value: unknown, max: number) =>
@@ -219,7 +224,10 @@ export async function POST(request: Request) {
 
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   if (stripeKey) {
-    const origin = process.env.NEXT_PUBLIC_SITE_URL ?? new URL(request.url).origin;
+    /* `||` rather than `??` — see `stripeApiBase`. Left empty by a host that
+       imported the variable names, `??` would keep the empty string and Stripe
+       would be handed a relative `success_url`, which it refuses. */
+    const origin = process.env.NEXT_PUBLIC_SITE_URL || new URL(request.url).origin;
     try {
       const url = await createStripeSession(
         stripeKey,

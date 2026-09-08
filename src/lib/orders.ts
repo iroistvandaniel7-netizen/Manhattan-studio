@@ -136,7 +136,10 @@ export async function confirmToCustomer(
   if (!key || !from || !order.email) return { configured: false, sent: false };
 
   try {
-    const response = await fetch(`${process.env.RESEND_API_BASE ?? "https://api.resend.com"}/emails`, {
+    /* `||`, not `??`: an empty value must fall back to the real API, not be
+       treated as a deliberate override. Same reasoning as `stripeApiBase`. */
+    const base = process.env.RESEND_API_BASE || "https://api.resend.com";
+    const response = await fetch(`${base}/emails`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${key}`,
