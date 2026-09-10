@@ -267,6 +267,7 @@ const sk: Dictionary = {
     title: "Cookies na tejto stránke",
     body: "Používame jediné cookie: to, ktoré si zapamätá túto vašu odpoveď. Sledovacie ani reklamné cookies neukladáme. Ak to povolíte, v budúcnosti môžeme merať anonymnú návštevnosť — aj bez toho funguje všetko rovnako.",
     more: "Informácie o cookies",
+    reopen: "Nastavenia cookies",
     accept: "Súhlasím",
     necessary: "Len nevyhnutné",
   },
@@ -572,7 +573,7 @@ const sk: Dictionary = {
       {
         heading: "Rozmysleli ste si to?",
         body: [
-          "Vymažte cookies stránky v nastaveniach prehliadača a otázka sa objaví znova. Po šiestich mesiacoch sa spýtame sami.",
+          "Otázku si môžete kedykoľvek vyvolať znova tlačidlom „Nastavenia cookies“ v päte stránky. Po šiestich mesiacoch sa spýtame sami.",
         ],
       },
       {

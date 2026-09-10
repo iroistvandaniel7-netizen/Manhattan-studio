@@ -267,6 +267,7 @@ const en: Dictionary = {
     title: "Cookies on this site",
     body: "We use one cookie: the one that remembers this answer of yours. We set no tracking or advertising cookies. If you allow it, we may measure anonymous visitor numbers in future — everything works the same either way.",
     more: "Cookie notice",
+    reopen: "Cookie settings",
     accept: "Accept",
     necessary: "Necessary only",
   },
@@ -572,7 +573,7 @@ const en: Dictionary = {
       {
         heading: "Changed your mind?",
         body: [
-          "Clear the site's cookies in your browser settings and the question comes back. After six months we ask again anyway.",
+          "You can bring the question back at any time with the “Cookie settings” button in the footer. After six months we ask again anyway.",
         ],
       },
       {

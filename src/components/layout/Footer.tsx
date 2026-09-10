@@ -3,6 +3,7 @@ import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
 import Logo from "@/components/graphics/Logo";
 import LanguageSwitcher from "./LanguageSwitcher";
+import CookieSettingsLink from "./CookieSettingsLink";
 import { ADDRESS, BRAND, EMAIL, PHONES } from "@/lib/site";
 
 export default function Footer({
@@ -127,6 +128,7 @@ export default function Footer({
             >
               {dict.footer.terms}
             </Link>
+            <CookieSettingsLink label={dict.cookieBanner.reopen} />
             <a
               href="#top"
               className="link-underline text-xs text-white/70 hover:text-white"

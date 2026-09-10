@@ -323,6 +323,7 @@ const hu = {
     title: "Sütik ezen az oldalon",
     body: "Egyetlen sütit használunk: azt, amelyik megjegyzi ezt a válaszodat. Nyomkövető és hirdetési sütit nem teszünk le. Ha engedélyezed, a jövőben névtelen látogatottsági statisztikát mérhetünk — enélkül is minden ugyanúgy működik.",
     more: "Cookie-tájékoztató",
+    reopen: "Cookie-beállítások",
     accept: "Elfogadom",
     necessary: "Csak a szükségeseket",
   },
@@ -655,7 +656,7 @@ const hu = {
       {
         heading: "Meggondoltad magad?",
         body: [
-          "Töröld az oldal sütijeit a böngésződ beállításaiban, és a kérdés újra megjelenik. Hat hónap után magától is újra megkérdezzük.",
+          "A lap alján, a „Cookie-beállítások” gombra koppintva bármikor újra előhozhatod a kérdést. Hat hónap után magától is újra megkérdezzük.",
         ],
       },
       {

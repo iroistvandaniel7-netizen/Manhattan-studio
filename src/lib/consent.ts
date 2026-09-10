@@ -114,3 +114,22 @@ export function answerConsent(analytics: boolean): void {
   writeConsent(analytics);
   announce();
 }
+
+/**
+ * Ask again.
+ *
+ * Somebody who said no in January has to be able to say yes in March, and
+ * "clear this site's cookies in your browser settings" is not an answer — it
+ * is an instruction to go and find a menu most people have never opened. The
+ * footer carries a link that calls this, and the bar comes straight back.
+ *
+ * Expiring the cookie rather than deleting a value: setting `Max-Age=0` is
+ * how a cookie is removed, and it has to be set on the same path it was
+ * written to or the browser keeps the original alongside the new one.
+ */
+export function reopenConsent(): void {
+  if (typeof document === "undefined") return;
+  const secure = location.protocol === "https:" ? "; Secure" : "";
+  document.cookie = `${CONSENT_COOKIE}=; Max-Age=0; Path=/; SameSite=Lax${secure}`;
+  announce();
+}
