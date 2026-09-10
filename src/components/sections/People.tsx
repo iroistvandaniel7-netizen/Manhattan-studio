@@ -21,9 +21,12 @@ import street from "../../../public/manhattan-studio-street.jpg";
  * mask on the box, not on the image — and it is what makes this band arrive
  * rather than simply be there.
  *
- * Held to the source's own width rather than run full-bleed, for the same
- * reason as before: the file is 980px across, and stretching it over a desktop
- * is an upscale that shows.
+ * Run full-bleed, which is what the studio asked for. The cost is real and
+ * worth writing down: the file is 980px across, so past about a thousand
+ * pixels of viewport it is being enlarged beyond its native size and softens.
+ * It carries better than the cut-out it replaced would have — the faces here
+ * are small in a busy frame rather than close-up portraits — but a larger
+ * original would still be the fix, not a CSS change.
  *
  * It carries no caption, and the `alt` describes what is visible and asserts
  * nothing beyond it. Calling the two people students, teachers or anything
@@ -34,19 +37,43 @@ export default function People({ dict }: { dict: Dictionary }) {
   return (
     <section
       aria-label={dict.people.alt}
-      className="relative isolate overflow-hidden bg-accent-soft py-10 sm:py-16"
+      className="relative isolate overflow-hidden bg-accent-soft pt-10 sm:pt-16"
     >
       <Landmarks scene={0} />
 
-      <Reveal className="container-x relative">
+      {/* No container padding, and no bottom padding on the section: the band
+          runs edge to edge and finishes flush with the section, which is what
+          makes it a band rather than a picture pasted onto the pink. Boxing it
+          in the page's gutters left a floating rectangle with a margin all
+          round — that was the regression this undoes. */}
+      <Reveal className="relative">
         {/* The wipe is a mask on this box. It needs no background of its own
             now that nothing inside it blends with what is behind. */}
-        <div className="people-wipe relative mx-auto w-full max-w-[60rem]">
+        <div className="people-wipe relative w-full">
           <Image
             src={street}
             alt={dict.people.alt}
-            sizes="(min-width: 60rem) 980px, 100vw"
+            sizes="100vw"
             className="h-auto w-full"
+          />
+
+          {/*
+            The bottom edge, softened into the ground.
+
+            A hard horizontal cut across a street scene reads as a photograph
+            that ran out. Fading the last stretch gives it somewhere to end,
+            and it is kept shallow — the old cut-out could afford 22% because
+            there was nothing down there but white, whereas here every pixel
+            is picture and a deep fade would eat the taxi.
+
+            An overlay rather than a second mask layer: the wipe already owns
+            this element's mask, and compositing two means `mask-composite`,
+            spelled differently in WebKit — a lot of fragility for a gradient
+            that can simply sit on top.
+          */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[13%] bg-[linear-gradient(to_top,var(--color-accent-soft)_15%,transparent)]"
           />
         </div>
       </Reveal>
