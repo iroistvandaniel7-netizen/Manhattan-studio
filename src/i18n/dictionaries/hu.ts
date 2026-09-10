@@ -298,7 +298,7 @@ const hu = {
 
   /* A kép leírása, nem állítás róluk: nem tudjuk, kik ők. */
   people: {
-    alt: "Öt mosolygó ember egymás mellett, világos háttér előtt",
+    alt: "Fiatal pár a Times Square-en, mögöttük sárga taxik és fényreklámok",
   },
 
   /*

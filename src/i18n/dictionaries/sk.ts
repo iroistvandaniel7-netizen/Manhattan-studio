@@ -265,7 +265,7 @@ const sk: Dictionary = {
   },
 
   people: {
-    alt: "Päť usmiatych ľudí vedľa seba na svetlom pozadí",
+    alt: "Mladý pár na Times Square, za nimi žlté taxíky a svetelné reklamy",
   },
 
   cookieBanner: {

@@ -265,7 +265,7 @@ const en: Dictionary = {
   },
 
   people: {
-    alt: "Five smiling people side by side against a light background",
+    alt: "A young couple on Times Square, with yellow cabs and billboards behind them",
   },
 
   cookieBanner: {
