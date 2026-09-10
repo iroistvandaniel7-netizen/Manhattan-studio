@@ -5,11 +5,15 @@ import type { Widen } from "../types";
  * against `Dictionary`, so a missing key in any locale is a build error.
  *
  * CONTENT RULE: every fact traces back to MANHATTAN STUDIO's own published
- * information (manhattanstudio.sk, Dunajská Streda) — the seven languages,
- * the free communication training with English and German, the minimum group
- * size, the address, phone, email and opening hours. Nothing is invented. Do
- * not add claims, figures, slogans or testimonials that cannot be traced back
- * to the studio.
+ * information or to what the studio has told us directly — the seven
+ * languages, the English Club, the address, phone, email and opening hours.
+ * Nothing is invented. Do not add claims, figures, slogans or testimonials
+ * that cannot be traced back to the studio.
+ *
+ * Opening hours in particular: the studio dropped weekends, and the claim
+ * lived in nine places across three languages plus the structured data. If it
+ * changes again, search for the day names — not just the section somebody
+ * happens to point at.
  *
  * Prices are not here. They live in `src/lib/catalogue.ts`, in cents, because
  * the checkout endpoint prices every order from the same file the page reads —
@@ -19,7 +23,7 @@ const hu = {
   meta: {
     title: "MANHATTAN STUDIO — Nyelviskola Dunaszerdahelyen",
     description:
-      "Angol, német, orosz, spanyol, olasz, szlovák és magyar nyelvtanfolyamok Dunaszerdahely szívében. Normál, félintenzív és intenzív kurzusok, a hét minden napján 9:00–20:00.",
+      "Angol, német, orosz, spanyol, olasz, szlovák és magyar nyelvtanfolyamok Dunaszerdahely szívében. Normál, félintenzív és intenzív kurzusok, hétköznap 9:00–20:00.",
     ogAlt: "MANHATTAN STUDIO — nyelviskola Dunaszerdahelyen",
     skipToContent: "Ugrás a tartalomra",
   },
@@ -43,7 +47,7 @@ const hu = {
   hero: {
     eyebrow: "Dunaszerdahely · Korzo Bélu Bartóka",
     title: "Hét nyelv. Egy stúdió.",
-    lead: "Nyelviskola Dunaszerdahely szívében. Kezdőtől haladóig, a hét minden napján — hétvégén is.",
+    lead: "Nyelviskola Dunaszerdahely szívében. Kezdőtől haladóig, hétköznap reggeltől estig.",
     cta: "Kurzusok megtekintése",
     photoAlt: "Manhattan látképe naplementében, az alsó-manhattani felhőkarcolókkal.",
     scroll: "Görgess",
@@ -57,7 +61,7 @@ const hu = {
       /* Az „English Club" a stúdió saját, folyamatos programja — nem a
          kurzusokhoz járó tréning, az az „Amit kapsz" szakaszban maradt. */
       { value: "20+", label: "English Club", note: "Kéthetente, egész tanévben" },
-      { value: "7", label: "Nap nyitva", note: "Minden nap 9:00–20:00" },
+      { value: "5", label: "Nap nyitva", note: "Hétköznap 9:00–20:00" },
     ],
   },
 
@@ -229,13 +233,8 @@ const hu = {
     eyebrow: "Amit kapsz",
     title: "Ez jár hozzá",
     items: [
-      {
-        title: "10 óra kommunikációs tréning",
-        desc: "Az angol és német kurzusokhoz ajándékba adjuk.",
-      },
-      { title: "A kurzus elindul", desc: "A meghirdetett kurzust akkor is megtartjuk, ha kevesebben jelentkeznek." },
-      { title: "Nyitva minden nap", desc: "Hétfőtől vasárnapig, 9:00 és 20:00 között." },
-      { title: "Hétvégén is tanulhatsz", desc: "A hétvégi időpontok is választhatók." },
+      { title: "English Club", desc: "Kéthetente találkozunk, az egész tanéven át." },
+      { title: "Kiscsoportos foglalkozások", desc: "A csoportokat kisebb létszámmal is elindítjuk." },
       { title: "A város szívében", desc: "A stúdió Dunaszerdahely központjában van." },
       { title: "Nyelvvizsgára készítünk", desc: "Felkészítünk a sikeres nyelvvizsgára." },
     ],
@@ -251,7 +250,7 @@ const hu = {
     phoneTitle: "Telefon",
     emailTitle: "E-mail",
     hoursTitle: "Nyitvatartás",
-    hoursDays: "Hétfő – Vasárnap",
+    hoursDays: "Hétfő – Péntek",
     hoursTime: "9:00 – 20:00",
     form: {
       title: "Írj nekünk",

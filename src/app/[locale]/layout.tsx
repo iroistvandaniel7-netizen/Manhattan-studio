@@ -130,15 +130,10 @@ export default async function LocaleLayout({
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
-        dayOfWeek: [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday",
-          "Saturday",
-          "Sunday",
-        ],
+        /* From `lib/site.ts`, not spelled out again here: the studio dropped
+           weekends, and a list typed into two files is a list that gets
+           updated in one of them. */
+        dayOfWeek: HOURS.days,
         opens: HOURS.opens,
         closes: HOURS.closes,
       },

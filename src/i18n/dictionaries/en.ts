@@ -4,7 +4,7 @@ const en: Dictionary = {
   meta: {
     title: "MANHATTAN STUDIO — Language school in Dunajská Streda",
     description:
-      "English, German, Russian, Spanish, Italian, Slovak and Hungarian courses in the centre of Dunajská Streda. Normal, semi-intensive and intensive courses, open every day 9:00–20:00.",
+      "English, German, Russian, Spanish, Italian, Slovak and Hungarian courses in the centre of Dunajská Streda. Normal, semi-intensive and intensive courses, open weekdays 9:00–20:00.",
     ogAlt: "MANHATTAN STUDIO — language school in Dunajská Streda",
     skipToContent: "Skip to content",
   },
@@ -28,7 +28,7 @@ const en: Dictionary = {
   hero: {
     eyebrow: "Dunajská Streda · Korzo Bélu Bartóka",
     title: "Seven languages. One studio.",
-    lead: "A language school in the centre of Dunajská Streda. Beginner to advanced, every day of the week — weekends included.",
+    lead: "A language school in the centre of Dunajská Streda. Beginner to advanced, weekdays from morning to evening.",
     cta: "View the courses",
     photoAlt: "The Manhattan skyline at sunset, with the towers of Lower Manhattan.",
     scroll: "Scroll",
@@ -40,7 +40,7 @@ const en: Dictionary = {
       { value: "7", label: "Languages", note: "Beginner to advanced" },
       { value: "€165", label: "10 private lessons", note: "In any language" },
       { value: "20+", label: "English Club", note: "Every other week, all school year" },
-      { value: "7", label: "Days open", note: "Every day 9:00–20:00" },
+      { value: "5", label: "Days open", note: "Weekdays 9:00–20:00" },
     ],
   },
 
@@ -197,13 +197,8 @@ const en: Dictionary = {
     eyebrow: "What's included",
     title: "This comes with it",
     items: [
-      {
-        title: "10 hours of communication training",
-        desc: "A gift with every English and German course.",
-      },
-      { title: "The course runs", desc: "An advertised course goes ahead even if fewer people enrol." },
-      { title: "Open every day", desc: "Monday to Sunday, from 9:00 to 20:00." },
-      { title: "Weekend study", desc: "Weekend slots are available too." },
+      { title: "English Club", desc: "We meet every other week, all school year." },
+      { title: "Small groups", desc: "We open groups with smaller numbers too." },
       { title: "In the town centre", desc: "The studio is in the centre of Dunajská Streda." },
       { title: "Exam preparation", desc: "We prepare you for a successful language exam." },
     ],
@@ -219,7 +214,7 @@ const en: Dictionary = {
     phoneTitle: "Phone",
     emailTitle: "Email",
     hoursTitle: "Opening hours",
-    hoursDays: "Monday – Sunday",
+    hoursDays: "Monday – Friday",
     hoursTime: "9:00 – 20:00",
     form: {
       title: "Send us a message",

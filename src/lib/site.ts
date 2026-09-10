@@ -73,8 +73,19 @@ export const ADDRESS = {
   mapQuery: "Manhattan Studio, Korzo Bélu Bartóka 5119, Dunajská Streda",
 } as const;
 
-/** Opening hours: every day of the week, 09:00–20:00. */
-export const HOURS = { opens: "09:00", closes: "20:00" } as const;
+/**
+ * Opening hours: weekdays, 09:00–20:00.
+ *
+ * The studio used to open at weekends and no longer does. `days` is here so
+ * the structured data cannot drift from the page: the days were spelled out
+ * by hand in the JSON-LD, which is exactly how a site ends up telling Google
+ * it is open on a Sunday months after it stopped being.
+ */
+export const HOURS = {
+  opens: "09:00",
+  closes: "20:00",
+  days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+} as const;
 
 /** Taught languages. `code` is the badge label, names live in the dictionaries. */
 export const LANGUAGE_CODES = ["en", "de", "ru", "es", "it", "sk", "hu"] as const;

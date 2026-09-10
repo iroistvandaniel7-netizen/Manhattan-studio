@@ -4,7 +4,7 @@ const sk: Dictionary = {
   meta: {
     title: "MANHATTAN STUDIO — Jazyková škola v Dunajskej Strede",
     description:
-      "Kurzy angličtiny, nemčiny, ruštiny, španielčiny, taliančiny, slovenčiny a maďarčiny v centre Dunajskej Stredy. Normálne, polointenzívne a intenzívne kurzy, každý deň 9:00 – 20:00.",
+      "Kurzy angličtiny, nemčiny, ruštiny, španielčiny, taliančiny, slovenčiny a maďarčiny v centre Dunajskej Stredy. Normálne, polointenzívne a intenzívne kurzy, cez týždeň 9:00 – 20:00.",
     ogAlt: "MANHATTAN STUDIO — jazyková škola v Dunajskej Strede",
     skipToContent: "Preskočiť na obsah",
   },
@@ -28,7 +28,7 @@ const sk: Dictionary = {
   hero: {
     eyebrow: "Dunajská Streda · Korzo Bélu Bartóka",
     title: "Sedem jazykov. Jedno štúdio.",
-    lead: "Jazyková škola v centre Dunajskej Stredy. Od začiatočníkov po pokročilých, každý deň v týždni — aj cez víkend.",
+    lead: "Jazyková škola v centre Dunajskej Stredy. Od začiatočníkov po pokročilých, cez týždeň od rána do večera.",
     cta: "Pozrieť kurzy",
     photoAlt: "Panoráma Manhattanu pri západe slnka s mrakodrapmi Dolného Manhattanu.",
     scroll: "Posúvaj",
@@ -40,7 +40,7 @@ const sk: Dictionary = {
       { value: "7", label: "Jazykov", note: "Od začiatočníkov po pokročilých" },
       { value: "165 €", label: "10 individuálnych hodín", note: "Pre ktorýkoľvek jazyk" },
       { value: "20+", label: "English Club", note: "Každý druhý týždeň, celý školský rok" },
-      { value: "7", label: "Dní otvorené", note: "Každý deň 9:00 – 20:00" },
+      { value: "5", label: "Dní otvorené", note: "Cez týždeň 9:00 – 20:00" },
     ],
   },
 
@@ -197,13 +197,8 @@ const sk: Dictionary = {
     eyebrow: "Čo získate",
     title: "Toto je v cene",
     items: [
-      {
-        title: "10 hodín komunikačného tréningu",
-        desc: "Ku kurzom angličtiny a nemčiny ho dávame ako darček.",
-      },
-      { title: "Kurz sa otvorí", desc: "Vypísaný kurz otvoríme aj vtedy, keď sa prihlási menej ľudí." },
-      { title: "Otvorené každý deň", desc: "Od pondelka do nedele, od 9:00 do 20:00." },
-      { title: "Študovať sa dá aj cez víkend", desc: "Vybrať si môžete aj víkendové termíny." },
+      { title: "English Club", desc: "Stretávame sa každý druhý týždeň, celý školský rok." },
+      { title: "Práca v malých skupinách", desc: "Skupiny otvárame aj s menším počtom ľudí." },
       { title: "V centre mesta", desc: "Štúdio sídli v centre Dunajskej Stredy." },
       { title: "Príprava na skúšku", desc: "Pripravíme vás na úspešnú jazykovú skúšku." },
     ],
@@ -219,7 +214,7 @@ const sk: Dictionary = {
     phoneTitle: "Telefón",
     emailTitle: "E-mail",
     hoursTitle: "Otváracie hodiny",
-    hoursDays: "Pondelok – Nedeľa",
+    hoursDays: "Pondelok – Piatok",
     hoursTime: "9:00 – 20:00",
     form: {
       title: "Napíšte nám",
