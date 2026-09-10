@@ -17,6 +17,7 @@ export default function Footer({
      the gallery points at nothing. See the same note in the header. */
   const nav = [
     { href: home, label: dict.nav.home },
+    { href: `${home}/rolunk`, label: dict.nav.about },
     { href: `${home}#languages`, label: dict.nav.languages },
     { href: `${home}#quiz`, label: dict.nav.quiz },
     { href: `${home}#courses`, label: dict.nav.courses },

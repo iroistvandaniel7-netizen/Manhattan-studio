@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
    */
   const pages = [
     { path: "", priority: 1 },
+    { path: "/rolunk", priority: 0.8 },
     { path: "/galeria", priority: 0.6 },
     { path: "/kapcsolat", priority: 0.7 },
   ];

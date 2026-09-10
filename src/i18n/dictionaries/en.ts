@@ -11,6 +11,7 @@ const en: Dictionary = {
 
   nav: {
     home: "Home",
+    about: "About",
     languages: "Languages",
     quiz: "Level check",
     gallery: "Gallery",
@@ -265,6 +266,69 @@ const en: Dictionary = {
 
   people: {
     alt: "Five smiling people side by side against a light background",
+  },
+
+  about: {
+    eyebrow: "About us",
+    title: "The language you finally dare to speak",
+    metaDescription:
+      "MANHATTAN language studio in Dunajská Streda: modern methods, experienced teachers and lessons in a good atmosphere — matched to your level and your goals.",
+
+    lead: "Want to learn a new language? Build on what you already know? Or finally speak up in English — or another language — with confidence?",
+    leadStrong: "We'll help you get there.",
+    leadMore:
+      "At MANHATTAN language studio you learn with modern methods, experienced teachers and lessons in a good atmosphere — matched to your level and your goals.",
+
+    whyTitle: "Why MANHATTAN?",
+    whyItems: [
+      {
+        title: "Your goal, your pace",
+        desc: "Whether you need the language for work, are preparing for an exam, are moving abroad, or simply want to communicate more confidently — we'll help you find the route that fits you.",
+      },
+      {
+        title: "Experienced teachers",
+        desc: "Our qualified, well-prepared teachers help you not just learn the language, but dare to use it.",
+      },
+      {
+        title: "Visible progress",
+        desc: "We work with effective methods and well-built courses, so the time you spend learning is really about your progress.",
+      },
+      {
+        title: "Lessons in a good atmosphere",
+        desc: "Learning a language can be enjoyable. Here you learn in a supportive, easy-going setting where questions and mistakes are a natural part of getting better.",
+      },
+    ],
+
+    coursesTitle: "Find the course that fits you",
+    coursesLead:
+      "Whether you're meeting the language for the first time or already know some, you'll find the right level and the right format here.",
+    coursesItems: [
+      {
+        title: "Intensive course",
+        desc: "For getting better quickly, and reaching your goal in a shorter time.",
+      },
+      {
+        title: "Semi-intensive course",
+        desc: "For steady progress when you need a more flexible pace.",
+      },
+      {
+        title: "Regular course",
+        desc: "For learning alongside work or study, at a more comfortable pace.",
+      },
+      {
+        title: "Beginner to advanced",
+        desc: "We'll help you find the next step up from wherever you are now.",
+      },
+    ],
+
+    chartAxis: { time: "Time", level: "Level" },
+    chartNote: "The same goal, at three paces.",
+
+    closing:
+      "Learning a language does not have to take years — with the right method, the right pace and the right support you get there far more efficiently.",
+
+    ctaCourses: "See the courses",
+    ctaContact: "A question? Write to us",
   },
 
   quiz: {

@@ -47,6 +47,7 @@ export default function Header({
    * scroll, because it is the same document.
    */
   const nav = [
+    { href: `${home}/rolunk`, label: dict.nav.about },
     { href: `${home}#languages`, label: dict.nav.languages },
     { href: `${home}#quiz`, label: dict.nav.quiz },
     { href: `${home}#courses`, label: dict.nav.courses },

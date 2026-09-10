@@ -26,6 +26,7 @@ const hu = {
 
   nav: {
     home: "Kezdőlap",
+    about: "Rólunk",
     languages: "Nyelvek",
     quiz: "Szintfelmérő",
     gallery: "Galéria",
@@ -296,6 +297,81 @@ const hu = {
   /* A kép leírása, nem állítás róluk: nem tudjuk, kik ők. */
   people: {
     alt: "Öt mosolygó ember egymás mellett, világos háttér előtt",
+  },
+
+  /*
+   * A Rólunk oldal.
+   *
+   * A szöveg a stúdiótól származik, szó szerint — ez a saját hangja, nem az
+   * enyém. A tagolás az egyetlen, ami hozzá lett téve: a folyó szövegből
+   * címek és bekezdések lettek, hogy olvasható legyen egy telefonon is.
+   *
+   * A kurzustípusok itt leírások, nem megvásárolható tételek: a bolt a
+   * konkrét, meghirdetett kurzusokat árulja, ez a lap pedig azt mondja el,
+   * milyen formák léteznek. Ezért nincs mellettük ár és „kosárba" gomb.
+   */
+  about: {
+    eyebrow: "Rólunk",
+    title: "A nyelv, amit végre használni is mersz",
+    metaDescription:
+      "A MANHATTAN Nyelvstúdió Dunaszerdahelyen: modern módszerek, tapasztalt tanárok, jó hangulatú órák — a saját szintedhez és céljaidhoz igazodva.",
+
+    lead: "Szeretnél megtanulni egy új nyelvet? Fejlesztenéd a meglévő tudásodat? Vagy végre magabiztosan szeretnél megszólalni angolul vagy más idegen nyelven?",
+    leadStrong: "Mi segítünk elérni a célodat.",
+    leadMore:
+      "A MANHATTAN Nyelvstúdióban modern módszerekkel, tapasztalt tanárokkal és jó hangulatú órákon tanulhatsz – a saját szintedhez és céljaidhoz igazodva.",
+
+    whyTitle: "Miért a MANHATTAN?",
+    whyItems: [
+      {
+        title: "A te célod, a te tempód",
+        desc: "Akár a munkádhoz van szükséged nyelvtudásra, akár nyelvvizsgára készülsz, esetleg külföldre mennél, vagy egyszerűen csak szeretnél magabiztosabban kommunikálni – mi segítünk megtalálni a számodra megfelelő utat.",
+      },
+      {
+        title: "Tapasztalt tanárok",
+        desc: "Felkészült, szakképzett oktatóink támogatnak abban, hogy ne csak megtanuld a nyelvet, hanem használni is merd.",
+      },
+      {
+        title: "Látványos fejlődés",
+        desc: "Hatékony módszerekkel és jól felépített tanfolyamokkal dolgozunk, hogy a tanulással töltött idő valóban a fejlődésedről szóljon.",
+      },
+      {
+        title: "Jó hangulatú órák",
+        desc: "A nyelvtanulás lehet szórakoztató is. Nálunk támogató, közvetlen légkörben tanulhatsz, ahol a kérdések és a hibák is természetes részei a fejlődésnek.",
+      },
+    ],
+
+    coursesTitle: "Találd meg a hozzád illő tanfolyamot!",
+    coursesLead:
+      "Akár most ismerkedsz a nyelvvel, akár már rendelkezel előzetes tudással, nálunk megtalálod a megfelelő szintet és képzési formát.",
+    coursesItems: [
+      {
+        title: "Intenzív kurzus",
+        desc: "Ha gyorsan szeretnél fejlődni, és rövidebb idő alatt szeretnéd elérni a célodat.",
+      },
+      {
+        title: "Félintenzív kurzus",
+        desc: "Ha fontos számodra a folyamatos haladás, de rugalmasabb tempóra van szükséged.",
+      },
+      {
+        title: "Normál kurzus",
+        desc: "Ha a munkád vagy a tanulmányaid mellett, kényelmesebb tempóban szeretnél nyelvet tanulni.",
+      },
+      {
+        title: "Alapfoktól felsőfokig",
+        desc: "A jelenlegi tudásszintedhez igazodva segítünk megtalálni a következő lépcsőfokot.",
+      },
+    ],
+
+    /* Az ábra felirata. A három görbe ugyanoda ér — csak más idő alatt. */
+    chartAxis: { time: "Idő", level: "Tudásszint" },
+    chartNote: "Ugyanaz a cél, három tempóban.",
+
+    closing:
+      "A nyelvtanulás nem kell, hogy évekig tartson – a megfelelő módszerrel, megfelelő tempóban és megfelelő támogatással sokkal hatékonyabban haladhatsz.",
+
+    ctaCourses: "Nézd meg a kurzusokat",
+    ctaContact: "Kérdésed van? Írj nekünk",
   },
 
   /*

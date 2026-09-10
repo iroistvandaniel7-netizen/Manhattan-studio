@@ -11,6 +11,7 @@ const sk: Dictionary = {
 
   nav: {
     home: "Úvod",
+    about: "O nás",
     languages: "Jazyky",
     quiz: "Test úrovne",
     gallery: "Galéria",
@@ -265,6 +266,69 @@ const sk: Dictionary = {
 
   people: {
     alt: "Päť usmiatych ľudí vedľa seba na svetlom pozadí",
+  },
+
+  about: {
+    eyebrow: "O nás",
+    title: "Jazyk, ktorý sa konečne odvážite použiť",
+    metaDescription:
+      "Jazykové štúdio MANHATTAN v Dunajskej Strede: moderné metódy, skúsení lektori a hodiny v dobrej atmosfére — podľa vašej úrovne a vašich cieľov.",
+
+    lead: "Chcete sa naučiť nový jazyk? Zlepšiť to, čo už viete? Alebo sa konečne odvážiť prehovoriť po anglicky či iným cudzím jazykom?",
+    leadStrong: "Pomôžeme vám dosiahnuť váš cieľ.",
+    leadMore:
+      "V jazykovom štúdiu MANHATTAN sa učíte modernými metódami, so skúsenými lektormi a na hodinách v dobrej atmosfére – podľa vašej úrovne a vašich cieľov.",
+
+    whyTitle: "Prečo MANHATTAN?",
+    whyItems: [
+      {
+        title: "Váš cieľ, vaše tempo",
+        desc: "Či už jazyk potrebujete do práce, chystáte sa na skúšku, plánujete odísť do zahraničia, alebo chcete jednoducho komunikovať istejšie – pomôžeme vám nájsť cestu, ktorá sedí práve vám.",
+      },
+      {
+        title: "Skúsení lektori",
+        desc: "Naši pripravení a kvalifikovaní lektori vás podporia v tom, aby ste sa jazyk nielen naučili, ale ho aj používali.",
+      },
+      {
+        title: "Viditeľný pokrok",
+        desc: "Pracujeme s účinnými metódami a dobre postavenými kurzami, aby čas strávený učením naozaj znamenal váš pokrok.",
+      },
+      {
+        title: "Hodiny v dobrej atmosfére",
+        desc: "Učenie jazyka môže byť aj zábavné. U nás sa učíte v podpornom, priateľskom prostredí, kde otázky aj chyby patria k pokroku.",
+      },
+    ],
+
+    coursesTitle: "Nájdite kurz, ktorý sedí vám!",
+    coursesLead:
+      "Či sa s jazykom len zoznamujete, alebo už niečo viete, u nás nájdete správnu úroveň aj formu výučby.",
+    coursesItems: [
+      {
+        title: "Intenzívny kurz",
+        desc: "Ak chcete napredovať rýchlo a dosiahnuť svoj cieľ za kratší čas.",
+      },
+      {
+        title: "Polointenzívny kurz",
+        desc: "Ak je pre vás dôležitý plynulý postup, ale potrebujete pružnejšie tempo.",
+      },
+      {
+        title: "Bežný kurz",
+        desc: "Ak sa chcete učiť popri práci alebo štúdiu, v pohodlnejšom tempe.",
+      },
+      {
+        title: "Od základov po pokročilú úroveň",
+        desc: "Podľa vašej súčasnej úrovne vám pomôžeme nájsť ďalší stupienok.",
+      },
+    ],
+
+    chartAxis: { time: "Čas", level: "Úroveň" },
+    chartNote: "Rovnaký cieľ, tri tempá.",
+
+    closing:
+      "Učenie jazyka nemusí trvať roky – so správnou metódou, správnym tempom a správnou podporou napredujete oveľa efektívnejšie.",
+
+    ctaCourses: "Pozrieť kurzy",
+    ctaContact: "Máte otázku? Napíšte nám",
   },
 
   quiz: {
