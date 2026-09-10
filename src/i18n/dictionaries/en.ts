@@ -268,6 +268,14 @@ const en: Dictionary = {
     alt: "Five smiling people side by side against a light background",
   },
 
+  cookieBanner: {
+    title: "Cookies on this site",
+    body: "We use one cookie: the one that remembers this answer of yours. We set no tracking or advertising cookies. If you allow it, we may measure anonymous visitor numbers in future — everything works the same either way.",
+    more: "Cookie notice",
+    accept: "Accept",
+    necessary: "Necessary only",
+  },
+
   about: {
     eyebrow: "About us",
     title: "The language you finally dare to speak",
@@ -457,7 +465,7 @@ const en: Dictionary = {
         heading: "We do not track you",
         body: [
           "There is no Google Analytics on this site, no Facebook pixel, and no other measurement or advertising code. We do not build a profile of you and do not record what you looked at.",
-          "The site sets no cookies of its own either. The cookie notice has the detail.",
+          "We set one cookie: the one that remembers your answer to the cookie banner. The cookie notice has the detail.",
         ],
       },
       {
@@ -540,13 +548,23 @@ const en: Dictionary = {
     ],
 
     cookiesLead:
-      "In short: this site uses no cookies. Below is the one thing your browser does store.",
+      "In short: this site uses one cookie, and only to remember your answer. There is no tracking.",
 
     cookiesSections: [
       {
-        heading: "We use no cookies",
+        heading: "We use one cookie",
         body: [
-          "This site places no cookies in your browser — none of its own and none from third parties. That is also why there is no cookie consent banner: there is nothing to consent to.",
+          "The one that remembers what you answered in the cookie banner. Without storing your answer we would have to ask again on every page load.",
+          "We set no tracking, analytics or advertising cookies — none of our own and none from third parties. Today there is no difference in what the site does between “Necessary only” and “Accept”; the difference takes effect only if we start measuring visits in future, and that is tied to your answer in advance.",
+        ],
+        list: [
+          "Name: ms-consent — Contents: “all” or “necessary” — Lifetime: 6 months",
+        ],
+      },
+      {
+        heading: "Changed your mind?",
+        body: [
+          "Clear the site's cookies in your browser settings and the question comes back. After six months we ask again anyway.",
         ],
       },
       {

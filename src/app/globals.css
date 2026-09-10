@@ -320,6 +320,18 @@
   }
 }
 
+/* The consent bar arriving. One short rise, no fade from nothing: the bar has
+   to be legible the instant it can be clicked, and it is only applied under
+   `motion-safe`, so anyone who asked for less motion simply has it there. */
+@keyframes cookie-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
 /* Head tipping toward the page, then back up to listen. */
 @keyframes nod {
   0%,

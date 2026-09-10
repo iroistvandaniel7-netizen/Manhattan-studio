@@ -310,6 +310,22 @@ const hu = {
    * konkrét, meghirdetett kurzusokat árulja, ez a lap pedig azt mondja el,
    * milyen formák léteznek. Ezért nincs mellettük ár és „kosárba" gomb.
    */
+  /*
+   * A süti-ablak.
+   *
+   * A szöveg pontosan azt mondja, ami történik: ma a két válasz között nincs
+   * különbség abban, amit az oldal csinál, mert semmi nem mér semmit. Ezt
+   * kimondani jobb, mint úgy tenni, mintha a kattintás sokat döntene el —
+   * és ha egyszer indul a mérés, a kapcsoló már ott van és a válaszhoz van kötve.
+   */
+  cookieBanner: {
+    title: "Sütik ezen az oldalon",
+    body: "Egyetlen sütit használunk: azt, amelyik megjegyzi ezt a válaszodat. Nyomkövető és hirdetési sütit nem teszünk le. Ha engedélyezed, a jövőben névtelen látogatottsági statisztikát mérhetünk — enélkül is minden ugyanúgy működik.",
+    more: "Cookie-tájékoztató",
+    accept: "Elfogadom",
+    necessary: "Csak a szükségeseket",
+  },
+
   about: {
     eyebrow: "Rólunk",
     title: "A nyelv, amit végre használni is mersz",
@@ -517,7 +533,7 @@ const hu = {
         heading: "Nem követünk",
         body: [
           "Ezen az oldalon nincs Google Analytics, nincs Facebook-pixel, és nincs semmilyen más mérő- vagy hirdetési kód. Nem építünk rólad profilt, és nem követjük, mit néztél meg.",
-          "Az oldal saját sütit sem használ. A részletek a cookie-tájékoztatóban.",
+          "Egyetlen sütit használunk: azt, amelyik megjegyzi, mit válaszoltál a süti-ablakban. A részletek a cookie-tájékoztatóban.",
         ],
       },
       {
@@ -609,13 +625,23 @@ const hu = {
     ],
 
     cookiesLead:
-      "Röviden: ez az oldal nem használ sütiket. Az alábbi az egyetlen dolog, amit a böngésződ eltárol.",
+      "Röviden: ez az oldal egyetlen sütit használ, azt is csak arra, hogy megjegyezze a válaszodat. Nyomkövetés nincs.",
 
     cookiesSections: [
       {
-        heading: "Sütiket nem használunk",
+        heading: "Egyetlen sütit használunk",
         body: [
-          "Ez az oldal nem helyez el sütit a böngésződben — sem sajátot, sem harmadik félét. Ezért nincs is süti-elfogadó ablak: nincs mit elfogadnod.",
+          "Azt, amelyik megjegyzi, mit válaszoltál a süti-ablakban. Ha nem tárolnánk el a döntésedet, minden egyes oldalbetöltésnél újra megkérdeznénk.",
+          "Nyomkövető, statisztikai és hirdetési sütit nem helyezünk el — sem sajátot, sem harmadik félét. A „Csak a szükségeseket” és az „Elfogadom” válasz között ma nincs különbség abban, amit az oldal csinál; a különbség akkor lép életbe, ha a jövőben látogatottsági mérés indul, és azt előre a te válaszodhoz kötöttük.",
+        ],
+        list: [
+          "Neve: ms-consent — Tartalma: „all” vagy „necessary” — Érvényessége: 6 hónap",
+        ],
+      },
+      {
+        heading: "Meggondoltad magad?",
+        body: [
+          "Töröld az oldal sütijeit a böngésződ beállításaiban, és a kérdés újra megjelenik. Hat hónap után magától is újra megkérdezzük.",
         ],
       },
       {

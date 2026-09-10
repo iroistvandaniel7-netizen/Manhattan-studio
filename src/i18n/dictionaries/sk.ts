@@ -268,6 +268,14 @@ const sk: Dictionary = {
     alt: "Päť usmiatych ľudí vedľa seba na svetlom pozadí",
   },
 
+  cookieBanner: {
+    title: "Cookies na tejto stránke",
+    body: "Používame jediné cookie: to, ktoré si zapamätá túto vašu odpoveď. Sledovacie ani reklamné cookies neukladáme. Ak to povolíte, v budúcnosti môžeme merať anonymnú návštevnosť — aj bez toho funguje všetko rovnako.",
+    more: "Informácie o cookies",
+    accept: "Súhlasím",
+    necessary: "Len nevyhnutné",
+  },
+
   about: {
     eyebrow: "O nás",
     title: "Jazyk, ktorý sa konečne odvážite použiť",
@@ -457,7 +465,7 @@ const sk: Dictionary = {
         heading: "Nesledujeme vás",
         body: [
           "Na tejto stránke nie je Google Analytics, Facebook pixel ani žiadny iný merací či reklamný kód. Nevytvárame o vás profil a nesledujeme, čo ste si prezerali.",
-          "Stránka nepoužíva ani vlastné cookies. Podrobnosti nájdete v informáciách o cookies.",
+          "Používame jediné cookie: to, ktoré si pamätá vašu odpoveď v okne o cookies. Podrobnosti nájdete v informáciách o cookies.",
         ],
       },
       {
@@ -540,13 +548,23 @@ const sk: Dictionary = {
     ],
 
     cookiesLead:
-      "Stručne: táto stránka nepoužíva cookies. Nižšie je jediná vec, ktorú si váš prehliadač uloží.",
+      "Stručne: táto stránka používa jediné cookie, a to len na to, aby si zapamätala vašu odpoveď. Žiadne sledovanie.",
 
     cookiesSections: [
       {
-        heading: "Cookies nepoužívame",
+        heading: "Používame jediné cookie",
         body: [
-          "Táto stránka neukladá do vášho prehliadača žiadne cookies — ani vlastné, ani tretích strán. Preto tu nie je ani okno na súhlas s cookies: nie je s čím súhlasiť.",
+          "To, ktoré si pamätá, čo ste odpovedali v okne o cookies. Keby sme vašu odpoveď neuložili, pýtali by sme sa znova pri každom načítaní stránky.",
+          "Sledovacie, štatistické ani reklamné cookies neukladáme — ani vlastné, ani tretích strán. Medzi odpoveďami „Len nevyhnutné“ a „Súhlasím“ dnes nie je rozdiel v tom, čo stránka robí; rozdiel nastane až vtedy, keď v budúcnosti spustíme meranie návštevnosti, a to sme vopred naviazali na vašu odpoveď.",
+        ],
+        list: [
+          "Názov: ms-consent — Obsah: „all“ alebo „necessary“ — Platnosť: 6 mesiacov",
+        ],
+      },
+      {
+        heading: "Rozmysleli ste si to?",
+        body: [
+          "Vymažte cookies stránky v nastaveniach prehliadača a otázka sa objaví znova. Po šiestich mesiacoch sa spýtame sami.",
         ],
       },
       {

@@ -5,6 +5,7 @@ import "../globals.css";
 
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import CookieBanner from "@/components/layout/CookieBanner";
 import { getDictionary } from "@/i18n";
 import { htmlLang, isLocale, locales, type Locale } from "@/i18n/config";
 import { ADDRESS, BRAND, EMAIL, HOURS, PHONES, SITE_URL } from "@/lib/site";
@@ -178,6 +179,9 @@ export default async function LocaleLayout({
         <Header locale={typedLocale} dict={dict} />
         <main id="main">{children}</main>
         <Footer locale={typedLocale} dict={dict} />
+        {/* Last in the document, so a screen reader meets the page before the
+            bar, and a keyboard reaches it without tabbing past it first. */}
+        <CookieBanner locale={typedLocale} dict={dict} />
       </body>
     </html>
   );
