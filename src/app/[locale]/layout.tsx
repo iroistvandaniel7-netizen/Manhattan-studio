@@ -6,6 +6,7 @@ import "../globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieBanner from "@/components/layout/CookieBanner";
+import CookieButton from "@/components/layout/CookieButton";
 import ScriptFlag from "@/components/layout/ScriptFlag";
 import { getDictionary } from "@/i18n";
 import { htmlLang, isLocale, locales, type Locale } from "@/i18n/config";
@@ -184,6 +185,9 @@ export default async function LocaleLayout({
         {/* Last in the document, so a screen reader meets the page before the
             bar, and a keyboard reaches it without tabbing past it first. */}
         <CookieBanner locale={typedLocale} dict={dict} />
+        {/* Always reachable, whatever was answered — it hides itself only
+            while the bar above is open. */}
+        <CookieButton label={dict.cookieBanner.reopen} />
       </body>
     </html>
   );

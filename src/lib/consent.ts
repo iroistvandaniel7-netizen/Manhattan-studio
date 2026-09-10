@@ -86,8 +86,16 @@ export function getConsent(): Consent {
  * that sets state. Same arrangement the basket uses.
  * --------------------------------------------------------------------- */
 
-/** "ask" until answered. A primitive, so React can compare snapshots. */
-export type ConsentState = "ask" | "answered";
+/**
+ * A primitive, so React can compare snapshots.
+ *
+ * Three states, not two, and the third earns its place. The server cannot read
+ * a cookie, so it has to render something — and the bar and the button want
+ * opposite defaults: the bar must not flash at somebody who already answered,
+ * the button must not flash at somebody who has not. "unknown" lets both
+ * render nothing until the browser has actually looked.
+ */
+export type ConsentState = "ask" | "answered" | "unknown";
 
 const listeners = new Set<() => void>();
 
@@ -104,9 +112,9 @@ export function consentSnapshot(): ConsentState {
   return readConsent() === null ? "ask" : "answered";
 }
 
-/** The server has no cookie, so it renders the quiet state and never the bar. */
+/** The server has no cookie to read, so it says so and neither control paints. */
 export function consentServerSnapshot(): ConsentState {
-  return "answered";
+  return "unknown";
 }
 
 /** Record the answer and tell everyone reading. */

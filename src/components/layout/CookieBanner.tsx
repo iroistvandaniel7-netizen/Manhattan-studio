@@ -42,7 +42,9 @@ export default function CookieBanner({
     consentServerSnapshot,
   );
 
-  if (state === "answered") return null;
+  /* Only when the browser has read the cookie and found no answer. Before
+     that the state is "unknown" and nothing paints — see `ConsentState`. */
+  if (state !== "ask") return null;
 
   return (
     <div
