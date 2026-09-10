@@ -37,15 +37,15 @@ export default function People({ dict }: { dict: Dictionary }) {
   return (
     <section
       aria-label={dict.people.alt}
-      className="relative isolate overflow-hidden bg-accent-soft pt-10 sm:pt-16"
+      className="relative isolate overflow-hidden bg-white"
     >
       <Landmarks scene={0} />
 
-      {/* No container padding, and no bottom padding on the section: the band
-          runs edge to edge and finishes flush with the section, which is what
-          makes it a band rather than a picture pasted onto the pink. Boxing it
-          in the page's gutters left a floating rectangle with a margin all
-          round — that was the regression this undoes. */}
+      {/* No padding at all: the section IS the photograph, edge to edge and
+          top to bottom. It sits between the dark "what you get" and the white
+          contact section, so the only two edges it has are a hard one against
+          the dark above — an ordinary section boundary — and a soft one into
+          the white below. */}
       <Reveal className="relative">
         {/* The wipe is a mask on this box. It needs no background of its own
             now that nothing inside it blends with what is behind. */}
@@ -66,6 +66,11 @@ export default function People({ dict }: { dict: Dictionary }) {
             there was nothing down there but white, whereas here every pixel
             is picture and a deep fade would eat the taxi.
 
+            It fades to white, not to the old pink: the pink ground is gone
+            with the padding, and white is what the page actually is below
+            this band. A gradient that ended in a colour nothing around it
+            uses would read as a haze rather than as an edge.
+
             An overlay rather than a second mask layer: the wipe already owns
             this element's mask, and compositing two means `mask-composite`,
             spelled differently in WebKit — a lot of fragility for a gradient
@@ -73,7 +78,7 @@ export default function People({ dict }: { dict: Dictionary }) {
           */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 bottom-0 h-[13%] bg-[linear-gradient(to_top,var(--color-accent-soft)_15%,transparent)]"
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-[13%] bg-[linear-gradient(to_top,var(--color-white)_15%,transparent)]"
           />
         </div>
       </Reveal>
