@@ -54,7 +54,9 @@ const hu = {
     items: [
       { value: "7", label: "Nyelv", note: "Kezdőtől haladóig" },
       { value: "165 €", label: "10 egyéni óra", note: "Bármelyik nyelvre" },
-      { value: "10", label: "Óra tréning ajándékba", note: "Angol és német kurzushoz" },
+      /* Az „English Club" a stúdió saját, folyamatos programja — nem a
+         kurzusokhoz járó tréning, az az „Amit kapsz" szakaszban maradt. */
+      { value: "20+", label: "English Club", note: "Kéthetente, egész tanévben" },
       { value: "7", label: "Nap nyitva", note: "Minden nap 9:00–20:00" },
     ],
   },

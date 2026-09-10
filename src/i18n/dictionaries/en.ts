@@ -39,7 +39,7 @@ const en: Dictionary = {
     items: [
       { value: "7", label: "Languages", note: "Beginner to advanced" },
       { value: "€165", label: "10 private lessons", note: "In any language" },
-      { value: "10", label: "Hours of training free", note: "With English and German courses" },
+      { value: "20+", label: "English Club", note: "Every other week, all school year" },
       { value: "7", label: "Days open", note: "Every day 9:00–20:00" },
     ],
   },
