@@ -597,6 +597,13 @@ const hu = {
         ],
       },
       {
+        heading: "Ha egy óra elmarad",
+        body: [
+          "Ha egy órát a stúdió miatt kell elhalasztani, azt másik időpontra tesszük át. Az óra nem vész el, és nem kell újra megfizetned.",
+          "Ha te nem tudsz eljönni egy magánórára, azt legalább négy nappal a megbeszélt időpont előtt jelezd, és másik időpontot keresünk rá.",
+        ],
+      },
+      {
         heading: "Meddig érvényes, amit megvettél",
         body: [
           "A magánórás csomagok nem járnak le. A megvásárolt órák addig érvényesek, amíg fel nem használod őket — nincs rájuk határidő.",
@@ -615,6 +622,12 @@ const hu = {
         heading: "Felügyeleti hatóság",
         body: [
           "Ha a panaszod nálunk nem oldódik meg, a szlovák Kereskedelmi Felügyelethez (Slovenská obchodná inšpekcia, SOI) fordulhatsz. Az elérhetőségei a www.soi.sk oldalon találhatók.",
+        ],
+      },
+      {
+        heading: "Melyik jog vonatkozik rá",
+        body: [
+          "A szerződésre a szlovák jog vonatkozik. Ez nem érinti azt a védelmet, amit fogyasztóként a lakóhelyed szerinti ország kötelező szabályai adnak neked — azoktól ez a pont nem foszt meg.",
         ],
       },
     ],

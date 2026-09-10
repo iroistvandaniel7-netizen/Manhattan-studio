@@ -514,6 +514,13 @@ const en: Dictionary = {
         ],
       },
       {
+        heading: "If a lesson does not happen",
+        body: [
+          "If a lesson has to be put off for a reason on the studio's side, we move it to another time. The lesson is not lost and you do not pay for it twice.",
+          "If it is you who cannot make a private lesson, tell us at least four days before the agreed time and we will find another.",
+        ],
+      },
+      {
         heading: "How long what you bought stays valid",
         body: [
           "Private packages do not expire. Bought lessons stay valid until you have used them — there is no deadline on them.",
@@ -532,6 +539,12 @@ const en: Dictionary = {
         heading: "Supervisory authority",
         body: [
           "If a complaint is not resolved with us, you can take it to the Slovak Trade Inspection (Slovenská obchodná inšpekcia, SOI). Its contact details are at www.soi.sk.",
+        ],
+      },
+      {
+        heading: "Which law applies",
+        body: [
+          "The contract is governed by Slovak law. That does not affect the protection given to you as a consumer by the mandatory rules of the country you live in — this clause does not take those away.",
         ],
       },
     ],

@@ -514,6 +514,13 @@ const sk: Dictionary = {
         ],
       },
       {
+        heading: "Ak sa hodina neuskutoční",
+        body: [
+          "Ak sa hodina musí odložiť z dôvodu na strane štúdia, presunieme ju na iný termín. Hodina neprepadne a nemusíte ju platiť znova.",
+          "Ak na individuálnu hodinu nemôžete prísť vy, dajte nám vedieť aspoň štyri dni pred dohodnutým termínom a nájdeme iný.",
+        ],
+      },
+      {
         heading: "Dokedy platí, čo ste si kúpili",
         body: [
           "Balíky individuálnych hodín neexpirujú. Zakúpené hodiny platia dovtedy, kým ich nevyčerpáte — nemajú žiadny termín.",
@@ -532,6 +539,12 @@ const sk: Dictionary = {
         heading: "Dozorný orgán",
         body: [
           "Ak sa reklamácia u nás nevyrieši, môžete sa obrátiť na Slovenskú obchodnú inšpekciu (SOI). Jej kontakty nájdete na stránke www.soi.sk.",
+        ],
+      },
+      {
+        heading: "Rozhodné právo",
+        body: [
+          "Zmluva sa riadi slovenským právom. Tým nie je dotknutá ochrana, ktorú vám ako spotrebiteľovi dávajú záväzné predpisy krajiny vášho bydliska — o tú vás tento bod nepripravuje.",
         ],
       },
     ],
