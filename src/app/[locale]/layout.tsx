@@ -6,6 +6,7 @@ import "../globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import CookieBanner from "@/components/layout/CookieBanner";
+import ScriptFlag from "@/components/layout/ScriptFlag";
 import { getDictionary } from "@/i18n";
 import { htmlLang, isLocale, locales, type Locale } from "@/i18n/config";
 import { ADDRESS, BRAND, EMAIL, HOURS, PHONES, SITE_URL } from "@/lib/site";
@@ -152,6 +153,10 @@ export default async function LocaleLayout({
          * Marks the document as script-enabled before first paint, which is
          * what arms the scroll-reveal styles. Without JavaScript the attribute
          * never appears and all content renders in its final state.
+         *
+         * Not the only thing that sets it — see <ScriptFlag /> in the body.
+         * A blocker that refuses inline scripts but loads the bundle used to
+         * give a reader the no-JS page on a browser that had JavaScript.
          */}
         <script
           dangerouslySetInnerHTML={{
@@ -164,6 +169,8 @@ export default async function LocaleLayout({
         />
       </head>
       <body id="top">
+        {/* The backstop for `data-js` — see the note in <head> above. */}
+        <ScriptFlag />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-accent focus:px-5 focus:py-3 focus:text-sm focus:font-semibold focus:text-white"
