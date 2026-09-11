@@ -1,4 +1,5 @@
 import { CURRENCY, formatPrice, type PricedLine } from "./catalogue";
+import { sendMail, senderFor } from "./mail";
 import { getDictionary } from "@/i18n";
 import { isLocale, defaultLocale } from "@/i18n/config";
 
@@ -131,37 +132,18 @@ export async function confirmToCustomer(
   subject: string,
   body: string,
 ): Promise<{ configured: boolean; sent: boolean }> {
-  const key = process.env.RESEND_API_KEY;
-  const from = process.env.ORDER_FROM_EMAIL;
-  if (!key || !from || !order.email) return { configured: false, sent: false };
-
-  try {
-    /* `||`, not `??`: an empty value must fall back to the real API, not be
-       treated as a deliberate override. Same reasoning as `stripeApiBase`. */
-    const base = process.env.RESEND_API_BASE || "https://api.resend.com";
-    const response = await fetch(`${base}/emails`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${key}`,
-        "Content-Type": "application/json",
-        /* The reference, so a retry cannot send the same customer the same
-           confirmation twice. */
-        "Idempotency-Key": order.reference,
-      },
-      body: JSON.stringify({ from, to: [order.email], subject, text: body }),
-      signal: AbortSignal.timeout(10_000),
-    });
-    if (!response.ok) {
-      console.error("[orders] confirmation email refused:", response.status);
-      return { configured: true, sent: false };
-    }
-    return { configured: true, sent: true };
-  } catch (error) {
-    /* Never fatal. The order is already recorded; a missing confirmation is
-       worth a log line, not a failed checkout. */
-    console.error("[orders] confirmation email failed:", error);
-    return { configured: true, sent: false };
-  }
+  /* The request itself lives in `lib/mail`, shared with the contact form.
+     Never fatal either way: the order is already recorded, and a missing
+     confirmation is worth a log line, not a failed checkout. */
+  return sendMail({
+    from: senderFor("order"),
+    to: order.email,
+    subject,
+    text: body,
+    /* The reference, so a retry cannot send the same customer the same
+       confirmation twice. */
+    idempotencyKey: order.reference,
+  });
 }
 
 /**

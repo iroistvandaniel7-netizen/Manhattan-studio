@@ -235,6 +235,7 @@ const en: Dictionary = {
       successTitle: "Thank you!",
       success: "We've received your message.",
       again: "New message",
+      mailInstead: "Send by email",
       errors: {
         name: "Please enter your name.",
         email: "Please enter your email address.",
@@ -243,8 +244,8 @@ const en: Dictionary = {
         language: "Please choose a language.",
         message: "Please write a few words.",
         summary: "The form is incomplete. Please check the highlighted fields.",
-        network: "We couldn't send your message just now. Please call us instead.",
-        unavailable: "Online messaging isn't available at the moment. Please call us instead.",
+        network: "We couldn't send your message just now. Send it by email, or call us.",
+        unavailable: "Online messaging isn't available at the moment. Send your message by email, or call us.",
       },
     },
   },

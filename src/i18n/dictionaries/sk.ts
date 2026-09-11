@@ -235,6 +235,7 @@ const sk: Dictionary = {
       successTitle: "Ďakujeme!",
       success: "Vašu správu sme dostali.",
       again: "Nová správa",
+      mailInstead: "Odoslať e-mailom",
       errors: {
         name: "Zadajte prosím svoje meno.",
         email: "Zadajte prosím svoju e-mailovú adresu.",
@@ -243,8 +244,8 @@ const sk: Dictionary = {
         language: "Vyberte prosím jazyk.",
         message: "Napíšte prosím pár slov.",
         summary: "Formulár nie je úplný. Skontrolujte označené polia.",
-        network: "Správu sa teraz nepodarilo odoslať. Zavolajte nám prosím.",
-        unavailable: "Online odosielanie správ momentálne nie je dostupné. Zavolajte nám prosím.",
+        network: "Správu sa teraz nepodarilo odoslať. Pošlite ju e-mailom alebo nám zavolajte.",
+        unavailable: "Online odosielanie správ momentálne nie je dostupné. Pošlite správu e-mailom alebo nám zavolajte.",
       },
     },
   },

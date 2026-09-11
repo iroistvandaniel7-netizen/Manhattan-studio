@@ -1,13 +1,29 @@
 import { NextResponse } from "next/server";
+import { sendMail, senderFor } from "@/lib/mail";
+import { EMAIL } from "@/lib/site";
 
 /**
  * Contact form endpoint.
  *
- * Delivery target is configured with `CONTACT_WEBHOOK_URL` (any endpoint that
- * accepts a JSON POST — an email service, a CRM, a Zapier/Make hook). When it
- * is not set the route refuses with 503 rather than reporting a success it
- * cannot deliver; the form then shows the studio's phone numbers instead. In
- * development the submission is logged so the flow stays testable.
+ * Two ways out, and either one is enough:
+ *
+ * - **Email to the studio.** The normal one. Needs `RESEND_API_KEY` and a
+ *   verified sender — the same pair the order confirmation already needs, so a
+ *   studio that can email a customer can also receive an enquiry, with nothing
+ *   further to set up.
+ * - **`CONTACT_WEBHOOK_URL`.** Any endpoint that takes a JSON POST — a CRM, an
+ *   automation, a script. Kept because a studio that has wired one up should
+ *   not lose it, and because some want the enquiry in two places.
+ *
+ * Both are tried when both are configured, and the submission counts as
+ * delivered if either lands: two half-configured routes should not add up to a
+ * lost message. Only when neither is set does the route refuse, with 503 — a
+ * form that reports success it cannot deliver is worse than one that admits it
+ * is off, and the client turns that 503 into a one-click mail link rather than
+ * a dead end.
+ *
+ * In development a submission with nothing configured is logged and accepted,
+ * so the flow stays testable without an account anywhere.
  */
 
 export const runtime = "nodejs";
@@ -20,6 +36,17 @@ type Payload = {
   message?: unknown;
   locale?: unknown;
   company?: unknown;
+};
+
+/** A submission after it has been trimmed, capped and validated. */
+type Submission = {
+  name: string;
+  email: string;
+  phone: string;
+  language: string;
+  message: string;
+  locale: string;
+  receivedAt: string;
 };
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
@@ -40,7 +67,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const submission = {
+  const submission: Submission = {
     name: str(body.name, 120),
     email: str(body.email, 200),
     phone: str(body.phone, 60),
@@ -62,15 +89,44 @@ export async function POST(request: Request) {
   }
 
   const webhook = process.env.CONTACT_WEBHOOK_URL;
+  const from = senderFor("contact");
+  const to = process.env.CONTACT_TO_EMAIL || EMAIL;
+  const canEmail = Boolean(process.env.RESEND_API_KEY && from && to);
 
-  if (!webhook) {
+  if (!webhook && !canEmail) {
     if (process.env.NODE_ENV !== "production") {
-      console.info("[contact] no CONTACT_WEBHOOK_URL set — submission:", submission);
+      console.info("[contact] nothing configured — submission:", submission);
       return NextResponse.json({ ok: true, delivered: false });
     }
     return NextResponse.json({ error: "not_configured" }, { status: 503 });
   }
 
+  /* Both, when both are set. Neither failure is allowed to hide the other's
+     success, so they are settled rather than awaited in sequence. */
+  const [byMail, byWebhook] = await Promise.all([
+    canEmail
+      ? sendMail({
+          from,
+          to,
+          subject: notificationSubject(submission),
+          text: notificationBody(submission),
+          /* The point of the whole thing: the studio presses Reply and is
+             writing to the person who filled the form, not to itself. */
+          replyTo: submission.email,
+        })
+      : Promise.resolve({ configured: false, sent: false }),
+    webhook ? postToWebhook(webhook, submission) : Promise.resolve(false),
+  ]);
+
+  if (byMail.sent || byWebhook) {
+    return NextResponse.json({ ok: true, delivered: true });
+  }
+
+  console.error("[contact] every configured route failed to deliver");
+  return NextResponse.json({ error: "delivery_failed" }, { status: 502 });
+}
+
+async function postToWebhook(webhook: string, submission: Submission): Promise<boolean> {
   try {
     const response = await fetch(webhook, {
       method: "POST",
@@ -78,15 +134,42 @@ export async function POST(request: Request) {
       body: JSON.stringify(submission),
       signal: AbortSignal.timeout(10_000),
     });
-
     if (!response.ok) {
       console.error("[contact] webhook rejected the submission:", response.status);
-      return NextResponse.json({ error: "delivery_failed" }, { status: 502 });
+      return false;
     }
-
-    return NextResponse.json({ ok: true, delivered: true });
+    return true;
   } catch (error) {
     console.error("[contact] webhook request failed:", error);
-    return NextResponse.json({ error: "delivery_failed" }, { status: 502 });
+    return false;
   }
+}
+
+/*
+ * What the studio actually reads.
+ *
+ * Labelled in Slovak and Hungarian, because the studio works in both and this
+ * message is read by the studio, not by the visitor. Six short lines; the cost
+ * of the second label is far below the cost of picking the wrong one.
+ *
+ * The subject carries the name and the language asked about, so a full inbox
+ * is still sortable without opening anything.
+ */
+function notificationSubject(s: Submission): string {
+  return `Web / Weboldal: ${s.name} — ${s.language}`;
+}
+
+function notificationBody(s: Submission): string {
+  return [
+    `Meno / Név:               ${s.name}`,
+    `E-mail:                   ${s.email}`,
+    `Telefón / Telefon:        ${s.phone || "—"}`,
+    `Jazyk / Nyelv:            ${s.language}`,
+    `Jazyk stránky / Oldal:    ${s.locale || "—"}`,
+    `Prijaté / Érkezett:       ${s.receivedAt}`,
+    "",
+    "Správa / Üzenet:",
+    "────────────────",
+    s.message,
+  ].join("\n");
 }

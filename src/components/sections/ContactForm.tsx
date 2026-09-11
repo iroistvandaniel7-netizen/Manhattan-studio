@@ -3,7 +3,7 @@
 import { useId, useRef, useState } from "react";
 import type { Dictionary } from "@/i18n";
 import type { Locale } from "@/i18n/config";
-import { PHONES } from "@/lib/site";
+import { EMAIL, PHONES } from "@/lib/site";
 
 type FieldName = "name" | "email" | "phone" | "language" | "message";
 type Errors = Partial<Record<FieldName, string>>;
@@ -27,6 +27,9 @@ export default function ContactForm({
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [failure, setFailure] = useState<string | null>(null);
+  /* A draft of this very message, ready to open in the visitor's own mail
+     program — see `mailtoHref`. Set only when sending failed. */
+  const [draft, setDraft] = useState<string | null>(null);
 
   const t = dict.contact.form;
   const fieldId = (name: FieldName) => `${uid}-${name}`;
@@ -59,6 +62,7 @@ export default function ContactForm({
     const found = validate(data);
     setErrors(found);
     setFailure(null);
+    setDraft(null);
 
     if (Object.keys(found).length > 0) {
       // Move the user to the summary, then on to the first bad field.
@@ -95,9 +99,11 @@ export default function ContactForm({
 
       setStatus("error");
       setFailure(response.status === 503 ? t.errors.unavailable : t.errors.network);
+      setDraft(mailtoHref(data));
     } catch {
       setStatus("error");
       setFailure(t.errors.network);
+      setDraft(mailtoHref(data));
     }
   }
 
@@ -271,7 +277,19 @@ export default function ContactForm({
         {failure ? (
           <div role="alert" className="mt-6 border-l-2 border-accent bg-accent-soft p-4">
             <p className="text-[0.8125rem] leading-relaxed text-slate-600">{failure}</p>
-            <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1">
+
+            {/* The written message, carried over rather than lost. */}
+            {draft ? (
+              <a
+                href={draft}
+                className="mt-3.5 inline-flex items-center gap-2 bg-accent px-5 py-3 text-[0.8125rem] font-semibold uppercase tracking-[0.12em] text-white transition-colors duration-200 hover:bg-accent-deep"
+              >
+                {t.mailInstead}
+                <span aria-hidden="true">→</span>
+              </a>
+            ) : null}
+
+            <p className="mt-3.5 flex flex-wrap gap-x-4 gap-y-1">
               {PHONES.map((phone) => (
                 <a
                   key={phone.href}
@@ -290,6 +308,36 @@ export default function ContactForm({
 }
 
 /* ---------------------------------------------------------------- */
+
+/**
+ * The same message, as a draft in the visitor's own mail program.
+ *
+ * What a failed send should leave behind. Somebody who has just written six
+ * sentences and been told "call us instead" has to either retype the lot into
+ * an email or give up, and enough of them give up. This hands them a draft
+ * already addressed and already filled in; they press send.
+ *
+ * It also works when nothing on the server does — a `mailto:` is handled
+ * entirely by the visitor's machine, so it is the one route that cannot be
+ * broken by a missing key or a provider outage.
+ */
+function mailtoHref(data: FormData): string {
+  const value = (key: string) => String(data.get(key) ?? "").trim();
+
+  const subject = `${value("language")} — ${value("name")}`;
+  const body = [
+    value("message"),
+    "",
+    "—",
+    value("name"),
+    value("phone"),
+  ]
+    .filter((line) => line !== undefined)
+    .join("\n")
+    .trimEnd();
+
+  return `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
 function FieldError({ id, message }: { id: string; message?: string }) {
   if (!message) return null;

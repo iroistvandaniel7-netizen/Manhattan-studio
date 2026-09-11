@@ -271,6 +271,7 @@ const hu = {
       successTitle: "Köszönjük!",
       success: "Megkaptuk az üzeneted.",
       again: "Új üzenet",
+      mailInstead: "Küldés e-mailben",
       errors: {
         name: "Kérjük, add meg a neved.",
         email: "Kérjük, add meg az e-mail-címed.",
@@ -279,8 +280,8 @@ const hu = {
         language: "Kérjük, válassz nyelvet.",
         message: "Kérjük, írj néhány szót.",
         summary: "Az űrlap hiányos. Ellenőrizd a megjelölt mezőket.",
-        network: "Az üzenetet most nem sikerült elküldeni. Kérjük, hívj minket telefonon.",
-        unavailable: "Az online üzenetküldés jelenleg nem érhető el. Hívj minket telefonon.",
+        network: "Az üzenetet most nem sikerült elküldeni. Küldd el e-mailben, vagy hívj minket.",
+        unavailable: "Az online üzenetküldés jelenleg nem érhető el. Küldd el e-mailben, vagy hívj minket.",
       },
     },
   },
