@@ -9,7 +9,7 @@ import CookieBanner from "@/components/layout/CookieBanner";
 import CookieButton from "@/components/layout/CookieButton";
 import ScriptFlag from "@/components/layout/ScriptFlag";
 import { getDictionary } from "@/i18n";
-import { htmlLang, isLocale, locales, type Locale } from "@/i18n/config";
+import { defaultLocale, htmlLang, isLocale, locales, type Locale } from "@/i18n/config";
 import { ADDRESS, BRAND, EMAIL, HOURS, PHONES, SITE_URL } from "@/lib/site";
 
 /*
@@ -67,7 +67,9 @@ export async function generateMetadata({
       canonical: url,
       languages: {
         ...Object.fromEntries(locales.map((l) => [htmlLang[l], `${SITE_URL}/${l}`])),
-        "x-default": `${SITE_URL}/hu`,
+        /* The page for a visitor whose language we do not serve — the same
+           one the bare domain redirects them to. */
+        "x-default": `${SITE_URL}/${defaultLocale}`,
       },
     },
     openGraph: {

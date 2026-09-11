@@ -1,10 +1,21 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { locales, defaultLocale, isLocale } from "@/i18n/config";
+import { locales, defaultLocale, type Locale } from "@/i18n/config";
 
 /**
- * Sends every un-prefixed request to a locale-prefixed URL. The visitor's
- * `Accept-Language` header decides which one, falling back to Hungarian.
+ * Sends every un-prefixed request to a locale-prefixed URL.
+ *
+ * `Accept-Language` decides, but only between Slovak and Hungarian — English
+ * is never chosen from the header, and everything else falls through to
+ * Slovak. That looks arbitrary and is not: around Dunajská Streda a great many
+ * people who read Slovak or Hungarian keep their phone set to English, so
+ * honouring the header for English served the site in a language the visitor
+ * had not asked the site for. The studio found its own site opening in English
+ * for exactly this reason.
+ *
+ * English is still one click away in the switcher, and still has its own URL
+ * that anyone can link to or share.
  */
+const NEGOTIABLE = ["sk", "hu"] as const;
 function preferredLocale(request: NextRequest) {
   const header = request.headers.get("accept-language");
   if (!header) return defaultLocale;
@@ -19,7 +30,7 @@ function preferredLocale(request: NextRequest) {
 
   for (const { tag } of ranked) {
     const base = tag.split("-")[0];
-    if (isLocale(base)) return base;
+    if ((NEGOTIABLE as readonly string[]).includes(base)) return base as Locale;
   }
   return defaultLocale;
 }

@@ -2,7 +2,14 @@ export const locales = ["hu", "sk", "en"] as const;
 
 export type Locale = (typeof locales)[number];
 
-export const defaultLocale: Locale = "hu";
+/**
+ * Where a visitor lands when nothing better is known.
+ *
+ * Slovak, because the studio is a Slovak company and this is the language of
+ * the country it sells in. It used to be Hungarian; the studio asked for
+ * Slovak after finding the site opening in English on its own phone.
+ */
+export const defaultLocale: Locale = "sk";
 
 /** BCP-47 tags used for <html lang> and hreflang. */
 export const htmlLang: Record<Locale, string> = {
