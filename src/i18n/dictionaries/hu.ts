@@ -61,7 +61,10 @@ const hu = {
       /* Az „English Club" a stúdió saját, folyamatos programja — nem a
          kurzusokhoz járó tréning, az az „Amit kapsz" szakaszban maradt. */
       { value: "20+", label: "English Club", note: "Kéthetente, egész tanévben" },
-      { value: "5", label: "Nap nyitva", note: "Hétköznap 9:00–20:00" },
+      /* A nyitvatartás helyén. Az óraszám nem tűnt el a webről — a kapcsolati
+         oldalon és a keresőnek szóló adatokban ott van, csak nem ez a
+         negyedik érv amivel a stúdió magát ajánlja. */
+      { value: "4–99", label: "Éves korig", note: "Mindenkinek" },
     ],
   },
 

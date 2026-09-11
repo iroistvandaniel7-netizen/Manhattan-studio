@@ -40,7 +40,7 @@ const en: Dictionary = {
       { value: "7", label: "Languages", note: "Beginner to advanced" },
       { value: "€165", label: "10 private lessons", note: "In any language" },
       { value: "20+", label: "English Club", note: "Every other week, all school year" },
-      { value: "5", label: "Days open", note: "Weekdays 9:00–20:00" },
+      { value: "4–99", label: "Years old", note: "Everyone's welcome" },
     ],
   },
 

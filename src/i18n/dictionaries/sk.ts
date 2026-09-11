@@ -40,7 +40,7 @@ const sk: Dictionary = {
       { value: "7", label: "Jazykov", note: "Od začiatočníkov po pokročilých" },
       { value: "165 €", label: "10 individuálnych hodín", note: "Pre ktorýkoľvek jazyk" },
       { value: "20+", label: "English Club", note: "Každý druhý týždeň, celý školský rok" },
-      { value: "5", label: "Dní otvorené", note: "Cez týždeň 9:00 – 20:00" },
+      { value: "4–99", label: "Rokov", note: "Pre každý vek" },
     ],
   },
 

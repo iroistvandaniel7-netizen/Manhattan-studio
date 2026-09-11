@@ -48,7 +48,16 @@ export const RETENTION_YEARS = 1;
 /** `href` is E.164 for tel: links, `label` is the display form. */
 export const PHONES = [{ href: "+421948172288", label: "0948 172 288" }] as const;
 
-export const EMAIL = "info@manhattanstudio.sk";
+/**
+ * Where enquiries go, as nominated by the studio.
+ *
+ * Only ever a destination — the address printed on the site, the `mailto:`
+ * targets, and where the contact form delivers. Never a sender: mail leaves
+ * through a verified address on the studio's own domain (`CONTACT_FROM_EMAIL`),
+ * which is a separate thing and has to stay separate. No mail provider will
+ * let this site send *as* a gmail.com address.
+ */
+export const EMAIL = "manhattanstudio.ds@gmail.com";
 
 /**
  * Where a complaint about the service goes, as nominated by the studio.
