@@ -1,26 +1,25 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ *
- * Design tokens — blue on white.
+ * Čistý Domov — design tokens.
  *
- * One accent, the brand blue, spent deliberately: buttons, the chosen
- * service, the score. Named for its job rather than its hue, so changing the
- * brand colour is these lines and not a rename across the site.
- *
- * White on #1b63d6 clears 5.2:1, which lets it carry both the buttons and
- * the links.
+ * The two blues are the logo's own (#1B63D6 and the navy #0B2D5B); every
+ * other colour is derived from them, so greys lean blue rather than sitting
+ * at a neutral mid-grey. Named for their job, not their hue.
  * ------------------------------------------------------------------ */
 @theme {
   --color-white: #ffffff;
   --color-ink: #0b2d5b;
+  --color-ink-deep: #071f42;
 
-  /* The Čistý Domov palette, from the logo set and posters. */
   --color-accent: #1b63d6;
   --color-accent-deep: #144aa3;
   /* The accent lifted for use on navy — #1b63d6 on #0b2d5b is too dark to read. */
   --color-accent-lift: #7fb0f5;
   --color-accent-soft: #eaf2fd;
   --color-sky: #bfd7fa;
+  /* The page's second ground: paper with a breath of the brand blue in it. */
+  --color-paper: #f5f8fd;
 
   --color-slate-300: #c9d6e8;
   --color-slate-400: #8a9cb6;
@@ -28,66 +27,47 @@
   --color-slate-600: #3a5478;
   --color-line: #dce7f6;
 
-  --font-display: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  /*
+   * Funnel Display for headlines, Funnel Sans for everything else — one
+   * family cut for two jobs, with the display cut's tight apertures carrying
+   * the character. Both carry latin-ext, so ő, ű, č and ý are native.
+   */
+  --font-display: var(--font-funnel-display), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-funnel-sans), ui-sans-serif, system-ui, sans-serif;
 
-  --spacing-section: clamp(5rem, 10vw, 9rem);
+  --spacing-section: clamp(5rem, 9vw, 8.5rem);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --animate-stripes: stripes 14s linear infinite;
-  --animate-rise: rise 9s ease-in infinite;
+  --animate-marquee: marquee 38s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
-  --animate-shine: shine 6s ease-in-out infinite;
   --animate-twinkle: twinkle 3.6s ease-in-out infinite;
-  --animate-wipe: wipe 5.5s ease-in-out infinite;
+  --animate-drift: drift 60s linear infinite;
 }
 
-/* Bubbles rising out of the cleaning scene: up, a little sideways, gone. */
-@keyframes rise {
-  0% {
-    transform: translate3d(0, 0, 0) scale(0.6);
-    opacity: 0;
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
   }
-  12% {
-    opacity: 0.9;
-  }
-  100% {
-    transform: translate3d(var(--drift, 12px), -260px, 0) scale(1.05);
-    opacity: 0;
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
-/* Large soft bubbles behind the hero, drifting on a closed loop. */
 @keyframes float {
   0%,
   100% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) rotate(0deg);
   }
-  33% {
-    transform: translate3d(14px, -18px, 0);
-  }
-  66% {
-    transform: translate3d(-10px, -8px, 0);
-  }
-}
-
-/* A glint crossing the headline — the one moment the page "polishes" itself. */
-@keyframes shine {
-  0%,
-  55% {
-    background-position: 160% 0;
-  }
-  85%,
-  100% {
-    background-position: -60% 0;
+  50% {
+    transform: translate3d(0, -12px, 0) rotate(-2deg);
   }
 }
 
 @keyframes twinkle {
   0%,
   100% {
-    transform: scale(0.4) rotate(0deg);
+    transform: scale(0.5) rotate(0deg);
     opacity: 0;
   }
   45% {
@@ -96,32 +76,24 @@
   }
 }
 
-/* The squeegee in the scene, crossing its pane and back. */
-@keyframes wipe {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(92px);
-  }
-}
-
-@keyframes stripes {
+/* The cleaning-things pattern creeping diagonally, slower than anyone notices. */
+@keyframes drift {
   from {
     background-position: 0 0;
   }
   to {
-    background-position: 56px 0;
+    background-position: 360px 360px;
   }
 }
 
 @keyframes cookie-in {
   from {
-    transform: translateY(100%);
+    transform: translateY(24px);
+    opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: none;
+    opacity: 1;
   }
 }
 
@@ -146,7 +118,7 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5.5rem;
+    scroll-padding-top: 6.5rem;
     -webkit-text-size-adjust: 100%;
   }
 
@@ -154,6 +126,7 @@
     background-color: var(--color-white);
     color: var(--color-ink);
     font-family: var(--font-sans);
+    font-size: 1.0625rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: clip;
@@ -163,8 +136,8 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 700;
-    letter-spacing: -0.035em;
+    font-weight: 600;
+    letter-spacing: -0.03em;
     text-wrap: balance;
   }
 
@@ -179,7 +152,8 @@
 
   :focus-visible {
     outline: 3px solid var(--color-accent);
-    outline-offset: 2px;
+    outline-offset: 3px;
+    border-radius: 6px;
   }
 
   .on-dark :focus-visible {
@@ -193,57 +167,32 @@
 @utility container-x {
   width: 100%;
   margin-inline: auto;
-  max-width: 84rem;
+  max-width: 82rem;
   padding-inline: clamp(1.25rem, 5vw, 4rem);
 }
 
-/* The label voice: small, wide, uppercase. */
+/* The label voice: small, wide, uppercase — the posters' eyebrow. */
 @utility label {
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 
-@utility stripe-field {
-  background-image: repeating-linear-gradient(
-    -45deg,
-    rgba(255, 255, 255, 0.12) 0 2px,
-    transparent 2px 28px
-  );
-  background-size: 56px 56px;
+/*
+ * The signature ground: a tile of cleaning things — spray bottle, bucket,
+ * sponge, mop, glove, bubbles, the brand's four-point glint — drawn in the
+ * brand blue at a few per cent, so a white section reads as clean rather than
+ * empty. The tile is a data URI: one request, nothing to load.
+ */
+@utility bg-cleaning {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360' fill='none' stroke='%231B63D6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg opacity='.055'%3E%3Cpath d='M40 70h26v52a6 6 0 0 1-6 6H46a6 6 0 0 1-6-6Z'/%3E%3Cpath d='M46 70V58h14v12M44 52h22l6 6h-8M53 52v6'/%3E%3Cpath d='M45 92h16v18H45Z'/%3E%3Cpath d='M190 52h56l-6 50h-44Z'/%3E%3Cpath d='M196 52c0-22 44-22 44 0'/%3E%3Cpath d='M192 66h52'/%3E%3Crect x='96' y='210' width='54' height='32' rx='8'/%3E%3Cpath d='M96 222h54'/%3E%3Cpath d='M300 150l-22 100M262 250h36l-3 12h-30Z'/%3E%3Cpath d='M250 300c0-14 8-22 8-36h20c0 14 8 22 8 36a8 8 0 0 1-8 8h-20a8 8 0 0 1-8-8Z'/%3E%3Cpath d='M258 264v-18a5 5 0 0 1 10 0v12M268 258v-14a5 5 0 0 1 10 0v20'/%3E%3Ccircle cx='150' cy='120' r='10'/%3E%3Ccircle cx='168' cy='140' r='6'/%3E%3Ccircle cx='136' cy='142' r='4'/%3E%3Ccircle cx='40' cy='290' r='12'/%3E%3Ccircle cx='60' cy='312' r='6'/%3E%3Ccircle cx='330' cy='40' r='8'/%3E%3Cpath d='M210 300l3 10 10 3-10 3-3 10-3-10-10-3 10-3Z'/%3E%3Cpath d='M320 210l2.5 8 8 2.5-8 2.5-2.5 8-2.5-8-8-2.5 8-2.5Z'/%3E%3Cpath d='M110 30l2 6 6 2-6 2-2 6-2-6-6-2 6-2Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 360px 360px;
 }
 
-@utility text-shadow-lift {
-  text-shadow: 0 1px 14px rgba(11, 45, 91, 0.3);
-}
-
-/* Inter Display, via the optical-size axis — the posters' headline face. */
-.hero-display {
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 32;
-}
-
-/* The headline glint: the text is its own colour, with a white band swept across. */
-.shine-text {
-  background-image: linear-gradient(
-    100deg,
-    currentColor 0%,
-    currentColor 40%,
-    #ffffff 50%,
-    currentColor 60%,
-    currentColor 100%
-  );
-  background-size: 250% 100%;
-  background-position: 160% 0;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-[data-js] .shine-text {
-  animation: var(--animate-shine);
+[data-js] .bg-cleaning-drift {
+  animation: var(--animate-drift);
 }
 
 .link-underline {
@@ -266,10 +215,10 @@
 
 [data-js] .reveal {
   opacity: 0;
-  transform: translate3d(0, 20px, 0);
+  transform: translate3d(0, 24px, 0);
   transition:
-    opacity 0.7s var(--ease-out-expo),
-    transform 0.7s var(--ease-out-expo);
+    opacity 0.8s var(--ease-out-expo),
+    transform 0.8s var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
 }
 
@@ -295,7 +244,11 @@ html:not([data-js]) .game-board {
   display: none;
 }
 
-/* <details> marker, replaced by our own plus sign. */
+/* Without scripting the before/after slider cannot move, so show both halves. */
+html:not([data-js]) .ba-handle {
+  display: none;
+}
+
 .faq summary::-webkit-details-marker {
   display: none;
 }
@@ -321,19 +274,4 @@ html:not([data-js]) .game-board {
     opacity: 1 !important;
     transform: none !important;
   }
-
-  /* Rising bubbles spend most of their cycle invisible; with motion off, show them still. */
-  .scene-bubble {
-    opacity: 0.7 !important;
-    transform: none !important;
-  }
-
-  .shine-text {
-    background-position: 0 0 !important;
-  }
-}
-
-/* Services: without scripting no tab can be chosen, so every panel shows. */
-[data-js] .svc-off {
-  display: none;
 }

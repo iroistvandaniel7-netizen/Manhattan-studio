@@ -16,7 +16,7 @@ export default function Faq() {
   };
 
   return (
-    <section id="gyik" className="relative isolate overflow-hidden bg-accent-soft py-section" aria-labelledby="faq-title">
+    <section id="gyik" className="relative isolate overflow-hidden bg-white py-section" aria-labelledby="faq-title">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-14">
         <div className="lg:col-span-4">
@@ -24,7 +24,7 @@ export default function Faq() {
             <Eyebrow>{FAQ.eyebrow}</Eyebrow>
           </Reveal>
           <Reveal delay={70}>
-            <h2 id="faq-title" className="mt-5 text-[clamp(2.25rem,6vw,4rem)] leading-[0.95]">
+            <h2 id="faq-title" className="mt-5 text-[clamp(2.5rem,6vw,4.75rem)] leading-[0.95]">
               {FAQ.title}
             </h2>
           </Reveal>
@@ -33,8 +33,8 @@ export default function Faq() {
         <Reveal delay={100} className="lg:col-span-8">
           <div className="flex flex-col gap-3">
             {FAQ.items.map((item) => (
-              <details key={item.q} className="faq group rounded-2xl bg-white px-6 py-5 shadow-[0_1px_0_rgba(11,45,91,0.06)] open:shadow-[0_10px_30px_rgba(11,45,91,0.08)] sm:px-8">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-base font-extrabold tracking-[-0.015em] sm:text-lg">
+              <details key={item.q} className="faq group rounded-[1.5rem] bg-paper px-6 py-5 ring-1 ring-line transition-shadow open:bg-white open:shadow-[0_16px_40px_rgba(11,45,91,0.1)] sm:px-8">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-base font-semibold tracking-[-0.015em] sm:text-lg">
                   {item.q}
                   <span
                     aria-hidden="true"

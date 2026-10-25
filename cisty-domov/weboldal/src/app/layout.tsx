@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Funnel_Display, Funnel_Sans } from "next/font/google";
 import "./globals.css";
 
 import Header from "@/components/layout/Header";
@@ -11,17 +11,24 @@ import { META } from "@/lib/content";
 import { AREA, BRAND, COMPANY, EMAIL, HOURS, PHONE, SITE_URL } from "@/lib/site";
 
 /*
- * Inter, the posters' face, self-hosted by next/font: the files are served
- * from this site, so no visitor's request ever reaches Google — which is what
- * lets the cookie notice say so. latin-ext carries ő, ű, č and ý.
+ * Funnel Display for headlines, Funnel Sans for text: one family drawn for
+ * both jobs, so the page has a voice of its own without two faces arguing.
+ * Self-hosted by next/font — the files come from this site, so no visitor's
+ * request reaches Google, which is what lets the cookie notice say so.
+ * latin-ext carries ő, ű, č and ý.
  */
-const inter = Inter({
+const display = Funnel_Display({
   subsets: ["latin", "latin-ext"],
-  /* The optical-size axis is what turns Inter into Inter Display at large
-     sizes — the posters set their headlines in Inter Display. */
-  axes: ["opsz"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-funnel-display",
+});
+
+const sans = Funnel_Sans({
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-funnel-sans",
 });
 
 export const metadata: Metadata = {
@@ -65,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="hu" className={inter.variable} suppressHydrationWarning>
+    <html lang="hu" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
       <head>
         {/* Arms the scroll reveals before first paint; <ScriptFlag /> is the backstop. */}
         <script dangerouslySetInnerHTML={{ __html: `document.documentElement.setAttribute('data-js','')` }} />

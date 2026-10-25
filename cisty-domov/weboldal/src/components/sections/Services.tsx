@@ -1,159 +1,116 @@
 "use client";
 
-import { useId, useRef, useState } from "react";
 import { SERVICES } from "@/lib/content";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
-import { Check, ServiceIcon } from "@/components/graphics/Icons";
+import ServiceArt from "@/components/graphics/ServiceArt";
+import { Check } from "@/components/graphics/Icons";
 
 /** Fired when a visitor asks for a quote on one service; the form preselects it. */
 export const SERVICE_EVENT = "kt:service";
 
-/**
- * The services as a list beside one large panel, rather than a grid of six
- * equal cards: the list is the menu, the panel is the answer, and choosing
- * moves the answer instead of making the reader scan six boxes.
- *
- * A proper tablist — arrow keys move between services. Without scripting
- * nothing can be chosen, so every panel is shown stacked (see `.svc-off`).
+/*
+ * A bento of five: the everyday service gets the big tile, deep cleaning sits
+ * beside it, the three occasional ones share the row below. Sizes follow how
+ * often people book them, not a grid that happens to fit.
  */
+const SPANS = ["lg:col-span-4 lg:row-span-2", "lg:col-span-2 lg:row-span-2", "lg:col-span-2", "lg:col-span-2", "lg:col-span-2"];
+
 export default function Services() {
-  const uid = useId();
-  const [active, setActive] = useState(0);
-  const tabs = useRef<(HTMLButtonElement | null)[]>([]);
-  const items = SERVICES.items;
-
-  const onKeyDown = (event: React.KeyboardEvent) => {
-    const keys: Record<string, number> = {
-      ArrowDown: 1,
-      ArrowRight: 1,
-      ArrowUp: -1,
-      ArrowLeft: -1,
-    };
-    let next: number | null = null;
-    if (event.key in keys) next = (active + keys[event.key] + items.length) % items.length;
-    if (event.key === "Home") next = 0;
-    if (event.key === "End") next = items.length - 1;
-    if (next === null) return;
-    event.preventDefault();
-    setActive(next);
-    tabs.current[next]?.focus();
-  };
-
   const requestQuote = (id: string) => {
     window.dispatchEvent(new CustomEvent(SERVICE_EVENT, { detail: id }));
   };
 
   return (
-    <section id="szolgaltatasok" className="relative isolate overflow-hidden py-section" aria-labelledby="services-title">
+    <section id="szolgaltatasok" className="relative isolate overflow-hidden bg-white py-section" aria-labelledby="services-title">
+      <div aria-hidden="true" className="bg-cleaning bg-cleaning-drift pointer-events-none absolute inset-0 -z-10" />
+
       <div className="container-x">
-        <div className="max-w-2xl">
-          <Reveal>
-            <Eyebrow>{SERVICES.eyebrow}</Eyebrow>
-          </Reveal>
-          <Reveal delay={70}>
-            <h2 id="services-title" className="mt-5 text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95]">
-              {SERVICES.title}
-            </h2>
-          </Reveal>
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <Reveal>
+              <Eyebrow>{SERVICES.eyebrow}</Eyebrow>
+            </Reveal>
+            <Reveal delay={70}>
+              <h2 id="services-title" className="mt-5 text-[clamp(2.5rem,6.5vw,5.5rem)] leading-[0.95]">
+                {SERVICES.title}
+              </h2>
+            </Reveal>
+          </div>
           <Reveal delay={130}>
-            <p className="mt-5 text-base leading-relaxed text-slate-600 sm:text-lg">{SERVICES.lead}</p>
+            <p className="max-w-sm text-lg leading-relaxed text-slate-600">{SERVICES.lead}</p>
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-8 lg:mt-20 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
-          <Reveal>
-            <div role="tablist" aria-orientation="vertical" aria-label={SERVICES.title} onKeyDown={onKeyDown} className="flex flex-col">
-              {items.map((item, i) => {
-                const selected = i === active;
-                return (
-                  <button
-                    key={item.id}
-                    ref={(node) => {
-                      tabs.current[i] = node;
-                    }}
-                    id={`${uid}-tab-${item.id}`}
-                    type="button"
-                    role="tab"
-                    aria-selected={selected}
-                    aria-controls={`${uid}-panel-${item.id}`}
-                    tabIndex={selected ? 0 : -1}
-                    onClick={() => setActive(i)}
-                    className={`group flex items-center gap-5 border-t py-5 text-left transition-colors duration-200 last:border-b ${
-                      selected ? "border-accent text-accent" : "border-line text-ink hover:text-accent"
-                    }`}
-                  >
-                    <span
-                      className={`grid size-12 shrink-0 place-items-center rounded-full transition-colors duration-200 ${
-                        selected ? "bg-accent text-white" : "bg-accent-soft text-accent group-hover:bg-sky"
-                      }`}
-                    >
-                      <ServiceIcon name={item.icon} className="size-6" />
-                    </span>
-                    <span className="flex-1">
-                      <span className="block font-display text-lg font-extrabold tracking-[-0.02em] sm:text-xl">
-                        {item.name}
-                      </span>
-                      <span className="label mt-1 block text-slate-500">{item.short}</span>
-                    </span>
-                    <span
-                      aria-hidden="true"
-                      className={`text-xl transition-transform duration-300 ${selected ? "translate-x-0 opacity-100" : "-translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-60"}`}
-                    >
-                      →
-                    </span>
-                  </button>
-                );
-              })}
-            </div>
-          </Reveal>
-
-          <Reveal delay={100} className="lg:sticky lg:top-28 lg:self-start">
-            <div className="flex flex-col gap-6">
-              {items.map((item, i) => (
-                <div
-                  key={item.id}
-                  id={`${uid}-panel-${item.id}`}
-                  role="tabpanel"
-                  aria-labelledby={`${uid}-tab-${item.id}`}
-                  className={`relative overflow-hidden rounded-[1.75rem] bg-accent-soft p-7 sm:p-10 ${
-                    i === active ? "pop-in" : "svc-off"
+        <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-20 lg:grid-cols-6 lg:auto-rows-[minmax(15rem,auto)]">
+          {SERVICES.items.map((item, i) => {
+            const big = i === 0;
+            return (
+              <Reveal as="li" key={item.id} delay={i * 70} className={`${SPANS[i]} ${big ? "sm:col-span-2" : ""}`}>
+                <article
+                  className={`group relative flex h-full flex-col overflow-hidden rounded-[2rem] p-7 transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(11,45,91,0.14)] sm:p-9 ${
+                    big ? "bg-accent text-white" : "bg-paper ring-1 ring-line"
                   }`}
                 >
-                  <ServiceIcon
-                    name={item.icon}
-                    className="pointer-events-none absolute -right-8 -bottom-8 size-56 text-accent opacity-[0.07]"
-                  />
-                  <span className="grid size-16 place-items-center rounded-2xl bg-accent text-white">
-                    <ServiceIcon name={item.icon} className="size-8" />
-                  </span>
-                  <h3 className="mt-7 text-[clamp(1.75rem,3.4vw,2.5rem)] leading-[1.02]">{item.name}</h3>
-                  <p className="mt-4 max-w-lg text-base leading-relaxed text-slate-600">{item.desc}</p>
+                  {big ? (
+                    <svg viewBox="0 0 100 100" aria-hidden="true" className="pointer-events-none absolute -right-16 -bottom-24 w-[26rem] text-white/[0.07]">
+                      <path d="M50 10 L90 43 L90 90 L10 90 L10 43 Z" fill="currentColor" stroke="currentColor" strokeWidth="10" strokeLinejoin="round" />
+                    </svg>
+                  ) : null}
 
-                  <ul className="mt-7 grid gap-3 sm:grid-cols-2">
-                    {item.includes.map((entry) => (
-                      <li key={entry} className="flex items-start gap-3 text-sm font-medium">
-                        <Check className="mt-px size-5 shrink-0 text-accent" />
-                        {entry}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <a
-                    href="#kapcsolat"
-                    onClick={() => requestQuote(item.id)}
-                    className="group/btn label mt-9 inline-flex items-center gap-3 rounded-full bg-accent px-7 py-4 text-white transition-colors duration-200 hover:bg-accent-deep"
-                  >
-                    {SERVICES.cta}
-                    <span aria-hidden="true" className="transition-transform duration-200 group-hover/btn:translate-x-1">
-                      →
+                  <div className="relative flex items-start justify-between gap-6">
+                    <span className={`font-display text-sm font-medium tabular-nums ${big ? "text-white/60" : "text-slate-500"}`}>
+                      0{i + 1}
                     </span>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
+                    <span
+                      className={`grid shrink-0 place-items-center rounded-[1.5rem] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-rotate-3 group-hover:scale-105 ${
+                        big ? "size-36 bg-white sm:size-44" : "size-24 bg-white ring-1 ring-line"
+                      }`}
+                    >
+                      <ServiceArt name={item.icon} className={big ? "size-28 sm:size-36" : "size-18"} />
+                    </span>
+                  </div>
+
+                  <div className="relative mt-auto pt-8">
+                    <h3 className={`${big ? "text-[clamp(2rem,3.6vw,3.25rem)]" : "text-2xl"} leading-[1.02]`}>{item.name}</h3>
+                    <p className={`mt-2 text-[0.9375rem] ${big ? "text-white/80" : "text-slate-500"}`}>{item.short}</p>
+
+                    {big ? (
+                      <>
+                        <p className="mt-5 max-w-lg text-base leading-relaxed text-white/85">{item.desc}</p>
+                        <ul className="mt-6 grid gap-2.5 sm:grid-cols-2">
+                          {item.includes.map((entry) => (
+                            <li key={entry} className="flex items-center gap-2.5 text-[0.9375rem] font-medium">
+                              <Check className="size-5 shrink-0 text-white" />
+                              {entry}
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    ) : (
+                      <ul className="mt-5 flex flex-wrap gap-2">
+                        {item.includes.slice(0, 3).map((entry) => (
+                          <li key={entry} className="rounded-full bg-white px-3 py-1.5 text-[0.8125rem] font-medium text-slate-600 ring-1 ring-line">
+                            {entry}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    <a
+                      href="#kapcsolat"
+                      onClick={() => requestQuote(item.id)}
+                      className={`mt-7 inline-flex items-center gap-2 text-[0.9375rem] font-semibold ${big ? "text-white" : "text-accent"}`}
+                    >
+                      <span className="link-underline">{SERVICES.cta}</span>
+                      <span aria-hidden="true" className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </a>
+                  </div>
+                </article>
+              </Reveal>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

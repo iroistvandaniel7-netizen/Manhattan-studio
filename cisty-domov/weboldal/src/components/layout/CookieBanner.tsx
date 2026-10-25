@@ -51,12 +51,14 @@ export default function CookieBanner() {
       aria-modal="false"
       aria-labelledby={`${uid}-title`}
       data-cookie-banner
-      className="fixed inset-x-0 bottom-0 z-[80] border-t border-line bg-white shadow-[0_-10px_40px_rgba(11,45,91,0.12)] motion-safe:animate-[cookie-in_320ms_cubic-bezier(0.16,1,0.3,1)]"
+      className={`fixed bottom-3 left-3 right-3 z-[80] mx-auto rounded-[1.75rem] bg-white shadow-[0_24px_80px_rgba(11,45,91,0.25)] ring-1 ring-line motion-safe:animate-[cookie-in_420ms_cubic-bezier(0.16,1,0.3,1)] sm:bottom-5 sm:left-5 sm:right-auto ${
+        detail ? "sm:w-[34rem]" : "sm:w-[27rem]"
+      }`}
     >
-      <div className="container-x max-h-[85dvh] overflow-y-auto py-5 lg:py-6">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-10">
-          <div className="lg:flex-1">
-            <h2 id={`${uid}-title`} className="font-display text-base font-extrabold tracking-[-0.02em]">
+      <div className="max-h-[85dvh] overflow-y-auto p-6 sm:p-7">
+        <div className="flex flex-col gap-5">
+          <div>
+            <h2 id={`${uid}-title`} className="font-display text-base font-semibold tracking-[-0.02em]">
               {COOKIES.title}
             </h2>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
@@ -68,11 +70,11 @@ export default function CookieBanner() {
           </div>
 
           {detail ? null : (
-            <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="flex flex-col gap-2.5">
               <button
                 type="button"
                 onClick={openSettings}
-                className="label rounded-full px-5 py-3.5 text-slate-600 underline-offset-4 hover:text-ink hover:underline"
+                className="order-3 rounded-full px-5 py-2.5 text-sm font-semibold text-slate-600 underline-offset-4 hover:text-ink hover:underline"
               >
                 {COOKIES.settings}
               </button>
@@ -80,7 +82,7 @@ export default function CookieBanner() {
                 type="button"
                 data-consent="necessary"
                 onClick={() => finish({ statistics: false, marketing: false })}
-                className="label rounded-full border-2 border-ink px-6 py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
+                className="rounded-full border-2 border-ink px-6 py-3.5 text-sm font-semibold transition-colors duration-200 hover:bg-ink hover:text-white"
               >
                 {COOKIES.necessaryOnly}
               </button>
@@ -88,7 +90,7 @@ export default function CookieBanner() {
                 type="button"
                 data-consent="all"
                 onClick={() => finish({ statistics: true, marketing: true })}
-                className="label rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-white transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
+                className="rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
               >
                 {COOKIES.acceptAll}
               </button>
@@ -140,25 +142,25 @@ export default function CookieBanner() {
               })}
             </ul>
 
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-end">
+            <div className="mt-4 flex flex-col gap-2.5">
               <button
                 type="button"
                 onClick={() => finish({ statistics: false, marketing: false })}
-                className="label rounded-full border-2 border-ink px-6 py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
+                className="rounded-full border-2 border-ink px-6 py-3.5 text-sm font-semibold transition-colors duration-200 hover:bg-ink hover:text-white"
               >
                 {COOKIES.necessaryOnly}
               </button>
               <button
                 type="button"
                 onClick={() => finish(choice)}
-                className="label rounded-full border-2 border-ink px-6 py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
+                className="rounded-full border-2 border-ink px-6 py-3.5 text-sm font-semibold transition-colors duration-200 hover:bg-ink hover:text-white"
               >
                 {COOKIES.save}
               </button>
               <button
                 type="button"
                 onClick={() => finish({ statistics: true, marketing: true })}
-                className="label rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-white transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
+                className="rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
               >
                 {COOKIES.acceptAll}
               </button>

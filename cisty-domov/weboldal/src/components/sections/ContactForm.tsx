@@ -146,7 +146,7 @@ export default function ContactForm() {
       noValidate
       className="relative flex h-full flex-col rounded-[1.75rem] border border-line bg-white p-6 shadow-[0_20px_60px_rgba(11,45,91,0.08)] sm:p-10"
     >
-      <h3 className="font-display text-xl font-extrabold tracking-[-0.02em]">{t.title}</h3>
+      <h3 className="font-display text-xl font-semibold tracking-[-0.02em]">{t.title}</h3>
 
       <div
         ref={summaryRef}

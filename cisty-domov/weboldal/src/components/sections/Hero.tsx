@@ -18,7 +18,7 @@ import Reveal from "@/components/ui/Reveal";
 export default function Hero() {
   return (
     <section
-      className="relative isolate overflow-hidden bg-white pt-32 pb-0 text-ink sm:pt-40 lg:flex lg:min-h-[100svh] lg:flex-col lg:pb-14"
+      className="relative isolate overflow-hidden bg-white pt-36 pb-0 text-ink sm:pt-44 lg:flex lg:min-h-[100svh] lg:flex-col lg:pb-14"
       aria-labelledby="hero-title"
     >
       {/* The house mark, huge and pale, spilling off the right and bottom. */}
@@ -50,7 +50,7 @@ export default function Hero() {
           <Reveal delay={60}>
             <h1
               id="hero-title"
-              className="hero-display mt-[clamp(1rem,2.2vw,2.25rem)] text-[clamp(3rem,8.4vw,8.25rem)] leading-[0.95] tracking-[-0.035em]"
+              className="mt-[clamp(1rem,2.2vw,2.25rem)] text-[clamp(3rem,8.4vw,8.25rem)] leading-[0.95] tracking-[-0.035em]"
             >
               <span className="block font-semibold text-ink">{HERO.title}</span>
               <span className="block font-normal text-accent">{HERO.titleSoft}</span>

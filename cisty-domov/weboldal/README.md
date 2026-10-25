@@ -31,9 +31,26 @@ Vercelen: új projekt, **Root Directory = `cisty-domov/weboldal`**.
 
 ## Oldal
 
-Hero → számok → szolgáltatások (fül + panel, a plakát 5 szolgáltatása) → **mini játék** (ablakpucolás 20 mp
-alatt, egérrel, ujjal vagy nyilakkal) → árak → miért mi → 3 lépés → GYIK →
-ajánlatkérő űrlap. Külön oldalak: `/adatvedelem`, `/cookie`, `/impresszum`.
+1. **Hero** — az 1. plakát: „Tiszta otthon. Több szabad idő.”, a takarítónő a ház előtt, kék kapcsolat-doboz.
+2. **Videó** — teljes szélességű háttérvideó egy mondattal, alján futó szalag a szolgáltatásokkal.
+3. **Szolgáltatások** — csempés (bento) rács, saját illusztrációkkal.
+4. **Előtte · utána** — húzható összehasonlítás egy rajzolt szobán.
+5. **Ár / bemutatkozó ajánlat** — a 3. plakát (−20%). Az árlista (`src/lib/prices.ts`) alá kerül, ha kitöltik.
+6. **Három lépés** — a 4. plakát.
+7. **Irodáknak** — az 5. plakát.
+8. **Munkáink** — valódi előtte/utána fotók (`src/lib/gallery.ts`). Üres listánál nem jelenik meg.
+9. **Mini játék**, **GYIK**, **Ajánlatkérés**.
+
+Betűtípus: Funnel Display (címek) + Funnel Sans (szöveg), a saját szerverről kiszolgálva.
+A fehér szekciók hátterében halványan takarítóeszköz-minta fut (`bg-cleaning` a `globals.css`-ben).
+
+### A háttérvideó
+
+`public/video/takaritas.mp4` és `takaritas.jpg` (a videó állóképe, ezt látja, aki
+csökkentett mozgást kért, vagy amíg a videó tölt). A mostani videót a
+`../forras/video.js` rendereli (`node cisty-domov/forras/video.js`). Valódi
+felvételre cserélni: a két fájlt kell lecserélni ugyanezen a néven
+(MP4/H.264, 1280×720 vagy 1920×1080, 10–20 mp, hang nélkül, 2–4 MB alatt).
 
 ## Ajánlatkérő űrlap
 

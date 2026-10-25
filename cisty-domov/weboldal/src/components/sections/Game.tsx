@@ -322,45 +322,41 @@ export default function Game() {
   const seconds = Math.ceil(left / 1000);
 
   return (
-    <section id="jatek" className="relative isolate overflow-hidden bg-accent-soft py-section" aria-labelledby="game-title">
-      <div className="container-x grid gap-12 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-16">
-        <div className="lg:sticky lg:top-28 lg:self-start">
+    <section id="jatek" className="relative isolate overflow-hidden bg-paper py-section" aria-labelledby="game-title">
+      <div aria-hidden="true" className="bg-cleaning pointer-events-none absolute inset-0 -z-10" />
+      <div className="container-x">
+        <div className="mx-auto max-w-2xl text-center">
           <Reveal>
             <Eyebrow>{GAME.eyebrow}</Eyebrow>
           </Reveal>
           <Reveal delay={70}>
-            <h2 id="game-title" className="mt-5 text-[clamp(2.25rem,6vw,3.75rem)] leading-[0.95]">
+            <h2 id="game-title" className="mt-5 text-[clamp(2.5rem,6vw,4.75rem)] leading-[0.95]">
               {GAME.title}
             </h2>
           </Reveal>
           <Reveal delay={130}>
-            <p className="mt-5 text-base leading-relaxed text-slate-600">{GAME.lead}</p>
-          </Reveal>
-          <Reveal delay={190}>
-            <p className="mt-6 border-l-2 border-sky pl-4 text-[0.8125rem] leading-relaxed text-slate-500">
-              {GAME.keyboardHint}
-            </p>
+            <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-slate-600">{GAME.lead}</p>
           </Reveal>
         </div>
 
-        <Reveal delay={60}>
-          <p className="game-bare rounded-[1.75rem] border border-line bg-white p-7 text-sm leading-relaxed text-slate-600">
+        <Reveal delay={60} className="mx-auto mt-12 max-w-5xl">
+          <p className="game-bare rounded-[2rem] border border-line bg-white p-7 text-sm leading-relaxed text-slate-600">
             {GAME.noScript}
           </p>
 
-          <div className="game-board rounded-[1.75rem] bg-ink p-4 text-white sm:p-6">
+          <div className="game-board rounded-[2rem] bg-ink p-4 text-white shadow-[0_30px_80px_rgba(11,45,91,0.25)] sm:p-6">
             {/* Scoreboard */}
             <div className="flex items-center justify-between gap-4 px-2 pb-4 sm:px-3">
               <div className="flex gap-8">
                 <div>
                   <p className="label text-white/55">{GAME.time}</p>
-                  <p className="font-display text-2xl font-extrabold tabular-nums sm:text-3xl" aria-live="off">
+                  <p className="font-display text-2xl font-semibold tabular-nums sm:text-3xl" aria-live="off">
                     {seconds}s
                   </p>
                 </div>
                 <div>
                   <p className="label text-white/55">{GAME.clean}</p>
-                  <p className="font-display text-2xl font-extrabold tabular-nums text-accent-lift sm:text-3xl">
+                  <p className="font-display text-2xl font-semibold tabular-nums text-accent-lift sm:text-3xl">
                     {percent}%
                   </p>
                 </div>
@@ -368,7 +364,7 @@ export default function Game() {
               {best !== null ? (
                 <div className="text-right">
                   <p className="label text-white/55">{GAME.best}</p>
-                  <p className="font-display text-2xl font-extrabold tabular-nums sm:text-3xl">{best}%</p>
+                  <p className="font-display text-2xl font-semibold tabular-nums sm:text-3xl">{best}%</p>
                 </div>
               ) : null}
             </div>
@@ -443,7 +439,7 @@ export default function Game() {
                     </button>
                   ) : (
                     <div className="pop-in max-w-md text-center" role="status">
-                      <p className="font-display text-[clamp(3.5rem,11vw,6rem)] font-extrabold leading-none tracking-[-0.04em] text-accent-lift">
+                      <p className="font-display text-[clamp(3.5rem,11vw,6rem)] font-semibold leading-none tracking-[-0.04em] text-accent-lift">
                         {percent}%
                       </p>
                       <h3 className="mt-3 text-2xl sm:text-3xl">{result.title}</h3>
@@ -469,6 +465,7 @@ export default function Game() {
               ) : null}
             </div>
           </div>
+          <p className="mt-5 text-center text-sm text-slate-500">{GAME.keyboardHint}</p>
         </Reveal>
       </div>
     </section>

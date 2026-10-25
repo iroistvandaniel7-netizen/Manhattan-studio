@@ -17,9 +17,9 @@ export const META = {
 
 export const NAV = [
   { href: "#szolgaltatasok", label: "Szolgáltatások" },
-  { href: "#jatek", label: "Mini játék" },
   { href: "#arak", label: "Árak" },
-  { href: "#miert-mi", label: "Miért mi" },
+  { href: "#irodaknak", label: "Irodáknak" },
+  { href: "#jatek", label: "Játék" },
   { href: "#gyik", label: "GYIK" },
   { href: "#kapcsolat", label: "Kapcsolat" },
 ] as const;
@@ -34,11 +34,21 @@ export const HERO = {
   offer: "−20% az első takarításból",
 } as const;
 
-export const FACTS = [
-  { value: "Aznap", label: "Fix ár", note: "Hívjon vagy írjon, és még aznap pontos árat kap." },
-  { value: "−20%", label: "Első takarítás", note: "Bemutatkozó ajánlat új ügyfeleknek." },
-  { value: "24 óra", label: "Garancia", note: "Ha valami nem tökéletes, díjmentesen visszamegyünk." },
-  { value: "0", label: "Rejtett költség", note: "A megbeszélt ár a végső ár." },
+/** The second screen: a quiet full-bleed video with one line over it. */
+export const VIDEO = {
+  line: "Minden sarok.",
+  lineSoft: "Minden alkalommal.",
+  caption: "Saját szerekkel, saját eszközökkel, ugyanazzal a csapattal.",
+  label: "Videó: lehúzóval tisztított ablaküveg",
+} as const;
+
+export const MARQUEE = [
+  "Lakástakarítás",
+  "Nagytakarítás",
+  "Ablaktisztítás",
+  "Költözés utáni takarítás",
+  "Irodatakarítás",
+  "Lépcsőházak",
 ] as const;
 
 export type Service = {
@@ -47,13 +57,13 @@ export type Service = {
   short: string;
   desc: string;
   includes: readonly string[];
-  icon: "home" | "deep" | "office" | "move" | "renovation" | "window";
+  icon: "home" | "deep" | "office" | "move" | "window";
 };
 
 export const SERVICES = {
-  eyebrow: "Szolgáltatások",
+  eyebrow: "Szolgáltatásaink",
   title: "Mindent tisztára.",
-  lead: "Válassza ki, mire van szüksége — vagy írja meg, és összerakjuk a csomagot.",
+  lead: "Válassza ki, mire van szüksége. A többit mi intézzük.",
   cta: "Erre kérek ajánlatot",
   items: [
     {
@@ -134,22 +144,33 @@ export const PRICES = {
   note: "Az árak a végső árak, rejtett költség nélkül.",
 } as const;
 
-export const WHY = {
-  eyebrow: "Miért mi",
-  title: "Amire számíthat.",
-  items: [
-    { title: "Pontos érkezés", desc: "Ha 8-at mondunk, 8-kor csengetünk. Ha bármi közbejön, előre szólunk." },
-    { title: "Ugyanaz a csapat", desc: "Nem idegenek jönnek minden alkalommal. Megismerjük az otthonát és a kéréseit." },
-    { title: "Saját eszközök és szerek", desc: "Mindent hozunk: szereket, porszívót, felmosót. Önnek semmit nem kell előkészítenie." },
-    { title: "Fix, előre megbeszélt ár", desc: "Az ajánlatban szereplő összeg a végső összeg. Nincs utólagos tétel." },
-    { title: "Ellenőrzött csapat", desc: "Betanított, megbízható takarítók — kulcsot is nyugodtan átadhat nekünk." },
-    { title: "Garancia", desc: "Ha valami nem úgy sikerült, ahogy kellett, 24 órán belül visszamegyünk és pótoljuk — díjmentesen." },
+export const BEFORE_AFTER = {
+  eyebrow: "Előtte · utána",
+  title: "Húzza el, és nézze meg a különbséget.",
+  before: "Előtte",
+  after: "Utána",
+  sliderLabel: "Előtte–utána összehasonlítás. A nyilakkal mozgatható.",
+  points: [
+    { title: "Pontos érkezés", desc: "A megbeszélt időpontban csengetünk." },
+    { title: "Ellenőrzött csapat", desc: "Kulcsot is nyugodtan átadhat." },
+    { title: "Fix ár", desc: "Ami az ajánlatban áll, annyit fizet." },
+    { title: "24 órás garancia", desc: "Ha valami hiányzik, ingyen pótoljuk." },
   ],
+} as const;
+
+export const OFFICE = {
+  eyebrow: "Cégeknek, irodáknak",
+  title: "Reggelre",
+  titleSoft: "tiszta iroda.",
+  lead: "Munkaidő után takarítunk, hogy a csapatának ne kelljen kerülgetnie minket.",
+  items: ["Rugalmas, havi szerződés", "Állandó, betanított takarítók", "Számla, átlátható díjak", "Fogyóeszköz-utántöltés"],
+  cta: "Irodai ajánlatot kérek",
 } as const;
 
 export const STEPS = {
   eyebrow: "Így dolgozunk",
-  title: "Három lépés a tiszta lakásig.",
+  title: "Három lépés",
+  titleSoft: "a tiszta lakásig.",
   items: [
     { title: "Hívjon vagy írjon", desc: "Elmondja, mekkora a lakás és mire van szükség. Még aznap kap egy fix árat." },
     { title: "Megérkezünk", desc: "A megbeszélt időpontban, saját szerekkel és eszközökkel. Kulcsot is átvehetünk." },
@@ -159,7 +180,7 @@ export const STEPS = {
 
 export const FAQ = {
   eyebrow: "GYIK",
-  title: "Gyakori kérdések.",
+  title: "Kérdése van?",
   items: [
     {
       q: "Otthon kell lennem a takarítás alatt?",
