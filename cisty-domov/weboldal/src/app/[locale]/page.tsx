@@ -3,7 +3,6 @@ import { getDictionary, isLocale } from "@/i18n";
 import Hero from "@/components/sections/Hero";
 import VideoBand from "@/components/sections/VideoBand";
 import Services from "@/components/sections/Services";
-import Prices from "@/components/sections/Prices";
 import Steps from "@/components/sections/Steps";
 import Game from "@/components/sections/Game";
 import Office from "@/components/sections/Office";
@@ -21,7 +20,6 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <Hero copy={dict.hero} />
       <VideoBand copy={dict.video} />
       <Services copy={dict.services} />
-      <Prices copy={dict.prices} />
       <Steps copy={dict.steps} />
       <Game copy={dict.game} />
       <Office copy={dict.office} />

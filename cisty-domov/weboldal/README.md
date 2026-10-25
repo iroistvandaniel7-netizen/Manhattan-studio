@@ -26,17 +26,15 @@ Vercelen: új projekt, **Root Directory = `cisty-domov/weboldal`**.
 | --------------------- | --------------------------------------------------------------------- |
 | `src/lib/site.ts`     | Cégnév, székhely, IČO, DIČ, cégjegyzék, e-mail, nyitvatartás — **minden `TODO` helyőrző**. A telefonszám és a domain a plakátokról való. |
 | `src/i18n/dictionaries/{sk,hu,en}.ts` | Az oldal összes szövege nyelvenként, a jogi oldalakkal együtt. A `hu.ts` adja a szerkezetet: ha a másik kettőből hiányzik egy kulcs, a build hibát dob. A működési terület (`contact.area`) is itt van. |
-| `src/lib/prices.ts`   | Az árlista (euróban). Amíg üres, a −20%-os bemutatkozó ajánlat látszik helyette |
 
 ## Oldal
 
 1. **Hero** — az 1. plakát: „Tiszta otthon. Több szabad idő.”, a takarítónő a ház előtt, kék kapcsolat-doboz.
 2. **Videó** — teljes szélességű háttérvideó egy mondattal, alján futó szalag a szolgáltatásokkal.
 3. **Szolgáltatások** — egyetlen nagy mondat, benne minden szolgáltatás egy link, ami előre kiválasztja az űrlapon; alatta rövid leírások soronként.
-4. **Bemutatkozó ajánlat** (−20%) — alá kerül az árlista (`src/lib/prices.ts`), ha kitöltik.
-5. **Három lépés**, **Mini játék**, **Irodáknak**.
-6. **Munkáink** — valódi előtte/utána fotók (`src/lib/gallery.ts`). Üres listánál nem jelenik meg.
-7. **GYIK**, **Ajánlatkérés**.
+4. **Három lépés**, **Mini játék**, **Irodáknak**.
+5. **Munkáink** — valódi előtte/utána fotók (`src/lib/gallery.ts`). Üres listánál nem jelenik meg.
+6. **GYIK**, **Ajánlatkérés**.
 
 ## Nyelvek
 

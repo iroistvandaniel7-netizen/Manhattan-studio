@@ -7,7 +7,7 @@ const en: Dictionary = {
   meta: {
     title: "Čistý Domov — cleaning in Dunajská Streda",
     description:
-      "Home, deep, window, move-out and office cleaning at a fixed price in Dunajská Streda and nearby. A reliable team that brings its own equipment. 20% off your first clean.",
+      "Home, deep, window, move-out and office cleaning at a fixed price in Dunajská Streda and nearby. A reliable team that brings its own equipment.",
   },
 
   ui: {
@@ -21,7 +21,6 @@ const en: Dictionary = {
 
   nav: [
     { href: "#services", label: "Services" },
-    { href: "#prices", label: "Prices" },
     { href: "#office", label: "For offices" },
     { href: "#game", label: "Game" },
     { href: "#faq", label: "FAQ" },
@@ -43,7 +42,6 @@ const en: Dictionary = {
     caption: "Our own products, our own equipment, the same team every time.",
     label: "Video: a window being cleaned with a squeegee",
   },
-
 
   services: {
     eyebrow: "Our services",
@@ -84,17 +82,6 @@ const en: Dictionary = {
         desc: "We clean after hours, so your team never has to work around us. A clean office every morning.",
       },
     ],
-  },
-
-  prices: {
-    eyebrow: "Introductory offer",
-    lead: "off your first clean.",
-    value: "−20",
-    text: "Try us without risk. If anything is not right, we come back within 24 hours and fix it free of charge.",
-    terms: "For new customers, for one clean. Cannot be combined with other discounts.",
-    cta: "Get a quote",
-    from: " from",
-    note: "Prices are final, with no hidden fees.",
   },
 
   steps: {

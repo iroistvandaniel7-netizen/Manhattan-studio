@@ -8,14 +8,14 @@ import { CONSENT_COOKIE } from "@/lib/consent";
  * build error rather than a blank on the page. Company identifiers are read
  * from `lib/site.ts`, never retyped here.
  *
- * Claims a customer could hold the business to (same-day quote, the 24-hour
- * redo guarantee, the −20% offer) come from the Čistý Domov posters.
+ * Claims a customer could hold the business to (the same-day quote, the
+ * 24-hour redo guarantee) come from the Čistý Domov posters.
  */
 const hu = {
   meta: {
     title: "Čistý Domov — takarítás Dunaszerdahelyen",
     description:
-      "Lakás-, nagy-, ablak-, költözéses és irodatakarítás fix áron Dunaszerdahelyen és környékén. Megbízható csapat, saját eszközökkel. Az első takarításból −20%.",
+      "Lakás-, nagy-, ablak-, költözéses és irodatakarítás fix áron Dunaszerdahelyen és környékén. Megbízható csapat, saját eszközökkel.",
   },
 
   ui: {
@@ -29,7 +29,6 @@ const hu = {
 
   nav: [
     { href: "#services", label: "Szolgáltatások" },
-    { href: "#prices", label: "Árak" },
     { href: "#office", label: "Irodáknak" },
     { href: "#game", label: "Játék" },
     { href: "#faq", label: "GYIK" },
@@ -51,7 +50,6 @@ const hu = {
     caption: "Saját szerekkel, saját eszközökkel, ugyanazzal a csapattal.",
     label: "Videó: lehúzóval tisztított ablaküveg",
   },
-
 
   services: {
     eyebrow: "Szolgáltatásaink",
@@ -92,17 +90,6 @@ const hu = {
         desc: "Munkaidő után takarítunk, hogy a csapatának ne kelljen kerülgetnie minket. Reggelre tiszta iroda.",
       },
     ],
-  },
-
-  prices: {
-    eyebrow: "Bemutatkozó ajánlat",
-    lead: "az első takarításból.",
-    value: "−20",
-    text: "Próbálja ki kockázat nélkül. Ha valami nem tökéletes, 24 órán belül díjmentesen visszamegyünk.",
-    terms: "Az ajánlat új ügyfelekre, egy alkalomra érvényes. Más kedvezménnyel nem vonható össze.",
-    cta: "Ajánlatot kérek",
-    from: "-tól",
-    note: "Az árak a végső árak, rejtett költség nélkül.",
   },
 
   steps: {

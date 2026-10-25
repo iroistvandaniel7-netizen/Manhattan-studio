@@ -7,7 +7,7 @@ const sk: Dictionary = {
   meta: {
     title: "Čistý Domov — upratovanie v Dunajskej Strede",
     description:
-      "Upratovanie bytov, veľké upratovanie, umývanie okien, upratovanie po sťahovaní a kancelárií za pevnú cenu v Dunajskej Strede a okolí. Spoľahlivý tím s vlastným vybavením. Na prvé upratovanie −20 %.",
+      "Upratovanie bytov, veľké upratovanie, umývanie okien, upratovanie po sťahovaní a kancelárií za pevnú cenu v Dunajskej Strede a okolí. Spoľahlivý tím s vlastným vybavením.",
   },
 
   ui: {
@@ -21,7 +21,6 @@ const sk: Dictionary = {
 
   nav: [
     { href: "#services", label: "Služby" },
-    { href: "#prices", label: "Ceny" },
     { href: "#office", label: "Pre firmy" },
     { href: "#game", label: "Hra" },
     { href: "#faq", label: "Otázky" },
@@ -43,7 +42,6 @@ const sk: Dictionary = {
     caption: "Vlastné prostriedky, vlastné vybavenie, stále ten istý tím.",
     label: "Video: umývanie okna sťahovačkou",
   },
-
 
   services: {
     eyebrow: "Naše služby",
@@ -84,17 +82,6 @@ const sk: Dictionary = {
         desc: "Upratujeme po pracovnej dobe, aby sa váš tím nemusel vyhýbať nám. Ráno čistá kancelária.",
       },
     ],
-  },
-
-  prices: {
-    eyebrow: "Úvodná ponuka",
-    lead: "z prvého upratovania.",
-    value: "−20",
-    text: "Vyskúšajte nás bez rizika. Ak niečo nie je dokonalé, do 24 hodín sa bezplatne vrátime.",
-    terms: "Ponuka platí pre nových zákazníkov na jedno upratovanie. Nedá sa kombinovať s inými zľavami.",
-    cta: "Chcem cenovú ponuku",
-    from: " od",
-    note: "Ceny sú konečné, bez skrytých poplatkov.",
   },
 
   steps: {
