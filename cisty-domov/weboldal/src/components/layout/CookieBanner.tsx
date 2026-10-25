@@ -55,13 +55,13 @@ export default function CookieBanner({ locale, copy }: { locale: Locale; copy: D
         detail ? "sm:w-[34rem]" : "sm:w-[27rem]"
       }`}
     >
-      <div className="max-h-[85dvh] overflow-y-auto p-6 sm:p-7">
-        <div className="flex flex-col gap-5">
+      <div className="max-h-[85dvh] overflow-y-auto p-5 sm:p-7">
+        <div className="flex flex-col gap-4 sm:gap-5">
           <div>
             <h2 id={`${uid}-title`} className="font-display text-base font-semibold tracking-[-0.02em]">
               {copy.title}
             </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
+            <p className="mt-1.5 max-w-2xl text-[0.8125rem] leading-relaxed text-slate-600 sm:mt-2 sm:text-sm">
               {copy.body}{" "}
               <Link href={`/${locale}/cookies`} className="link-underline font-semibold text-accent-ink">
                 {copy.more}
@@ -70,11 +70,11 @@ export default function CookieBanner({ locale, copy }: { locale: Locale; copy: D
           </div>
 
           {detail ? null : (
-            <div className="flex flex-col gap-2.5">
+            <div className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-col">
               <button
                 type="button"
                 onClick={openSettings}
-                className="order-3 rounded-full px-5 py-2.5 text-sm font-semibold text-slate-600 underline-offset-4 hover:text-ink hover:underline"
+                className="order-3 col-span-2 rounded-full px-5 py-1.5 text-sm font-semibold sm:py-2.5 text-slate-600 underline-offset-4 hover:text-ink hover:underline"
               >
                 {copy.settings}
               </button>
@@ -82,7 +82,7 @@ export default function CookieBanner({ locale, copy }: { locale: Locale; copy: D
                 type="button"
                 data-consent="necessary"
                 onClick={() => finish({ statistics: false, marketing: false })}
-                className="rounded-full border-2 border-ink px-6 py-3.5 text-sm font-semibold transition-colors duration-200 hover:bg-ink hover:text-white"
+                className="rounded-full border-2 border-ink px-4 py-3 text-sm font-semibold sm:px-6 sm:py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
               >
                 {copy.necessaryOnly}
               </button>
@@ -90,7 +90,7 @@ export default function CookieBanner({ locale, copy }: { locale: Locale; copy: D
                 type="button"
                 data-consent="all"
                 onClick={() => finish({ statistics: true, marketing: true })}
-                className="rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
+                className="rounded-full border-2 border-accent bg-accent px-4 py-3 text-sm font-semibold sm:px-6 sm:py-3.5 text-ink transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
               >
                 {copy.acceptAll}
               </button>
@@ -146,21 +146,21 @@ export default function CookieBanner({ locale, copy }: { locale: Locale; copy: D
               <button
                 type="button"
                 onClick={() => finish({ statistics: false, marketing: false })}
-                className="rounded-full border-2 border-ink px-6 py-3.5 text-sm font-semibold transition-colors duration-200 hover:bg-ink hover:text-white"
+                className="rounded-full border-2 border-ink px-4 py-3 text-sm font-semibold sm:px-6 sm:py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
               >
                 {copy.necessaryOnly}
               </button>
               <button
                 type="button"
                 onClick={() => finish(choice)}
-                className="rounded-full border-2 border-ink px-6 py-3.5 text-sm font-semibold transition-colors duration-200 hover:bg-ink hover:text-white"
+                className="rounded-full border-2 border-ink px-4 py-3 text-sm font-semibold sm:px-6 sm:py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
               >
                 {copy.save}
               </button>
               <button
                 type="button"
                 onClick={() => finish({ statistics: true, marketing: true })}
-                className="rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
+                className="rounded-full border-2 border-accent bg-accent px-4 py-3 text-sm font-semibold sm:px-6 sm:py-3.5 text-ink transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
               >
                 {copy.acceptAll}
               </button>
