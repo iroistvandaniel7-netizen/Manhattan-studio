@@ -1,4 +1,6 @@
 @import "tailwindcss";
+/* The cleaning-company site in `takarito/` is a separate app. */
+@source not "../../takarito";
 
 /* ------------------------------------------------------------------ *
  * Design tokens — magenta, white, black.
