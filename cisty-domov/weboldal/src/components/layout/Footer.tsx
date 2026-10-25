@@ -68,6 +68,18 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
             </li>
           </ul>
         </div>
+
+        {/* The maker's credit, last line of the page. */}
+        <p className="mt-8 border-t border-white/10 pt-6 text-center text-xs text-white/45">
+          <a
+            href="https://rdmedia.sk"
+            target="_blank"
+            rel="noopener"
+            className="transition-colors duration-200 hover:text-white"
+          >
+            Website developed by <span className="font-semibold text-white/70">rdmedia</span>
+          </a>
+        </p>
       </div>
     </footer>
   );
