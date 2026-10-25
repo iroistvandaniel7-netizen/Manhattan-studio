@@ -78,7 +78,7 @@ window.draw = (i) => {
   const t = i / N; // 0..1, loops
   // background: the room beyond the glass, soft and blue
   const g = x.createLinearGradient(0, 0, W, H);
-  g.addColorStop(0, '#1B63D6'); g.addColorStop(.55, '#2a74e0'); g.addColorStop(1, '#0B2D5B');
+  g.addColorStop(0, '#89CFF0'); g.addColorStop(.55, '#5BB8E8'); g.addColorStop(1, '#0B2D5B');
   x.fillStyle = g; x.fillRect(0, 0, W, H);
   // window light from the top right
   const l = x.createRadialGradient(W * .85, H * .1, 0, W * .85, H * .1, W * .8);
@@ -125,7 +125,7 @@ window.draw = (i) => {
     x.shadowColor = 'rgba(7,31,66,0.35)'; x.shadowBlur = 30; x.shadowOffsetY = 12;
     x.fillStyle = '#0B2D5B'; x.beginPath(); x.roundRect(-12 - b.dir * 6, -BLADE / 2 - 6, 24, BLADE + 12, 8); x.fill();
     x.shadowColor = 'transparent';
-    x.fillStyle = '#7FB0F5'; x.fillRect(-4 - b.dir * 16, -BLADE / 2, 8, BLADE);
+    x.fillStyle = '#89CFF0'; x.fillRect(-4 - b.dir * 16, -BLADE / 2, 8, BLADE);
     x.fillStyle = '#0B2D5B'; x.beginPath(); x.roundRect(-b.dir * 10 - 9 - b.dir * 120, -14, 130, 28, 14); x.fill();
     x.restore();
   }

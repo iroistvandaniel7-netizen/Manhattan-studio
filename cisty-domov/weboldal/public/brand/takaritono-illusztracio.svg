@@ -12,23 +12,23 @@
   <rect x="148" y="734" width="46" height="18" rx="9" fill="#0B2D5B"/>
   <rect x="206" y="734" width="46" height="18" rx="9" fill="#0B2D5B"/>
   <!-- torso -->
-  <path d="M146 214 C160 200 180 196 200 196 C220 196 240 200 254 214 L264 300 L254 424 H146 L136 300 Z" fill="#1B63D6"/>
+  <path d="M146 214 C160 200 180 196 200 196 C220 196 240 200 254 214 L264 300 L254 424 H146 L136 300 Z" fill="#89CFF0"/>
   <!-- apron -->
   <path d="M178 196 L170 252 M222 196 L230 252" stroke="#F4F8FE" stroke-width="6" stroke-linecap="round"/>
   <path d="M166 250 H234 L242 436 Q242 444 234 444 H166 Q158 444 158 436 Z" fill="#F4F8FE"/>
   <path d="M176 330 H224 V358 Q224 366 216 366 H184 Q176 366 176 358 Z" fill="none" stroke="#C9DCF7" stroke-width="4"/>
   <line x1="160" y1="300" x2="240" y2="300" stroke="#C9DCF7" stroke-width="4"/>
   <!-- left arm holding mop -->
-  <path d="M152 222 L120 300" stroke="#1B63D6" stroke-width="32" stroke-linecap="round"/>
+  <path d="M152 222 L120 300" stroke="#89CFF0" stroke-width="32" stroke-linecap="round"/>
   <path d="M120 300 L96 372" stroke="#EDBE9C" stroke-width="22" stroke-linecap="round"/>
   <circle cx="95" cy="378" r="14" fill="#EDBE9C"/>
   <!-- spray bottle -->
   <path d="M290 156 h26 v14 h-26z" fill="#DCE9FB"/>
   <path d="M286 150 h34 l10 8 h-6 l-4 -2 h-34 z" fill="#DCE9FB"/>
   <rect x="282" y="168" width="40" height="72" rx="10" fill="#DCE9FB"/>
-  <rect x="282" y="188" width="40" height="26" fill="#1B63D6"/>
+  <rect x="282" y="188" width="40" height="26" fill="#89CFF0"/>
   <!-- right arm raised -->
-  <path d="M248 222 L284 296" stroke="#1B63D6" stroke-width="32" stroke-linecap="round"/>
+  <path d="M248 222 L284 296" stroke="#89CFF0" stroke-width="32" stroke-linecap="round"/>
   <path d="M284 296 L300 236" stroke="#EDBE9C" stroke-width="22" stroke-linecap="round"/>
   <circle cx="301" cy="230" r="14" fill="#EDBE9C"/>
   <!-- head -->

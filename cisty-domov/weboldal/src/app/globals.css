@@ -3,29 +3,36 @@
 /* ------------------------------------------------------------------ *
  * Čistý Domov — design tokens.
  *
- * The two blues are the logo's own (#1B63D6 and the navy #0B2D5B); every
- * other colour is derived from them, so greys lean blue rather than sitting
- * at a neutral mid-grey. Named for their job, not their hue.
+ * The brand blue #89CFF0 and the logo's navy #0B2D5B; every other colour is
+ * derived from them, so greys lean blue rather than sitting at a neutral
+ * mid-grey. Named for their job, not their hue.
  * ------------------------------------------------------------------ */
 @theme {
   --color-white: #ffffff;
   --color-ink: #0b2d5b;
   --color-ink-deep: #071f42;
 
-  --color-accent: #1b63d6;
-  --color-accent-deep: #144aa3;
-  /* The accent lifted for use on navy — #1b63d6 on #0b2d5b is too dark to read. */
-  --color-accent-lift: #7fb0f5;
-  --color-accent-soft: #eaf2fd;
-  --color-sky: #bfd7fa;
+  /*
+   * #89CFF0 is the brand blue, used as a fill: buttons, highlights, bands.
+   * Text on it is navy (8:1). As text on white it reads at only 1.7:1, so
+   * blue words on a light ground use `accent-ink` — the same hue, darkened
+   * until it clears 4.8:1.
+   */
+  --color-accent: #89cff0;
+  --color-accent-deep: #6cc0ea;
+  --color-accent-ink: #1f78a8;
+  /* On navy the brand blue itself is the readable one. */
+  --color-accent-lift: #89cff0;
+  --color-accent-soft: #eaf6fc;
+  --color-sky: #c4e6f8;
   /* The page's second ground: paper with a breath of the brand blue in it. */
-  --color-paper: #f5f8fd;
+  --color-paper: #f4fafd;
 
-  --color-slate-300: #c9d6e8;
-  --color-slate-400: #8a9cb6;
-  --color-slate-500: #6a82a3;
-  --color-slate-600: #3a5478;
-  --color-line: #dce7f6;
+  --color-slate-300: #c6d6e3;
+  --color-slate-400: #87a0b4;
+  --color-slate-500: #637d93;
+  --color-slate-600: #3a5470;
+  --color-line: #dbe9f3;
 
   --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
@@ -142,11 +149,11 @@
 
   ::selection {
     background-color: var(--color-accent);
-    color: var(--color-white);
+    color: var(--color-ink);
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-accent);
+    outline: 3px solid var(--color-accent-ink);
     outline-offset: 3px;
     border-radius: 6px;
   }
@@ -182,7 +189,7 @@
  * empty. The tile is a data URI: one request, nothing to load.
  */
 @utility bg-cleaning {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360' fill='none' stroke='%231B63D6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg opacity='.055'%3E%3Cpath d='M40 70h26v52a6 6 0 0 1-6 6H46a6 6 0 0 1-6-6Z'/%3E%3Cpath d='M46 70V58h14v12M44 52h22l6 6h-8M53 52v6'/%3E%3Cpath d='M45 92h16v18H45Z'/%3E%3Cpath d='M190 52h56l-6 50h-44Z'/%3E%3Cpath d='M196 52c0-22 44-22 44 0'/%3E%3Cpath d='M192 66h52'/%3E%3Crect x='96' y='210' width='54' height='32' rx='8'/%3E%3Cpath d='M96 222h54'/%3E%3Cpath d='M300 150l-22 100M262 250h36l-3 12h-30Z'/%3E%3Cpath d='M250 300c0-14 8-22 8-36h20c0 14 8 22 8 36a8 8 0 0 1-8 8h-20a8 8 0 0 1-8-8Z'/%3E%3Cpath d='M258 264v-18a5 5 0 0 1 10 0v12M268 258v-14a5 5 0 0 1 10 0v20'/%3E%3Ccircle cx='150' cy='120' r='10'/%3E%3Ccircle cx='168' cy='140' r='6'/%3E%3Ccircle cx='136' cy='142' r='4'/%3E%3Ccircle cx='40' cy='290' r='12'/%3E%3Ccircle cx='60' cy='312' r='6'/%3E%3Ccircle cx='330' cy='40' r='8'/%3E%3Cpath d='M210 300l3 10 10 3-10 3-3 10-3-10-10-3 10-3Z'/%3E%3Cpath d='M320 210l2.5 8 8 2.5-8 2.5-2.5 8-2.5-8-8-2.5 8-2.5Z'/%3E%3Cpath d='M110 30l2 6 6 2-6 2-2 6-2-6-6-2 6-2Z'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='360' viewBox='0 0 360 360' fill='none' stroke='%231F78A8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg opacity='.055'%3E%3Cpath d='M40 70h26v52a6 6 0 0 1-6 6H46a6 6 0 0 1-6-6Z'/%3E%3Cpath d='M46 70V58h14v12M44 52h22l6 6h-8M53 52v6'/%3E%3Cpath d='M45 92h16v18H45Z'/%3E%3Cpath d='M190 52h56l-6 50h-44Z'/%3E%3Cpath d='M196 52c0-22 44-22 44 0'/%3E%3Cpath d='M192 66h52'/%3E%3Crect x='96' y='210' width='54' height='32' rx='8'/%3E%3Cpath d='M96 222h54'/%3E%3Cpath d='M300 150l-22 100M262 250h36l-3 12h-30Z'/%3E%3Cpath d='M250 300c0-14 8-22 8-36h20c0 14 8 22 8 36a8 8 0 0 1-8 8h-20a8 8 0 0 1-8-8Z'/%3E%3Cpath d='M258 264v-18a5 5 0 0 1 10 0v12M268 258v-14a5 5 0 0 1 10 0v20'/%3E%3Ccircle cx='150' cy='120' r='10'/%3E%3Ccircle cx='168' cy='140' r='6'/%3E%3Ccircle cx='136' cy='142' r='4'/%3E%3Ccircle cx='40' cy='290' r='12'/%3E%3Ccircle cx='60' cy='312' r='6'/%3E%3Ccircle cx='330' cy='40' r='8'/%3E%3Cpath d='M210 300l3 10 10 3-10 3-3 10-3-10-10-3 10-3Z'/%3E%3Cpath d='M320 210l2.5 8 8 2.5-8 2.5-2.5 8-2.5-8-8-2.5 8-2.5Z'/%3E%3Cpath d='M110 30l2 6 6 2-6 2-2 6-2-6-6-2 6-2Z'/%3E%3C/g%3E%3C/svg%3E");
   background-size: 360px 360px;
 }
 

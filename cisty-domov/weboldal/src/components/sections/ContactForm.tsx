@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useId, useRef, useState } from "react";
-import { CONTACT, SERVICES } from "@/lib/content";
+import type { Dictionary, Locale } from "@/i18n";
 import { EMAIL, PHONE } from "@/lib/site";
 import { SERVICE_EVENT } from "./Services";
 
@@ -14,9 +14,15 @@ type Status = "idle" | "sending" | "success" | "error";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 const PHONE_RE = /^[+]?[\d\s()./-]{6,}$/;
 
-const t = CONTACT.form;
-
-export default function ContactForm() {
+export default function ContactForm({
+  locale,
+  copy: t,
+  services,
+}: {
+  locale: Locale;
+  copy: Dictionary["contact"]["form"];
+  services: Dictionary["services"]["items"];
+}) {
   const uid = useId();
   const summaryRef = useRef<HTMLDivElement>(null);
   const [errors, setErrors] = useState<Errors>({});
@@ -32,7 +38,7 @@ export default function ContactForm() {
   useEffect(() => {
     const onService = (event: Event) => {
       const id = (event as CustomEvent<string>).detail;
-      const match = SERVICES.items.find((item) => item.id === id);
+      const match = services.find((item) => item.id === id);
       if (match) {
         setService(match.name);
         setStatus((s) => (s === "success" ? "idle" : s));
@@ -40,7 +46,7 @@ export default function ContactForm() {
     };
     window.addEventListener(SERVICE_EVENT, onService);
     return () => window.removeEventListener(SERVICE_EVENT, onService);
-  }, []);
+  }, [services]);
 
   function validate(data: FormData): Errors {
     const next: Errors = {};
@@ -95,6 +101,7 @@ export default function ContactForm() {
           city: data.get("city"),
           message: data.get("message"),
           consent: Boolean(data.get("consent")),
+          locale,
           // Honeypot: bots fill hidden fields, people never see this one.
           company: data.get("company"),
         }),
@@ -109,17 +116,17 @@ export default function ContactForm() {
 
       setStatus("error");
       setFailure(response.status === 503 ? t.errors.unavailable : t.errors.network);
-      setDraft(mailtoHref(data));
+      setDraft(mailtoHref(data, t));
     } catch {
       setStatus("error");
       setFailure(t.errors.network);
-      setDraft(mailtoHref(data));
+      setDraft(mailtoHref(data, t));
     }
   }
 
   if (status === "success") {
     return (
-      <div role="status" className="pop-in flex min-h-[28rem] flex-col justify-center rounded-[1.5rem] bg-accent p-8 text-white sm:p-12">
+      <div role="status" className="pop-in flex min-h-[28rem] flex-col justify-center rounded-[1.5rem] bg-accent p-8 text-ink sm:p-12">
         <h3 className="text-[clamp(1.75rem,3.4vw,2.5rem)]">{t.successTitle}</h3>
         <p className="mt-4 max-w-md text-sm leading-relaxed text-white/85">{t.success}</p>
         <button
@@ -180,7 +187,7 @@ export default function ContactForm() {
             <option value="" disabled>
               {t.servicePlaceholder}
             </option>
-            {SERVICES.items.map((item) => (
+            {services.map((item) => (
               <option key={item.id} value={item.name} className="text-ink">
                 {item.name}
               </option>
@@ -229,7 +236,7 @@ export default function ContactForm() {
           />
           <span>
             {t.consentBefore}
-            <Link href="/adatvedelem" target="_blank" className="font-semibold text-accent underline underline-offset-4">
+            <Link href={`/${locale}/gdpr`} target="_blank" className="font-semibold text-accent-ink underline underline-offset-4">
               {t.consentLink}
             </Link>
             {t.consentAfter} <span aria-hidden="true">*</span>
@@ -248,7 +255,7 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="inline-flex w-full items-center justify-center rounded-full bg-accent px-8 py-4 text-[0.9375rem] font-medium text-white transition-colors duration-200 hover:bg-accent-deep disabled:cursor-wait disabled:opacity-60 sm:w-auto"
+          className="inline-flex w-full items-center justify-center rounded-full bg-accent px-8 py-4 text-[0.9375rem] font-medium text-ink transition-colors duration-200 hover:bg-accent-deep disabled:cursor-wait disabled:opacity-60 sm:w-auto"
         >
           {status === "sending" ? t.sending : t.submit}
         </button>
@@ -259,7 +266,7 @@ export default function ContactForm() {
             {draft ? (
               <a
                 href={draft}
-                className="mt-3.5 inline-flex items-center rounded-full bg-accent px-5 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-accent-deep"
+                className="mt-3.5 inline-flex items-center rounded-full bg-accent px-5 py-3 text-sm font-medium text-ink transition-colors duration-200 hover:bg-accent-deep"
               >
                 {t.mailInstead}
               </a>
@@ -280,14 +287,14 @@ export default function ContactForm() {
  * The same message as a draft in the visitor's own mail program — what a
  * failed send leaves behind, so nobody has to retype what they wrote.
  */
-function mailtoHref(data: FormData): string {
+function mailtoHref(data: FormData, t: Dictionary["contact"]["form"]): string {
   const value = (key: string) => String(data.get(key) ?? "").trim();
-  const subject = `Ajánlatkérés: ${value("service")} — ${value("name")}`;
+  const subject = `${t.mailSubject}: ${value("service")} — ${value("name")}`;
   const body = [
     value("message"),
     "",
-    value("size") ? `Alapterület: ${value("size")}` : "",
-    value("city") ? `Település: ${value("city")}` : "",
+    value("size") ? `${t.size}: ${value("size")}` : "",
+    value("city") ? `${t.city}: ${value("city")}` : "",
     "—",
     value("name"),
     value("phone"),

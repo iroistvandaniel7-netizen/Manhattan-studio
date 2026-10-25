@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 type Variant = "primary" | "onDark" | "outline";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-accent text-white hover:bg-accent-deep",
+  primary: "bg-accent text-ink hover:bg-accent-deep",
   onDark: "bg-white text-ink hover:bg-accent-soft",
   outline: "text-ink ring-1 ring-ink/25 hover:ring-ink",
 };

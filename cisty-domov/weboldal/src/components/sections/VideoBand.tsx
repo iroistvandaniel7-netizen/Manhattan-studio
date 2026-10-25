@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { MARQUEE, VIDEO } from "@/lib/content";
+import type { Dictionary } from "@/i18n";
 import { Sparkle } from "@/components/graphics/Icons";
 
 /**
@@ -14,7 +14,7 @@ import { Sparkle } from "@/components/graphics/Icons";
  * names are all the page knows — drop real footage into `public/video/`
  * under the same names and nothing else changes.
  */
-export default function VideoBand() {
+export default function VideoBand({ copy, ribbon: items }: { copy: Dictionary["video"]; ribbon: Dictionary["marquee"] }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -34,10 +34,10 @@ export default function VideoBand() {
     return () => observer.disconnect();
   }, []);
 
-  const ribbon = [...MARQUEE, ...MARQUEE];
+  const ribbon = [...items, ...items];
 
   return (
-    <section aria-label={VIDEO.label} className="on-dark relative isolate overflow-hidden bg-ink text-white">
+    <section aria-label={copy.label} className="on-dark relative isolate overflow-hidden bg-ink text-white">
       <div className="relative flex min-h-[86svh] items-center justify-center">
         <video
           ref={ref}
@@ -54,15 +54,15 @@ export default function VideoBand() {
         {/* Enough navy over the film for white type to read, never so much it goes grey. */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(80%_70%_at_50%_50%,rgba(7,31,66,0.35)_0%,rgba(7,31,66,0.7)_100%)]"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(80%_70%_at_50%_50%,rgba(11,45,91,0.32)_0%,rgba(11,45,91,0.62)_100%)]"
         />
 
         <div className="container-x py-32 text-center">
           <p className="font-display text-[clamp(2.75rem,8vw,7.5rem)] leading-[0.95] tracking-[-0.04em] [text-shadow:0_4px_40px_rgba(7,31,66,0.45)]">
-            <span className="block font-semibold">{VIDEO.line}</span>
-            <span className="block font-normal text-sky">{VIDEO.lineSoft}</span>
+            <span className="block font-semibold">{copy.line}</span>
+            <span className="block font-normal text-sky">{copy.lineSoft}</span>
           </p>
-          <p className="mx-auto mt-8 max-w-md text-base text-white/80 sm:text-lg">{VIDEO.caption}</p>
+          <p className="mx-auto mt-8 max-w-md text-base text-white/80 sm:text-lg">{copy.caption}</p>
         </div>
       </div>
 

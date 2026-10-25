@@ -1,6 +1,6 @@
 "use client";
 
-import { SERVICES } from "@/lib/content";
+import type { Dictionary } from "@/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 
@@ -12,44 +12,44 @@ export const SERVICE_EVENT = "kt:service";
  * jumps to the form with that service already chosen, so the list is also
  * the way in. Under it, the short line that says what each one means.
  */
-export default function Services() {
-  const items = SERVICES.items;
+export default function Services({ copy }: { copy: Dictionary["services"] }) {
+  const items = copy.items;
 
   const requestQuote = (id: string) => {
     window.dispatchEvent(new CustomEvent(SERVICE_EVENT, { detail: id }));
   };
 
   return (
-    <section id="szolgaltatasok" className="relative isolate overflow-hidden bg-white py-section" aria-labelledby="services-title">
+    <section id="services" className="relative isolate overflow-hidden bg-white py-section" aria-labelledby="services-title">
       <div className="container-x">
         <Reveal>
-          <Eyebrow>{SERVICES.eyebrow}</Eyebrow>
+          <Eyebrow>{copy.eyebrow}</Eyebrow>
         </Reveal>
         <h2 id="services-title" className="sr-only">
-          {SERVICES.title}
+          {copy.title}
         </h2>
 
         <Reveal delay={80}>
           <p className="mt-8 max-w-[22ch] text-[clamp(2rem,4.6vw,4.25rem)] leading-[1.15] font-light tracking-[-0.03em] text-slate-400 sm:max-w-none">
-            {SERVICES.intro}{" "}
+            {copy.intro}{" "}
             {items.map((item, i) => (
               <span key={item.id}>
                 <a
-                  href="#kapcsolat"
+                  href="#contact"
                   onClick={() => requestQuote(item.id)}
-                  className="font-medium text-ink underline decoration-sky decoration-[0.08em] underline-offset-[0.14em] transition-colors duration-200 hover:text-accent hover:decoration-accent"
+                  className="font-medium text-ink underline decoration-sky decoration-[0.08em] underline-offset-[0.14em] transition-colors duration-200 hover:text-accent-ink hover:decoration-accent"
                 >
-                  {item.accusative}
+                  {item.inSentence}
                 </a>
-                {i < items.length - 2 ? ", " : i === items.length - 2 ? " és " : "."}
+                {i < items.length - 2 ? ", " : i === items.length - 2 ? ` ${copy.and} ` : "."}
               </span>
             ))}{" "}
-            {SERVICES.outro}
+            {copy.outro}
           </p>
         </Reveal>
 
         <Reveal delay={140}>
-          <p className="mt-10 text-[0.9375rem] text-slate-500">{SERVICES.hint}</p>
+          <p className="mt-10 text-[0.9375rem] text-slate-500">{copy.hint}</p>
         </Reveal>
 
         <dl className="mt-20 border-t border-line">

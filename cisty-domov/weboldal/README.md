@@ -24,10 +24,9 @@ Vercelen: új projekt, **Root Directory = `cisty-domov/weboldal`**.
 
 | Fájl                  | Tartalom                                                              |
 | --------------------- | --------------------------------------------------------------------- |
-| `src/lib/site.ts`     | Cégnév, székhely, IČO, DIČ, cégjegyzék, e-mail, terület, nyitvatartás — **minden `TODO` helyőrző**. A telefonszám és a domain a plakátokról való. |
-| `src/lib/content.ts`  | Az oldal összes szövege (szolgáltatások, GYIK, garancia, ígéretek)    |
+| `src/lib/site.ts`     | Cégnév, székhely, IČO, DIČ, cégjegyzék, e-mail, nyitvatartás — **minden `TODO` helyőrző**. A telefonszám és a domain a plakátokról való. |
+| `src/i18n/dictionaries/{sk,hu,en}.ts` | Az oldal összes szövege nyelvenként, a jogi oldalakkal együtt. A `hu.ts` adja a szerkezetet: ha a másik kettőből hiányzik egy kulcs, a build hibát dob. A működési terület (`contact.area`) is itt van. |
 | `src/lib/prices.ts`   | Az árlista (euróban). Amíg üres, a −20%-os bemutatkozó ajánlat látszik helyette |
-| `src/lib/legal.ts`    | Adatkezelési és süti tájékoztató szövege                              |
 
 ## Oldal
 
@@ -38,6 +37,21 @@ Vercelen: új projekt, **Root Directory = `cisty-domov/weboldal`**.
 5. **Három lépés**, **Mini játék**, **Irodáknak**.
 6. **Munkáink** — valódi előtte/utána fotók (`src/lib/gallery.ts`). Üres listánál nem jelenik meg.
 7. **GYIK**, **Ajánlatkérés**.
+
+## Nyelvek
+
+`/sk`, `/hu`, `/en` — a jogi oldalak `/{nyelv}/gdpr`, `/cookies`, `/impressum`.
+A csupasz domain a böngésző nyelve szerint visz: magyar böngésző → `/hu`, minden
+más → `/sk`. Angolra magától sosem vált (sokan angol nyelvű telefont használnak),
+de a nyelvváltóban egy kattintás.
+
+## Színek
+
+A márkaszín a **#89CFF0**: gombok, kiemelések, sávok, logó-ikon. Rajta a szöveg
+sötétkék (#0B2D5B, 8:1). Fehér háttéren kék *szövegként* ugyanennek a kéknek a
+sötétebb árnyalata (#1F78A8, 4,8:1) szerepel, mert a #89CFF0 fehéren csak 1,7:1
+kontrasztú, olvashatatlan. A `public/brand/` logói a webre át vannak színezve; az
+eredeti logócsomag a `../logo/` mappában változatlan.
 
 Betűtípus mindenhol Poppins, a saját szerverről kiszolgálva. Szándékosan nincsenek
 ikonok és kártyarácsok: a szekciók tipográfiára és sorokra épülnek.

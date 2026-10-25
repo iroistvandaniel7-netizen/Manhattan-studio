@@ -1,31 +1,39 @@
-import { CONTACT } from "@/lib/content";
-import { AREA, EMAIL, HOURS, PHONE } from "@/lib/site";
+import type { Dictionary, Locale } from "@/i18n";
+import { EMAIL, HOURS, PHONE } from "@/lib/site";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 import ContactForm from "./ContactForm";
 
 /** The close: the phone number set large, the rest in plain lines, the form beside. */
-export default function Contact() {
+export default function Contact({
+  locale,
+  copy,
+  services,
+}: {
+  locale: Locale;
+  copy: Dictionary["contact"];
+  services: Dictionary["services"]["items"];
+}) {
   return (
-    <section id="kapcsolat" className="relative isolate overflow-hidden bg-accent-soft py-section" aria-labelledby="contact-title">
+    <section id="contact" className="relative isolate overflow-hidden bg-accent-soft py-section" aria-labelledby="contact-title">
       <div className="container-x flex flex-col gap-16 lg:flex-row lg:gap-20">
         <div className="lg:w-[38%] lg:shrink-0">
           <Reveal>
-            <Eyebrow>{CONTACT.eyebrow}</Eyebrow>
+            <Eyebrow>{copy.eyebrow}</Eyebrow>
           </Reveal>
           <Reveal delay={70}>
             <h2 id="contact-title" className="mt-6 text-[clamp(2.25rem,5.5vw,4.5rem)] leading-[1.02]">
-              {CONTACT.title}
+              {copy.title}
             </h2>
           </Reveal>
           <Reveal delay={120}>
-            <p className="mt-6 max-w-md text-lg leading-relaxed text-slate-600">{CONTACT.lead}</p>
+            <p className="mt-6 max-w-md text-lg leading-relaxed text-slate-600">{copy.lead}</p>
           </Reveal>
 
           <Reveal delay={170}>
             <a
               href={`tel:${PHONE.href}`}
-              className="mt-12 block text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-accent hover:text-accent-deep"
+              className="mt-12 block text-[clamp(1.75rem,3vw,2.5rem)] font-semibold tracking-[-0.03em] text-accent-ink hover:text-accent-deep"
             >
               {PHONE.label}
             </a>
@@ -33,15 +41,15 @@ export default function Contact() {
               {EMAIL}
             </a>
             <p className="mt-8 text-base leading-relaxed text-slate-600">
-              {AREA}
+              {copy.area}
               <br />
-              {HOURS.label}, {HOURS.opens}–{HOURS.closes}
+              {copy.hours}, {HOURS.opens}–{HOURS.closes}
             </p>
           </Reveal>
         </div>
 
         <Reveal delay={140} className="lg:flex-1">
-          <ContactForm />
+          <ContactForm locale={locale} copy={copy.form} services={services} />
         </Reveal>
       </div>
     </section>

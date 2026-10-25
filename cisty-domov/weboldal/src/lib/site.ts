@@ -35,11 +35,8 @@ export const WEB_LABEL = "cistydomov.sk";
 
 export const EMAIL = "info@cistydomov.sk"; // TODO: confirm the mailbox exists
 
-/** Where the team works. Shown in the contact block. */
-export const AREA = "Dunaszerdahely és 30 km-es környéke"; // TODO
-
+/** Opening hours; the day range is worded in each dictionary (`contact.hours`). */
 export const HOURS = {
-  label: "Hétfő–Szombat",
   opens: "07:00",
   closes: "19:00",
   days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],

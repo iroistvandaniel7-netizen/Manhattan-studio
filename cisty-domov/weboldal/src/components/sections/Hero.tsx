@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { HERO } from "@/lib/content";
+import type { Dictionary } from "@/i18n";
 import { PHONE, WEB_LABEL } from "@/lib/site";
 import Reveal from "@/components/ui/Reveal";
 
@@ -15,7 +15,7 @@ import Reveal from "@/components/ui/Reveal";
  *
  * Mobile: one column, the cleaner below the copy and smaller.
  */
-export default function Hero() {
+export default function Hero({ copy }: { copy: Dictionary["hero"] }) {
   return (
     <section
       className="relative isolate overflow-hidden bg-white pt-36 pb-0 text-ink sm:pt-44 lg:flex lg:min-h-[100svh] lg:flex-col lg:pb-14"
@@ -29,8 +29,8 @@ export default function Hero() {
       >
         <path
           d="M50 10 L90 43 L90 90 L10 90 L10 43 Z"
-          fill="#EAF2FD"
-          stroke="#EAF2FD"
+          fill="#EAF6FC"
+          stroke="#EAF6FC"
           strokeWidth="10"
           strokeLinejoin="round"
         />
@@ -41,10 +41,10 @@ export default function Hero() {
       </svg>
 
       <div className="container-x relative lg:flex lg:flex-1 lg:flex-col">
-        <div className="relative lg:mt-[4vh]">
+        <div className="relative lg:mt-[4vh] lg:max-w-[min(64vw,60rem)]">
           <Reveal>
-            <p className="text-[clamp(0.8125rem,1.2vw,1.25rem)] font-semibold uppercase tracking-[0.2em] text-accent">
-              {HERO.eyebrow}
+            <p className="text-[clamp(0.8125rem,1.2vw,1.25rem)] font-semibold uppercase tracking-[0.2em] text-accent-ink">
+              {copy.eyebrow}
             </p>
           </Reveal>
           <Reveal delay={60}>
@@ -52,29 +52,29 @@ export default function Hero() {
               id="hero-title"
               className="mt-[clamp(1rem,2.2vw,2.25rem)] text-[clamp(3rem,8.4vw,8.25rem)] leading-[0.95] tracking-[-0.035em]"
             >
-              <span className="block font-semibold text-ink">{HERO.title}</span>
-              <span className="block font-normal text-accent">{HERO.titleSoft}</span>
+              <span className="block font-semibold text-ink">{copy.title}</span>
+              <span className="block font-normal text-accent-ink">{copy.titleSoft}</span>
             </h1>
           </Reveal>
           <Reveal delay={120}>
             <p className="mt-[clamp(1.5rem,3vw,3rem)] max-w-[40rem] text-[clamp(1.125rem,1.55vw,1.375rem)] leading-[1.4] text-slate-600">
-              {HERO.lead}
+              {copy.lead}
             </p>
           </Reveal>
         </div>
 
         {/* The poster's blue contact box, bottom left. */}
         <Reveal delay={180} className="relative mt-10 lg:mt-auto lg:pt-12">
-          <div className="inline-block rounded-[20px] bg-accent px-7 py-6 text-white sm:px-10 sm:py-8">
+          <div className="inline-block rounded-[20px] bg-accent px-7 py-6 text-ink sm:px-10 sm:py-8">
             <p className="mb-2.5 text-[0.8125rem] font-medium uppercase tracking-[0.16em] text-white/70">
-              Kérjen ajánlatot
+              {copy.boxLabel}
             </p>
             <p className="text-[clamp(1.375rem,2.1vw,1.875rem)] font-semibold leading-tight">
               <a href={`tel:${PHONE.href}`} className="hover:underline hover:underline-offset-4">
                 {PHONE.label}
               </a>
               <br />
-              <a href="#kapcsolat" className="font-medium hover:underline hover:underline-offset-4">
+              <a href="#contact" className="font-medium hover:underline hover:underline-offset-4">
                 {WEB_LABEL}
               </a>
             </p>

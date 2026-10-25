@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useId, useState, useSyncExternalStore } from "react";
-import { COOKIES } from "@/lib/content";
+import type { Dictionary, Locale } from "@/i18n";
 import {
   answerConsent,
   consentServerSnapshot,
@@ -26,7 +26,7 @@ import {
  * Nothing renders until the browser has read the cookie, so the bar never
  * flashes at somebody who has already answered.
  */
-export default function CookieBanner() {
+export default function CookieBanner({ locale, copy }: { locale: Locale; copy: Dictionary["cookies"] }) {
   const uid = useId();
   const state = useSyncExternalStore(subscribeConsent, consentSnapshot, consentServerSnapshot);
   const [detail, setDetail] = useState(false);
@@ -59,12 +59,12 @@ export default function CookieBanner() {
         <div className="flex flex-col gap-5">
           <div>
             <h2 id={`${uid}-title`} className="font-display text-base font-semibold tracking-[-0.02em]">
-              {COOKIES.title}
+              {copy.title}
             </h2>
             <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
-              {COOKIES.body}{" "}
-              <Link href="/cookie" className="link-underline font-semibold text-accent">
-                {COOKIES.more}
+              {copy.body}{" "}
+              <Link href={`/${locale}/cookies`} className="link-underline font-semibold text-accent-ink">
+                {copy.more}
               </Link>
             </p>
           </div>
@@ -76,7 +76,7 @@ export default function CookieBanner() {
                 onClick={openSettings}
                 className="order-3 rounded-full px-5 py-2.5 text-sm font-semibold text-slate-600 underline-offset-4 hover:text-ink hover:underline"
               >
-                {COOKIES.settings}
+                {copy.settings}
               </button>
               <button
                 type="button"
@@ -84,15 +84,15 @@ export default function CookieBanner() {
                 onClick={() => finish({ statistics: false, marketing: false })}
                 className="rounded-full border-2 border-ink px-6 py-3.5 text-sm font-semibold transition-colors duration-200 hover:bg-ink hover:text-white"
               >
-                {COOKIES.necessaryOnly}
+                {copy.necessaryOnly}
               </button>
               <button
                 type="button"
                 data-consent="all"
                 onClick={() => finish({ statistics: true, marketing: true })}
-                className="rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
+                className="rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
               >
-                {COOKIES.acceptAll}
+                {copy.acceptAll}
               </button>
             </div>
           )}
@@ -101,7 +101,7 @@ export default function CookieBanner() {
         {detail ? (
           <div className="pop-in mt-6 border-t border-line pt-5">
             <ul className="flex flex-col divide-y divide-line">
-              {COOKIES.categories.map((category) => {
+              {copy.categories.map((category) => {
                 const id = `${uid}-${category.id}`;
                 const key = category.id as "statistics" | "marketing";
                 const checked = category.locked ? true : choice[key];
@@ -117,7 +117,7 @@ export default function CookieBanner() {
                     </div>
                     <div className="flex shrink-0 items-center gap-3">
                       {category.locked ? (
-                        <span className="label text-slate-500">{COOKIES.alwaysOn}</span>
+                        <span className="label text-slate-500">{copy.alwaysOn}</span>
                       ) : null}
                       <button
                         id={id}
@@ -148,21 +148,21 @@ export default function CookieBanner() {
                 onClick={() => finish({ statistics: false, marketing: false })}
                 className="rounded-full border-2 border-ink px-6 py-3.5 text-sm font-semibold transition-colors duration-200 hover:bg-ink hover:text-white"
               >
-                {COOKIES.necessaryOnly}
+                {copy.necessaryOnly}
               </button>
               <button
                 type="button"
                 onClick={() => finish(choice)}
                 className="rounded-full border-2 border-ink px-6 py-3.5 text-sm font-semibold transition-colors duration-200 hover:bg-ink hover:text-white"
               >
-                {COOKIES.save}
+                {copy.save}
               </button>
               <button
                 type="button"
                 onClick={() => finish({ statistics: true, marketing: true })}
-                className="rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-sm font-semibold text-white transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
+                className="rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-sm font-semibold text-ink transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
               >
-                {COOKIES.acceptAll}
+                {copy.acceptAll}
               </button>
             </div>
           </div>

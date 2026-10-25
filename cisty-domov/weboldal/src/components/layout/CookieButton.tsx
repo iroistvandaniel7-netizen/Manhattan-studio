@@ -1,7 +1,6 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { COOKIES } from "@/lib/content";
 import {
   consentServerSnapshot,
   consentSnapshot,
@@ -14,7 +13,7 @@ import {
  * have learned to look for. Hidden while the bar itself is open: two ways to
  * answer the same question, one on top of the other, is not twice the choice.
  */
-export default function CookieButton() {
+export default function CookieButton({ label }: { label: string }) {
   const state = useSyncExternalStore(subscribeConsent, consentSnapshot, consentServerSnapshot);
   if (state !== "answered") return null;
 
@@ -23,8 +22,8 @@ export default function CookieButton() {
       type="button"
       data-cookie-button
       onClick={reopenConsent}
-      aria-label={COOKIES.reopen}
-      title={COOKIES.reopen}
+      aria-label={label}
+      title={label}
       className="fixed bottom-5 left-5 z-50 grid size-11 place-items-center rounded-full border border-line bg-white text-slate-600 shadow-[0_4px_20px_rgba(11,45,91,0.14)] transition-colors duration-200 hover:border-ink hover:text-ink sm:bottom-7 sm:left-7"
     >
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} aria-hidden="true" focusable="false" className="size-5">

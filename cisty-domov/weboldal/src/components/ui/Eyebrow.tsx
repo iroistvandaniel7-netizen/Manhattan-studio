@@ -8,5 +8,5 @@ export default function Eyebrow({
   invert?: boolean;
   className?: string;
 }) {
-  return <p className={`label ${invert ? "text-accent-lift" : "text-accent"} ${className}`}>{children}</p>;
+  return <p className={`label ${invert ? "text-accent-lift" : "text-accent-ink"} ${className}`}>{children}</p>;
 }
