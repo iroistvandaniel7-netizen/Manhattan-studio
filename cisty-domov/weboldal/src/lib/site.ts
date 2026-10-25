@@ -5,7 +5,7 @@
  * data and the form's fallback all read from here, so a phone number changed
  * in this file is changed everywhere at once.
  *
- * The phone number and domain are the ones on the Čistý Domov posters.
+ * The phone number is the business's own; the domain is the one on the posters.
  * ⚠ Everything marked TODO is a placeholder: replace it with the real company
  * details before the site goes live — the legal pages print these as they stand.
  */
@@ -28,8 +28,8 @@ export const COMPANY = {
   representative: "Meno Priezvisko, konateľ", // TODO
 } as const;
 
-/** `href` is E.164 for tel: links, `label` is the display form. From the posters. */
-export const PHONE = { href: "+421900123456", label: "+421 900 123 456" } as const;
+/** `href` is E.164 for tel: links, `label` is the display form, as the business writes it. */
+export const PHONE = { href: "+421918188252", label: "0918 188 252" } as const;
 
 export const EMAIL = "info@cistydomov.sk"; // TODO: confirm the mailbox exists
 
