@@ -144,6 +144,13 @@ const hu = {
   faq: {
     eyebrow: "GYIK",
     title: "Kérdése van?",
+    lead: "Pukkassza ki a buborékokat — mindegyikben egy válasz lapul.",
+    answered: "megválaszolva",
+    answerLabel: "Válasz",
+    doneTitle: "Minden kérdés tisztázva!",
+    doneText: "Ha maradt még kérdése, írjon vagy hívjon nyugodtan.",
+    again: "Újra",
+    cta: "Ajánlatot kérek",
     items: [
       {
         q: "Otthon kell lennem a takarítás alatt?",

@@ -136,6 +136,13 @@ const en: Dictionary = {
   faq: {
     eyebrow: "FAQ",
     title: "Questions?",
+    lead: "Pop the bubbles — there is an answer inside each one.",
+    answered: "answered",
+    answerLabel: "Answer",
+    doneTitle: "All questions answered!",
+    doneText: "If anything is still unclear, just write or call.",
+    again: "Play again",
+    cta: "Get a quote",
     items: [
       {
         q: "Do I need to be home during the clean?",

@@ -244,13 +244,64 @@ html:not([data-js]) .game-board {
   display: none;
 }
 
-/* Without scripting the before/after slider cannot move, so show both halves. */
-html:not([data-js]) .ba-handle {
-  display: none;
+/*
+ * FAQ bubbles: a soap film — clear centre, a white highlight top-left, the
+ * brand blue gathering at the rim — drifting on its own slow loop, and a pop
+ * that swells and vanishes.
+ */
+.soap-bubble {
+  background:
+    radial-gradient(circle at 30% 24%, rgba(255, 255, 255, 0.95) 0 5%, rgba(255, 255, 255, 0.3) 11%, transparent 26%),
+    radial-gradient(circle at 72% 80%, rgba(137, 207, 240, 0.3), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.55) 52%, rgba(137, 207, 240, 0.45) 74%, rgba(196, 230, 248, 0.95) 100%);
+  border: 1px solid rgba(137, 207, 240, 0.75);
+  box-shadow:
+    inset -8px -12px 26px rgba(137, 207, 240, 0.4),
+    inset 8px 10px 20px rgba(255, 255, 255, 0.85),
+    0 16px 40px rgba(31, 120, 168, 0.14);
+  transition: transform 0.25s var(--ease-out-expo);
 }
 
-.faq summary::-webkit-details-marker {
-  display: none;
+.soap-bubble:hover {
+  transform: scale(1.05);
+}
+
+@keyframes bubble-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  33% {
+    transform: translate3d(5px, -10px, 0);
+  }
+  66% {
+    transform: translate3d(-6px, -4px, 0);
+  }
+}
+
+[data-js] .bubble-float {
+  animation: bubble-float 7s ease-in-out infinite;
+}
+
+@keyframes bubble-pop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  45% {
+    transform: scale(1.18);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.45);
+    opacity: 0;
+    filter: blur(2px);
+  }
+}
+
+.bubble-pop {
+  animation: bubble-pop 0.34s ease-out forwards;
+  pointer-events: none;
 }
 
 /* ------------------------------------------------------------------ *

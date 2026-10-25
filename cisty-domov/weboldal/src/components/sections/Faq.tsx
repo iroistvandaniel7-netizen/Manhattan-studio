@@ -1,8 +1,9 @@
 import type { Dictionary } from "@/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
+import FaqGame from "./FaqGame";
 
-/** Native <details>, so every answer opens with or without scripting. */
+/** The questions, played as bubbles — see `FaqGame`. The structured data lists them all. */
 export default function Faq({ copy }: { copy: Dictionary["faq"] }) {
   /* FAQPage structured data, from the same list the page renders. */
   const jsonLd = {
@@ -28,21 +29,7 @@ export default function Faq({ copy }: { copy: Dictionary["faq"] }) {
           </h2>
         </Reveal>
 
-        <Reveal delay={110}>
-          <div className="mt-14 max-w-4xl border-t border-line">
-            {copy.items.map((item) => (
-              <details key={item.q} className="faq group border-b border-line">
-                <summary className="flex cursor-pointer list-none items-baseline justify-between gap-8 py-7 text-[clamp(1.125rem,1.8vw,1.375rem)] font-bold tracking-[-0.015em] transition-colors hover:text-accent-ink">
-                  {item.q}
-                  <span aria-hidden="true" className="text-2xl font-thin text-accent-ink transition-transform duration-300 group-open:rotate-45">
-                    +
-                  </span>
-                </summary>
-                <p className="max-w-2xl pb-8 text-base leading-relaxed text-slate-600">{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </Reveal>
+        <FaqGame copy={copy} />
       </div>
     </section>
   );

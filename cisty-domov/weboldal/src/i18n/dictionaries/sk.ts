@@ -136,6 +136,13 @@ const sk: Dictionary = {
   faq: {
     eyebrow: "Otázky",
     title: "Máte otázku?",
+    lead: "Prasknite bubliny — v každej je jedna odpoveď.",
+    answered: "zodpovedaných",
+    answerLabel: "Odpoveď",
+    doneTitle: "Všetko je jasné!",
+    doneText: "Ak máte ešte otázku, pokojne napíšte alebo zavolajte.",
+    again: "Znova",
+    cta: "Chcem cenovú ponuku",
     items: [
       {
         q: "Musím byť počas upratovania doma?",
