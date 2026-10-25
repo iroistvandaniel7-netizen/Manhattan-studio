@@ -17,6 +17,9 @@ import { AREA, BRAND, COMPANY, EMAIL, HOURS, PHONE, SITE_URL } from "@/lib/site"
  */
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
+  /* The optical-size axis is what turns Inter into Inter Display at large
+     sizes — the posters set their headlines in Inter Display. */
+  axes: ["opsz"],
   display: "swap",
   variable: "--font-inter",
 });

@@ -15,11 +15,11 @@ export default function Header() {
   const pathname = usePathname();
 
   /*
-   * Only the home page opens on the blue hero, and only there may the bar go
-   * transparent with white type. Without scripting the effect never runs, so
-   * globals.css forces the solid bar whenever `data-js` is missing.
+   * The home page opens on the white poster hero, where the bar sits
+   * transparent so the logo reads as part of the poster. The type stays dark —
+   * only the background and the rule change once the page scrolls.
    */
-  const onHero = pathname === "/" && !scrolled && !open;
+  const atTop = pathname === "/" && !scrolled && !open;
 
   /* Section links carry the home path, so they still work from the legal pages. */
   const nav = NAV.map((item) => ({ ...item, href: `/${item.href}` }));
@@ -78,18 +78,17 @@ export default function Header() {
     <header
       data-sticky="true"
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        onHero ? "on-dark bg-transparent" : "border-b border-line bg-white/95 backdrop-blur"
+        atTop ? "border-b border-transparent bg-transparent" : "border-b border-line bg-white/95 backdrop-blur"
       }`}
     >
-      <div className="container-x flex h-20 items-center justify-between gap-6">
+      <div className={`container-x flex items-center transition-[height] duration-300 ${atTop ? "h-24 sm:h-28" : "h-20"} justify-between gap-6`}>
         <Link
           href="/"
           onClick={close}
-          data-on-hero={onHero ? "true" : undefined}
-          className={`shrink-0 ${onHero ? "text-white" : "text-ink"}`}
+          className="shrink-0 text-ink"
           aria-label={BRAND.name}
         >
-          <Logo invert={onHero} />
+          <Logo />
         </Link>
 
         <nav className="hidden items-center gap-6 lg:flex xl:gap-8" aria-label="Fő navigáció">
@@ -97,10 +96,7 @@ export default function Header() {
             <Link
               key={item.href}
               href={item.href}
-              data-on-hero={onHero ? "true" : undefined}
-              className={`link-underline whitespace-nowrap py-1 text-[0.8125rem] font-semibold ${
-                onHero ? "text-white/90 hover:text-white" : "text-ink hover:text-accent"
-              }`}
+              className="link-underline whitespace-nowrap py-1 text-[0.8125rem] font-semibold text-ink hover:text-accent"
             >
               {item.label}
             </Link>
@@ -110,20 +106,14 @@ export default function Header() {
         <div className="flex items-center gap-4">
           <a
             href={`tel:${PHONE.href}`}
-            data-on-hero={onHero ? "true" : undefined}
-            className={`hidden text-sm font-bold xl:inline ${onHero ? "text-white" : "text-ink hover:text-accent"}`}
+            className="hidden text-sm font-bold text-ink hover:text-accent xl:inline"
           >
             {PHONE.label}
           </a>
 
           <Link
             href="/#kapcsolat"
-            data-on-hero={onHero ? "cta" : undefined}
-            className={`label hidden rounded-full px-6 py-3.5 transition-colors duration-200 sm:inline-flex ${
-              onHero
-                ? "bg-white text-accent hover:bg-accent-soft"
-                : "bg-accent text-white hover:bg-accent-deep"
-            }`}
+            className="label hidden rounded-full bg-accent px-6 py-3.5 text-white transition-colors duration-200 hover:bg-accent-deep sm:inline-flex"
           >
             {HERO.primary}
           </Link>
@@ -138,8 +128,7 @@ export default function Header() {
             className="relative z-10 flex size-11 items-center justify-center lg:hidden"
           >
             <span
-              data-on-hero={onHero ? "true" : undefined}
-              className={`relative block h-3.5 w-6 ${onHero ? "text-white" : "text-ink"}`}
+              className="relative block h-3.5 w-6 text-ink"
             >
               <span
                 className={`absolute left-0 block h-0.5 w-full bg-current transition-all duration-300 ${

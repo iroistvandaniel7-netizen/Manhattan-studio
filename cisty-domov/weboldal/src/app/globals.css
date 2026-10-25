@@ -219,6 +219,12 @@
   text-shadow: 0 1px 14px rgba(11, 45, 91, 0.3);
 }
 
+/* Inter Display, via the optical-size axis — the posters' headline face. */
+.hero-display {
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 32;
+}
+
 /* The headline glint: the text is its own colour, with a white band swept across. */
 .shine-text {
   background-image: linear-gradient(
@@ -274,24 +280,6 @@
 
 [data-js] .pop-in {
   animation: pop-in 0.42s var(--ease-out-expo) both;
-}
-
-/*
- * The header is transparent over the hero, a state React drives on scroll.
- * Without scripting that state can never change, so force the solid bar.
- */
-html:not([data-js]) [data-sticky] {
-  background-color: var(--color-white);
-  border-bottom-color: var(--color-line);
-}
-
-html:not([data-js]) [data-sticky] [data-on-hero] {
-  color: var(--color-ink);
-}
-
-html:not([data-js]) [data-sticky] [data-on-hero="cta"] {
-  background-color: var(--color-accent);
-  color: var(--color-white);
 }
 
 /* The game cannot be played without scripting; show a line in its place. */
