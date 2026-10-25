@@ -98,8 +98,19 @@ export default async function LocaleLayout({
   return (
     <html lang={htmlLang[typedLocale]} className={poppins.variable} suppressHydrationWarning>
       <head>
-        {/* Arms the scroll reveals before first paint; <ScriptFlag /> is the backstop. */}
-        <script dangerouslySetInnerHTML={{ __html: `document.documentElement.setAttribute('data-js','')` }} />
+        {/*
+          Arms the scroll reveals before first paint, so nothing flashes. If the
+          app never starts — a blocked or failed script, a page opened from disk
+          in a browser that will not load its bundles — the reveals would hold
+          the copy hidden for good, so after three seconds without
+          <ScriptFlag /> reporting in, the flag is taken back down and
+          everything shows in its finished state.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.setAttribute('data-js','');setTimeout(function(){if(!window.__ktReady)document.documentElement.removeAttribute('data-js')},3000)`,
+          }}
+        />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body id="top">

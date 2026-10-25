@@ -32,6 +32,8 @@ import { useEffect } from "react";
  */
 export default function ScriptFlag() {
   useEffect(() => {
+    /* Tells the inline script in <head> the app is running, so it keeps the reveals armed. */
+    (window as Window & { __ktReady?: boolean }).__ktReady = true;
     document.documentElement.setAttribute("data-js", "");
   }, []);
 
