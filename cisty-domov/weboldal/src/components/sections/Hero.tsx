@@ -34,10 +34,10 @@ export default function Hero({ copy }: { copy: Dictionary["hero"] }) {
           priority
           placeholder="blur"
           sizes="100vw"
-          className="object-cover object-[70%_50%] opacity-40"
+          className="object-cover object-[70%_50%] opacity-75"
         />
-        <div className="absolute inset-0 bg-accent/25 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.86)_42%,rgba(255,255,255,0.55)_100%)]" />
+        <div className="absolute inset-0 bg-accent/45 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.82)_55%,rgba(234,246,252,0.35)_100%)] lg:bg-[linear-gradient(90deg,rgba(255,255,255,0.88)_0%,rgba(255,255,255,0.72)_42%,rgba(234,246,252,0.25)_100%)]" />
       </div>
 
       {/* The house mark, huge and pale, spilling off the right and bottom. */}
