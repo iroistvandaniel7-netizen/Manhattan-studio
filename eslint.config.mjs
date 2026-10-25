@@ -12,8 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // A separate app with its own config.
-    "takarito/**",
+    // Čistý Domov brand files and its own site, with their own config.
+    "cisty-domov/**",
   ]),
 ]);
 

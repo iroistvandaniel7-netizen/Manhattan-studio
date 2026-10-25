@@ -1,6 +1,6 @@
 @import "tailwindcss";
-/* The cleaning-company site in `takarito/` is a separate app. */
-@source not "../../takarito";
+/* The Čistý Domov site in `cisty-domov/weboldal/` is a separate app. */
+@source not "../../cisty-domov";
 
 /* ------------------------------------------------------------------ *
  * Design tokens — magenta, white, black.
