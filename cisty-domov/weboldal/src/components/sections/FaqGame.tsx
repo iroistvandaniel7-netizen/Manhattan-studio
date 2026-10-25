@@ -82,7 +82,7 @@ export default function FaqGame({ copy }: { copy: Dictionary["faq"] }) {
 
         {/* The bubbles */}
         <Reveal delay={140}>
-          <div className="relative mt-10 rounded-[2rem] bg-paper px-2 py-8 sm:px-10 sm:py-14">
+          <div className="relative mt-10 px-2 py-8 sm:px-10 sm:py-14">
             {done ? (
               <div className="pop-in flex min-h-[18rem] flex-col items-center justify-center text-center">
                 <h3 className="text-[clamp(1.75rem,3.4vw,2.75rem)] leading-tight">{copy.doneTitle}</h3>
