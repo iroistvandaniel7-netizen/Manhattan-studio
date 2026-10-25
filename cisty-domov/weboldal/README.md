@@ -24,16 +24,43 @@ Vercelen: új projekt, **Root Directory = `cisty-domov/weboldal`**.
 
 | Fájl                  | Tartalom                                                              |
 | --------------------- | --------------------------------------------------------------------- |
-| `src/lib/site.ts`     | Cégnév, székhely, IČO, DIČ, cégjegyzék, e-mail, terület, nyitvatartás — **minden `TODO` helyőrző**. A telefonszám és a domain a plakátokról való. |
-| `src/lib/content.ts`  | Az oldal összes szövege (szolgáltatások, GYIK, garancia, ígéretek)    |
-| `src/lib/prices.ts`   | Az árlista (euróban). Amíg üres, a −20%-os bemutatkozó ajánlat látszik helyette |
-| `src/lib/legal.ts`    | Adatkezelési és süti tájékoztató szövege                              |
+| `src/lib/site.ts`     | Cégnév, székhely, IČO, DIČ, cégjegyzék, e-mail, nyitvatartás — **minden `TODO` helyőrző**. A telefonszám valódi (0918 188 252), a domain a plakátokról való. |
+| `src/i18n/dictionaries/{sk,hu,en}.ts` | Az oldal összes szövege nyelvenként, a jogi oldalakkal együtt. A `hu.ts` adja a szerkezetet: ha a másik kettőből hiányzik egy kulcs, a build hibát dob. A működési terület (`contact.area`) is itt van. |
 
 ## Oldal
 
-Hero → számok → szolgáltatások (fül + panel, a plakát 5 szolgáltatása) → **mini játék** (ablakpucolás 20 mp
-alatt, egérrel, ujjal vagy nyilakkal) → árak → miért mi → 3 lépés → GYIK →
-ajánlatkérő űrlap. Külön oldalak: `/adatvedelem`, `/cookie`, `/impresszum`.
+1. **Hero** — az 1. plakát: „Tiszta otthon. Több szabad idő.”, a takarítónő a ház előtt, kék kapcsolat-doboz.
+2. **Videó** — teljes szélességű háttérvideó egy mondattal, alján futó szalag a szolgáltatásokkal.
+3. **Szolgáltatások** — egyetlen nagy mondat, benne minden szolgáltatás egy link, ami előre kiválasztja az űrlapon; alatta rövid leírások soronként.
+4. **Három lépés**, **Mini játék**, **Irodáknak**.
+5. **Munkáink** — valódi előtte/utána fotók (`src/lib/gallery.ts`). Üres listánál nem jelenik meg.
+6. **GYIK**, **Ajánlatkérés**.
+
+## Nyelvek
+
+`/sk`, `/hu`, `/en` — a jogi oldalak `/{nyelv}/gdpr`, `/cookies`, `/impressum`.
+A csupasz domain a böngésző nyelve szerint visz: magyar böngésző → `/hu`, minden
+más → `/sk`. Angolra magától sosem vált (sokan angol nyelvű telefont használnak),
+de a nyelvváltóban egy kattintás.
+
+## Színek
+
+A márkaszín a **#89CFF0**: gombok, kiemelések, sávok, logó-ikon. Rajta a szöveg
+sötétkék (#0B2D5B, 8:1). Fehér háttéren kék *szövegként* ugyanennek a kéknek a
+sötétebb árnyalata (#1F78A8, 4,8:1) szerepel, mert a #89CFF0 fehéren csak 1,7:1
+kontrasztú, olvashatatlan. A `public/brand/` logói a webre át vannak színezve; az
+eredeti logócsomag a `../logo/` mappában változatlan.
+
+Betűtípus mindenhol Poppins, a saját szerverről kiszolgálva. Szándékosan nincsenek
+ikonok és kártyarácsok: a szekciók tipográfiára és sorokra épülnek.
+
+### A háttérvideó
+
+`public/video/takaritas.mp4` és `takaritas.jpg` (a videó állóképe, ezt látja, aki
+csökkentett mozgást kért, vagy amíg a videó tölt). A mostani videót a
+`../forras/video.js` rendereli (`node cisty-domov/forras/video.js`). Valódi
+felvételre cserélni: a két fájlt kell lecserélni ugyanezen a néven
+(MP4/H.264, 1280×720 vagy 1920×1080, 10–20 mp, hang nélkül, 2–4 MB alatt).
 
 ## Ajánlatkérő űrlap
 

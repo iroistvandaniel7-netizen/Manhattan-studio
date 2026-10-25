@@ -1,6 +1,4 @@
-import { Sparkle } from "@/components/graphics/Icons";
-
-/** Small section label, opened by a glint. */
+/** Section label: the posters' small, widely tracked uppercase line. */
 export default function Eyebrow({
   children,
   invert = false,
@@ -10,14 +8,5 @@ export default function Eyebrow({
   invert?: boolean;
   className?: string;
 }) {
-  return (
-    <p
-      className={`label flex items-center gap-2.5 ${
-        invert ? "text-white/75" : "text-slate-600"
-      } ${className}`}
-    >
-      <Sparkle className={`size-3 ${invert ? "text-accent-lift" : "text-accent"}`} />
-      {children}
-    </p>
-  );
+  return <p className={`label ${invert ? "text-accent-lift" : "text-accent-ink"} ${className}`}>{children}</p>;
 }

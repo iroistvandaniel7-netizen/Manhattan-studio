@@ -31,6 +31,8 @@ type Submission = {
   city: string;
   message: string;
   consent: boolean;
+  /** The language the visitor wrote in, so the reply can match it. */
+  locale: string;
   receivedAt: string;
 };
 
@@ -61,6 +63,7 @@ export async function POST(request: Request) {
     city: str(body.city, 120),
     message: str(body.message, 4000),
     consent: body.consent === true,
+    locale: str(body.locale, 5),
     receivedAt: new Date().toISOString(),
   };
 
@@ -137,6 +140,7 @@ function notificationBody(s: Submission): string {
     `Szolgáltatás:  ${s.service}`,
     `Alapterület:   ${s.size || "—"}`,
     `Település:     ${s.city || "—"}`,
+    `Nyelv:         ${s.locale || "—"}`,
     `Érkezett:      ${s.receivedAt}`,
     `Adatkezelés:   elfogadva`,
     "",

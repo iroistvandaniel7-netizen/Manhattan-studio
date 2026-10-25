@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useId, useState, useSyncExternalStore } from "react";
-import { COOKIES } from "@/lib/content";
+import type { Dictionary, Locale } from "@/i18n";
 import {
   answerConsent,
   consentServerSnapshot,
@@ -26,7 +26,7 @@ import {
  * Nothing renders until the browser has read the cookie, so the bar never
  * flashes at somebody who has already answered.
  */
-export default function CookieBanner() {
+export default function CookieBanner({ locale, copy }: { locale: Locale; copy: Dictionary["cookies"] }) {
   const uid = useId();
   const state = useSyncExternalStore(subscribeConsent, consentSnapshot, consentServerSnapshot);
   const [detail, setDetail] = useState(false);
@@ -51,46 +51,48 @@ export default function CookieBanner() {
       aria-modal="false"
       aria-labelledby={`${uid}-title`}
       data-cookie-banner
-      className="fixed inset-x-0 bottom-0 z-[80] border-t border-line bg-white shadow-[0_-10px_40px_rgba(11,45,91,0.12)] motion-safe:animate-[cookie-in_320ms_cubic-bezier(0.16,1,0.3,1)]"
+      className={`fixed bottom-3 left-3 right-3 z-[80] mx-auto rounded-[1.75rem] bg-white shadow-[0_24px_80px_rgba(11,45,91,0.25)] ring-1 ring-line motion-safe:animate-[cookie-in_420ms_cubic-bezier(0.16,1,0.3,1)] sm:bottom-5 sm:left-5 sm:right-auto ${
+        detail ? "sm:w-[34rem]" : "sm:w-[27rem]"
+      }`}
     >
-      <div className="container-x max-h-[85dvh] overflow-y-auto py-5 lg:py-6">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:gap-10">
-          <div className="lg:flex-1">
-            <h2 id={`${uid}-title`} className="font-display text-base font-extrabold tracking-[-0.02em]">
-              {COOKIES.title}
+      <div className="max-h-[85dvh] overflow-y-auto p-5 sm:p-7">
+        <div className="flex flex-col gap-4 sm:gap-5">
+          <div>
+            <h2 id={`${uid}-title`} className="font-display text-base font-semibold tracking-[-0.02em]">
+              {copy.title}
             </h2>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate-600">
-              {COOKIES.body}{" "}
-              <Link href="/cookie" className="link-underline font-semibold text-accent">
-                {COOKIES.more}
+            <p className="mt-1.5 max-w-2xl text-[0.8125rem] leading-relaxed text-slate-600 sm:mt-2 sm:text-sm">
+              {copy.body}{" "}
+              <Link href={`/${locale}/cookies`} className="link-underline font-semibold text-accent-ink">
+                {copy.more}
               </Link>
             </p>
           </div>
 
           {detail ? null : (
-            <div className="flex shrink-0 flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <div className="grid grid-cols-2 gap-2.5 sm:flex sm:flex-col">
               <button
                 type="button"
                 onClick={openSettings}
-                className="label rounded-full px-5 py-3.5 text-slate-600 underline-offset-4 hover:text-ink hover:underline"
+                className="order-3 col-span-2 rounded-full px-5 py-1.5 text-sm font-semibold sm:py-2.5 text-slate-600 underline-offset-4 hover:text-ink hover:underline"
               >
-                {COOKIES.settings}
+                {copy.settings}
               </button>
               <button
                 type="button"
                 data-consent="necessary"
                 onClick={() => finish({ statistics: false, marketing: false })}
-                className="label rounded-full border-2 border-ink px-6 py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
+                className="rounded-full border-2 border-ink px-4 py-3 text-sm font-semibold sm:px-6 sm:py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
               >
-                {COOKIES.necessaryOnly}
+                {copy.necessaryOnly}
               </button>
               <button
                 type="button"
                 data-consent="all"
                 onClick={() => finish({ statistics: true, marketing: true })}
-                className="label rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-white transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
+                className="rounded-full border-2 border-accent bg-accent px-4 py-3 text-sm font-semibold sm:px-6 sm:py-3.5 text-ink transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
               >
-                {COOKIES.acceptAll}
+                {copy.acceptAll}
               </button>
             </div>
           )}
@@ -99,7 +101,7 @@ export default function CookieBanner() {
         {detail ? (
           <div className="pop-in mt-6 border-t border-line pt-5">
             <ul className="flex flex-col divide-y divide-line">
-              {COOKIES.categories.map((category) => {
+              {copy.categories.map((category) => {
                 const id = `${uid}-${category.id}`;
                 const key = category.id as "statistics" | "marketing";
                 const checked = category.locked ? true : choice[key];
@@ -115,7 +117,7 @@ export default function CookieBanner() {
                     </div>
                     <div className="flex shrink-0 items-center gap-3">
                       {category.locked ? (
-                        <span className="label text-slate-500">{COOKIES.alwaysOn}</span>
+                        <span className="label text-slate-500">{copy.alwaysOn}</span>
                       ) : null}
                       <button
                         id={id}
@@ -140,27 +142,27 @@ export default function CookieBanner() {
               })}
             </ul>
 
-            <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:justify-end">
+            <div className="mt-4 flex flex-col gap-2.5">
               <button
                 type="button"
                 onClick={() => finish({ statistics: false, marketing: false })}
-                className="label rounded-full border-2 border-ink px-6 py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
+                className="rounded-full border-2 border-ink px-4 py-3 text-sm font-semibold sm:px-6 sm:py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
               >
-                {COOKIES.necessaryOnly}
+                {copy.necessaryOnly}
               </button>
               <button
                 type="button"
                 onClick={() => finish(choice)}
-                className="label rounded-full border-2 border-ink px-6 py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
+                className="rounded-full border-2 border-ink px-4 py-3 text-sm font-semibold sm:px-6 sm:py-3.5 transition-colors duration-200 hover:bg-ink hover:text-white"
               >
-                {COOKIES.save}
+                {copy.save}
               </button>
               <button
                 type="button"
                 onClick={() => finish({ statistics: true, marketing: true })}
-                className="label rounded-full border-2 border-accent bg-accent px-6 py-3.5 text-white transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
+                className="rounded-full border-2 border-accent bg-accent px-4 py-3 text-sm font-semibold sm:px-6 sm:py-3.5 text-ink transition-colors duration-200 hover:border-accent-deep hover:bg-accent-deep"
               >
-                {COOKIES.acceptAll}
+                {copy.acceptAll}
               </button>
             </div>
           </div>

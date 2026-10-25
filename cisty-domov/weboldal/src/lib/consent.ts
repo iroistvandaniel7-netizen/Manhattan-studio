@@ -28,26 +28,48 @@ export type Consent = {
 /** Stored as two digits, statistics then marketing: "10" = statistics only. */
 const encode = (c: Consent) => `${c.statistics ? 1 : 0}${c.marketing ? 1 : 0}`;
 
+/*
+ * The answer as last given in this page view.
+ *
+ * A browser that refuses cookies — set to block them, or a page running in a
+ * sandboxed frame, where touching `document.cookie` throws — would otherwise
+ * never be able to record an answer, and the bar would sit over the page no
+ * matter what was pressed. The cookie is still the record that lasts; this is
+ * what lets the choice stick for the rest of the visit when it cannot.
+ */
+let remembered: string | null = null;
+
+function readCookie(): string | null {
+  try {
+    const found = document.cookie
+      .split(";")
+      .map((part) => part.trim())
+      .find((part) => part.startsWith(`${CONSENT_COOKIE}=`));
+    return found ? decodeURIComponent(found.slice(CONSENT_COOKIE.length + 1)) : null;
+  } catch {
+    return null;
+  }
+}
+
 export function readConsent(): Consent | null {
   if (typeof document === "undefined") return null;
 
-  const found = document.cookie
-    .split(";")
-    .map((part) => part.trim())
-    .find((part) => part.startsWith(`${CONSENT_COOKIE}=`));
-
-  if (!found) return null;
-  const value = decodeURIComponent(found.slice(CONSENT_COOKIE.length + 1));
-  if (!/^[01]{2}$/.test(value)) return null;
+  const value = readCookie() ?? remembered;
+  if (!value || !/^[01]{2}$/.test(value)) return null;
 
   return { necessary: true, statistics: value[0] === "1", marketing: value[1] === "1" };
 }
 
 function writeCookie(value: string, maxAge: number): void {
+  remembered = value;
   /* `Secure` only on https — on a plain-http local build the browser would drop
      the cookie silently and the bar would come back on every reload. */
   const secure = location.protocol === "https:" ? "; Secure" : "";
-  document.cookie = `${CONSENT_COOKIE}=${value}; Max-Age=${maxAge}; Path=/; SameSite=Lax${secure}`;
+  try {
+    document.cookie = `${CONSENT_COOKIE}=${value}; Max-Age=${maxAge}; Path=/; SameSite=Lax${secure}`;
+  } catch {
+    /* Cookies are blocked here; `remembered` carries the answer for this visit. */
+  }
 }
 
 /** For anything that might measure or advertise: ask before you load. */

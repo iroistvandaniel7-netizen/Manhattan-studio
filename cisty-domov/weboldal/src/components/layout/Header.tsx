@@ -1,28 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { NAV, HERO } from "@/lib/content";
+import type { Dictionary, Locale } from "@/i18n";
 import { BRAND, PHONE } from "@/lib/site";
 import Logo from "@/components/graphics/Logo";
+import LanguageSwitcher from "./LanguageSwitcher";
 
-export default function Header() {
+/**
+ * A floating bar. At the top of the page it is just the logo and the links,
+ * sitting on the poster; once the page scrolls it gathers into a white pill
+ * with a soft shadow, held off the edges of the screen.
+ */
+export default function Header({ locale, dict }: { locale: Locale; dict: Dictionary }) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const pathname = usePathname();
-
-  /*
-   * The home page opens on the white poster hero, where the bar sits
-   * transparent so the logo reads as part of the poster. The type stays dark —
-   * only the background and the rule change once the page scrolls.
-   */
-  const atTop = pathname === "/" && !scrolled && !open;
 
   /* Section links carry the home path, so they still work from the legal pages. */
-  const nav = NAV.map((item) => ({ ...item, href: `/${item.href}` }));
+  const home = `/${locale}`;
+  const nav = dict.nav.map((item) => ({ ...item, href: `${home}${item.href}` }));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -74,115 +72,95 @@ export default function Header() {
     };
   }, [open, close]);
 
+  const solid = scrolled || open;
+
   return (
-    <header
-      data-sticky="true"
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        atTop ? "border-b border-transparent bg-transparent" : "border-b border-line bg-white/95 backdrop-blur"
-      }`}
-    >
-      <div className={`container-x flex items-center transition-[height] duration-300 ${atTop ? "h-24 sm:h-28" : "h-20"} justify-between gap-6`}>
-        <Link
-          href="/"
-          onClick={close}
-          className="shrink-0 text-ink"
-          aria-label={BRAND.name}
+    <header className="fixed inset-x-0 top-0 z-50 pt-3 sm:pt-4">
+      {/* The pill reaches a little past the content column, so the logo inside
+          it lines up with the left edge of every section below. */}
+      <div className="container-x">
+        <div
+          className={`-mx-2 flex items-center justify-between gap-6 rounded-full py-2 pr-2 pl-4 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] sm:-mx-7 sm:pl-7 ${
+            solid
+              ? "bg-white/90 shadow-[0_10px_40px_rgba(11,45,91,0.12)] ring-1 ring-line backdrop-blur-md"
+              : "bg-transparent"
+          }`}
         >
-          <Logo />
-        </Link>
-
-        <nav className="hidden items-center gap-6 lg:flex xl:gap-8" aria-label="Fő navigáció">
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="link-underline whitespace-nowrap py-1 text-[0.8125rem] font-semibold text-ink hover:text-accent"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-4">
-          <a
-            href={`tel:${PHONE.href}`}
-            className="hidden text-sm font-bold text-ink hover:text-accent xl:inline"
-          >
-            {PHONE.label}
-          </a>
-
-          <Link
-            href="/#kapcsolat"
-            className="label hidden rounded-full bg-accent px-6 py-3.5 text-white transition-colors duration-200 hover:bg-accent-deep sm:inline-flex"
-          >
-            {HERO.primary}
+          <Link href={home} onClick={close} className="shrink-0" aria-label={BRAND.name}>
+            <Logo />
           </Link>
 
-          <button
-            ref={toggleRef}
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            aria-label={open ? "Menü bezárása" : "Menü megnyitása"}
-            className="relative z-10 flex size-11 items-center justify-center lg:hidden"
-          >
-            <span
-              className="relative block h-3.5 w-6 text-ink"
-            >
-              <span
-                className={`absolute left-0 block h-0.5 w-full bg-current transition-all duration-300 ${
-                  open ? "top-1/2 rotate-45" : "top-0"
-                }`}
-              />
-              <span
-                className={`absolute left-0 top-1/2 block h-0.5 bg-current transition-all duration-200 ${
-                  open ? "w-0 opacity-0" : "w-full opacity-100"
-                }`}
-              />
-              <span
-                className={`absolute left-0 block h-0.5 w-full bg-current transition-all duration-300 ${
-                  open ? "top-1/2 -rotate-45" : "top-full"
-                }`}
-              />
-            </span>
-          </button>
-        </div>
-      </div>
-
-      <div
-        id="mobile-menu"
-        ref={panelRef}
-        hidden={!open}
-        className="border-t border-line bg-white lg:hidden"
-      >
-        <div className="container-x flex h-[calc(100dvh-5rem)] flex-col gap-8 overflow-y-auto py-8">
-          <nav className="flex flex-col" aria-label="Mobil navigáció">
+          <nav className="hidden items-center gap-1 xl:flex" aria-label={dict.ui.mainNav}>
             {nav.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                onClick={close}
-                className="font-display border-b border-line py-4 text-3xl font-extrabold tracking-[-0.03em]"
+                className="rounded-full px-3.5 py-2.5 text-[0.9375rem] font-medium whitespace-nowrap text-ink transition-colors duration-200 hover:bg-accent-soft hover:text-accent-ink"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
 
-          <div className="mt-auto flex shrink-0 flex-col gap-3">
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher locale={locale} label={dict.ui.language} className="mr-1 hidden md:flex" />
             <a
               href={`tel:${PHONE.href}`}
-              className="label inline-flex items-center justify-center rounded-full border-2 border-ink px-7 py-4"
+              className="hidden rounded-full px-4 py-2.5 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors hover:text-accent-ink 2xl:inline-flex"
             >
               {PHONE.label}
             </a>
             <Link
-              href="/#kapcsolat"
-              onClick={close}
-              className="label inline-flex items-center justify-center rounded-full bg-accent px-7 py-4.5 text-white"
+              href={`${home}#contact`}
+              className="hidden rounded-full bg-accent px-6 py-3.5 text-[0.9375rem] font-semibold whitespace-nowrap text-ink transition-colors duration-200 hover:bg-accent-deep sm:inline-flex"
             >
-              {HERO.primary}
+              {dict.hero.cta}
+            </Link>
+
+            <button
+              ref={toggleRef}
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              aria-label={open ? dict.ui.closeMenu : dict.ui.openMenu}
+              className="grid size-12 place-items-center rounded-full bg-ink text-white xl:hidden"
+            >
+              <span className="relative block h-3 w-5">
+                <span className={`absolute left-0 block h-0.5 w-full bg-current transition-all duration-300 ${open ? "top-1/2 rotate-45" : "top-0"}`} />
+                <span className={`absolute left-0 block h-0.5 w-full bg-current transition-all duration-300 ${open ? "top-1/2 -rotate-45" : "top-full"}`} />
+              </span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+      <div
+        id="mobile-menu"
+        ref={panelRef}
+        hidden={!open}
+        className="mx-3 mt-2 overflow-hidden rounded-[2rem] bg-white shadow-[0_20px_60px_rgba(11,45,91,0.18)] ring-1 ring-line xl:hidden"
+      >
+        <div className="flex max-h-[calc(100dvh-7rem)] flex-col gap-6 overflow-y-auto p-6">
+          <nav className="flex flex-col" aria-label={dict.ui.mobileNav}>
+            {nav.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={close}
+                className="border-b border-line py-4 font-display text-2xl font-semibold tracking-[-0.03em] last:border-b-0"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+          <LanguageSwitcher locale={locale} label={dict.ui.language} />
+          <div className="grid gap-3">
+            <a href={`tel:${PHONE.href}`} className="rounded-full bg-accent-soft px-6 py-4 text-center font-semibold text-accent-ink">
+              {PHONE.label}
+            </a>
+            <Link href={`${home}#contact`} onClick={close} className="rounded-full bg-accent px-6 py-4 text-center font-semibold text-ink">
+              {dict.hero.cta}
             </Link>
           </div>
         </div>

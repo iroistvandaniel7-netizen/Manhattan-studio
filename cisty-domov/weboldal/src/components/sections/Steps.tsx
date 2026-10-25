@@ -1,36 +1,36 @@
-import { STEPS } from "@/lib/content";
+import type { Dictionary } from "@/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 
-/** Four steps, joined by one rule that fills as the row reveals. */
-export default function Steps() {
+/** The three steps as a numbered list, one per line, read top to bottom. */
+export default function Steps({ copy }: { copy: Dictionary["steps"] }) {
   return (
-    <section className="relative isolate overflow-hidden py-section" aria-labelledby="steps-title">
+    <section className="relative isolate overflow-hidden bg-white py-section" aria-labelledby="steps-title">
       <div className="container-x">
-        <div className="max-w-2xl">
-          <Reveal>
-            <Eyebrow>{STEPS.eyebrow}</Eyebrow>
-          </Reveal>
-          <Reveal delay={70}>
-            <h2 id="steps-title" className="mt-5 text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95]">
-              {STEPS.title}
-            </h2>
-          </Reveal>
-        </div>
+        <Reveal>
+          <Eyebrow>{copy.eyebrow}</Eyebrow>
+        </Reveal>
+        <Reveal delay={70}>
+          <h2 id="steps-title" className="mt-6 text-[clamp(2.25rem,5.5vw,4.5rem)] leading-[1.02]">
+            {copy.title} <span className="font-thin text-accent-ink">{copy.titleSoft}</span>
+          </h2>
+        </Reveal>
 
-        <ol className="mt-14 grid gap-10 sm:grid-cols-3 lg:mt-20 lg:gap-12">
-          {STEPS.items.map((step, i) => (
-            <Reveal as="li" key={step.title} delay={i * 90} className="relative">
-              <div className="flex items-center gap-4">
-                <span className="grid size-14 shrink-0 place-items-center rounded-full bg-accent font-display text-xl font-extrabold text-white">
-                  {i + 1}
-                </span>
-                {i < STEPS.items.length - 1 ? (
-                  <span aria-hidden="true" className="hidden h-0.5 flex-1 bg-[repeating-linear-gradient(90deg,var(--color-sky)_0_8px,transparent_8px_14px)] lg:block" />
-                ) : null}
-              </div>
-              <h3 className="mt-6 text-xl tracking-[-0.02em] sm:text-2xl">{step.title}</h3>
-              <p className="mt-3 max-w-[30ch] text-sm leading-relaxed text-slate-600">{step.desc}</p>
+        <ol className="mt-16 border-t border-line">
+          {copy.items.map((step, i) => (
+            <Reveal
+              as="li"
+              key={step.title}
+              delay={i * 80}
+              className="flex flex-col gap-3 border-b border-line py-9 sm:flex-row sm:items-baseline sm:gap-12"
+            >
+              <span className="text-[clamp(3rem,6vw,5rem)] leading-none font-thin text-accent-ink tabular-nums sm:w-28 sm:shrink-0">
+                {i + 1}.
+              </span>
+              <span className="text-[clamp(1.5rem,2.6vw,2.25rem)] font-bold tracking-[-0.025em] sm:w-[24rem] sm:shrink-0">
+                {step.title}
+              </span>
+              <span className="max-w-md text-base leading-relaxed text-slate-600">{step.desc}</span>
             </Reveal>
           ))}
         </ol>

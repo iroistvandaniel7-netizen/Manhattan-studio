@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { GAME } from "@/lib/content";
+import type { Dictionary } from "@/i18n";
 import Eyebrow from "@/components/ui/Eyebrow";
 import Reveal from "@/components/ui/Reveal";
 
@@ -34,7 +34,7 @@ function seeded(seed: number) {
   };
 }
 
-function paintDirt(ctx: CanvasRenderingContext2D) {
+function paintDirt(ctx: CanvasRenderingContext2D, scrawl: string) {
   const rand = seeded(42);
   ctx.globalCompositeOperation = "source-over";
   ctx.clearRect(0, 0, W, H);
@@ -86,11 +86,11 @@ function paintDirt(ctx: CanvasRenderingContext2D) {
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   ctx.fillStyle = "rgba(200, 192, 168, 0.55)";
-  ctx.fillText("Tisztíts meg!", 0, 0);
+  ctx.fillText(scrawl, 0, 0);
   ctx.restore();
 }
 
-export default function Game() {
+export default function Game({ copy }: { copy: Dictionary["game"] }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fxRef = useRef<HTMLCanvasElement>(null);
   const spongeRef = useRef<HTMLDivElement>(null);
@@ -110,11 +110,11 @@ export default function Game() {
   const bubbles = useRef<Bubble[]>([]);
   const frame = useRef(0);
 
-  /* Paint the grime once on mount. */
+  /* Paint the grime on mount, and again if the language (and so the scrawl) changes. */
   useEffect(() => {
     const ctx = canvasRef.current?.getContext("2d");
-    if (ctx) paintDirt(ctx);
-  }, []);
+    if (ctx) paintDirt(ctx, copy.canvasText);
+  }, [copy.canvasText]);
 
   const percentNow = () => Math.min(100, Math.round((cleaned.current / (GX * GY)) * 100));
 
@@ -240,7 +240,7 @@ export default function Game() {
 
   const start = () => {
     const ctx = canvasRef.current?.getContext("2d");
-    if (ctx) paintDirt(ctx);
+    if (ctx) paintDirt(ctx, copy.canvasText);
     grid.current = new Uint8Array(GX * GY);
     cleaned.current = 0;
     last.current = null;
@@ -318,57 +318,53 @@ export default function Game() {
     moveSponge(to);
   };
 
-  const result = [...GAME.results].reverse().find((r) => percent >= r.min) ?? GAME.results[0];
+  const result = [...copy.results].reverse().find((r) => percent >= r.min) ?? copy.results[0];
   const seconds = Math.ceil(left / 1000);
 
   return (
-    <section id="jatek" className="relative isolate overflow-hidden bg-accent-soft py-section" aria-labelledby="game-title">
-      <div className="container-x grid gap-12 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-16">
-        <div className="lg:sticky lg:top-28 lg:self-start">
+    <section id="game" className="relative isolate overflow-hidden bg-paper py-section" aria-labelledby="game-title">
+      <div aria-hidden="true" className="bg-cleaning pointer-events-none absolute inset-0 -z-10" />
+      <div className="container-x">
+        <div className="mx-auto max-w-2xl text-center">
           <Reveal>
-            <Eyebrow>{GAME.eyebrow}</Eyebrow>
+            <Eyebrow>{copy.eyebrow}</Eyebrow>
           </Reveal>
           <Reveal delay={70}>
-            <h2 id="game-title" className="mt-5 text-[clamp(2.25rem,6vw,3.75rem)] leading-[0.95]">
-              {GAME.title}
+            <h2 id="game-title" className="mt-5 text-[clamp(2.5rem,6vw,4.75rem)] leading-[0.95]">
+              {copy.title}
             </h2>
           </Reveal>
           <Reveal delay={130}>
-            <p className="mt-5 text-base leading-relaxed text-slate-600">{GAME.lead}</p>
-          </Reveal>
-          <Reveal delay={190}>
-            <p className="mt-6 border-l-2 border-sky pl-4 text-[0.8125rem] leading-relaxed text-slate-500">
-              {GAME.keyboardHint}
-            </p>
+            <p className="mx-auto mt-5 max-w-xl text-lg leading-relaxed text-slate-600">{copy.lead}</p>
           </Reveal>
         </div>
 
-        <Reveal delay={60}>
-          <p className="game-bare rounded-[1.75rem] border border-line bg-white p-7 text-sm leading-relaxed text-slate-600">
-            {GAME.noScript}
+        <Reveal delay={60} className="mx-auto mt-12 max-w-5xl">
+          <p className="game-bare rounded-[2rem] border border-line bg-white p-7 text-sm leading-relaxed text-slate-600">
+            {copy.noScript}
           </p>
 
-          <div className="game-board rounded-[1.75rem] bg-ink p-4 text-white sm:p-6">
+          <div className="game-board rounded-[2rem] bg-ink p-4 text-white shadow-[0_30px_80px_rgba(11,45,91,0.25)] sm:p-6">
             {/* Scoreboard */}
             <div className="flex items-center justify-between gap-4 px-2 pb-4 sm:px-3">
               <div className="flex gap-8">
                 <div>
-                  <p className="label text-white/55">{GAME.time}</p>
-                  <p className="font-display text-2xl font-extrabold tabular-nums sm:text-3xl" aria-live="off">
+                  <p className="label text-white/55">{copy.time}</p>
+                  <p className="font-display text-2xl font-semibold tabular-nums sm:text-3xl" aria-live="off">
                     {seconds}s
                   </p>
                 </div>
                 <div>
-                  <p className="label text-white/55">{GAME.clean}</p>
-                  <p className="font-display text-2xl font-extrabold tabular-nums text-accent-lift sm:text-3xl">
+                  <p className="label text-white/55">{copy.clean}</p>
+                  <p className="font-display text-2xl font-semibold tabular-nums text-accent-lift sm:text-3xl">
                     {percent}%
                   </p>
                 </div>
               </div>
               {best !== null ? (
                 <div className="text-right">
-                  <p className="label text-white/55">{GAME.best}</p>
-                  <p className="font-display text-2xl font-extrabold tabular-nums sm:text-3xl">{best}%</p>
+                  <p className="label text-white/55">{copy.best}</p>
+                  <p className="font-display text-2xl font-semibold tabular-nums sm:text-3xl">{best}%</p>
                 </div>
               ) : null}
             </div>
@@ -394,7 +390,7 @@ export default function Game() {
                 height={H}
                 tabIndex={phase === "playing" ? 0 : -1}
                 role="img"
-                aria-label={GAME.canvasLabel}
+                aria-label={copy.canvasLabel}
                 onPointerDown={onPointerDown}
                 onPointerMove={onPointerMove}
                 onPointerUp={onPointerEnd}
@@ -434,33 +430,33 @@ export default function Game() {
                     <button
                       type="button"
                       onClick={start}
-                      className="group/btn label inline-flex items-center gap-3 rounded-full bg-white px-9 py-5 text-accent shadow-xl transition-transform duration-200 hover:scale-105"
+                      className="group/btn label inline-flex items-center gap-3 rounded-full bg-white px-9 py-5 text-accent-ink shadow-xl transition-transform duration-200 hover:scale-105"
                     >
-                      {GAME.start}
+                      {copy.start}
                       <span aria-hidden="true" className="transition-transform duration-200 group-hover/btn:translate-x-1">
                         →
                       </span>
                     </button>
                   ) : (
                     <div className="pop-in max-w-md text-center" role="status">
-                      <p className="font-display text-[clamp(3.5rem,11vw,6rem)] font-extrabold leading-none tracking-[-0.04em] text-accent-lift">
+                      <p className="font-display text-[clamp(3.5rem,11vw,6rem)] font-semibold leading-none tracking-[-0.04em] text-accent-lift">
                         {percent}%
                       </p>
                       <h3 className="mt-3 text-2xl sm:text-3xl">{result.title}</h3>
                       <p className="mt-3 text-sm leading-relaxed text-white/80">{result.text}</p>
                       <div className="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
                         <a
-                          href="#kapcsolat"
-                          className="label inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-accent transition-colors duration-200 hover:bg-accent-soft"
+                          href="#contact"
+                          className="label inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-accent-ink transition-colors duration-200 hover:bg-accent-soft"
                         >
-                          {GAME.cta} <span aria-hidden="true">→</span>
+                          {copy.cta} <span aria-hidden="true">→</span>
                         </a>
                         <button
                           type="button"
                           onClick={start}
                           className="label rounded-full border-2 border-white/60 px-6 py-3.5 text-white transition-colors duration-200 hover:border-white"
                         >
-                          {GAME.again}
+                          {copy.again}
                         </button>
                       </div>
                     </div>
@@ -469,6 +465,7 @@ export default function Game() {
               ) : null}
             </div>
           </div>
+          <p className="mt-5 text-center text-sm text-slate-500">{copy.keyboardHint}</p>
         </Reveal>
       </div>
     </section>
@@ -487,8 +484,8 @@ function WindowView() {
     >
       <defs>
         <linearGradient id="kt-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#5aa7ff" />
-          <stop offset="1" stopColor="#d9ecff" />
+          <stop offset="0" stopColor="#89CFF0" />
+          <stop offset="1" stopColor="#E6F5FC" />
         </linearGradient>
       </defs>
       <rect width="500" height="300" fill="url(#kt-sky)" />
@@ -499,8 +496,8 @@ function WindowView() {
         <ellipse cx="140" cy="52" rx="30" ry="14" />
         <ellipse cx="270" cy="96" rx="40" ry="11" />
       </g>
-      <path d="M0 230 Q90 180 190 214 T380 200 T500 210 V300 H0Z" fill="#9ccaff" />
-      <g fill="#1b63d6">
+      <path d="M0 230 Q90 180 190 214 T380 200 T500 210 V300 H0Z" fill="#B8E2F6" />
+      <g fill="#1F78A8">
         <rect x="30" y="196" width="40" height="104" />
         <rect x="78" y="170" width="32" height="130" />
         <rect x="118" y="210" width="50" height="90" />
@@ -509,11 +506,11 @@ function WindowView() {
         <rect x="382" y="204" width="54" height="96" />
         <rect x="444" y="182" width="40" height="118" />
       </g>
-      <g fill="#144aa3">
+      <g fill="#0B2D5B">
         <path d="M168 300V236l40-22 40 22v64Z" />
         <path d="M232 300v-50l34-20 34 20v50Z" />
       </g>
-      <g fill="#cfe6ff">
+      <g fill="#D6EFFA">
         {[86, 98, 110, 122, 134, 146].map((y) => (
           <g key={y}>
             <rect x="84" y={y + 76} width="6" height="6" />
