@@ -128,7 +128,7 @@ export default function ContactForm({
     return (
       <div role="status" className="pop-in flex min-h-[28rem] flex-col justify-center rounded-[1.5rem] bg-accent p-8 text-ink sm:p-12">
         <h3 className="text-[clamp(1.75rem,3.4vw,2.5rem)]">{t.successTitle}</h3>
-        <p className="mt-4 max-w-md text-sm leading-relaxed text-white/85">{t.success}</p>
+        <p className="mt-4 max-w-md text-sm leading-relaxed text-ink/80">{t.success}</p>
         <button
           type="button"
           onClick={() => setStatus("idle")}
