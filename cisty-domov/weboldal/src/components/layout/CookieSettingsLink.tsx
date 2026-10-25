@@ -10,7 +10,7 @@ export default function CookieSettingsLink() {
       type="button"
       data-cookie-settings
       onClick={reopenConsent}
-      className="link-underline text-left text-[0.9375rem] text-white/80 hover:text-white"
+      className="text-left text-sm text-white/55 hover:text-white"
     >
       {COOKIES.reopen}
     </button>

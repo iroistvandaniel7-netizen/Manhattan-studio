@@ -54,57 +54,48 @@ export const MARQUEE = [
 export type Service = {
   id: string;
   name: string;
-  short: string;
+  /** The name as the object of a sentence ("Vállaljuk a …t"), lower-case. */
+  accusative: string;
   desc: string;
-  includes: readonly string[];
-  icon: "home" | "deep" | "office" | "move" | "window";
 };
 
 export const SERVICES = {
   eyebrow: "Szolgáltatásaink",
   title: "Mindent tisztára.",
   lead: "Válassza ki, mire van szüksége. A többit mi intézzük.",
-  cta: "Erre kérek ajánlatot",
+  intro: "Vállaljuk a",
+  outro: "Mindenhez saját szereket és eszközöket hozunk.",
+  hint: "Kattintson egy szolgáltatásra, és már kérheti is rá az ajánlatot.",
   items: [
     {
       id: "lakas",
       name: "Rendszeres lakástakarítás",
-      short: "Heti vagy kétheti alkalommal",
+      accusative: "rendszeres lakástakarítást",
       desc: "Állandó időpont, állandó csapat. Megtanuljuk, hogyan szereti, és minden alkalommal úgy csináljuk.",
-      includes: ["Portalanítás és felmosás", "Konyha és fürdőszoba", "Ágyneműcsere, rendrakás", "Szemetek levitele"],
-      icon: "home",
     },
     {
       id: "nagy",
       name: "Nagytakarítás",
-      short: "Tavaszi, ünnepek előtti, alapos",
+      accusative: "nagytakarítást",
       desc: "Évszakváltáskor, ünnepek előtt vagy egyszerűen azért, mert ideje volt. Mindent elmozdítunk, ami elmozdítható.",
-      includes: ["Bútorok mögött és alatt", "Konyhagépek kívül-belül", "Vízkőoldás, fugatisztítás", "Ajtók, kapcsolók, radiátorok"],
-      icon: "deep",
     },
     {
       id: "ablak",
       name: "Ablak- és üvegtisztítás",
-      short: "Keretekkel, párkányokkal együtt",
+      accusative: "ablak- és üvegtisztítást",
       desc: "Csíkmentes üveg kívül-belül, tiszta keretek és párkányok. Külön is kérhető, vagy bármelyik takarítás mellé.",
-      includes: ["Ablakok kívül-belül", "Keretek, párkányok", "Üvegajtók, üvegfalak", "Erkélyajtók, redőnyök"],
-      icon: "window",
     },
     {
       id: "koltozes",
       name: "Költözés utáni takarítás",
-      short: "Átadás vagy beköltözés előtt",
+      accusative: "költözés utáni takarítást",
       desc: "Átadás előtt, hogy visszakapja a kauciót — vagy beköltözés előtt, hogy már az első este otthon érezze magát.",
-      includes: ["Üres lakás teljes takarítása", "Szekrények belül", "Konyha és fürdő fertőtlenítése", "Átadásra kész állapot"],
-      icon: "move",
     },
     {
       id: "iroda",
       name: "Irodatakarítás",
-      short: "Lépcsőházak is, munkaidőn kívül",
+      accusative: "irodatakarítást",
       desc: "Munkaidő után takarítunk, hogy a csapatának ne kelljen kerülgetnie minket. Reggelre tiszta iroda.",
-      includes: ["Rugalmas, havi szerződés", "Állandó, betanított takarítók", "Számla, átlátható díjak", "Fogyóeszköz-utántöltés"],
-      icon: "office",
     },
   ] satisfies readonly Service[],
 } as const;
@@ -139,23 +130,8 @@ export const PRICES = {
   offerValue: "−20",
   offerText: "Próbálja ki kockázat nélkül. Ha valami nem tökéletes, 24 órán belül díjmentesen visszamegyünk.",
   offerTerms: "Az ajánlat új ügyfelekre, egy alkalomra érvényes. Más kedvezménnyel nem vonható össze.",
-  pendingItems: ["Ingyenes, kötelezettség nélküli ajánlat", "Fix ár még aznap", "Saját szerekkel és eszközökkel", "Fizetés a takarítás után"],
   cta: "Ajánlatot kérek",
   note: "Az árak a végső árak, rejtett költség nélkül.",
-} as const;
-
-export const BEFORE_AFTER = {
-  eyebrow: "Előtte · utána",
-  title: "Húzza el, és nézze meg a különbséget.",
-  before: "Előtte",
-  after: "Utána",
-  sliderLabel: "Előtte–utána összehasonlítás. A nyilakkal mozgatható.",
-  points: [
-    { title: "Pontos érkezés", desc: "A megbeszélt időpontban csengetünk." },
-    { title: "Ellenőrzött csapat", desc: "Kulcsot is nyugodtan átadhat." },
-    { title: "Fix ár", desc: "Ami az ajánlatban áll, annyit fizet." },
-    { title: "24 órás garancia", desc: "Ha valami hiányzik, ingyen pótoljuk." },
-  ],
 } as const;
 
 export const OFFICE = {

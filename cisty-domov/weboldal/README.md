@@ -33,16 +33,14 @@ Vercelen: új projekt, **Root Directory = `cisty-domov/weboldal`**.
 
 1. **Hero** — az 1. plakát: „Tiszta otthon. Több szabad idő.”, a takarítónő a ház előtt, kék kapcsolat-doboz.
 2. **Videó** — teljes szélességű háttérvideó egy mondattal, alján futó szalag a szolgáltatásokkal.
-3. **Szolgáltatások** — csempés (bento) rács, saját illusztrációkkal.
-4. **Előtte · utána** — húzható összehasonlítás egy rajzolt szobán.
-5. **Ár / bemutatkozó ajánlat** — a 3. plakát (−20%). Az árlista (`src/lib/prices.ts`) alá kerül, ha kitöltik.
-6. **Három lépés** — a 4. plakát.
-7. **Irodáknak** — az 5. plakát.
-8. **Munkáink** — valódi előtte/utána fotók (`src/lib/gallery.ts`). Üres listánál nem jelenik meg.
-9. **Mini játék**, **GYIK**, **Ajánlatkérés**.
+3. **Szolgáltatások** — egyetlen nagy mondat, benne minden szolgáltatás egy link, ami előre kiválasztja az űrlapon; alatta rövid leírások soronként.
+4. **Bemutatkozó ajánlat** (−20%) — alá kerül az árlista (`src/lib/prices.ts`), ha kitöltik.
+5. **Három lépés**, **Mini játék**, **Irodáknak**.
+6. **Munkáink** — valódi előtte/utána fotók (`src/lib/gallery.ts`). Üres listánál nem jelenik meg.
+7. **GYIK**, **Ajánlatkérés**.
 
-Betűtípus: Funnel Display (címek) + Funnel Sans (szöveg), a saját szerverről kiszolgálva.
-A fehér szekciók hátterében halványan takarítóeszköz-minta fut (`bg-cleaning` a `globals.css`-ben).
+Betűtípus mindenhol Poppins, a saját szerverről kiszolgálva. Szándékosan nincsenek
+ikonok és kártyarácsok: a szekciók tipográfiára és sorokra épülnek.
 
 ### A háttérvideó
 

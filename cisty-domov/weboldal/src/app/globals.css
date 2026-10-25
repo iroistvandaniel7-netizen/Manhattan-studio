@@ -27,13 +27,8 @@
   --color-slate-600: #3a5478;
   --color-line: #dce7f6;
 
-  /*
-   * Funnel Display for headlines, Funnel Sans for everything else — one
-   * family cut for two jobs, with the display cut's tight apertures carrying
-   * the character. Both carry latin-ext, so ő, ű, č and ý are native.
-   */
-  --font-display: var(--font-funnel-display), ui-sans-serif, system-ui, sans-serif;
-  --font-sans: var(--font-funnel-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
   --spacing-section: clamp(5rem, 9vw, 8.5rem);
 
@@ -137,7 +132,7 @@
   h3 {
     font-family: var(--font-display);
     font-weight: 600;
-    letter-spacing: -0.03em;
+    letter-spacing: -0.025em;
     text-wrap: balance;
   }
 
@@ -175,8 +170,8 @@
 @utility label {
   font-family: var(--font-sans);
   font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 

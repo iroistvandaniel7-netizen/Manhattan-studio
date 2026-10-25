@@ -119,12 +119,7 @@ export default function ContactForm() {
 
   if (status === "success") {
     return (
-      <div role="status" className="pop-in flex min-h-[32rem] flex-col justify-center rounded-[1.75rem] bg-accent p-8 text-white sm:p-12">
-        <span aria-hidden="true" className="mb-6 grid size-14 place-items-center rounded-full bg-white text-accent">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" className="size-7">
-            <path d="m5 12.5 4.5 4.5L19 7.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </span>
+      <div role="status" className="pop-in flex min-h-[28rem] flex-col justify-center rounded-[1.5rem] bg-accent p-8 text-white sm:p-12">
         <h3 className="text-[clamp(1.75rem,3.4vw,2.5rem)]">{t.successTitle}</h3>
         <p className="mt-4 max-w-md text-sm leading-relaxed text-white/85">{t.success}</p>
         <button
@@ -144,7 +139,7 @@ export default function ContactForm() {
     <form
       onSubmit={onSubmit}
       noValidate
-      className="relative flex h-full flex-col rounded-[1.75rem] border border-line bg-white p-6 shadow-[0_20px_60px_rgba(11,45,91,0.08)] sm:p-10"
+      className="relative flex h-full flex-col rounded-[1.5rem] bg-white p-6 sm:p-10"
     >
       <h3 className="font-display text-xl font-semibold tracking-[-0.02em]">{t.title}</h3>
 
@@ -253,14 +248,9 @@ export default function ContactForm() {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="group/submit label inline-flex w-full items-center justify-center gap-3 rounded-full bg-accent px-8 py-5 text-[0.75rem] text-white transition-colors duration-200 hover:bg-accent-deep disabled:cursor-wait disabled:opacity-60 sm:w-auto"
+          className="inline-flex w-full items-center justify-center rounded-full bg-accent px-8 py-4 text-[0.9375rem] font-medium text-white transition-colors duration-200 hover:bg-accent-deep disabled:cursor-wait disabled:opacity-60 sm:w-auto"
         >
           {status === "sending" ? t.sending : t.submit}
-          {status === "sending" ? null : (
-            <span aria-hidden="true" className="transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/submit:translate-x-1.5">
-              →
-            </span>
-          )}
         </button>
 
         {failure ? (
@@ -269,9 +259,9 @@ export default function ContactForm() {
             {draft ? (
               <a
                 href={draft}
-                className="label mt-3.5 inline-flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-white transition-colors duration-200 hover:bg-accent-deep"
+                className="mt-3.5 inline-flex items-center rounded-full bg-accent px-5 py-3 text-sm font-medium text-white transition-colors duration-200 hover:bg-accent-deep"
               >
-                {t.mailInstead} <span aria-hidden="true">→</span>
+                {t.mailInstead}
               </a>
             ) : null}
             <p className="mt-3.5">

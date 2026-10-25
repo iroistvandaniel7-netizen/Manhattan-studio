@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Funnel_Display, Funnel_Sans } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 
 import Header from "@/components/layout/Header";
@@ -11,24 +11,16 @@ import { META } from "@/lib/content";
 import { AREA, BRAND, COMPANY, EMAIL, HOURS, PHONE, SITE_URL } from "@/lib/site";
 
 /*
- * Funnel Display for headlines, Funnel Sans for text: one family drawn for
- * both jobs, so the page has a voice of its own without two faces arguing.
- * Self-hosted by next/font — the files come from this site, so no visitor's
- * request reaches Google, which is what lets the cookie notice say so.
- * latin-ext carries ő, ű, č and ý.
+ * Poppins everywhere, self-hosted by next/font: the files come from this
+ * site, so no visitor's request reaches Google — which is what lets the
+ * cookie notice say so. latin-ext carries ő, ű, č and ý. Only the weights
+ * the page sets are fetched.
  */
-const display = Funnel_Display({
+const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
-  variable: "--font-funnel-display",
-});
-
-const sans = Funnel_Sans({
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-funnel-sans",
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -72,7 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   };
 
   return (
-    <html lang="hu" className={`${display.variable} ${sans.variable}`} suppressHydrationWarning>
+    <html lang="hu" className={poppins.variable} suppressHydrationWarning>
       <head>
         {/* Arms the scroll reveals before first paint; <ScriptFlag /> is the backstop. */}
         <script dangerouslySetInnerHTML={{ __html: `document.documentElement.setAttribute('data-js','')` }} />

@@ -18,33 +18,27 @@ export default function Faq() {
   return (
     <section id="gyik" className="relative isolate overflow-hidden bg-white py-section" aria-labelledby="faq-title">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-14">
-        <div className="lg:col-span-4">
-          <Reveal>
-            <Eyebrow>{FAQ.eyebrow}</Eyebrow>
-          </Reveal>
-          <Reveal delay={70}>
-            <h2 id="faq-title" className="mt-5 text-[clamp(2.5rem,6vw,4.75rem)] leading-[0.95]">
-              {FAQ.title}
-            </h2>
-          </Reveal>
-        </div>
+      <div className="container-x">
+        <Reveal>
+          <Eyebrow>{FAQ.eyebrow}</Eyebrow>
+        </Reveal>
+        <Reveal delay={70}>
+          <h2 id="faq-title" className="mt-6 text-[clamp(2.25rem,5.5vw,4.5rem)] leading-[1.02]">
+            {FAQ.title}
+          </h2>
+        </Reveal>
 
-        <Reveal delay={100} className="lg:col-span-8">
-          <div className="flex flex-col gap-3">
+        <Reveal delay={110}>
+          <div className="mt-14 max-w-4xl border-t border-line">
             {FAQ.items.map((item) => (
-              <details key={item.q} className="faq group rounded-[1.5rem] bg-paper px-6 py-5 ring-1 ring-line transition-shadow open:bg-white open:shadow-[0_16px_40px_rgba(11,45,91,0.1)] sm:px-8">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 font-display text-base font-semibold tracking-[-0.015em] sm:text-lg">
+              <details key={item.q} className="faq group border-b border-line">
+                <summary className="flex cursor-pointer list-none items-baseline justify-between gap-8 py-7 text-[clamp(1.125rem,1.8vw,1.375rem)] font-medium tracking-[-0.015em] transition-colors hover:text-accent">
                   {item.q}
-                  <span
-                    aria-hidden="true"
-                    className="relative grid size-8 shrink-0 place-items-center rounded-full bg-accent-soft text-accent transition-transform duration-300 group-open:rotate-45"
-                  >
-                    <span className="absolute h-0.5 w-3.5 bg-current" />
-                    <span className="absolute h-3.5 w-0.5 bg-current" />
+                  <span aria-hidden="true" className="text-2xl font-light text-accent transition-transform duration-300 group-open:rotate-45">
+                    +
                   </span>
                 </summary>
-                <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-600 sm:text-base">{item.a}</p>
+                <p className="max-w-2xl pb-8 text-base leading-relaxed text-slate-600">{item.a}</p>
               </details>
             ))}
           </div>
