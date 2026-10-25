@@ -28,8 +28,7 @@ cp hosting/index.html hosting/.htaccess hosting/contact.php dist/hosting/
 
 # The form's recipient and the sender's domain, from lib/site.ts.
 EMAIL="$(sed -n 's/^export const EMAIL = "\([^"]*\)".*/\1/p' src/lib/site.ts)"
-HOST="$(sed -n 's/^export const SITE_URL = .*"https:\/\/\(www\.\)\{0,1\}\([^"\/]*\)".*/\2/p' src/lib/site.ts)"
-sed -i.bak "s/__TO_EMAIL__/$EMAIL/; s/__SITE_HOST__/$HOST/" dist/hosting/contact.php
+sed -i.bak "s/__TO_EMAIL__/$EMAIL/" dist/hosting/contact.php
 rm dist/hosting/contact.php.bak
 
-echo "Ready: dist/hosting/  (recipient: $EMAIL, sender domain: $HOST)"
+echo "Ready: dist/hosting/  (recipient: $EMAIL)"

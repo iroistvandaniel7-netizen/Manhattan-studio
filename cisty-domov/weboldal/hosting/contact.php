@@ -8,11 +8,16 @@
  * the server could not send — the form then offers a ready-made email instead
  * of pretending it worked.
  *
- * __TO_EMAIL__ and __SITE_HOST__ are filled in by scripts/build-hosting.sh.
+ * __TO_EMAIL__ is filled in by scripts/build-hosting.sh. The sender address
+ * uses whatever domain the site is served from, so mail is sent from the
+ * hosting's own domain and is not flagged as spoofed.
  */
 
 const TO_EMAIL = '__TO_EMAIL__';
-const SITE_HOST = '__SITE_HOST__';
+
+$host = strtolower($_SERVER['SERVER_NAME'] ?? $_SERVER['HTTP_HOST'] ?? 'localhost');
+$host = preg_replace('/^www\./', '', preg_replace('/[^a-z0-9.\-]/', '', explode(':', $host)[0]));
+define('SITE_HOST', $host ?: 'localhost');
 
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');

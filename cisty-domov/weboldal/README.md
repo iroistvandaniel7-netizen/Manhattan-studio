@@ -31,7 +31,7 @@ Az eredmény a `dist/hosting/` mappa: **a teljes tartalmát** (a rejtett
 
 - `index.html` — a csupasz domain a böngésző nyelve szerint `/hu/`-ra vagy `/sk/`-ra visz.
 - `contact.php` — az ajánlatkérő űrlap PHP-val küldi e-mailben az `EMAIL` címre
-  (`src/lib/site.ts`); a feladó `noreply@<domain>` a `SITE_URL`-ből.
+  (`src/lib/site.ts`); a feladó `noreply@<domain>`, ahol a domain az, amelyen az oldal fut.
 - `.htaccess` — HTTPS-re irányítás, 404-oldal, gyorsítótár.
 
 Ha a domain vagy az e-mail változik, írd át a `src/lib/site.ts`-ben, és futtasd újra.

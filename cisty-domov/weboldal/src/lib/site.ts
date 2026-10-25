@@ -31,7 +31,7 @@ export const COMPANY = {
 /** `href` is E.164 for tel: links, `label` is the display form, as the business writes it. */
 export const PHONE = { href: "+421918188252", label: "0918 188 252" } as const;
 
-export const EMAIL = "info@cistydomov.sk"; // TODO: confirm the mailbox exists
+export const EMAIL = "cistydomovds.info@gmail.com";
 
 /** Opening hours; the day range is worded in each dictionary (`contact.hours`). */
 export const HOURS = {
