@@ -30,14 +30,14 @@ export default function Services({ copy }: { copy: Dictionary["services"] }) {
         </h2>
 
         <Reveal delay={80}>
-          <p className="mt-8 max-w-[22ch] text-[clamp(2rem,4.6vw,4.25rem)] leading-[1.15] font-light tracking-[-0.03em] text-slate-400 sm:max-w-none">
+          <p className="mt-8 max-w-[22ch] text-[clamp(2rem,4.6vw,4.25rem)] leading-[1.15] font-thin tracking-[-0.03em] text-slate-500 sm:max-w-none">
             {copy.intro}{" "}
             {items.map((item, i) => (
               <span key={item.id}>
                 <a
                   href="#contact"
                   onClick={() => requestQuote(item.id)}
-                  className="font-medium text-ink underline decoration-sky decoration-[0.08em] underline-offset-[0.14em] transition-colors duration-200 hover:text-accent-ink hover:decoration-accent"
+                  className="font-bold text-ink underline decoration-sky decoration-[0.08em] underline-offset-[0.14em] transition-colors duration-200 hover:text-accent-ink hover:decoration-accent"
                 >
                   {item.inSentence}
                 </a>
@@ -55,7 +55,7 @@ export default function Services({ copy }: { copy: Dictionary["services"] }) {
         <dl className="mt-20 border-t border-line">
           {items.map((item) => (
             <Reveal key={item.id} className="flex flex-col gap-2 border-b border-line py-7 sm:flex-row sm:items-baseline sm:gap-10">
-              <dt className="text-xl font-medium tracking-[-0.02em] sm:w-[22rem] sm:shrink-0">{item.name}</dt>
+              <dt className="text-xl font-bold tracking-[-0.02em] sm:w-[22rem] sm:shrink-0">{item.name}</dt>
               <dd className="max-w-2xl text-base leading-relaxed text-slate-600">{item.desc}</dd>
             </Reveal>
           ))}

@@ -2,19 +2,17 @@
 
 import { useEffect, useRef } from "react";
 import type { Dictionary } from "@/i18n";
-import { Sparkle } from "@/components/graphics/Icons";
 
 /**
  * The second screen: a full-bleed loop of glass being cleared, one line of
- * type over it and nothing else. The services run along its foot as a slow
- * ribbon.
+ * type over it and nothing else.
  *
  * The video is muted, looped and inline, so every phone autoplays it. Under
  * reduced motion it never starts and the poster frame stands in. The file
  * names are all the page knows — drop real footage into `public/video/`
  * under the same names and nothing else changes.
  */
-export default function VideoBand({ copy, ribbon: items }: { copy: Dictionary["video"]; ribbon: Dictionary["marquee"] }) {
+export default function VideoBand({ copy }: { copy: Dictionary["video"] }) {
   const ref = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -34,7 +32,6 @@ export default function VideoBand({ copy, ribbon: items }: { copy: Dictionary["v
     return () => observer.disconnect();
   }, []);
 
-  const ribbon = [...items, ...items];
 
   return (
     <section aria-label={copy.label} className="on-dark relative isolate overflow-hidden bg-ink text-white">
@@ -58,25 +55,14 @@ export default function VideoBand({ copy, ribbon: items }: { copy: Dictionary["v
         />
 
         <div className="container-x py-32 text-center">
-          <p className="font-display text-[clamp(2.75rem,8vw,7.5rem)] leading-[0.95] tracking-[-0.04em] [text-shadow:0_4px_40px_rgba(7,31,66,0.45)]">
-            <span className="block font-semibold">{copy.line}</span>
-            <span className="block font-normal text-sky">{copy.lineSoft}</span>
+          <p className="text-shadow-video font-display text-[clamp(2.75rem,8vw,7.5rem)] leading-[0.95] tracking-[-0.04em]">
+            <span className="block font-bold">{copy.line}</span>
+            <span className="block font-thin text-sky">{copy.lineSoft}</span>
           </p>
-          <p className="mx-auto mt-8 max-w-md text-base text-white/80 sm:text-lg">{copy.caption}</p>
+          <p className="text-shadow-video mx-auto mt-8 max-w-md text-base text-white/90 sm:text-lg">{copy.caption}</p>
         </div>
       </div>
 
-      {/* The services, as a ribbon along the foot of the film. */}
-      <div className="relative overflow-hidden border-t border-white/15 bg-ink/80 py-5 backdrop-blur-sm" aria-hidden="true">
-        <div className="flex w-max animate-marquee items-center gap-10 whitespace-nowrap motion-reduce:animate-none">
-          {ribbon.map((item, i) => (
-            <span key={`${item}-${i}`} className="flex items-center gap-10 font-display text-xl font-medium tracking-[-0.02em] text-white/90 sm:text-2xl">
-              {item}
-              <Sparkle className="size-4 text-accent-lift" />
-            </span>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }

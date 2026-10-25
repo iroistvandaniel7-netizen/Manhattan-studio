@@ -18,7 +18,7 @@ export default function Office({ copy }: { copy: Dictionary["office"] }) {
           <h2 id="office-title" className="mt-8 text-[clamp(3rem,9vw,8rem)] leading-[0.92] tracking-[-0.04em]">
             {copy.title}
             <br />
-            <span className="font-light text-accent-lift">{copy.titleSoft}</span>
+            <span className="font-thin text-accent-lift">{copy.titleSoft}</span>
           </h2>
         </Reveal>
         <Reveal delay={130}>

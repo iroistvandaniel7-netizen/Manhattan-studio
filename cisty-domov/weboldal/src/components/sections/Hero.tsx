@@ -72,8 +72,8 @@ export default function Hero({ copy }: { copy: Dictionary["hero"] }) {
               id="hero-title"
               className="mt-[clamp(1rem,2.2vw,2.25rem)] text-[clamp(3rem,8.4vw,8.25rem)] leading-[0.95] tracking-[-0.035em]"
             >
-              <span className="block font-semibold text-ink">{copy.title}</span>
-              <span className="block font-normal text-accent-ink">{copy.titleSoft}</span>
+              <span className="block font-bold text-ink">{copy.title}</span>
+              <span className="block font-thin text-accent-ink">{copy.titleSoft}</span>
             </h1>
           </Reveal>
           <Reveal delay={120}>

@@ -44,7 +44,6 @@ const sk: Dictionary = {
     label: "Video: umývanie okna sťahovačkou",
   },
 
-  marquee: ["Upratovanie bytov", "Veľké upratovanie", "Umývanie okien", "Upratovanie po sťahovaní", "Upratovanie kancelárií", "Spoločné priestory"],
 
   services: {
     eyebrow: "Naše služby",

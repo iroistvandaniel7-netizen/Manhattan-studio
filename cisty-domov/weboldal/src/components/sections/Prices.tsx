@@ -19,10 +19,10 @@ export default function Prices({ copy }: { copy: Dictionary["prices"] }) {
 
         <Reveal delay={80}>
           <h2 id="prices-title" className="mt-8 flex flex-wrap items-baseline gap-x-8 gap-y-2">
-            <span className="text-[clamp(6rem,19vw,17rem)] leading-[0.85] font-semibold tracking-[-0.06em] text-ink">
+            <span className="text-[clamp(6rem,19vw,17rem)] leading-[0.85] font-bold tracking-[-0.06em] text-ink">
               {copy.value}%
             </span>
-            <span className="text-[clamp(1.75rem,3.4vw,3rem)] leading-tight font-light tracking-[-0.02em] text-accent-ink">
+            <span className="text-[clamp(1.75rem,3.4vw,3rem)] leading-tight font-thin tracking-[-0.02em] text-accent-ink">
               {copy.lead}
             </span>
           </h2>
@@ -44,7 +44,7 @@ export default function Prices({ copy }: { copy: Dictionary["prices"] }) {
               {PRICE_LIST.map((row) => (
                 <div key={row.name} className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1 border-b border-ink/15 py-6">
                   <dt>
-                    <span className="text-xl font-medium tracking-[-0.02em]">{row.name}</span>
+                    <span className="text-xl font-bold tracking-[-0.02em]">{row.name}</span>
                     {row.detail ? <span className="mt-1 block text-sm text-slate-500">{row.detail}</span> : null}
                   </dt>
                   <dd className="text-2xl font-semibold tracking-[-0.02em] text-accent-ink tabular-nums">

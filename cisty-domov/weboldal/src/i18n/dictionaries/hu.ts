@@ -52,7 +52,6 @@ const hu = {
     label: "Videó: lehúzóval tisztított ablaküveg",
   },
 
-  marquee: ["Lakástakarítás", "Nagytakarítás", "Ablaktisztítás", "Költözés utáni takarítás", "Irodatakarítás", "Lépcsőházak"],
 
   services: {
     eyebrow: "Szolgáltatásaink",

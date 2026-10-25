@@ -12,7 +12,7 @@ export default function Steps({ copy }: { copy: Dictionary["steps"] }) {
         </Reveal>
         <Reveal delay={70}>
           <h2 id="steps-title" className="mt-6 text-[clamp(2.25rem,5.5vw,4.5rem)] leading-[1.02]">
-            {copy.title} <span className="font-light text-accent-ink">{copy.titleSoft}</span>
+            {copy.title} <span className="font-thin text-accent-ink">{copy.titleSoft}</span>
           </h2>
         </Reveal>
 
@@ -24,10 +24,10 @@ export default function Steps({ copy }: { copy: Dictionary["steps"] }) {
               delay={i * 80}
               className="flex flex-col gap-3 border-b border-line py-9 sm:flex-row sm:items-baseline sm:gap-12"
             >
-              <span className="text-[clamp(3rem,6vw,5rem)] leading-none font-light text-accent-ink tabular-nums sm:w-28 sm:shrink-0">
+              <span className="text-[clamp(3rem,6vw,5rem)] leading-none font-thin text-accent-ink tabular-nums sm:w-28 sm:shrink-0">
                 {i + 1}.
               </span>
-              <span className="text-[clamp(1.5rem,2.6vw,2.25rem)] font-medium tracking-[-0.025em] sm:w-[24rem] sm:shrink-0">
+              <span className="text-[clamp(1.5rem,2.6vw,2.25rem)] font-bold tracking-[-0.025em] sm:w-[24rem] sm:shrink-0">
                 {step.title}
               </span>
               <span className="max-w-md text-base leading-relaxed text-slate-600">{step.desc}</span>

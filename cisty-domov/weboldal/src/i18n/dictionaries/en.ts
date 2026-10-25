@@ -44,7 +44,6 @@ const en: Dictionary = {
     label: "Video: a window being cleaned with a squeegee",
   },
 
-  marquee: ["Home cleaning", "Deep cleaning", "Window cleaning", "Move-out cleaning", "Office cleaning", "Stairwells"],
 
   services: {
     eyebrow: "Our services",

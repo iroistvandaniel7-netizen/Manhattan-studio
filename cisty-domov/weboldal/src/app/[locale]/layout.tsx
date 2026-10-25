@@ -20,7 +20,7 @@ import { BRAND, COMPANY, EMAIL, HOURS, PHONE, SITE_URL } from "@/lib/site";
  */
 const poppins = Poppins({
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["100", "400", "500", "600", "700"],
   display: "swap",
   variable: "--font-poppins",
 });

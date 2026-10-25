@@ -19,7 +19,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   return (
     <>
       <Hero copy={dict.hero} />
-      <VideoBand copy={dict.video} ribbon={dict.marquee} />
+      <VideoBand copy={dict.video} />
       <Services copy={dict.services} />
       <Prices copy={dict.prices} />
       <Steps copy={dict.steps} />

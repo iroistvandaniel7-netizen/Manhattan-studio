@@ -32,9 +32,9 @@ export default function Faq({ copy }: { copy: Dictionary["faq"] }) {
           <div className="mt-14 max-w-4xl border-t border-line">
             {copy.items.map((item) => (
               <details key={item.q} className="faq group border-b border-line">
-                <summary className="flex cursor-pointer list-none items-baseline justify-between gap-8 py-7 text-[clamp(1.125rem,1.8vw,1.375rem)] font-medium tracking-[-0.015em] transition-colors hover:text-accent-ink">
+                <summary className="flex cursor-pointer list-none items-baseline justify-between gap-8 py-7 text-[clamp(1.125rem,1.8vw,1.375rem)] font-bold tracking-[-0.015em] transition-colors hover:text-accent-ink">
                   {item.q}
-                  <span aria-hidden="true" className="text-2xl font-light text-accent-ink transition-transform duration-300 group-open:rotate-45">
+                  <span aria-hidden="true" className="text-2xl font-thin text-accent-ink transition-transform duration-300 group-open:rotate-45">
                     +
                   </span>
                 </summary>
