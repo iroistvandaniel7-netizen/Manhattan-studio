@@ -10,6 +10,12 @@ type FieldName = "name" | "email" | "phone" | "service" | "size" | "city" | "mes
 type Errors = Partial<Record<FieldName, string>>;
 type Status = "idle" | "sending" | "success" | "error";
 
+/**
+ * Where the form posts. The Vercel build answers at `/api/contact`; the
+ * plain-hosting build (`npm run build:hosting`) points this at `contact.php`.
+ */
+const CONTACT_ENDPOINT = process.env.NEXT_PUBLIC_CONTACT_ENDPOINT || "/api/contact";
+
 /** Permissive — enough to catch typos, not to reject real addresses. */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
 const PHONE_RE = /^[+]?[\d\s()./-]{6,}$/;
@@ -89,7 +95,7 @@ export default function ContactForm({
 
     setStatus("sending");
     try {
-      const response = await fetch("/api/contact", {
+      const response = await fetch(CONTACT_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

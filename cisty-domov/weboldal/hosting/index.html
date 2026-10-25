@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Čistý Domov</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="/icon.svg" />
+    <!--
+      The bare domain has no page of its own: it sends the visitor to their
+      language. Hungarian browsers get /hu/, everyone else /sk/ — English is
+      never picked automatically, only from the switcher.
+    -->
+    <script>
+      (function () {
+        var langs = navigator.languages || [navigator.language || ""];
+        var target = "/sk/";
+        for (var i = 0; i < langs.length; i++) {
+          var base = String(langs[i]).toLowerCase().split("-")[0];
+          if (base === "hu") { target = "/hu/"; break; }
+          if (base === "sk") break;
+        }
+        location.replace(target + location.hash);
+      })();
+    </script>
+    <noscript><meta http-equiv="refresh" content="0; url=/sk/" /></noscript>
+  </head>
+  <body>
+    <p>
+      <a href="/sk/">Slovenčina</a> · <a href="/hu/">Magyar</a> · <a href="/en/">English</a>
+    </p>
+  </body>
+</html>

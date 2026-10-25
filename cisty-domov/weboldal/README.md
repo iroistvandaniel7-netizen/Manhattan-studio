@@ -20,6 +20,22 @@ npm run dev        # http://localhost:3000
 
 Vercelen: új projekt, **Root Directory = `cisty-domov/weboldal`**.
 
+### Hagyományos tárhelyre (Websupport, Webglobe stb.)
+
+```bash
+npm run build:hosting
+```
+
+Az eredmény a `dist/hosting/` mappa: **a teljes tartalmát** (a rejtett
+`.htaccess`-szel együtt) másold a tárhely gyökérmappájába (`public_html` / `www`).
+
+- `index.html` — a csupasz domain a böngésző nyelve szerint `/hu/`-ra vagy `/sk/`-ra visz.
+- `contact.php` — az ajánlatkérő űrlap PHP-val küldi e-mailben az `EMAIL` címre
+  (`src/lib/site.ts`); a feladó `noreply@<domain>` a `SITE_URL`-ből.
+- `.htaccess` — HTTPS-re irányítás, 404-oldal, gyorsítótár.
+
+Ha a domain vagy az e-mail változik, írd át a `src/lib/site.ts`-ben, és futtasd újra.
+
 ## Mit hol kell átírni
 
 | Fájl                  | Tartalom                                                              |

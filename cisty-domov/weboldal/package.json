@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "build:hosting": "bash scripts/build-hosting.sh"
   },
   "dependencies": {
     "next": "16.3.1",
