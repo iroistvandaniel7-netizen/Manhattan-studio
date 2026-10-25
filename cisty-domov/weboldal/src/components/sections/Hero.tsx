@@ -1,6 +1,5 @@
 import Image from "next/image";
 import type { Dictionary } from "@/i18n";
-import { PHONE, WEB_LABEL } from "@/lib/site";
 import Reveal from "@/components/ui/Reveal";
 import backdrop from "../../../public/hero/takaritas-hatter.jpg";
 
@@ -8,8 +7,8 @@ import backdrop from "../../../public/hero/takaritas-hatter.jpg";
  * Poster 1, "Tiszta otthon. Több szabad idő.", made into the first screen —
  * built to match `cisty-domov/forras/posters.js` (poster 1) rather than
  * reinterpret it: white ground, the logo's house grown huge and pale and cut
- * off at the bottom-right corner, the cleaner standing in front of it, and the
- * blue contact box at the bottom left.
+ * off at the bottom-right corner, the cleaner standing in front of it, and a
+ * single button down to the quote form where the poster has its contact box.
  *
  * The logo itself is the header's, which sits over this section top-left
  * exactly where the poster has it.
@@ -83,22 +82,14 @@ export default function Hero({ copy }: { copy: Dictionary["hero"] }) {
           </Reveal>
         </div>
 
-        {/* The poster's blue contact box, bottom left. */}
+        {/* One clear way on: straight down to the quote form. */}
         <Reveal delay={180} className="relative mt-10 lg:mt-auto lg:pt-12">
-          <div className="inline-block rounded-[20px] bg-accent px-7 py-6 text-ink sm:px-10 sm:py-8">
-            <p className="mb-2.5 text-[0.8125rem] font-medium uppercase tracking-[0.16em] text-ink/65">
-              {copy.boxLabel}
-            </p>
-            <p className="text-[clamp(1.375rem,2.1vw,1.875rem)] font-semibold leading-tight">
-              <a href={`tel:${PHONE.href}`} className="hover:underline hover:underline-offset-4">
-                {PHONE.label}
-              </a>
-              <br />
-              <a href="#contact" className="font-medium hover:underline hover:underline-offset-4">
-                {WEB_LABEL}
-              </a>
-            </p>
-          </div>
+          <a
+            href="#contact"
+            className="inline-flex items-center justify-center rounded-full bg-accent px-9 py-5 text-lg font-semibold text-ink shadow-[0_12px_32px_rgba(31,120,168,0.25)] transition-colors duration-200 hover:bg-accent-deep sm:px-11 sm:py-6 sm:text-xl"
+          >
+            {copy.boxLabel}
+          </a>
         </Reveal>
       </div>
 
