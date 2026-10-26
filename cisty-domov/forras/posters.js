@@ -10,7 +10,7 @@ const W = (style, o={}) => `<div style="position:absolute;${style}">${woman(o).r
 const onWhite = { bottle: '#DCE9FB' };
 const onBlue = { shirt: '#0B2D5B', pants: '#0A2550', shoes: '#0A2550', mop: '#0B2D5B', fringe: '#BFD7FA', label: '#0B2D5B' };
 const onNavy = { pants: '#2C5BA8', shoes: '#BFD7FA', mop: '#BFD7FA', fringe: '#7FB0F5', apronLine: '#9EC2F4' };
-const PHONE = '+421 900 123 456', WEB = 'cistydomov.sk';
+const PHONE = '0918 188 252', WEB = 'mojcistydomov.sk';
 
 const css = `
 *{box-sizing:border-box;margin:0;padding:0}
@@ -82,7 +82,8 @@ const posters = [
   ${foot('cisty-domov-logo-feher.svg').replace('class="foot"','class="foot" style="margin-top:0"')}
 </div>`];
 
-const names = ['01-tiszta-otthon','02-szolgaltatasok','03-ajanlat-20','04-harom-lepes','05-irodaknak'];
+posters.splice(2, 1); // the −20% offer poster is retired
+const names = ['01-tiszta-otthon','02-szolgaltatasok','03-harom-lepes','04-irodaknak'];
 (async () => {
   const b = await chromium.launch();
   const p = await b.newPage({ viewport: { width: 1123, height: 1587 }, deviceScaleFactor: 3 });
