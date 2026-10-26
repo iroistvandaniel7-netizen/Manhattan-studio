@@ -10,17 +10,17 @@ const check = (bg, fg) => `<svg viewBox="0 0 24 24" width="22" height="22" style
 
 const sizes = ['Garsónka / 1-izbový', '2-izbový byt', '3-izbový byt', '4-izbový byt', 'Rodinný dom'];
 const pkgs = [
-  { name: 'Základné', desc: 'Rýchle osvieženie domácnosti, ideálne pri pravidelnom upratovaní.',
-    prices: ['45 €', '60 €', '75 €', '90 €', 'od 0,80 €/m²'],
-    items: ['Vysávanie a umytie podláh', 'Utretie prachu z voľných plôch', 'Kúpeľňa a WC: umývadlo, vaňa, sprcha, WC', 'Kuchyňa: linka zvonka, drez, varná doska', 'Vynesenie odpadu'] },
-  { name: 'Dôkladné', desc: 'Keď má byť doma naozaj čisto, aj na miestach, kam sa bežne nedostanete.', hot: true,
-    prices: ['70 €', '95 €', '120 €', '145 €', 'od 1,30 €/m²'],
-    head: 'Všetko zo Základného, navyše:',
-    items: ['Odmastenie kuchynskej linky a obkladov', 'Odstránenie vodného kameňa', 'Prach aj na skriniach, lištách a dverách', 'Kľučky, vypínače, radiátory', 'Zrkadlá a sklenené plochy', 'Mikrovlnka vnútri'] },
-  { name: 'Generálne', desc: 'Kompletné upratovanie od stropu po podlahu, napríklad na jar alebo pred sviatkami.',
-    prices: ['110 €', '150 €', '190 €', '230 €', 'od 2,00 €/m²'],
+  { name: 'Minimum', desc: 'Rýchle upratanie, keď potrebujete mať doma rýchlo poriadok.',
+    prices: ['40 €', '50 €', '60 €', '70 €', 'od 0,70 €/m²'],
+    items: ['Vysávanie a umytie podláh', 'Utretie prachu, aj z televízora a poličiek', 'Poukladanie vecí na svoje miesto', 'Naloženie a spustenie umývačky riadu', 'Vynesenie odpadu'] },
+  { name: 'Dôkladné', desc: 'Upratovanie aj s praním a tepovaním sedačky. Domov ako nový.', hot: true,
+    prices: ['90 €', '120 €', '150 €', '180 €', 'od 1,60 €/m²'],
+    head: 'Všetko z Minima, navyše:',
+    items: ['Tepovanie sedacej súpravy', 'Pranie: naloženie a spustenie práčky, vyvesenie bielizne', 'Kúpeľňa a WC vrátane vodného kameňa', 'Odmastenie kuchynskej linky a obkladov', 'Umytie radiátorov, kľučiek a vypínačov', 'Zrkadlá a sklenené plochy'] },
+  { name: 'Generálne', desc: 'Od stropu po podlahu. Vytepujeme a utrieme úplne všetko.',
+    prices: ['160 €', '210 €', '260 €', '310 €', 'od 2,80 €/m²'],
     head: 'Všetko z Dôkladného, navyše:',
-    items: ['Umývanie okien vrátane rámov a parapetov', 'Rúra a chladnička vnútri', 'Kuchynské skrinky vnútri', 'Digestor vrátane filtra', 'Za a pod nábytkom (kde sa dá posunúť)', 'Svietidlá, dvere a zárubne'] },
+    items: ['Tepovanie kobercov, kresiel a matracov', 'Umývanie okien vrátane rámov a parapetov', 'Rúra, chladnička a skrinky vnútri', 'Digestor vrátane filtra', 'Za a pod nábytkom, na skriniach', 'Svietidlá, dvere, zárubne a lišty'] },
 ];
 
 const css = `*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter;-webkit-font-smoothing:antialiased}
@@ -36,25 +36,25 @@ const foot = note => `<div class="foot"><p style="font-size:16px;line-height:1.5
 
 const card = k => {
   const blue = k.hot, fg = blue ? '#fff' : '#0B2D5B', sub = blue ? '#D6E6FC' : '#3A5478', line = blue ? 'rgba(255,255,255,.25)' : '#DCE9FB';
-  return `<div style="flex:1;min-width:0;border-radius:22px;padding:34px 30px;display:flex;flex-direction:column;gap:22px;background:${blue ? '#1B63D6' : '#F4F8FE'};color:${fg};position:relative">
+  return `<div style="flex:1;min-width:0;border-radius:22px;padding:32px 28px;display:flex;flex-direction:column;gap:20px;background:${blue ? '#1B63D6' : '#F4F8FE'};color:${fg};position:relative">
     ${blue ? `<div style="position:absolute;top:-16px;left:30px;background:#0B2D5B;color:#fff;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:999px">Najčastejšia voľba</div>` : ''}
     <div><h2 class="d" style="font-size:46px;font-weight:600">${k.name}</h2><p style="font-size:18px;line-height:1.45;color:${sub};margin-top:10px;min-height:78px">${k.desc}</p></div>
     <div>${sizes.map((s, i) => `<div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-top:1.5px solid ${line}"><span style="font-size:17px;color:${sub}">${s}</span><span class="num d" style="font-size:${i < 4 ? 30 : 22}px;font-weight:600;letter-spacing:-0.02em">${k.prices[i]}</span></div>`).join('')}</div>
-    <div style="display:flex;flex-direction:column;gap:12px">
+    <div style="display:flex;flex-direction:column;gap:10px">
       ${k.head ? `<div style="font-size:16px;font-weight:600;color:${sub}">${k.head}</div>` : `<div style="font-size:16px;font-weight:600;color:${sub}">Čo je v cene:</div>`}
-      ${k.items.map(t => `<div style="display:flex;gap:12px;font-size:18px;line-height:1.35">${check(blue ? '#fff' : '#1B63D6', blue ? '#1B63D6' : '#fff')}<span>${t}</span></div>`).join('')}
+      ${k.items.map(t => `<div style="display:flex;gap:12px;font-size:17px;line-height:1.33">${check(blue ? '#fff' : '#1B63D6', blue ? '#1B63D6' : '#fff')}<span>${t}</span></div>`).join('')}
     </div></div>`;
 };
 
 const page1 = `<div class="p">
   <div class="top">${svg('cisty-domov-logo.svg', 300)}<span class="eb">Cenník 2026</span></div>
-  <h1 class="d" style="font-size:96px;font-weight:600;margin-top:64px">Vyberte si<br><span style="color:#1B63D6;font-weight:400">upratovanie.</span></h1>
+  <h1 class="d" style="font-size:80px;font-weight:600;margin-top:44px">Vyberte si<br><span style="color:#1B63D6;font-weight:400">upratovanie.</span></h1>
   <p style="font-size:22px;line-height:1.5;color:#3A5478;margin-top:24px;max-width:760px">Tri balíky podľa toho, ako dôkladne chcete mať upratané. Čistiace prostriedky a pomôcky prinesieme so sebou, sú v cene.</p>
-  <div style="display:flex;gap:20px;margin-top:56px;align-items:stretch">${pkgs.map(card).join('')}</div>
+  <div style="display:flex;gap:20px;margin-top:44px;align-items:stretch">${pkgs.map(card).join('')}</div>
   ${foot('Ceny sú orientačné pre bežne znečistenú domácnosť. Presnú cenu vám povieme vopred, ešte pred upratovaním. Platíte až po upratovaní, v hotovosti alebo kartou.')}
 </div>`;
 
-const row = (t, p, s = '') => `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:15px 0;border-top:1.5px solid #DCE9FB"><span style="font-size:20px">${t}${s ? `<span style="display:block;font-size:15px;color:#6A82A3;margin-top:3px">${s}</span>` : ''}</span><span class="num" style="font-size:21px;font-weight:600;white-space:nowrap">${p}</span></div>`;
+const row = (t, p, s = '') => `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:11px 0;border-top:1.5px solid #DCE9FB"><span style="font-size:20px">${t}${s ? `<span style="display:block;font-size:15px;color:#6A82A3;margin-top:3px">${s}</span>` : ''}</span><span class="num" style="font-size:21px;font-weight:600;white-space:nowrap">${p}</span></div>`;
 const page2 = `<div class="p">
   <div class="top">${svg('cisty-domov-logo.svg', 300)}<span class="eb">Cenník 2026</span></div>
   <h1 class="d" style="font-size:96px;font-weight:600;margin-top:64px">Doplnkové<br><span style="color:#1B63D6;font-weight:400">služby.</span></h1>
@@ -66,11 +66,13 @@ const page2 = `<div class="p">
       ${row('Rúra vnútri', '15 €')}${row('Chladnička vnútri', '15 €')}${row('Kuchynské skrinky vnútri', '15 €')}${row('Digestor vrátane filtra', '10 €')}
     </div>
     <div>
-      <div class="eb" style="margin-bottom:14px">Ďalšie služby</div>
-      ${row('Žehlenie', '12 € / hod.')}${row('Balkón alebo terasa', '10 €')}${row('Upratovanie po sťahovaní', 'ako Generálne')}${row('Upratovanie po rekonštrukcii', 'od 2,50 €/m²')}${row('Kancelárie a spoločné priestory', 'od 0,60 €/m²', 'pravidelné upratovanie podľa dohody')}${row('Hodinová sadzba mimo balíkov', '15 € / hod.', 'minimálne 2 hodiny')}
+      <div class="eb" style="margin-bottom:14px">Tepovanie</div>
+      ${row('Sedacia súprava', 'od 35 €')}${row('Kreslo', '15 €')}${row('Matrac', '25 €')}${row('Koberec', '3 €/m²')}
+      <div class="eb" style="margin:40px 0 14px">Ďalšie služby</div>
+      ${row('Žehlenie', '12 € / hod.')}${row('Balkón alebo terasa', '10 €')}${row('Po sťahovaní', 'ako Generálne')}${row('Po rekonštrukcii', 'od 2,50 €/m²')}${row('Kancelárie a spoločné priestory', 'od 0,60 €/m²', 'pravidelné upratovanie podľa dohody')}${row('Hodinová sadzba', '15 € / hod.', 'mimo balíkov, minimálne 2 hodiny')}
     </div>
   </div>
-  <div style="margin-top:56px;background:#1B63D6;color:#fff;border-radius:22px;padding:38px 40px;display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;gap:28px;align-items:center">
+  <div style="margin-top:40px;background:#1B63D6;color:#fff;border-radius:22px;padding:38px 40px;display:grid;grid-template-columns:1.1fr 1fr 1fr 1fr;gap:28px;align-items:center">
     <div><div class="d" style="font-size:36px;font-weight:600">Pravidelne?</div><p style="font-size:17px;color:#D6E6FC;margin-top:8px;line-height:1.45">Zľava z ceny balíka pri každom upratovaní.</p></div>
     ${[['−15 %', 'raz za týždeň'], ['−10 %', 'raz za dva týždne'], ['−5 %', 'raz za mesiac']].map(([a, b]) => `<div style="border-left:1.5px solid rgba(255,255,255,.3);padding-left:24px"><div class="d num" style="font-size:52px;font-weight:600">${a}</div><div style="font-size:17px;color:#D6E6FC;margin-top:6px">${b}</div></div>`).join('')}
   </div>
