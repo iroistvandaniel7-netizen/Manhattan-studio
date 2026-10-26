@@ -21,7 +21,7 @@ body{font-family:'Inter';-webkit-font-smoothing:antialiased}
 .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-size:30px;font-weight:600;position:relative}
 .foot small{display:block;font-size:17px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;opacity:.7;margin-bottom:10px}
 `;
-const foot = (logo, w = 300) => `<div class="foot"><div>${svg(logo, w)}</div><div style="text-align:right"><small>Kérjen ajánlatot</small>${PHONE}<br><span style="font-weight:500">${WEB}</span></div></div>`;
+const foot = (logo, w = 300) => `<div class="foot"><div>${svg(logo, w)}</div><div style="text-align:right"><small>Vyžiadajte si ponuku</small>${PHONE}<br><span style="font-weight:500">${WEB}</span></div></div>`;
 
 const posters = [
 // 1 — brand
@@ -30,19 +30,19 @@ const posters = [
   <div style="position:relative">${svg('cisty-domov-logo.svg', 380)}</div>
   ${W('width:380px;right:60px;bottom:60px', onWhite)}
   <div style="position:relative;margin-top:230px">
-    <div class="eyebrow" style="color:#1B63D6;margin-bottom:36px">Otthoni takarítás</div>
-    <h1 class="d" style="font-size:132px;font-weight:600">Tiszta otthon.<br><span style="color:#1B63D6;font-weight:400">Több szabad idő.</span></h1>
-    <p style="font-size:34px;line-height:1.4;margin-top:48px;max-width:640px;color:#3A5478">Megbízható, ellenőrzött csapat. Saját eszközökkel érkezünk, Ön csak hazaér.</p>
+    <div class="eyebrow" style="color:#1B63D6;margin-bottom:36px">Upratovanie domácností</div>
+    <h1 class="d" style="font-size:118px;font-weight:600">Čistý domov.<br><span style="color:#1B63D6;font-weight:400">Viac voľného času.</span></h1>
+    <p style="font-size:34px;line-height:1.4;margin-top:48px;max-width:640px;color:#3A5478">Spoľahlivý, overený tím. Prídeme s vlastnými pomôckami, vy sa len vrátite domov.</p>
   </div>
-  <div class="foot" style="color:#0B2D5B"><div style="background:#1B63D6;color:#fff;padding:34px 40px;border-radius:20px"><small>Kérjen ajánlatot</small>${PHONE}<br><span style="font-weight:500">${WEB}</span></div><div></div></div>
+  <div class="foot" style="color:#0B2D5B"><div style="background:#1B63D6;color:#fff;padding:34px 40px;border-radius:20px"><small>Vyžiadajte si ponuku</small>${PHONE}<br><span style="font-weight:500">${WEB}</span></div><div></div></div>
 </div>`,
 // 2 — services
 `<div class="p" style="background:#1B63D6;color:#fff">
   ${W('width:205px;right:120px;top:52px', onBlue)}
-  <div class="eyebrow" style="color:#BFD7FA">Szolgáltatásaink</div>
-  <h1 class="d" style="font-size:120px;font-weight:600;margin-top:36px">Mindent<br>tisztára.</h1>
+  <div class="eyebrow" style="color:#BFD7FA">Naše služby</div>
+  <h1 class="d" style="font-size:120px;font-weight:600;margin-top:36px">Všetko<br>načisto.</h1>
   <div style="margin-top:90px;border-top:2px solid rgba(255,255,255,.3)">
-    ${[['Rendszeres lakástakarítás','heti vagy kétheti alkalommal'],['Nagytakarítás','tavaszi, ünnepek előtti, alapos'],['Ablak- és üvegtisztítás','keretekkel, párkányokkal együtt'],['Költözés utáni takarítás','átadás előtt vagy beköltözés előtt'],['Irodatakarítás','lépcsőházak is, munkaidőn kívül']]
+    ${[['Pravidelné upratovanie','bytov a domov, raz za týždeň alebo dva'],['Generálne upratovanie','jarné, pred sviatkami, dôkladné'],['Umývanie okien','vrátane rámov a parapetov'],['Upratovanie po sťahovaní','pred odovzdaním alebo nasťahovaním'],['Upratovanie kancelárií','aj schodiská, mimo pracovného času']]
       .map(([t,s],i)=>`<div style="display:flex;align-items:baseline;gap:40px;padding:34px 0;border-bottom:2px solid rgba(255,255,255,.3)"><span style="font-size:22px;font-weight:600;color:#BFD7FA;width:40px">0${i+1}</span><span class="d" style="font-size:50px;font-weight:500;line-height:1.1;flex:1">${t}</span><span style="font-size:22px;color:#D6E6FC;text-align:right;width:260px">${s}</span></div>`).join('')}
   </div>
   ${foot('cisty-domov-logo-feher.svg')}
@@ -60,24 +60,24 @@ const posters = [
 </div>`,
 // 4 — process
 `<div class="p" style="background:#fff;color:#0B2D5B">
-  ${W('width:330px;right:70px;top:620px', onWhite)}
-  <div class="eyebrow" style="color:#1B63D6">Így dolgozunk</div>
-  <h1 class="d" style="font-size:120px;font-weight:600;margin-top:36px">Három lépés<br><span style="color:#1B63D6;font-weight:400">a tiszta lakásig.</span></h1>
+  ${W('width:330px;right:40px;top:620px', onWhite)}
+  <div class="eyebrow" style="color:#1B63D6">Ako pracujeme</div>
+  <h1 class="d" style="font-size:120px;font-weight:600;margin-top:36px">Tri kroky<br><span style="color:#1B63D6;font-weight:400">k čistému bytu.</span></h1>
   <div style="margin-top:140px;display:flex;flex-direction:column;gap:84px">
-    ${[['Hívjon vagy írjon','Elmondja, mekkora a lakás és mire van szükség. Még aznap kap egy fix árat.'],['Megérkezünk','A megbeszélt időpontban, saját szerekkel és eszközökkel. Kulcsot is átvehetünk.'],['Ön hazaér','Tiszta, friss otthon. Fizetés a takarítás után, készpénzzel vagy kártyával.']]
+    ${[['Zavolajte alebo napíšte','Poviete nám, aký veľký je byt a čo potrebujete. Ešte v ten deň dostanete pevnú cenu.'],['Prídeme','V dohodnutom čase, s vlastnými prostriedkami a pomôckami. Môžeme prevziať aj kľúče.'],['Vrátite sa domov','Čistý, svieži domov. Platíte až po upratovaní, v hotovosti alebo kartou.']]
       .map(([t,s],i)=>`<div style="display:flex;gap:48px;align-items:flex-start"><div style="flex:none;width:120px;height:120px;border-radius:50%;background:${i==2?'#1B63D6':'#EAF2FD'};color:${i==2?'#fff':'#1B63D6'};display:flex;align-items:center;justify-content:center" class="d"><span style="font-size:60px;font-weight:600">${i+1}</span></div><div style="padding-top:12px"><h2 class="d" style="font-size:52px;font-weight:600">${t}</h2><p style="font-size:28px;line-height:1.45;color:#3A5478;margin-top:16px;max-width:500px">${s}</p></div></div>`).join('')}
   </div>
   ${foot('cisty-domov-logo.svg')}
 </div>`,
 // 5 — business
 `<div class="p" style="background:#0B2D5B;color:#fff">
-  ${W('width:350px;right:80px;top:400px', onNavy)}
+  ${W('width:300px;right:80px;top:470px', onNavy)}
   <svg viewBox="0 0 100 100" style="position:absolute;width:300px;right:40px;top:40px">${spark('#1B63D6')}</svg>
-  <div class="eyebrow" style="color:#7FB0F5;position:relative">Cégeknek, irodáknak</div>
-  <h1 class="d" style="font-size:180px;font-weight:600;margin-top:36px;position:relative">Reggelre<br>tiszta<br><span style="color:#7FB0F5;font-weight:400">iroda.</span></h1>
-  <p style="font-size:34px;line-height:1.4;margin-top:56px;max-width:560px;color:#C9DBF5">Munkaidő után takarítunk, hogy a csapatának ne kelljen kerülgetnie minket.</p>
+  <div class="eyebrow" style="color:#7FB0F5;position:relative">Pre firmy a kancelárie</div>
+  <h1 class="d" style="font-size:150px;font-weight:600;margin-top:36px;position:relative">Ráno<br>čistá<br><span style="color:#7FB0F5;font-weight:400">kancelária.</span></h1>
+  <p style="font-size:34px;line-height:1.4;margin-top:56px;max-width:560px;color:#C9DBF5">Upratujeme po skončení pracovnej doby, takže váš tím nás ani nezbadá.</p>
   <div style="margin-top:auto;margin-bottom:110px;padding-top:56px;border-top:2px solid rgba(255,255,255,.18);display:grid;grid-template-columns:1fr 1fr;gap:26px 40px;font-size:28px;font-weight:500">
-    ${['Rugalmas, havi szerződés','Állandó, betanított takarítók','Számla, átlátható díjak','Fogyóeszköz-utántöltés'].map(t=>`<div style="display:flex;gap:18px;align-items:center"><svg viewBox="0 0 24 24" width="30" height="30"><circle cx="12" cy="12" r="12" fill="#1B63D6"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>${t}</div>`).join('')}
+    ${['Flexibilná mesačná zmluva','Stály, zaškolený personál','Faktúra, prehľadné ceny','Dopĺňame spotrebný tovar'].map(t=>`<div style="display:flex;gap:18px;align-items:center"><svg viewBox="0 0 24 24" width="30" height="30"><circle cx="12" cy="12" r="12" fill="#1B63D6"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>${t}</div>`).join('')}
   </div>
   ${foot('cisty-domov-logo-feher.svg').replace('class="foot"','class="foot" style="margin-top:0"')}
 </div>`];
