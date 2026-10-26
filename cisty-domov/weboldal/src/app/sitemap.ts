@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { defaultLocale, htmlLang, locales } from "@/i18n/config";
 import { SITE_URL } from "@/lib/site";
 
+/* Generated once at build time — also what lets the plain-hosting export include it. */
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
   const pages = [
