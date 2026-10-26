@@ -8,7 +8,7 @@ const pill = (t, x, dark) => `<span style="position:absolute;bottom:28px;left:${
 const html = `<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter;-webkit-font-smoothing:antialiased}
 .d{font-family:'Inter Display';letter-spacing:-0.035em;line-height:.98}</style>
 <div style="width:1123px;height:1404px;background:#fff;color:#0B2D5B;display:flex;flex-direction:column;overflow:hidden">
-  <div style="position:relative;height:800px;background:url(${photo}) center bottom/cover">
+  <div style="position:relative;height:740px;background:url(${photo}) center bottom/cover">
     ${pill('Po', 548, false)}${pill('Pred', 790, true)}
   </div>
   <div style="flex:1;padding:56px 96px 64px;display:flex;flex-direction:column;position:relative">
@@ -17,7 +17,7 @@ const html = `<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family
     <p style="font-size:25px;line-height:1.45;color:#3A5478;margin-top:24px;max-width:640px">Hĺbkové čistenie sedacej súpravy, kresiel aj matracov. Odstránime škvrny, prach a nepríjemné pachy.</p>
     <div style="margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end">
       ${svg('cisty-domov-logo.svg', 280)}
-      <div style="text-align:right;font-size:28px;font-weight:600;line-height:1.3"><div style="font-size:15px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:#6A82A3;margin-bottom:8px">Vyžiadajte si ponuku</div>0918 188 252<br><span style="font-weight:500">mojcistydomov.sk</span></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:14px"><div style="font-size:28px;font-weight:600">0918 188 252</div><div style="display:flex;align-items:center;gap:14px;background:#1B63D6;color:#fff;border-radius:999px;padding:18px 30px;font-size:24px;font-weight:600">Rezervovať termín<svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="font-size:20px;font-weight:500;color:#3A5478">mojcistydomov.sk</div></div>
     </div>
   </div>
 </div>`;
