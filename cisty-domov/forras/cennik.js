@@ -8,19 +8,18 @@ const svg = (f, w) => fs.readFileSync(L + f, 'utf8').replace(/width="[\d.]+" hei
 const PHONE = '0918 188 252', WEB = 'mojcistydomov.sk';
 const check = (bg, fg) => `<svg viewBox="0 0 24 24" width="22" height="22" style="flex:none;margin-top:3px"><circle cx="12" cy="12" r="12" fill="${bg}"/><path d="M7 12.5l3.2 3.2L17 9" fill="none" stroke="${fg}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-const sizes = ['Garsónka / 1-izbový', '2-izbový byt', '3-izbový byt', '4-izbový byt', 'Rodinný dom'];
 const pkgs = [
   { name: 'Minimum', desc: 'Rýchle upratanie, keď potrebujete mať doma rýchlo poriadok.',
-    prices: ['40 €', '50 €', '60 €', '70 €', 'od 0,70 €/m²'],
+    price: '50 €', house: 'od 0,70 €/m²',
     items: ['Vysávanie a umytie podláh', 'Utretie prachu, aj z televízora a poličiek', 'Poukladanie vecí na svoje miesto', 'Naloženie a spustenie umývačky riadu', 'Vynesenie odpadu'] },
   { name: 'Dôkladné', desc: 'Upratovanie aj s praním a tepovaním sedačky. Domov ako nový.', hot: true,
-    prices: ['90 €', '120 €', '150 €', '180 €', 'od 1,60 €/m²'],
+    price: '120 €', house: 'od 1,60 €/m²',
     head: 'Všetko z Minima, navyše:',
     items: ['Tepovanie sedacej súpravy', 'Pranie: naloženie a spustenie práčky, vyvesenie bielizne', 'Kúpeľňa a WC vrátane vodného kameňa', 'Odmastenie kuchynskej linky a obkladov', 'Umytie radiátorov, kľučiek a vypínačov', 'Zrkadlá a sklenené plochy'] },
-  { name: 'Generálne', desc: 'Od stropu po podlahu. Vytepujeme a utrieme úplne všetko.',
-    prices: ['160 €', '210 €', '260 €', '310 €', 'od 2,80 €/m²'],
-    head: 'Všetko z Dôkladného, navyše:',
-    items: ['Tepovanie kobercov, kresiel a matracov', 'Umývanie okien vrátane rámov a parapetov', 'Rúra, chladnička a skrinky vnútri', 'Digestor vrátane filtra', 'Za a pod nábytkom, na skriniach', 'Svietidlá, dvere, zárubne a lišty'] },
+  { name: 'Generálne', desc: 'Od stropu po podlahu. Vyčistíme všetko, čo sa vyčistiť dá.',
+    price: '220 €', house: 'od 2,80 €/m²',
+    head: 'Všetko z Dôkladného, navyše:', small: true,
+    items: ['Umývanie okien z oboch strán, rámy, parapety', 'Žalúzie, rolety aj elektrické vonkajšie rolety', 'Sieťky proti hmyzu', 'Tepovanie kobercov, kresiel a matracov', 'Rúra, chladnička, mraznička, umývačka a mikrovlnka', 'Kuchynské skrinky vnútri, digestor s filtrom', 'Škáry medzi obkladmi', 'Svietidlá a lustre', 'Dvere, zárubne, lišty a sokle', 'Za a pod nábytkom, na skriniach', 'Pavučiny zo stropov a rohov', 'Balkón alebo terasa'] },
 ];
 
 const css = `*{box-sizing:border-box;margin:0;padding:0}body{font-family:Inter;-webkit-font-smoothing:antialiased}
@@ -39,10 +38,10 @@ const card = k => {
   return `<div style="flex:1;min-width:0;border-radius:22px;padding:32px 28px;display:flex;flex-direction:column;gap:20px;background:${blue ? '#1B63D6' : '#F4F8FE'};color:${fg};position:relative">
     ${blue ? `<div style="position:absolute;top:-16px;left:30px;background:#0B2D5B;color:#fff;font-size:14px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:999px">Najčastejšia voľba</div>` : ''}
     <div><h2 class="d" style="font-size:46px;font-weight:600">${k.name}</h2><p style="font-size:18px;line-height:1.45;color:${sub};margin-top:10px;min-height:78px">${k.desc}</p></div>
-    <div>${sizes.map((s, i) => `<div style="display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-top:1.5px solid ${line}"><span style="font-size:17px;color:${sub}">${s}</span><span class="num d" style="font-size:${i < 4 ? 30 : 22}px;font-weight:600;letter-spacing:-0.02em">${k.prices[i]}</span></div>`).join('')}</div>
+    <div style="border-top:1.5px solid ${line};padding-top:18px"><div class="num d" style="font-size:64px;font-weight:600;letter-spacing:-0.03em">${k.price}</div><div style="font-size:17px;color:${sub};margin-top:6px">byt 1 až 4 izby, pevná cena</div><div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:14px;padding-top:12px;border-top:1.5px solid ${line}"><span style="font-size:17px;color:${sub}">Rodinný dom</span><span class="num" style="font-size:19px;font-weight:600">${k.house}</span></div></div>
     <div style="display:flex;flex-direction:column;gap:10px">
       ${k.head ? `<div style="font-size:16px;font-weight:600;color:${sub}">${k.head}</div>` : `<div style="font-size:16px;font-weight:600;color:${sub}">Čo je v cene:</div>`}
-      ${k.items.map(t => `<div style="display:flex;gap:12px;font-size:17px;line-height:1.33">${check(blue ? '#fff' : '#1B63D6', blue ? '#1B63D6' : '#fff')}<span>${t}</span></div>`).join('')}
+      ${k.items.map(t => `<div style="display:flex;gap:12px;font-size:${k.small ? 16 : 17}px;line-height:1.3">${check(blue ? '#fff' : '#1B63D6', blue ? '#1B63D6' : '#fff')}<span>${t}</span></div>`).join('')}
     </div></div>`;
 };
 
@@ -51,7 +50,7 @@ const page1 = `<div class="p">
   <h1 class="d" style="font-size:80px;font-weight:600;margin-top:44px">Vyberte si<br><span style="color:#1B63D6;font-weight:400">upratovanie.</span></h1>
   <p style="font-size:22px;line-height:1.5;color:#3A5478;margin-top:24px;max-width:760px">Tri balíky podľa toho, ako dôkladne chcete mať upratané. Čistiace prostriedky a pomôcky prinesieme so sebou, sú v cene.</p>
   <div style="display:flex;gap:20px;margin-top:44px;align-items:stretch">${pkgs.map(card).join('')}</div>
-  ${foot('Ceny sú orientačné pre bežne znečistenú domácnosť. Presnú cenu vám povieme vopred, ešte pred upratovaním. Platíte až po upratovaní, v hotovosti alebo kartou.')}
+  ${foot('Pevné ceny platia pre bežne znečistenú domácnosť. Pri väčšom znečistení vám cenu povieme vopred, ešte pred upratovaním. Platíte až po upratovaní, v hotovosti alebo kartou.')}
 </div>`;
 
 const row = (t, p, s = '') => `<div style="display:flex;justify-content:space-between;align-items:baseline;gap:20px;padding:11px 0;border-top:1.5px solid #DCE9FB"><span style="font-size:20px">${t}${s ? `<span style="display:block;font-size:15px;color:#6A82A3;margin-top:3px">${s}</span>` : ''}</span><span class="num" style="font-size:21px;font-weight:600;white-space:nowrap">${p}</span></div>`;
