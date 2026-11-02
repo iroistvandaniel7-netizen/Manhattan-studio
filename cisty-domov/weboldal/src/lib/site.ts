@@ -21,7 +21,7 @@ export const BRAND = {
 export const COMPANY = {
   legalName: "Čistý Domov s.r.o.", // TODO
   seat: "Hlavná 1, 929 01 Dunajská Streda", // TODO
-  ico: "00 000 000", // TODO: IČO
+  ico: "57 055 696",
   dic: "0000000000", // TODO: DIČ
   icDph: "", // TODO: IČ DPH, if VAT-registered — leave empty otherwise
   register: "Obchodný register Okresného súdu Trnava, oddiel Sro, vložka č. 00000/T", // TODO
