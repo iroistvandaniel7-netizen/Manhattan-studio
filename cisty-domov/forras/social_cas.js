@@ -33,17 +33,17 @@ const slides = [
 `<div class="s" style="background:#fff;color:${C.navy}">
   ${top('Bežný týždeň', 1, C.blue, C.pale)}
   <p style="font-size:34px;color:${C.ink};margin-top:80px">Povedzme, že doma upratujete</p>
-  <div class="d num" style="font-size:520px;font-weight:600;color:${C.blue};margin-top:10px;margin-left:-20px">3 h</div>
+  <div class="d num" style="font-size:400px;font-weight:600;color:${C.blue};margin-top:10px;margin-left:-16px">3–5 h</div>
   <p class="d" style="font-size:72px;font-weight:500;margin-top:-10px">každý týždeň.</p>
   <div style="margin-top:auto;display:flex;flex-direction:column;gap:14px">
-    ${[['Vysávanie a podlahy', 55], ['Kúpeľňa a WC', 45], ['Kuchyňa', 40], ['Prach a poriadok', 40]].map(([t, m]) => `<div style="display:flex;align-items:center;gap:20px;font-size:22px"><span style="width:250px">${t}</span><span style="height:22px;border-radius:11px;background:${C.blue};width:${m * 7}px"></span><span class="num" style="color:${C.ink}">${m} min</span></div>`).join('')}
+    ${[['Vysávanie a podlahy', 55, 90], ['Kúpeľňa a WC', 45, 75], ['Kuchyňa', 40, 70], ['Prach a poriadok', 40, 65]].map(([t, a, z]) => `<div style="display:flex;align-items:center;gap:20px;font-size:22px"><span style="width:250px">${t}</span><span style="display:flex;width:${z * 5}px;height:22px;border-radius:11px;overflow:hidden;background:${C.mist}"><span style="width:${a * 5}px;background:${C.blue}"></span></span><span class="num" style="color:${C.ink}">${a}–${z} min</span></div>`).join('')}
   </div>
 </div>`,
 // 3 156 hours a year, 52-week grid
 `<div class="s" style="background:${C.blue};color:#fff">
   ${top('Za celý rok', 2, '#fff', 'rgba(255,255,255,.3)')}
-  <p style="font-size:34px;color:#D6E6FC;margin-top:80px">3 hodiny × 52 týždňov =</p>
-  <div class="d num" style="font-size:380px;font-weight:600;margin-top:16px;margin-left:-14px">156</div>
+  <p style="font-size:34px;color:#D6E6FC;margin-top:80px">3 až 5 hodín × 52 týždňov =</p>
+  <div class="d num" style="font-size:300px;font-weight:600;margin-top:16px;margin-left:-12px">156–260</div>
   <p class="d" style="font-size:80px;font-weight:400;color:${C.mist};margin-top:-6px">hodín ročne.</p>
   <div style="margin-top:auto;display:grid;grid-template-columns:repeat(13,1fr);gap:10px">
     ${Array.from({ length: 52 }, (_, k) => `<div style="aspect-ratio:1;border-radius:8px;background:#fff;opacity:${.55 + (k % 13) / 13 * .45}"></div>`).join('')}
@@ -53,19 +53,19 @@ const slides = [
 // 4 19.5 working days
 `<div class="s" style="background:${C.pale};color:${C.navy}">
   ${top('To je', 3, C.navy, C.mist)}
-  <div style="display:flex;align-items:flex-end;gap:24px;margin-top:70px"><div class="d num" style="font-size:380px;font-weight:600;color:${C.navy};margin-left:-14px">19,5</div></div>
-  <p class="d" style="font-size:80px;font-weight:400;color:${C.blue};margin-top:44px">pracovného dňa.</p>
-  <p style="font-size:30px;line-height:1.45;color:${C.ink};margin-top:30px;max-width:760px">Takmer celý mesiac v práci. Len bez výplaty a bez dovolenky.</p>
-  <div style="margin-top:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:14px">
+  <div style="display:flex;align-items:flex-end;gap:24px;margin-top:70px"><div class="d num" style="font-size:300px;font-weight:600;color:${C.navy};margin-left:-12px"><span style="font-size:110px;font-weight:500;letter-spacing:-0.02em;margin-right:18px">až</span>32,5</div></div>
+  <p class="d" style="font-size:80px;font-weight:400;color:${C.blue};margin-top:40px">pracovného dňa.</p>
+  <p style="font-size:30px;line-height:1.45;color:${C.ink};margin-top:30px;max-width:760px">Viac ako mesiac v práci. Len bez výplaty a bez dovolenky.</p>
+  <div style="margin-top:auto;display:grid;grid-template-columns:repeat(5,1fr);gap:10px 14px">
     ${['Po', 'Ut', 'St', 'Št', 'Pi'].map(d => `<div style="font-size:18px;font-weight:600;letter-spacing:.14em;color:${C.ink};text-align:center">${d.toUpperCase()}</div>`).join('')}
-    ${Array.from({ length: 20 }, (_, k) => `<div style="height:62px;border-radius:12px;background:${k < 19 ? C.navy : `linear-gradient(90deg,${C.navy} 50%,#fff 50%)`};${k === 19 ? `border:2px solid ${C.navy}` : ''}"></div>`).join('')}
+    ${Array.from({ length: 35 }, (_, k) => `<div style="height:40px;border-radius:10px;background:${k < 19 ? C.navy : k === 19 ? `linear-gradient(90deg,${C.navy} 50%,${C.sky} 50%)` : k < 32 ? C.sky : k === 32 ? `linear-gradient(90deg,${C.sky} 50%,#fff 50%)` : '#fff'}"></div>`).join('')}
   </div>
-  <p style="font-size:20px;color:${C.ink};margin-top:18px">156 hodín ÷ 8 hodín pracovného dňa</p>
+  <p style="font-size:20px;color:${C.ink};margin-top:18px"><span style="display:inline-block;width:14px;height:14px;border-radius:4px;background:${C.navy};margin-right:8px"></span>3 h týždenne = 19,5 dňa &nbsp;&nbsp;<span style="display:inline-block;width:14px;height:14px;border-radius:4px;background:${C.sky};margin-right:8px"></span>5 h týždenne = 32,5 dňa &nbsp;&nbsp;(8-hodinový deň)</p>
 </div>`,
 // 5 what would you do with it
 `<div class="s" style="background:#fff;color:${C.navy}">
   ${top('A teraz si predstavte', 4, C.blue, C.pale)}
-  <h1 class="d" style="font-size:112px;font-weight:600;margin-top:70px">Čo by ste robili<br><span style="color:${C.blue};font-weight:400">s 3 hodinami<br>navyše?</span></h1>
+  <h1 class="d" style="font-size:112px;font-weight:600;margin-top:70px">Čo by ste robili<br><span style="color:${C.blue};font-weight:400">s 3 až 5 hodinami<br>navyše?</span></h1>
   <div style="margin-top:auto;display:flex;flex-direction:column;gap:18px">
     ${[['Výlet s deťmi', 180, C.blue, '#fff'], ['Dva tréningy', 120, C.pale, C.navy], ['Večera s priateľmi', 150, C.navy, '#fff'], ['Konečne dočítať knihu', 90, C.pale, C.navy]].map(([t, m, bg, fg]) => `<div style="display:flex;align-items:center;justify-content:space-between;border-radius:999px;padding:26px 34px;background:${bg};color:${fg};width:${520 + m * 2.4}px;font-size:30px;font-weight:600"><span>${t}</span><span class="num" style="font-weight:500;opacity:.8">${String(m / 60).replace('.', ',')} h</span></div>`).join('')}
   </div>
@@ -75,7 +75,7 @@ const slides = [
   ${top('Čistý domov', 5, '#fff', 'rgba(255,255,255,.3)')}
   <div style="position:absolute;left:88px;right:88px;top:250px;display:grid;grid-template-columns:repeat(13,1fr);gap:10px;opacity:.16">${Array.from({ length: 52 }, () => `<div style="aspect-ratio:1;border-radius:8px;background:#fff"></div>`).join('')}</div>
   <h1 class="d" style="font-size:118px;font-weight:600;margin-top:auto;position:relative">My upratujeme.<br><span style="font-weight:400;color:${C.mist}">Vy máte voľno.</span></h1>
-  <p style="font-size:30px;line-height:1.45;color:#D6E6FC;margin-top:34px;max-width:760px;position:relative">156 hodín ročne späť pre vás. Prídeme s vlastnými pomôckami, pevná cena vopred.</p>
+  <p style="font-size:30px;line-height:1.45;color:#D6E6FC;margin-top:34px;max-width:760px;position:relative">Až 260 hodín ročne späť pre vás. Prídeme s vlastnými pomôckami, pevná cena vopred.</p>
   <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:70px;position:relative">
     ${svg('cisty-domov-logo-feher.svg', 260)}
     <div style="display:flex;flex-direction:column;align-items:flex-end;gap:14px"><div style="font-size:30px;font-weight:600">0918 188 252</div><div style="display:inline-flex;align-items:center;gap:14px;background:#fff;color:${C.blue};border-radius:999px;padding:20px 32px;font-size:26px;font-weight:600">Rezervovať termín<svg viewBox="0 0 24 24" width="26" height="26"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="${C.blue}" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div style="font-size:22px;font-weight:500;color:#D6E6FC">mojcistydomov.sk</div></div>
