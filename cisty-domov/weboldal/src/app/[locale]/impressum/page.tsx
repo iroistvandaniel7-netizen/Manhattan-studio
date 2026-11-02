@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getDictionary, isLocale, locales } from "@/i18n";
 import { alternatesFor } from "@/lib/meta";
-import { COMPANY, EMAIL, HOSTING, PHONE } from "@/lib/site";
+import { COMPANY, EMAIL, HOSTING, OPERATOR_NAME, PHONE } from "@/lib/site";
 import LegalPage from "@/components/layout/LegalPage";
 
 export function generateStaticParams() {
@@ -24,17 +24,20 @@ export default async function ImprintPage({ params }: { params: Promise<{ locale
   const l = legal.imprintLabels;
 
   const link = "link-underline font-semibold text-accent-ink";
-  const operator: [string, React.ReactNode][] = [
-    [l.provider, COMPANY.legalName],
+  /* Fields not yet known are left off rather than printed blank. */
+  const operator = ([
+    [l.provider, OPERATOR_NAME],
     [l.seat, COMPANY.seat],
     ["IČO", COMPANY.ico],
     ["DIČ", COMPANY.dic],
-    ...(COMPANY.icDph ? ([["IČ DPH", COMPANY.icDph]] as [string, React.ReactNode][]) : []),
+    ["IČ DPH", COMPANY.icDph],
     [l.register, COMPANY.register],
     [l.representative, COMPANY.representative],
+  ] as [string, string][]).filter(([, value]) => value) as [string, React.ReactNode][];
+  operator.push(
     [l.email, <a key="e" href={`mailto:${EMAIL}`} className={link}>{EMAIL}</a>],
     [l.phone, <a key="p" href={`tel:${PHONE.href}`} className={link}>{PHONE.label}</a>],
-  ];
+  );
   const hosting: [string, React.ReactNode][] = [
     [l.host, HOSTING.name],
     [l.address, HOSTING.address],

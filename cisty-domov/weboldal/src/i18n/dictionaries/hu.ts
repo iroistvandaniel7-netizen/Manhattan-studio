@@ -1,4 +1,4 @@
-import { AUTHORITY, COMPANY, EMAIL, HOSTING, RETENTION_MONTHS } from "@/lib/site";
+import { AUTHORITY, COMPANY, EMAIL, HOSTING, OPERATOR_NAME, RETENTION_MONTHS } from "@/lib/site";
 import { CONSENT_COOKIE } from "@/lib/consent";
 
 /**
@@ -281,7 +281,7 @@ const hu = {
       {
         heading: "1. Az adatkezelő",
         body: [
-          `${COMPANY.legalName} (székhely: ${COMPANY.seat}; IČO: ${COMPANY.ico}; bejegyezve: ${COMPANY.register}; e-mail: ${EMAIL}).`,
+          `${OPERATOR_NAME} (${[COMPANY.seat && `székhely: ${COMPANY.seat}`, `IČO: ${COMPANY.ico}`, COMPANY.register && `bejegyezve: ${COMPANY.register}`, `e-mail: ${EMAIL}`].filter(Boolean).join("; ")}).`,
           "Adatvédelmi tisztviselő kinevezésére nem vagyunk kötelesek. Adatkezeléssel kapcsolatos kérdéseit a fenti e-mail címre küldheti.",
         ],
       },

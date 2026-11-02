@@ -6,8 +6,7 @@
  * in this file is changed everywhere at once.
  *
  * The phone number is the business's own; the domain is the one on the posters.
- * ⚠ Everything marked TODO is a placeholder: replace it with the real company
- * details before the site goes live — the legal pages print these as they stand.
+ * ⚠ Everything marked TODO is still to be confirmed before the site goes live.
  */
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.cistydomov.sk";
@@ -17,16 +16,31 @@ export const BRAND = {
   tagline: "Takarítás · Upratovanie",
 } as const;
 
-/** Who runs the site — required by the imprint and the privacy notice. */
-export const COMPANY = {
-  legalName: "Čistý Domov s.r.o.", // TODO
-  seat: "Hlavná 1, 929 01 Dunajská Streda", // TODO
+/**
+ * Who runs the site — required by the imprint and the privacy notice.
+ * Only the IČO is confirmed so far. Fill in the rest from the operator's
+ * register entry (ORSR / ŽRSR); empty fields are left off the pages, and
+ * while `legalName` is empty the brand name stands in for it.
+ */
+export const COMPANY: {
+  legalName: string;
+  seat: string;
+  ico: string;
+  dic: string;
+  icDph: string;
+  register: string;
+  representative: string;
+} = {
+  legalName: "",
+  seat: "",
   ico: "57 055 696",
-  dic: "0000000000", // TODO: DIČ
-  icDph: "", // TODO: IČ DPH, if VAT-registered — leave empty otherwise
-  register: "Obchodný register Okresného súdu Trnava, oddiel Sro, vložka č. 00000/T", // TODO
-  representative: "Meno Priezvisko, konateľ", // TODO
-} as const;
+  dic: "",
+  icDph: "",
+  register: "",
+  representative: "",
+};
+
+export const OPERATOR_NAME = COMPANY.legalName || BRAND.name;
 
 /** `href` is E.164 for tel: links, `label` is the display form, as the business writes it. */
 export const PHONE = { href: "+421918188252", label: "0918 188 252" } as const;

@@ -1,4 +1,4 @@
-import { AUTHORITY, COMPANY, EMAIL, HOSTING, RETENTION_MONTHS } from "@/lib/site";
+import { AUTHORITY, COMPANY, EMAIL, HOSTING, OPERATOR_NAME, RETENTION_MONTHS } from "@/lib/site";
 import { CONSENT_COOKIE } from "@/lib/consent";
 import type { Dictionary } from "./hu";
 
@@ -273,7 +273,7 @@ const en: Dictionary = {
       {
         heading: "1. Controller",
         body: [
-          `${COMPANY.legalName} (registered office: ${COMPANY.seat}; company ID (IČO): ${COMPANY.ico}; registered: ${COMPANY.register}; email: ${EMAIL}).`,
+          `${OPERATOR_NAME} (${[COMPANY.seat && `registered office: ${COMPANY.seat}`, `company ID (IČO): ${COMPANY.ico}`, COMPANY.register && `registered: ${COMPANY.register}`, `email: ${EMAIL}`].filter(Boolean).join("; ")}).`,
           "We are not required to appoint a data protection officer. Send any questions about your data to the email above.",
         ],
       },
