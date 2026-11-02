@@ -31,7 +31,7 @@ export const COMPANY: {
   register: string;
   representative: string;
 } = {
-  legalName: "",
+  legalName: "Ronald Milan",
   seat: "",
   ico: "57 055 696",
   dic: "",
