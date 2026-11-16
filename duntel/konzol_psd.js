@@ -1,11 +1,13 @@
-// Duntel console cleaning poster, landscape 1350×1080, exported as a layered PSD
+// Duntel console cleaning poster, landscape 1350×1080 (default) or portrait 1080×1350
+// (LAYOUT=portrait), exported as a layered PSD
 // (every element its own layer, headline and info texts as editable Anton text layers)
 // plus a flat PNG. Run with NODE_PATH pointing at a folder that has ag-psd and pngjs.
 const { chromium } = require('playwright'); const fs = require('fs'); const path = require('path');
 const { writePsdBuffer } = require('ag-psd'); const { PNG } = require('pngjs');
 const A = f => path.join(__dirname, 'assets', f);
 const uri = f => `data:${{ png: 'image/png', jpg: 'image/jpeg', woff2: 'font/woff2' }[f.split('.').pop()]};base64,${fs.readFileSync(A(f)).toString('base64')}`;
-const W = 1350, H = 1080, CY = '#3EC4F2', NAVY = '#06173A';
+const PORTRAIT = process.env.LAYOUT === 'portrait';
+const W = PORTRAIT ? 1080 : 1350, H = PORTRAIT ? 1350 : 1080, CY = '#3EC4F2', NAVY = '#06173A';
 
 let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
 const brush = (w, h, fill) => {
@@ -28,24 +30,37 @@ const star = (size, fill) => { const p = []; for (let k = 0; k < 32; k++) { cons
 const L = (name, style, inner, text, fx) => `<div data-layer="${name}"${text ? ` data-text='${JSON.stringify(text)}'` : ''}${fx ? ` data-fx='${JSON.stringify(fx)}'` : ''} style="position:absolute;${style};${fx ? `text-shadow:0 ${fx[0]}px 0 ${fx[1]},0 ${fx[0] + 6}px 22px rgba(0,0,0,.55);` : ''}">${inner}</div>`;
 const T = 'font-family:Anton;text-transform:uppercase;line-height:1;white-space:nowrap;';
 const SH = '';
+const P = PORTRAIT ? {
+  gta: `left:0;top:330px;width:${W}px;height:800px;background:url(${uri('gta6.jpg')}) 58% 0/auto 1050px no-repeat`,
+  dark: `inset:0;background:linear-gradient(180deg,${NAVY} 0%,#2a2370 26%,rgba(42,35,112,.5) 33%,rgba(6,23,58,0) 44%,rgba(6,23,58,0) 60%,rgba(8,40,96,.85) 74%,${NAVY} 86%)`,
+  spray: [0, 470, 640], h1: 'left:0;right:0;top:40px;text-align:center;', h1s: 96, h2: 'left:0;right:0;top:140px;text-align:center;', h2s: 250, hc: true,
+  band: [60, 410, 960, 96, 54], photo: [40, 720, 470, 330], xbox: 'right:250px;top:800px', xh: 300, ps5: 'right:20px;top:690px', ph: 430,
+  tag: [190, 540, 220, 40], foot: 230, logo: [50, 1180, 110], ft: [360, 1150, 50, 1214, 34, 1262, 20],
+} : {
+  gta: `left:0;top:0;width:${W}px;height:900px;background:url(${uri('gta6.jpg')}) right 0 top 0/auto 900px no-repeat`,
+  dark: `inset:0;background:linear-gradient(90deg,${NAVY} 0%,rgba(6,23,58,.88) 30%,rgba(6,23,58,.25) 55%,rgba(6,23,58,0) 70%),linear-gradient(180deg,rgba(6,23,58,0) 62%,${NAVY} 84%)`,
+  spray: [0, 300, 600], h1: 'left:50px;top:40px;', h1s: 100, h2: 'left:46px;top:146px;', h2s: 250, hc: false,
+  band: [56, 412, 720, 84, 48], photo: [56, 560, 430, 270], xbox: 'left:850px;top:560px', xh: 290, ps5: 'right:30px;top:440px', ph: 420,
+  tag: [520, 560, 220, 62], foot: 180, logo: [56, 943, 100], ft: [380, 928, 56, 996, 34, 1042, 19],
+};
 const layers = [
   L('Háttér', `inset:0;background:${NAVY}`, ''),
-  L('GTA 6 kép', `left:0;top:0;width:${W}px;height:900px;background:url(${uri('gta6.jpg')}) right 0 top 0/auto 900px no-repeat`, ''),
-  L('Sötétítés', `inset:0;background:linear-gradient(90deg,${NAVY} 0%,rgba(6,23,58,.88) 30%,rgba(6,23,58,.25) 55%,rgba(6,23,58,0) 70%),linear-gradient(180deg,rgba(6,23,58,0) 62%,${NAVY} 84%)`, ''),
-  L('Festékfröccs', `left:0;top:300px;width:${W}px;height:600px`, spray(W, 600, 420)),
-  L('Cím 1', `left:50px;top:40px;${T}font-size:100px;color:#fff`, 'Hamarosan érkezik a', { runs: [['HAMAROSAN ÉRKEZIK A', '#ffffff']], size: 100 }, [9, '#041029']),
-  L('Cím 2', `left:46px;top:146px;${T}font-size:250px;color:#fff`, `<span style="color:${CY}">GTA 6</span>!`, { runs: [['GTA 6', CY], ['!', '#ffffff']], size: 250 }, [14, '#041029']),
-  L('Ecsetcsík', `left:56px;top:412px;width:720px;height:84px;transform:rotate(-2.5deg)`, brush(720, 84, CY)),
-  L('Ecsetcsík szöveg', `left:56px;top:412px;width:720px;height:84px;transform:rotate(-2.5deg);${T}font-size:48px;line-height:84px;text-align:center;color:#fff`, `Ne hagyd, hogy <span style="color:${NAVY};text-shadow:none">akadozzon</span> a konzolod!`, { runs: [['NE HAGYD, HOGY ', '#ffffff'], ['AKADOZZON', NAVY], [' A KONZOLOD!', '#ffffff']], size: 48, center: true, rotate: -2.5 }, [5, '#041029']),
-  L('Fotó keret és kép', `left:56px;top:560px;width:430px;padding:11px 11px 50px;background:#fff;transform:rotate(-5deg);box-shadow:0 20px 40px rgba(0,0,0,.45)`, `<div style="height:270px;background:url(${uri('technikus.png')}) 62% 45%/cover"></div><div style="${T}position:absolute;left:0;right:0;bottom:12px;text-align:center;color:${NAVY};font-size:30px">Belülről is tisztára</div>`),
-  L('Xbox', `left:850px;top:560px;height:290px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.5))`, `<img src="${uri('xbox.png')}" style="height:290px;display:block">`),
-  L('PS5', `right:30px;top:440px;height:420px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.5))`, `<img src="${uri('ps5.png')}" style="height:420px;display:block">`),
-  L('Matrica', `left:520px;top:560px;width:220px;height:220px;transform:rotate(-10deg)`, `<svg width="220" height="80" style="position:absolute;left:0;top:-62px;overflow:visible"><path d="M110 76 C 106 50, 116 22, 126 0" fill="none" stroke="#dfe8f2" stroke-width="3"/></svg>${star(220, CY)}<div style="position:absolute;left:103px;top:14px;width:14px;height:14px;border-radius:50%;background:${NAVY};box-shadow:inset 0 0 0 3px #dfe8f2"></div><div style="${T}position:absolute;inset:0;padding-top:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:${NAVY};text-align:center"><span style="font-size:50px">PS5</span><span style="font-size:28px">&amp;</span><span style="font-size:50px">Xbox</span><span style="font-size:24px;margin-top:2px">tisztítás</span></div>`),
-  L('Alsó sáv', `left:0;right:0;bottom:0;height:180px;background:${NAVY};border-top:6px solid ${CY}`, ''),
-  L('Duntel logó', `left:56px;top:943px;height:100px`, `<img src="${uri('duntel-logo-white.png')}" style="height:100px;display:block">`),
-  L('Alsó szöveg 1', `left:380px;top:928px;${T}font-size:56px;color:#fff`, `Hozd be hozzánk, <span style="color:${CY}">mi kitisztítjuk!</span>`, { runs: [['HOZD BE HOZZÁNK, ', '#ffffff'], ['MI KITISZTÍTJUK!', CY]], size: 56 }, [5, '#000000']),
-  L('Alsó szöveg 2', `left:380px;top:996px;${T}font-size:34px;color:#cfe3f5`, 'Várunk szeretettel! &nbsp;📍 Max, Dunaszerdahely', null),
-  L('Alsó szöveg 3', `left:380px;top:1042px;font-family:Inter,sans-serif;font-weight:600;font-size:19px;letter-spacing:.06em;color:#8fb0cf;white-space:nowrap`, 'ČISTENIE KONZOL PS5 A XBOX', { runs: [['ČISTENIE KONZOL PS5 A XBOX', '#8fb0cf']], size: 19, font: 'Inter-SemiBold' }),
+  L('GTA 6 kép', P.gta, ''),
+  L('Sötétítés', P.dark, ''),
+  L('Festékfröccs', `left:${P.spray[0]}px;top:${P.spray[1]}px;width:${W}px;height:${P.spray[2]}px`, spray(W, P.spray[2], 420)),
+  L('Cím 1', `${P.h1}${T}font-size:${P.h1s}px;color:#fff`, 'Hamarosan érkezik a', { runs: [['HAMAROSAN ÉRKEZIK A', '#ffffff']], size: P.h1s, center: P.hc }, [9, '#041029']),
+  L('Cím 2', `${P.h2}${T}font-size:${P.h2s}px;color:#fff`, `<span style="color:${CY}">GTA 6</span>!`, { runs: [['GTA 6', CY], ['!', '#ffffff']], size: P.h2s, center: P.hc }, [14, '#041029']),
+  L('Ecsetcsík', `left:${P.band[0]}px;top:${P.band[1]}px;width:${P.band[2]}px;height:${P.band[3]}px;transform:rotate(-2.5deg)`, brush(P.band[2], P.band[3], CY)),
+  L('Ecsetcsík szöveg', `left:${P.band[0]}px;top:${P.band[1]}px;width:${P.band[2]}px;height:${P.band[3]}px;transform:rotate(-2.5deg);${T}font-size:${P.band[4]}px;line-height:${P.band[3]}px;text-align:center;color:#fff`, `Ne hagyd, hogy <span style="color:${NAVY};text-shadow:none">akadozzon</span> a konzolod!`, { runs: [['NE HAGYD, HOGY ', '#ffffff'], ['AKADOZZON', NAVY], [' A KONZOLOD!', '#ffffff']], size: P.band[4], center: true, rotate: -2.5 }, [5, '#041029']),
+  L('Fotó keret és kép', `left:${P.photo[0]}px;top:${P.photo[1]}px;width:${P.photo[2]}px;padding:11px 11px 50px;background:#fff;transform:rotate(-5deg);box-shadow:0 20px 40px rgba(0,0,0,.45)`, `<div style="height:${P.photo[3]}px;background:url(${uri('technikus.png')}) 62% 45%/cover"></div><div style="${T}position:absolute;left:0;right:0;bottom:12px;text-align:center;color:${NAVY};font-size:30px">Belülről is tisztára</div>`),
+  L('Xbox', `${P.xbox};height:${P.xh}px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.5))`, `<img src="${uri('xbox.png')}" style="height:${P.xh}px;display:block">`),
+  L('PS5', `${P.ps5};height:${P.ph}px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.5))`, `<img src="${uri('ps5.png')}" style="height:${P.ph}px;display:block">`),
+  L('Matrica', `left:${P.tag[0]}px;top:${P.tag[1]}px;width:${P.tag[2]}px;height:${P.tag[2]}px;transform:rotate(-10deg)`, `<svg width="${P.tag[2]}" height="${P.tag[3] + 14}" style="position:absolute;left:0;top:-${P.tag[3]}px;overflow:visible"><path d="M${P.tag[2] / 2} ${P.tag[3] + 14} C ${P.tag[2] / 2 - 4} ${P.tag[3] * .6}, ${P.tag[2] / 2 + 6} ${P.tag[3] * .3}, ${P.tag[2] / 2 + 16} 0" fill="none" stroke="#dfe8f2" stroke-width="3"/></svg>${star(P.tag[2], CY)}<div style="position:absolute;left:${P.tag[2] / 2 - 7}px;top:14px;width:14px;height:14px;border-radius:50%;background:${NAVY};box-shadow:inset 0 0 0 3px #dfe8f2"></div><div style="${T}position:absolute;inset:0;padding-top:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:${NAVY};text-align:center"><span style="font-size:50px">PS5</span><span style="font-size:28px">&amp;</span><span style="font-size:50px">Xbox</span><span style="font-size:24px;margin-top:2px">tisztítás</span></div>`),
+  L('Alsó sáv', `left:0;right:0;bottom:0;height:${P.foot}px;background:${NAVY};border-top:6px solid ${CY}`, ''),
+  L('Duntel logó', `left:${P.logo[0]}px;top:${P.logo[1]}px;height:${P.logo[2]}px`, `<img src="${uri('duntel-logo-white.png')}" style="height:${P.logo[2]}px;display:block">`),
+  L('Alsó szöveg 1', `left:${P.ft[0]}px;top:${P.ft[1]}px;${T}font-size:${P.ft[2]}px;color:#fff`, `Hozd be hozzánk, <span style="color:${CY}">mi kitisztítjuk!</span>`, { runs: [['HOZD BE HOZZÁNK, ', '#ffffff'], ['MI KITISZTÍTJUK!', CY]], size: P.ft[2] }, [5, '#000000']),
+  L('Alsó szöveg 2', `left:${P.ft[0]}px;top:${P.ft[3]}px;${T}font-size:${P.ft[4]}px;color:#cfe3f5`, 'Várunk szeretettel! &nbsp;📍 Max, Dunaszerdahely', null),
+  L('Alsó szöveg 3', `left:${P.ft[0]}px;top:${P.ft[5]}px;font-family:Inter,sans-serif;font-weight:600;font-size:${P.ft[6]}px;letter-spacing:.06em;color:#8fb0cf;white-space:nowrap`, 'ČISTENIE KONZOL PS5 A XBOX', { runs: [['ČISTENIE KONZOL PS5 A XBOX', '#8fb0cf']], size: P.ft[6], font: 'Inter-SemiBold' }),
 ];
 const html = `<style>
 @font-face{font-family:Anton;src:url(${uri('anton-latin-ext-400-normal.woff2')}) format('woff2');unicode-range:U+0100-02AF,U+1E00-1EFF}
@@ -57,7 +72,7 @@ const rgb = h => ({ r: parseInt(h.slice(1, 3), 16), g: parseInt(h.slice(3, 5), 1
 (async () => {
   const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: W, height: H } });
   await p.setContent(html); await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(300);
-  const out = path.join(__dirname, 'duntel-konzol-1350x1080');
+  const out = path.join(__dirname, PORTRAIT ? 'duntel-konzol-1080x1350' : 'duntel-konzol-1350x1080');
   await p.screenshot({ path: out + '.png' });
   if (process.argv[2]) await p.screenshot({ path: process.argv[2] + '/duntel-land.jpg', type: 'jpeg', quality: 75 });
   // baseline of each text layer, measured in the page
