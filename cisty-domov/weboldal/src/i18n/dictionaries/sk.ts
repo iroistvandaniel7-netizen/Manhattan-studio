@@ -1,4 +1,4 @@
-import { AUTHORITY, COMPANY, EMAIL, HOSTING, RETENTION_MONTHS } from "@/lib/site";
+import { AUTHORITY, COMPANY, EMAIL, HOSTING, OPERATOR_NAME, RETENTION_MONTHS } from "@/lib/site";
 import { CONSENT_COOKIE } from "@/lib/consent";
 import type { Dictionary } from "./hu";
 
@@ -273,7 +273,7 @@ const sk: Dictionary = {
       {
         heading: "1. Prevádzkovateľ",
         body: [
-          `${COMPANY.legalName} (sídlo: ${COMPANY.seat}; IČO: ${COMPANY.ico}; zapísaná: ${COMPANY.register}; e-mail: ${EMAIL}).`,
+          `${OPERATOR_NAME} (${[COMPANY.seat && `sídlo: ${COMPANY.seat}`, `IČO: ${COMPANY.ico}`, COMPANY.register && `zapísaná: ${COMPANY.register}`, `e-mail: ${EMAIL}`].filter(Boolean).join("; ")}).`,
           "Nie sme povinní určiť zodpovednú osobu. Otázky k spracúvaniu údajov môžete posielať na uvedený e-mail.",
         ],
       },

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Dictionary, Locale } from "@/i18n";
-import { BRAND, COMPANY, EMAIL, PHONE } from "@/lib/site";
+import { BRAND, EMAIL, OPERATOR_NAME, PHONE } from "@/lib/site";
 import Logo from "@/components/graphics/Logo";
 import CookieSettingsLink from "./CookieSettingsLink";
 import LanguageSwitcher from "./LanguageSwitcher";
@@ -45,7 +45,7 @@ export default function Footer({ locale, dict }: { locale: Locale; dict: Diction
 
         <div className="mt-10 flex flex-col gap-4 text-sm text-white/55 lg:flex-row lg:items-center lg:justify-between">
           <p>
-            © {new Date().getFullYear()} {COMPANY.legalName} {dict.footer.rights}
+            © {new Date().getFullYear()} {OPERATOR_NAME} {dict.footer.rights}
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             <li>

@@ -10,7 +10,7 @@ import CookieButton from "@/components/layout/CookieButton";
 import ScriptFlag from "@/components/layout/ScriptFlag";
 import { getDictionary } from "@/i18n";
 import { defaultLocale, htmlLang, isLocale, locales, ogLocale, type Locale } from "@/i18n/config";
-import { BRAND, COMPANY, EMAIL, HOURS, PHONE, SITE_URL } from "@/lib/site";
+import { BRAND, COMPANY, EMAIL, HOURS, OPERATOR_NAME, PHONE, SITE_URL } from "@/lib/site";
 
 /*
  * Poppins everywhere, self-hosted by next/font: the files come from this
@@ -83,13 +83,13 @@ export default async function LocaleLayout({
     "@context": "https://schema.org",
     "@type": "HomeAndConstructionBusiness",
     name: BRAND.name,
-    legalName: COMPANY.legalName,
+    legalName: OPERATOR_NAME,
     url: `${SITE_URL}/${typedLocale}`,
     description: dict.meta.description,
     telephone: PHONE.label,
     email: EMAIL,
     areaServed: dict.contact.area,
-    address: { "@type": "PostalAddress", streetAddress: COMPANY.seat, addressCountry: "SK" },
+    address: { "@type": "PostalAddress", ...(COMPANY.seat ? { streetAddress: COMPANY.seat } : {}), addressCountry: "SK" },
     openingHoursSpecification: [
       { "@type": "OpeningHoursSpecification", dayOfWeek: HOURS.days, opens: HOURS.opens, closes: HOURS.closes },
     ],
