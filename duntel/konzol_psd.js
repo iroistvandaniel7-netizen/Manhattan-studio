@@ -59,7 +59,7 @@ const layers = [
   L('Alsó sáv', `left:0;right:0;bottom:0;height:${P.foot}px;background:${NAVY};border-top:6px solid ${CY}`, ''),
   L('Duntel logó', `left:${P.logo[0]}px;top:${P.logo[1]}px;height:${P.logo[2]}px`, `<img src="${uri('duntel-logo-white.png')}" style="height:${P.logo[2]}px;display:block">`),
   L('Alsó szöveg 1', `left:${P.ft[0]}px;top:${P.ft[1]}px;${T}font-size:${P.ft[2]}px;color:#fff`, `Hozd be hozzánk, <span style="color:${CY}">mi kitisztítjuk!</span>`, { runs: [['HOZD BE HOZZÁNK, ', '#ffffff'], ['MI KITISZTÍTJUK!', CY]], size: P.ft[2] }, [5, '#000000']),
-  L('Alsó szöveg 2', `left:${P.ft[0]}px;top:${P.ft[3]}px;${T}font-size:${P.ft[4]}px;color:#cfe3f5`, 'Várunk szeretettel! &nbsp;📍 Max, Dunaszerdahely', null),
+  L('Alsó szöveg 2', `left:${P.ft[0]}px;top:${P.ft[3]}px;${T}font-size:${P.ft[4]}px;color:#cfe3f5`, 'Várunk szeretettel!', { runs: [['VÁRUNK SZERETETTEL!', '#cfe3f5']], size: P.ft[4] }),
   L('Alsó szöveg 3', `left:${P.ft[0]}px;top:${P.ft[5]}px;font-family:Inter,sans-serif;font-weight:600;font-size:${P.ft[6]}px;letter-spacing:.06em;color:#8fb0cf;white-space:nowrap`, 'ČISTENIE KONZOL PS5 A XBOX', { runs: [['ČISTENIE KONZOL PS5 A XBOX', '#8fb0cf']], size: P.ft[6], font: 'Inter-SemiBold' }),
 ];
 const html = `<style>
